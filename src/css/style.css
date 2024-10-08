@@ -15,7 +15,7 @@ font-family: Arial, sans-serif;
 }
 #About,#Skills,#Projects,#Contact{
   background-attachment: fixed;
-  height :100vh
+  height :90vh;
 }
 section {
 padding: 60px 0;
