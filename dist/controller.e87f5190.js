@@ -17970,12 +17970,15 @@ var Design = /*#__PURE__*/function () {
   function Design() {
     _classCallCheck(this, Design);
     _defineProperty(this, "_navBar", document.querySelector("body > nav"));
-    _defineProperty(this, "_nav", document.querySelector('body > nav'));
     _defineProperty(this, "_navbarHeight", this._navBar.getBoundingClientRect().height);
+    _defineProperty(this, "_firstSection", document.querySelector("#About"));
   }
   return _createClass(Design, [{
     key: "handleHover",
-    value: function handleHover(e) {
+    value:
+    // First section to observe
+
+    function handleHover(e) {
       var _this = this;
       if (e.target.classList.contains('nav-link')) {
         var link = e.target;
@@ -17990,17 +17993,19 @@ var Design = /*#__PURE__*/function () {
     value: function stickyNav(entries) {
       var _entries = _slicedToArray(entries, 1),
         entry = _entries[0];
-      !entry.isIntersecting ? this._navBar.classList.add('sticky') : this._navBar.classList.remove('sticky');
+      // Add 'sticky-top' when the first section is visible, remove it when not
+      !entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
     }
   }, {
     key: "addHandlerNavObserver",
     value: function addHandlerNavObserver() {
-      var headerObserver = new IntersectionObserver(this.stickyNav.bind(this), {
+      // Change the observer to watch the first section instead of the navbar
+      var sectionObserver = new IntersectionObserver(this.stickyNav.bind(this), {
         root: null,
-        threshold: 1,
-        rootMargin: "".concat(this._navbarHeight, "px")
+        threshold: 0.1,
+        rootMargin: "-".concat(this._navbarHeight, "px")
       });
-      headerObserver.observe(this._navBar);
+      sectionObserver.observe(this._firstSection);
     }
   }, {
     key: "addHandlerHover",
@@ -18052,7 +18057,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57817" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59046" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
