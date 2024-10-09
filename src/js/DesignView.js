@@ -1,7 +1,7 @@
 class Design {
 	_navBar = document.querySelector("body > nav");
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
-	_firstSection = document.querySelector(".container");
+	_firstSection = document.querySelector("#About");
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -18,7 +18,7 @@ class Design {
 	addHandlerNavObserver() {
 		const sectionObserver = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
-			threshold: 0.1,
+			threshold: 0.6,
 			rootMargin: `-${this._navbarHeight}px`
 		});
 
