@@ -20,7 +20,9 @@ font-family: Arial, sans-serif;
 section {
 padding: 60px 0;
 }
-
+.sticky{
+  position: relative !important;
+}
 h2 {
 margin-bottom: 20px;
 }
