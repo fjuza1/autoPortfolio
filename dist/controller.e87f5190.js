@@ -17990,13 +17990,11 @@ var Design = /*#__PURE__*/function () {
     value: function stickyNav(entries) {
       var _entries = _slicedToArray(entries, 1),
         entry = _entries[0];
-      // Add 'sticky-top' when the first section is visible, remove it when not
       !entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
     }
   }, {
     key: "addHandlerNavObserver",
     value: function addHandlerNavObserver() {
-      // Change the observer to watch the first section instead of the navbar
       var sectionObserver = new IntersectionObserver(this.stickyNav.bind(this), {
         root: null,
         threshold: 0.1,
@@ -18054,7 +18052,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59916" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61792" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
