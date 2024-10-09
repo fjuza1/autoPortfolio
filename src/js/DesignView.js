@@ -18,7 +18,7 @@ class Design {
 	addHandlerNavObserver() {
 		const sectionObserver = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
-			threshold: 0.6,
+			threshold: 0.1,
 			rootMargin: `-${this._navbarHeight}px`
 		});
 
