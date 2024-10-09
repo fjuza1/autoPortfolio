@@ -17971,14 +17971,11 @@ var Design = /*#__PURE__*/function () {
     _classCallCheck(this, Design);
     _defineProperty(this, "_navBar", document.querySelector("body > nav"));
     _defineProperty(this, "_navbarHeight", this._navBar.getBoundingClientRect().height);
-    _defineProperty(this, "_firstSection", document.querySelector("#About"));
+    _defineProperty(this, "_firstSection", document.querySelector(".container"));
   }
   return _createClass(Design, [{
     key: "handleHover",
-    value:
-    // First section to observe
-
-    function handleHover(e) {
+    value: function handleHover(e) {
       var _this = this;
       if (e.target.classList.contains('nav-link')) {
         var link = e.target;
@@ -18057,7 +18054,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59046" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59916" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

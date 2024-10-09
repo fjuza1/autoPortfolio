@@ -1,7 +1,7 @@
 class Design {
     _navBar = document.querySelector("body > nav");
     _navbarHeight = this._navBar.getBoundingClientRect().height;
-    _firstSection = document.querySelector("#About");
+    _firstSection = document.querySelector(".container");
 
     handleHover(e) {
         if (e.target.classList.contains('nav-link')) {
