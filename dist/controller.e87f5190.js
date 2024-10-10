@@ -17997,7 +17997,6 @@ var Design = /*#__PURE__*/function () {
   }, {
     key: "scrollIntoSection",
     value: function scrollIntoSection(e) {
-      console.log(e);
       var targetSectionId = e.target.closest('.nav-link').textContent;
       var targetSection = document.getElementById(targetSectionId);
       var sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
@@ -18073,7 +18072,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59425" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63272" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
