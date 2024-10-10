@@ -18,7 +18,7 @@ class Design {
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
 	scrollIntoSection(e){
-		const targetSectionId = e.target.closest('.nav-link').textContent;
+		const targetSectionId = e.target.closest('.nav-link').textContent.trim();
 		if(!targetSectionId) return
         const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
 		const sectionPositionTop = targetSection.top + window.pageYOffset
@@ -26,7 +26,8 @@ class Design {
 		window.scrollTo({
 			left:sectionPositionLeft,
 			top: sectionPositionTop,
-            behavior:'smooth'
+            behavior:'smooth',
+			block:'start'
 		})
 	}
 	addScrollIntoHandler (handler) {
