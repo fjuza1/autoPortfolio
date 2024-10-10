@@ -19,11 +19,12 @@ class Design {
 	}
 	scrollIntoSection(e){
 		const targetSectionId = e.target.closest('.nav-link').textContent;
-        const targetSection = document.getElementById(targetSectionId);
-		const sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset
+        const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
+		const sectionPositionTop = targetSection.top + window.pageYOffset
+		const sectionPositionLeft = targetSection.left + window.pageXOffset
 		window.scrollTo({
-			left:0,
-			top: sectionPosition,
+			left:sectionPositionLeft,
+			top: sectionPositionTop,
             behavior:'smooth'
 		})
 	}
