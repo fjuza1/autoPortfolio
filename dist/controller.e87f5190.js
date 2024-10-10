@@ -17971,6 +17971,8 @@ var Design = /*#__PURE__*/function () {
     _classCallCheck(this, Design);
     _defineProperty(this, "_navBar", document.querySelector("body > nav"));
     _defineProperty(this, "_navbarHeight", this._navBar.getBoundingClientRect().height);
+    _defineProperty(this, "_navLink", document);
+    _defineProperty(this, "_sections", document.querySelectorAll('.section'));
     _defineProperty(this, "_firstSection", document.querySelector("#About"));
   }
   return _createClass(Design, [{
@@ -17991,6 +17993,24 @@ var Design = /*#__PURE__*/function () {
       var _entries = _slicedToArray(entries, 1),
         entry = _entries[0];
       !entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
+    }
+  }, {
+    key: "scrollIntoSection",
+    value: function scrollIntoSection(e) {
+      console.log(e);
+      var targetSectionId = e.target.closest('.nav-link').textContent;
+      var targetSection = document.getElementById(targetSectionId);
+      var sectionPosition = targetSection.getBoundingClientRect().top + window.pageYOffset;
+      window.scrollTo({
+        left: 0,
+        top: sectionPosition,
+        behavior: 'smooth'
+      });
+    }
+  }, {
+    key: "addScrollIntoHandler",
+    value: function addScrollIntoHandler(handler) {
+      this._navBar.addEventListener('click', handler);
     }
   }, {
     key: "addHandlerNavObserver",
@@ -18022,6 +18042,7 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
 var controllNavBar = function controllNavBar() {
   _DesignView.default.addHandlerHover(_DesignView.default.handleHover);
   _DesignView.default.addHandlerNavObserver();
+  _DesignView.default.addScrollIntoHandler(_DesignView.default.scrollIntoSection);
 };
 var init = function init() {
   controllNavBar();
@@ -18052,7 +18073,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "57614" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59425" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

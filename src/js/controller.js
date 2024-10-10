@@ -5,6 +5,7 @@ import design from './DesignView.js';
 const controllNavBar = () => {
     design.addHandlerHover(design.handleHover)
     design.addHandlerNavObserver()
+    design.addScrollIntoHandler(design.scrollIntoSection)
 }
 const init = () => {
     controllNavBar();
