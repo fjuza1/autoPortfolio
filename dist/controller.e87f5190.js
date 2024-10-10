@@ -18071,6 +18071,7 @@ var Design = /*#__PURE__*/function () {
     key: "scrollIntoSection",
     value: function scrollIntoSection(e) {
       var targetSectionId = e.target.closest('.nav-link').textContent;
+      if (!targetSectionId) return;
       var targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
       var sectionPositionTop = targetSection.top + window.pageYOffset;
       var sectionPositionLeft = targetSection.left + window.pageXOffset;
@@ -18110,7 +18111,7 @@ var _default = exports.default = new Design();
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.View = void 0;
+exports.default = void 0;
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
@@ -18118,7 +18119,7 @@ function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), 
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var View = exports.View = /*#__PURE__*/function () {
+var View = exports.default = /*#__PURE__*/function () {
   function View() {
     _classCallCheck(this, View);
     _defineProperty(this, "_parentElement", null);
@@ -18213,7 +18214,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64590" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64963" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

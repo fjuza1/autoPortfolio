@@ -1,4 +1,4 @@
-export class View {
+export default class View {
     _parentElement = null;
     _cleanup(){
         this._parentElement.innerHTML = '';

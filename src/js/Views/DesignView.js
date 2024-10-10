@@ -19,6 +19,7 @@ class Design {
 	}
 	scrollIntoSection(e){
 		const targetSectionId = e.target.closest('.nav-link').textContent;
+		if(!targetSectionId) return
         const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
 		const sectionPositionTop = targetSection.top + window.pageYOffset
 		const sectionPositionLeft = targetSection.left + window.pageXOffset
