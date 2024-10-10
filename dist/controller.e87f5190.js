@@ -17946,7 +17946,80 @@ try {
   }
 }
 
-},{}],"src/js/DesignView.js":[function(require,module,exports) {
+},{}],"src/js/config.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.RES_PER_PAGE = exports.EXPERT_LEVEL = void 0;
+var RES_PER_PAGE = exports.RES_PER_PAGE = 7;
+var EXPERT_LEVEL = exports.EXPERT_LEVEL = ['Beginner', 'Basic', 'Skillful', 'Advanced', 'Expert'];
+},{}],"src/js/model.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.state = void 0;
+var _config = require("./config.js");
+var state = exports.state = {
+  skills: [{
+    name: 'Postman',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'JavaScript',
+    level: _config.EXPERT_LEVEL[4]
+  }, {
+    name: 'HTML',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'XML',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'SQL',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'Cypress',
+    level: _config.EXPERT_LEVEL[2]
+  }, {
+    name: 'SoapUI',
+    level: _config.EXPERT_LEVEL[1]
+  }, {
+    name: 'Azure DevOps Server',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'TFS',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'Microsoft Visual Studio Code',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'Microsoft Visual Studio Code',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'Microsoft SQL Servers Studio',
+    level: _config.EXPERT_LEVEL[2]
+  }, {
+    name: 'UML - Unified Modeling Language',
+    level: _config.EXPERT_LEVEL[2]
+  }, {
+    name: 'Enterprise Architect',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'Select Architect',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'Eclipse IDE for Java Developers',
+    level: _config.EXPERT_LEVEL[3]
+  }, {
+    name: 'CI/CD pipeline',
+    level: _config.EXPERT_LEVEL[1]
+  }],
+  res_per_page: _config.RES_PER_PAGE,
+  currentPage: 1
+};
+},{"./config.js":"src/js/config.js"}],"src/js/Views/DesignView.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18031,14 +18104,81 @@ var Design = /*#__PURE__*/function () {
   }]);
 }();
 var _default = exports.default = new Design();
-},{}],"src/js/controller.js":[function(require,module,exports) {
+},{}],"src/js/Views/View.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.View = void 0;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var View = exports.View = /*#__PURE__*/function () {
+  function View() {
+    _classCallCheck(this, View);
+    _defineProperty(this, "_parentElement", null);
+  }
+  return _createClass(View, [{
+    key: "_cleanup",
+    value: function _cleanup() {
+      this._parentElement.innerHTML = '';
+    }
+  }, {
+    key: "_render",
+    value: function _render(el) {
+      if (typeof el !== 'string') return new Error('Invalid value, must be a string');
+      this._parentElement.innerHTML = el;
+    }
+  }]);
+}();
+},{}],"src/js/Views/paginationView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _View2 = _interopRequireDefault(require("./View.js"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+var PaginationView = /*#__PURE__*/function (_View) {
+  function PaginationView() {
+    _classCallCheck(this, PaginationView);
+    return _callSuper(this, PaginationView, arguments);
+  }
+  _inherits(PaginationView, _View);
+  return _createClass(PaginationView);
+}(_View2.default);
+var _default = exports.default = new PaginationView();
+},{"./View.js":"src/js/Views/View.js"}],"src/js/controller.js":[function(require,module,exports) {
 "use strict";
 
 require("core-js/stable");
 require("regenerator-runtime/runtime");
 var _regeneratorRuntime = require("regenerator-runtime");
-var _DesignView = _interopRequireDefault(require("./DesignView.js"));
+var model = _interopRequireWildcard(require("./model.js"));
+var _DesignView = _interopRequireDefault(require("./Views/DesignView.js"));
+var _paginationView = _interopRequireDefault(require("./Views/paginationView.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
+function _interopRequireWildcard(e, r) { if (!r && e && e.__esModule) return e; if (null === e || "object" != typeof e && "function" != typeof e) return { default: e }; var t = _getRequireWildcardCache(r); if (t && t.has(e)) return t.get(e); var n = { __proto__: null }, a = Object.defineProperty && Object.getOwnPropertyDescriptor; for (var u in e) if ("default" !== u && {}.hasOwnProperty.call(e, u)) { var i = a ? Object.getOwnPropertyDescriptor(e, u) : null; i && (i.get || i.set) ? Object.defineProperty(n, u, i) : n[u] = e[u]; } return n.default = e, t && t.set(e, n), n; }
 var controllNavBar = function controllNavBar() {
   _DesignView.default.addHandlerHover(_DesignView.default.handleHover);
   _DesignView.default.addHandlerNavObserver();
@@ -18048,7 +18188,7 @@ var init = function init() {
   controllNavBar();
 };
 init();
-},{"core-js/stable":"node_modules/core-js/stable/index.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","./DesignView.js":"src/js/DesignView.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/stable":"node_modules/core-js/stable/index.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","./model.js":"src/js/model.js","./Views/DesignView.js":"src/js/Views/DesignView.js","./Views/paginationView.js":"src/js/Views/paginationView.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -18073,7 +18213,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55254" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "64590" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
