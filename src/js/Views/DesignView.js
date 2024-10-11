@@ -27,20 +27,34 @@ class Design {
 			left:sectionPositionLeft,
 			top: sectionPositionTop,
             behavior:'smooth',
-			block:'start'
 		})
 	}
 	addScrollIntoHandler (handler) {
 		this._navBar.addEventListener('click', handler)
 	}
 	addHandlerNavObserver() {
-		const sectionObserver = new IntersectionObserver(this.stickyNav.bind(this), {
+		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
-			threshold: 0.1,
+			threshold: 0.12,
 			rootMargin: `-${this._navbarHeight}px`
 		});
-
-		sectionObserver.observe(this._firstSection);
+		sectionObserverNav.observe(this._firstSection);
+	}
+	revealSection(entries,observer){
+		const [entry] = entries;
+        if(!entry.isIntersecting) return;
+        entry.target.classList.remove('section--hidden');
+		observer.unobserve(entry.target);
+	}
+	addRevealSectionObserver(){
+		const sectionObserver  = new IntersectionObserver(this.revealSection,{
+			root: null,
+            threshold: 0.8,
+		})
+		this._sections.forEach(function (section){
+			sectionObserver.observe(section)
+			section.classList.add('section--hidden')
+		})
 	}
 	addHandlerHover(handler) {
 		this._navBar.addEventListener('mouseover', handler.bind(0.5));

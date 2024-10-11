@@ -18078,8 +18078,7 @@ var Design = /*#__PURE__*/function () {
       window.scrollTo({
         left: sectionPositionLeft,
         top: sectionPositionTop,
-        behavior: 'smooth',
-        block: 'start'
+        behavior: 'smooth'
       });
     }
   }, {
@@ -18090,12 +18089,33 @@ var Design = /*#__PURE__*/function () {
   }, {
     key: "addHandlerNavObserver",
     value: function addHandlerNavObserver() {
-      var sectionObserver = new IntersectionObserver(this.stickyNav.bind(this), {
+      var sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
         root: null,
-        threshold: 0.1,
+        threshold: 0.12,
         rootMargin: "-".concat(this._navbarHeight, "px")
       });
-      sectionObserver.observe(this._firstSection);
+      sectionObserverNav.observe(this._firstSection);
+    }
+  }, {
+    key: "revealSection",
+    value: function revealSection(entries, observer) {
+      var _entries2 = _slicedToArray(entries, 1),
+        entry = _entries2[0];
+      if (!entry.isIntersecting) return;
+      entry.target.classList.remove('section--hidden');
+      observer.unobserve(entry.target);
+    }
+  }, {
+    key: "addRevealSectionObserver",
+    value: function addRevealSectionObserver() {
+      var sectionObserver = new IntersectionObserver(this.revealSection, {
+        root: null,
+        threshold: 0.8
+      });
+      this._sections.forEach(function (section) {
+        sectionObserver.observe(section);
+        section.classList.add('section--hidden');
+      });
     }
   }, {
     key: "addHandlerHover",
@@ -18185,6 +18205,7 @@ var controllNavBar = function controllNavBar() {
   _DesignView.default.addHandlerHover(_DesignView.default.handleHover);
   _DesignView.default.addHandlerNavObserver();
   _DesignView.default.addScrollIntoHandler(_DesignView.default.scrollIntoSection);
+  _DesignView.default.addRevealSectionObserver();
 };
 var init = function init() {
   controllNavBar();
@@ -18215,7 +18236,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63259" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63445" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

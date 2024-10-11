@@ -2,14 +2,6 @@ body {
   font-family: Arial, sans-serif;
   margin: 0;
 }
-
-nav {
-  margin-bottom: 20px; 
-}
-
-main {
-  padding-top: 20px;
-}
 footer {
   position: relative;
   width: 100%;
@@ -32,6 +24,10 @@ footer {
 
 section {
   padding: 60px 0;
+}
+.section.section--hidden{
+  opacity:0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 

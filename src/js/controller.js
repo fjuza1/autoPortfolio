@@ -8,6 +8,7 @@ const controllNavBar = () => {
     design.addHandlerHover(design.handleHover)
     design.addHandlerNavObserver()
     design.addScrollIntoHandler(design.scrollIntoSection)
+    design.addRevealSectionObserver()
 }
 const init = () => {
     controllNavBar();
