@@ -1,3 +1,4 @@
+// import View from './View.js';
 class Design {
 	_navBar = document.querySelector("body > nav");
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
@@ -17,19 +18,19 @@ class Design {
 		const [entry] = entries;
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
-	scrollIntoSection(e){
+	scrollIntoSection(e) {
 		const targetSectionId = e.target.closest('.nav-link').textContent.trim();
-		if(!targetSectionId) return
-        const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
+		if (!targetSectionId) return
+		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
 		const sectionPositionTop = targetSection.top + window.pageYOffset
 		const sectionPositionLeft = targetSection.left + window.pageXOffset
 		window.scrollTo({
-			left:sectionPositionLeft,
+			left: sectionPositionLeft,
 			top: sectionPositionTop,
-            behavior:'smooth',
+			behavior: 'smooth',
 		})
 	}
-	addScrollIntoHandler (handler) {
+	addScrollIntoHandler(handler) {
 		this._navBar.addEventListener('click', handler)
 	}
 	addHandlerNavObserver() {
@@ -40,18 +41,56 @@ class Design {
 		});
 		sectionObserverNav.observe(this._firstSection);
 	}
-	revealSection(entries,observer){
+	revealSection(entries, observer) {
 		const [entry] = entries;
-        if(!entry.isIntersecting) return;
-        entry.target.classList.remove('section--hidden');
+		if (!entry.isIntersecting) return;
+		entry.target.classList.remove('section--hidden');
 		observer.unobserve(entry.target);
 	}
-	addRevealSectionObserver(){
-		const sectionObserver  = new IntersectionObserver(this.revealSection,{
-			root: null,
-            threshold: 0.8,
+	skillBarDisplay(data) {
+		const html = [];
+		data.forEach(barArea => {
+			switch (barArea.level) {
+				case 'Beginner':
+					html.push(`	
+						<div class="progress">
+  							<div class="progress-bar w-75" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
+						</div>`)
+					break;
+				case 'Basic':
+					html.push(`	
+						<div class="progress">
+  							<div class="progress-bar w-75" role="progressbar" aria-valuenow="25" aria-valuemin="25" aria-valuemax="100">${barArea.name}</div>
+						</div>`)
+					break;
+				case 'Skillful':
+					html.push(`	
+						<div class="progress">
+  							<div class="progress-bar w-100" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
+						</div>`)
+					break;
+				case 'Advanced':
+					html.push(`	
+						<div class="progress">
+  							<div class="progress-bar w-100" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
+						</div>`)
+					break;
+				case 'Expert':
+					html.push(`	
+						<div class="progress">
+  							<div class="progress-bar w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
+						</div>`)
+					break;
+			}
 		})
-		this._sections.forEach(function (section){
+		return html.join('');
+	}
+	addRevealSectionObserver() {
+		const sectionObserver = new IntersectionObserver(this.revealSection, {
+			root: null,
+			threshold: 0.8,
+		})
+		this._sections.forEach(function(section) {
 			sectionObserver.observe(section)
 			section.classList.add('section--hidden')
 		})
@@ -59,6 +98,9 @@ class Design {
 	addHandlerHover(handler) {
 		this._navBar.addEventListener('mouseover', handler.bind(0.5));
 		this._navBar.addEventListener('mouseout', handler.bind(1));
+	}
+	addHandlerLoad(handler) {
+		document.addEventListener('load', handler);
 	}
 }
 
