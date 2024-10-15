@@ -18019,13 +18019,48 @@ var state = exports.state = {
   res_per_page: _config.RES_PER_PAGE,
   currentPage: 1
 };
-},{"./config.js":"src/js/config.js"}],"src/js/Views/DesignView.js":[function(require,module,exports) {
+},{"./config.js":"src/js/config.js"}],"src/js/Views/View.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var View = exports.default = /*#__PURE__*/function () {
+  function View() {
+    _classCallCheck(this, View);
+    _defineProperty(this, "_parentElement", null);
+  }
+  return _createClass(View, [{
+    key: "_cleanup",
+    value: function _cleanup() {
+      this._parentElement.innerHTML = '';
+    }
+  }, {
+    key: "_render",
+    value: function _render(el) {
+      if (typeof el !== 'string') return new Error('Invalid value, must be a string');
+      this._cleanup();
+      this._parentElement.innerHTML = el;
+    }
+  }]);
+}();
+},{}],"src/js/Views/DesignView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _View2 = _interopRequireDefault(require("./View.js"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
 function _slicedToArray(r, e) { return _arrayWithHoles(r) || _iterableToArrayLimit(r, e) || _unsupportedIterableToArray(r, e) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -18036,28 +18071,42 @@ function _arrayWithHoles(r) { if (Array.isArray(r)) return r; }
 function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
 function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
 function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
 function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
 function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
 function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-// import View from './View.js';
-var Design = /*#__PURE__*/function () {
+var Design = /*#__PURE__*/function (_View) {
   function Design() {
+    var _this;
     _classCallCheck(this, Design);
-    _defineProperty(this, "_navBar", document.querySelector("body > nav"));
-    _defineProperty(this, "_navbarHeight", this._navBar.getBoundingClientRect().height);
-    _defineProperty(this, "_navLink", document);
-    _defineProperty(this, "_sections", document.querySelectorAll('.section'));
-    _defineProperty(this, "_firstSection", document.querySelector("#About"));
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _callSuper(this, Design, [].concat(args));
+    _defineProperty(_this, "_navBar", document.querySelector("body > nav"));
+    _defineProperty(_this, "_navbarHeight", _this._navBar.getBoundingClientRect().height);
+    _defineProperty(_this, "_navLink", document);
+    _defineProperty(_this, "_sections", document.querySelectorAll('.section'));
+    _defineProperty(_this, "_firstSection", document.querySelector("#About"));
+    _defineProperty(_this, "_parentElement", document.querySelectorAll('.container')[1]);
+    return _this;
   }
+  _inherits(Design, _View);
   return _createClass(Design, [{
     key: "handleHover",
     value: function handleHover(e) {
-      var _this = this;
+      var _this2 = this;
       if (e.target.classList.contains('nav-link')) {
         var link = e.target;
         var siblings = link.closest('.navbar-nav').querySelectorAll('.nav-link');
         siblings.forEach(function (el) {
-          if (el !== link) el.style.opacity = _this;
+          if (el !== link) el.style.opacity = _this2;
         });
       }
     }
@@ -18110,24 +18159,38 @@ var Design = /*#__PURE__*/function () {
     key: "skillBarDisplay",
     value: function skillBarDisplay(data) {
       var html = [];
+      var valNow;
+      var width;
+      var color;
       data.forEach(function (barArea) {
         switch (barArea.level) {
           case 'Beginner':
-            html.push("\t\n\t\t\t\t\t\t<div class=\"progress\">\n  \t\t\t\t\t\t\t<div class=\"progress-bar w-75\" role=\"progressbar\" aria-valuenow=\"0\" aria-valuemin=\"0\" aria-valuemax=\"100\">".concat(barArea.name, "</div>\n\t\t\t\t\t\t</div>"));
+            valNow = 0;
+            width = 0;
+            color = 'bg-danger';
             break;
           case 'Basic':
-            html.push("\t\n\t\t\t\t\t\t<div class=\"progress\">\n  \t\t\t\t\t\t\t<div class=\"progress-bar w-75\" role=\"progressbar\" aria-valuenow=\"25\" aria-valuemin=\"25\" aria-valuemax=\"100\">".concat(barArea.name, "</div>\n\t\t\t\t\t\t</div>"));
+            valNow = 25;
+            width = 25;
+            color = 'bg-warning';
             break;
           case 'Skillful':
-            html.push("\t\n\t\t\t\t\t\t<div class=\"progress\">\n  \t\t\t\t\t\t\t<div class=\"progress-bar w-100\" role=\"progressbar\" aria-valuenow=\"50\" aria-valuemin=\"0\" aria-valuemax=\"100\">".concat(barArea.name, "</div>\n\t\t\t\t\t\t</div>"));
+            valNow = 50;
+            width = 50;
+            color = 'bg-info';
             break;
           case 'Advanced':
-            html.push("\t\n\t\t\t\t\t\t<div class=\"progress\">\n  \t\t\t\t\t\t\t<div class=\"progress-bar w-100\" role=\"progressbar\" aria-valuenow=\"75\" aria-valuemin=\"0\" aria-valuemax=\"100\">".concat(barArea.name, "</div>\n\t\t\t\t\t\t</div>"));
+            valNow = 75;
+            width = 75;
+            color = 'bg-primary';
             break;
           case 'Expert':
-            html.push("\t\n\t\t\t\t\t\t<div class=\"progress\">\n  \t\t\t\t\t\t\t<div class=\"progress-bar w-100\" role=\"progressbar\" aria-valuenow=\"100\" aria-valuemin=\"0\" aria-valuemax=\"100\">".concat(barArea.name, "</div>\n\t\t\t\t\t\t</div>"));
+            valNow = 100;
+            width = 100;
+            color = 'bg-success';
             break;
         }
+        html.push("\n\t\t\t\t<div class=\"progress-container mb-3\">\n\t\t\t\t\t<span class=\"skill-name\">".concat(barArea.name, "</span>\n\t\t\t\t\t<div class=\"progress\">\n\t\t\t\t\t\t<div class=\"progress-bar ").concat(color, "\" role=\"progressbar\" style=\"width: ").concat(width, "%;\" aria-valuenow=\"").concat(valNow, "\" aria-valuemin=\"0\" aria-valuemax=\"100\">\n\t\t\t\t\t\t").concat(barArea.level, "\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t"));
       });
       return html.join('');
     }
@@ -18155,42 +18218,9 @@ var Design = /*#__PURE__*/function () {
       document.addEventListener('load', handler);
     }
   }]);
-}();
+}(_View2.default);
 var _default = exports.default = new Design();
-},{}],"src/js/Views/View.js":[function(require,module,exports) {
-"use strict";
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.default = void 0;
-function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
-function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
-function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
-function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
-function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
-function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
-function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
-var View = exports.default = /*#__PURE__*/function () {
-  function View() {
-    _classCallCheck(this, View);
-    _defineProperty(this, "_parentElement", null);
-  }
-  return _createClass(View, [{
-    key: "_cleanup",
-    value: function _cleanup() {
-      this._parentElement.innerHTML = '';
-    }
-  }, {
-    key: "_render",
-    value: function _render(el) {
-      this._cleanup();
-      if (typeof el !== 'string') return new Error('Invalid value, must be a string');
-      this._parentElement.innerHTML = el;
-    }
-  }]);
-}();
-},{}],"src/js/Views/paginationView.js":[function(require,module,exports) {
+},{"./View.js":"src/js/Views/View.js"}],"src/js/Views/paginationView.js":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -18241,10 +18271,13 @@ var controllNavBar = function controllNavBar() {
 var controlSections = function controlSections() {
   _DesignView.default.addRevealSectionObserver();
 };
-var controllSSkillDisplay = function controllSSkillDisplay() {};
+var controllSkillDisplay = function controllSkillDisplay() {
+  _DesignView.default._render(_DesignView.default.skillBarDisplay(model.state.skills));
+};
 var init = function init() {
   controllNavBar();
   controlSections();
+  controllSkillDisplay();
 };
 init();
 },{"core-js/stable":"node_modules/core-js/stable/index.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","./model.js":"src/js/model.js","./Views/DesignView.js":"src/js/Views/DesignView.js","./Views/paginationView.js":"src/js/Views/paginationView.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
@@ -18272,7 +18305,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "53174" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61407" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

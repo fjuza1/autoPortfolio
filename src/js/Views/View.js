@@ -4,8 +4,8 @@ export default class View {
         this._parentElement.innerHTML = '';
     };
     _render(el){
-        this._cleanup();
         if(typeof el !=='string') return new Error('Invalid value, must be a string')
+        this._cleanup();
         this._parentElement.innerHTML = el
     }
 }

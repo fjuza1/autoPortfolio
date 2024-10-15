@@ -13,10 +13,11 @@ const controlSections = () => {
    design.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
-
+   design._render(design.skillBarDisplay(model.state.skills))
 }
 const init = () => {
    controllNavBar();
    controlSections();
+   controllSkillDisplay();
 }
 init()

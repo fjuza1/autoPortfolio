@@ -1,10 +1,11 @@
-// import View from './View.js';
-class Design {
+ import View from './View.js';
+class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
 	_navLink = document
 	_sections = document.querySelectorAll('.section');
 	_firstSection = document.querySelector("#About");
+	_parentElement = document.querySelectorAll('.container')[1]
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -49,40 +50,48 @@ class Design {
 	}
 	skillBarDisplay(data) {
 		const html = [];
+		let valNow;
+		let width;
+		let color
 		data.forEach(barArea => {
 			switch (barArea.level) {
 				case 'Beginner':
-					html.push(`	
-						<div class="progress">
-  							<div class="progress-bar w-75" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
-						</div>`)
+					valNow = 0;
+					width = 0;
+					color = 'bg-danger'
 					break;
 				case 'Basic':
-					html.push(`	
-						<div class="progress">
-  							<div class="progress-bar w-75" role="progressbar" aria-valuenow="25" aria-valuemin="25" aria-valuemax="100">${barArea.name}</div>
-						</div>`)
+					valNow = 25;
+					width = 25;
+					color = 'bg-warning'
 					break;
 				case 'Skillful':
-					html.push(`	
-						<div class="progress">
-  							<div class="progress-bar w-100" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
-						</div>`)
+					valNow = 50;
+					width = 50;
+					color = 'bg-info'
 					break;
 				case 'Advanced':
-					html.push(`	
-						<div class="progress">
-  							<div class="progress-bar w-100" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
-						</div>`)
+					valNow = 75;
+					width = 75;
+					color = 'bg-primary';
 					break;
 				case 'Expert':
-					html.push(`	
-						<div class="progress">
-  							<div class="progress-bar w-100" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">${barArea.name}</div>
-						</div>`)
+					valNow = 100;
+					width = 100;
+					color = 'bg-success';
 					break;
 			}
-		})
+			html.push(`
+				<div class="progress-container mb-3">
+					<span class="skill-name">${barArea.name}</span>
+					<div class="progress">
+						<div class="progress-bar ${color}" role="progressbar" style="width: ${width}%;" aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100">
+						${barArea.level}
+						</div>
+					</div>
+				</div>
+			`)
+		});
 		return html.join('');
 	}
 	addRevealSectionObserver() {
