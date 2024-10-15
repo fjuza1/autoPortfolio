@@ -17995,9 +17995,6 @@ var state = exports.state = {
     name: 'Microsoft Visual Studio Code',
     level: _config.EXPERT_LEVEL[3]
   }, {
-    name: 'Microsoft Visual Studio Code',
-    level: _config.EXPERT_LEVEL[3]
-  }, {
     name: 'Microsoft SQL Servers Studio',
     level: _config.EXPERT_LEVEL[2]
   }, {
@@ -18305,7 +18302,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62020" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62599" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

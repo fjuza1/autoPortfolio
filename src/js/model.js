@@ -31,9 +31,6 @@ export const state = {
         name: 'Microsoft Visual Studio Code',
         level: EXPERT_LEVEL[3]
     },{
-        name: 'Microsoft Visual Studio Code',
-        level: EXPERT_LEVEL[3]
-    },{
         name: 'Microsoft SQL Servers Studio',
         level: EXPERT_LEVEL[2]
     },{
