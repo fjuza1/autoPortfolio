@@ -1,4 +1,4 @@
- import View from './View.js';
+import View from './View.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
@@ -82,15 +82,16 @@ class Design extends View {
 					break;
 			}
 			html.push(`
-				<div class="progress-container mb-3">
-					<span class="skill-name">${barArea.name}</span>
-					<div class="progress">
-						<div class="progress-bar ${color}" role="progressbar" style="width: ${width}%;" aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100">
-						${barArea.level}
-						</div>
-					</div>
-				</div>
-			`)
+			   <div class="progress-container mb-3">
+				   <span class="skill-name">${barArea.name}</span>
+				   <div class="progress">
+					   <div class="progress-bar ${color} progress-bar-striped progress-bar-animated" role="progressbar" style="width: ${width}%;" aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100">
+						   ${barArea.level}
+					   </div>
+				   </div>
+			   </div>
+		   `);
+
 		});
 		return html.join('');
 	}

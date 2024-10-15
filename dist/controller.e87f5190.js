@@ -18190,7 +18190,7 @@ var Design = /*#__PURE__*/function (_View) {
             color = 'bg-success';
             break;
         }
-        html.push("\n\t\t\t\t<div class=\"progress-container mb-3\">\n\t\t\t\t\t<span class=\"skill-name\">".concat(barArea.name, "</span>\n\t\t\t\t\t<div class=\"progress\">\n\t\t\t\t\t\t<div class=\"progress-bar ").concat(color, "\" role=\"progressbar\" style=\"width: ").concat(width, "%;\" aria-valuenow=\"").concat(valNow, "\" aria-valuemin=\"0\" aria-valuemax=\"100\">\n\t\t\t\t\t\t").concat(barArea.level, "\n\t\t\t\t\t\t</div>\n\t\t\t\t\t</div>\n\t\t\t\t</div>\n\t\t\t"));
+        html.push("\n\t\t\t   <div class=\"progress-container mb-3\">\n\t\t\t\t   <span class=\"skill-name\">".concat(barArea.name, "</span>\n\t\t\t\t   <div class=\"progress\">\n\t\t\t\t\t   <div class=\"progress-bar ").concat(color, " progress-bar-striped progress-bar-animated\" role=\"progressbar\" style=\"width: ").concat(width, "%;\" aria-valuenow=\"").concat(valNow, "\" aria-valuemin=\"0\" aria-valuemax=\"100\">\n\t\t\t\t\t\t   ").concat(barArea.level, "\n\t\t\t\t\t   </div>\n\t\t\t\t   </div>\n\t\t\t   </div>\n\t\t   "));
       });
       return html.join('');
     }
@@ -18305,7 +18305,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "61407" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "62020" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
