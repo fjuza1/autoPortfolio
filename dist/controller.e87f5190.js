@@ -18120,7 +18120,8 @@ var Design = /*#__PURE__*/function (_View) {
       var targetSectionId = e.target.closest('.nav-link').textContent.trim();
       if (!targetSectionId) return;
       var targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
-      var sectionPositionTop = targetSection.top + window.pageYOffset;
+      var navHeight = document.querySelector('.nav').offsetHeight;
+      var sectionPositionTop = targetSection.top + window.pageYOffset - navHeight;
       var sectionPositionLeft = targetSection.left + window.pageXOffset;
       window.scrollTo({
         left: sectionPositionLeft,
@@ -18302,7 +18303,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "56152" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60302" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

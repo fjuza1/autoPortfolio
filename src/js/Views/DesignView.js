@@ -23,7 +23,8 @@ class Design extends View {
 		const targetSectionId = e.target.closest('.nav-link').textContent.trim();
 		if (!targetSectionId) return
 		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
-		const sectionPositionTop = targetSection.top + window.pageYOffset
+		const navHeight = document.querySelector('.nav').offsetHeight;
+		const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
 		const sectionPositionLeft = targetSection.left + window.pageXOffset
 		window.scrollTo({
 			left: sectionPositionLeft,
