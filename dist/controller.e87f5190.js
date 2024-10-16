@@ -18197,7 +18197,7 @@ var Design = /*#__PURE__*/function (_View) {
     value: function addRevealSectionObserver() {
       var sectionObserver = new IntersectionObserver(this.revealSection, {
         root: null,
-        threshold: 0.8
+        threshold: 0.93
       });
       this._sections.forEach(function (section) {
         sectionObserver.observe(section);
@@ -18303,7 +18303,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "60302" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50439" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

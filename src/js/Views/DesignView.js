@@ -99,7 +99,7 @@ class Design extends View {
 	addRevealSectionObserver() {
 		const sectionObserver = new IntersectionObserver(this.revealSection, {
 			root: null,
-			threshold: 0.8,
+			threshold: 0.93,
 		})
 		this._sections.forEach(function(section) {
 			sectionObserver.observe(section)

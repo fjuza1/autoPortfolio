@@ -23,11 +23,12 @@ footer {
 }
 
 section {
+  opacity: 1;
   padding: 60px 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 .section.section--hidden{
   opacity:0;
-  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
 }
 
 
