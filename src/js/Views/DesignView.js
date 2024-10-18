@@ -86,7 +86,7 @@ class Design extends View {
 			   <div class="progress-container mb-3">
 				   <span class="skill-name">${barArea.name}</span>
 				   <div class="progress">
-					   <div class="progress-bar ${color}" role="progressbar" style="width: ${width}%;" aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100">
+					   <div class="progress-bar ${color}" role="progressbar" style="width: ${width}%;" aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100" aria-labelledby="progress-${barArea.level.toLowerCase()}">
 						   ${barArea.level}
 					   </div>
 				   </div>
