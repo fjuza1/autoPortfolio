@@ -18197,11 +18197,10 @@ var Design = /*#__PURE__*/function (_View) {
     value: function addRevealSectionObserver() {
       var sectionObserver = new IntersectionObserver(this.revealSection, {
         root: null,
-        threshold: 0.93
+        threshold: 0.1
       });
       this._sections.forEach(function (section) {
         sectionObserver.observe(section);
-        section.classList.add('section--hidden');
       });
     }
   }, {
@@ -18303,7 +18302,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63351" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49295" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

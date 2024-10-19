@@ -99,11 +99,10 @@ class Design extends View {
 	addRevealSectionObserver() {
 		const sectionObserver = new IntersectionObserver(this.revealSection, {
 			root: null,
-			threshold: 0.93,
+			threshold: 0.1,
 		})
 		this._sections.forEach(function(section) {
 			sectionObserver.observe(section)
-			section.classList.add('section--hidden')
 		})
 	}
 	addHandlerHover(handler) {
