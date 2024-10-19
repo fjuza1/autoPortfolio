@@ -18091,7 +18091,6 @@ var Design = /*#__PURE__*/function (_View) {
     _defineProperty(_this, "_navLink", document);
     _defineProperty(_this, "_sections", document.querySelectorAll('.section'));
     _defineProperty(_this, "_firstSection", document.querySelector("#About"));
-    _defineProperty(_this, "_parentElement", document.querySelectorAll('.container')[1]);
     return _this;
   }
   _inherits(Design, _View);
@@ -18154,6 +18153,66 @@ var Design = /*#__PURE__*/function (_View) {
       observer.unobserve(entry.target);
     }
   }, {
+    key: "addRevealSectionObserver",
+    value: function addRevealSectionObserver() {
+      var sectionObserver = new IntersectionObserver(this.revealSection, {
+        root: null,
+        threshold: 0.1
+      });
+      this._sections.forEach(function (section) {
+        sectionObserver.observe(section);
+      });
+    }
+  }, {
+    key: "addHandlerHover",
+    value: function addHandlerHover(handler) {
+      this._navBar.addEventListener('mouseover', handler.bind(0.5));
+      this._navBar.addEventListener('mouseout', handler.bind(1));
+    }
+  }, {
+    key: "addHandlerLoad",
+    value: function addHandlerLoad(handler) {
+      document.addEventListener('load', handler);
+    }
+  }]);
+}(_View2.default);
+var _default = exports.default = new Design();
+},{"./View.js":"src/js/Views/View.js"}],"src/js/Views/skillsView.js":[function(require,module,exports) {
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.default = void 0;
+var _View2 = _interopRequireDefault(require("./View.js"));
+function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
+function _typeof(o) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (o) { return typeof o; } : function (o) { return o && "function" == typeof Symbol && o.constructor === Symbol && o !== Symbol.prototype ? "symbol" : typeof o; }, _typeof(o); }
+function _classCallCheck(a, n) { if (!(a instanceof n)) throw new TypeError("Cannot call a class as a function"); }
+function _defineProperties(e, r) { for (var t = 0; t < r.length; t++) { var o = r[t]; o.enumerable = o.enumerable || !1, o.configurable = !0, "value" in o && (o.writable = !0), Object.defineProperty(e, _toPropertyKey(o.key), o); } }
+function _createClass(e, r, t) { return r && _defineProperties(e.prototype, r), t && _defineProperties(e, t), Object.defineProperty(e, "prototype", { writable: !1 }), e; }
+function _callSuper(t, o, e) { return o = _getPrototypeOf(o), _possibleConstructorReturn(t, _isNativeReflectConstruct() ? Reflect.construct(o, e || [], _getPrototypeOf(t).constructor) : o.apply(t, e)); }
+function _possibleConstructorReturn(t, e) { if (e && ("object" == _typeof(e) || "function" == typeof e)) return e; if (void 0 !== e) throw new TypeError("Derived constructors may only return object or undefined"); return _assertThisInitialized(t); }
+function _assertThisInitialized(e) { if (void 0 === e) throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); return e; }
+function _isNativeReflectConstruct() { try { var t = !Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); } catch (t) {} return (_isNativeReflectConstruct = function _isNativeReflectConstruct() { return !!t; })(); }
+function _getPrototypeOf(t) { return _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf.bind() : function (t) { return t.__proto__ || Object.getPrototypeOf(t); }, _getPrototypeOf(t); }
+function _inherits(t, e) { if ("function" != typeof e && null !== e) throw new TypeError("Super expression must either be null or a function"); t.prototype = Object.create(e && e.prototype, { constructor: { value: t, writable: !0, configurable: !0 } }), Object.defineProperty(t, "prototype", { writable: !1 }), e && _setPrototypeOf(t, e); }
+function _setPrototypeOf(t, e) { return _setPrototypeOf = Object.setPrototypeOf ? Object.setPrototypeOf.bind() : function (t, e) { return t.__proto__ = e, t; }, _setPrototypeOf(t, e); }
+function _defineProperty(e, r, t) { return (r = _toPropertyKey(r)) in e ? Object.defineProperty(e, r, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : e[r] = t, e; }
+function _toPropertyKey(t) { var i = _toPrimitive(t, "string"); return "symbol" == _typeof(i) ? i : i + ""; }
+function _toPrimitive(t, r) { if ("object" != _typeof(t) || !t) return t; var e = t[Symbol.toPrimitive]; if (void 0 !== e) { var i = e.call(t, r || "default"); if ("object" != _typeof(i)) return i; throw new TypeError("@@toPrimitive must return a primitive value."); } return ("string" === r ? String : Number)(t); }
+var SkillsView = /*#__PURE__*/function (_View) {
+  function SkillsView() {
+    var _this;
+    _classCallCheck(this, SkillsView);
+    for (var _len = arguments.length, args = new Array(_len), _key = 0; _key < _len; _key++) {
+      args[_key] = arguments[_key];
+    }
+    _this = _callSuper(this, SkillsView, [].concat(args));
+    _defineProperty(_this, "_parentElement", document.querySelectorAll('.container')[1]);
+    return _this;
+  }
+  _inherits(SkillsView, _View);
+  return _createClass(SkillsView, [{
     key: "skillBarDisplay",
     value: function skillBarDisplay(data) {
       var html = [];
@@ -18192,31 +18251,9 @@ var Design = /*#__PURE__*/function (_View) {
       });
       return html.join('');
     }
-  }, {
-    key: "addRevealSectionObserver",
-    value: function addRevealSectionObserver() {
-      var sectionObserver = new IntersectionObserver(this.revealSection, {
-        root: null,
-        threshold: 0.1
-      });
-      this._sections.forEach(function (section) {
-        sectionObserver.observe(section);
-      });
-    }
-  }, {
-    key: "addHandlerHover",
-    value: function addHandlerHover(handler) {
-      this._navBar.addEventListener('mouseover', handler.bind(0.5));
-      this._navBar.addEventListener('mouseout', handler.bind(1));
-    }
-  }, {
-    key: "addHandlerLoad",
-    value: function addHandlerLoad(handler) {
-      document.addEventListener('load', handler);
-    }
   }]);
 }(_View2.default);
-var _default = exports.default = new Design();
+var _default = exports.default = new SkillsView();
 },{"./View.js":"src/js/Views/View.js"}],"src/js/Views/paginationView.js":[function(require,module,exports) {
 "use strict";
 
@@ -18256,6 +18293,7 @@ require("regenerator-runtime/runtime");
 var _regeneratorRuntime = require("regenerator-runtime");
 var model = _interopRequireWildcard(require("./model.js"));
 var _DesignView = _interopRequireDefault(require("./Views/DesignView.js"));
+var _skillsView = _interopRequireDefault(require("./Views/skillsView.js"));
 var _paginationView = _interopRequireDefault(require("./Views/paginationView.js"));
 function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e }; }
 function _getRequireWildcardCache(e) { if ("function" != typeof WeakMap) return null; var r = new WeakMap(), t = new WeakMap(); return (_getRequireWildcardCache = function (e) { return e ? t : r; })(e); }
@@ -18269,7 +18307,7 @@ var controlSections = function controlSections() {
   _DesignView.default.addRevealSectionObserver();
 };
 var controllSkillDisplay = function controllSkillDisplay() {
-  _DesignView.default._render(_DesignView.default.skillBarDisplay(model.state.skills));
+  _skillsView.default._render(_skillsView.default.skillBarDisplay(model.state.skills));
 };
 var init = function init() {
   controllNavBar();
@@ -18277,7 +18315,7 @@ var init = function init() {
   controllSkillDisplay();
 };
 init();
-},{"core-js/stable":"node_modules/core-js/stable/index.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","./model.js":"src/js/model.js","./Views/DesignView.js":"src/js/Views/DesignView.js","./Views/paginationView.js":"src/js/Views/paginationView.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
+},{"core-js/stable":"node_modules/core-js/stable/index.js","regenerator-runtime/runtime":"node_modules/regenerator-runtime/runtime.js","regenerator-runtime":"node_modules/regenerator-runtime/runtime.js","./model.js":"src/js/model.js","./Views/DesignView.js":"src/js/Views/DesignView.js","./Views/skillsView.js":"src/js/Views/skillsView.js","./Views/paginationView.js":"src/js/Views/paginationView.js"}],"node_modules/parcel-bundler/src/builtins/hmr-runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 var OVERLAY_ID = '__parcel__error__overlay__';
 var OldModule = module.bundle.Module;
@@ -18302,7 +18340,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "49295" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52224" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
