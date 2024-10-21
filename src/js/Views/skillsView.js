@@ -1,6 +1,7 @@
 import View from './View.js';
 class SkillsView extends View {
     _parentElement = document.querySelectorAll('.container')[1];
+	_sortFilter = document.getElementById('sortSkillFilter');
     _skillBarDisplay(data) {
 		const html = [];
 		let valNow;
@@ -55,6 +56,9 @@ class SkillsView extends View {
 		};
 		
 		return options.array.sort(sortFunctions[options.sortBy]);
+	}
+	addSortHandler(handler){
+		this._sortFilter.addEventListener('change', handler);
 	}
 	
 }

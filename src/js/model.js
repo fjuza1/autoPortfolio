@@ -23,7 +23,7 @@ export const state = {
     },{
         name: 'Cypress',
         level: EXPERT_LEVEL[2],
-        levelNumber:EXPERT_NUM[3]
+        levelNumber:EXPERT_NUM[2]
     },{
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],

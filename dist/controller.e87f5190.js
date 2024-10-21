@@ -17988,7 +17988,7 @@ var state = exports.state = {
   }, {
     name: 'Cypress',
     level: _config.EXPERT_LEVEL[2],
-    levelNumber: _config.EXPERT_NUM[3]
+    levelNumber: _config.EXPERT_NUM[2]
   }, {
     name: 'SoapUI',
     level: _config.EXPERT_LEVEL[1],
@@ -18226,6 +18226,7 @@ var SkillsView = /*#__PURE__*/function (_View) {
     }
     _this = _callSuper(this, SkillsView, [].concat(args));
     _defineProperty(_this, "_parentElement", document.querySelectorAll('.container')[1]);
+    _defineProperty(_this, "_sortFilter", document.getElementById('sortSkillFilter'));
     return _this;
   }
   _inherits(SkillsView, _View);
@@ -18280,6 +18281,11 @@ var SkillsView = /*#__PURE__*/function (_View) {
         }
       };
       return options.array.sort(sortFunctions[options.sortBy]);
+    }
+  }, {
+    key: "addSortHandler",
+    value: function addSortHandler(handler) {
+      this._sortFilter.addEventListener('change', handler);
     }
   }]);
 }(_View2.default);
@@ -18372,7 +18378,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63130" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "50503" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];
