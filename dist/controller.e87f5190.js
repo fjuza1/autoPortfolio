@@ -18213,8 +18213,8 @@ var SkillsView = /*#__PURE__*/function (_View) {
   }
   _inherits(SkillsView, _View);
   return _createClass(SkillsView, [{
-    key: "skillBarDisplay",
-    value: function skillBarDisplay(data) {
+    key: "_skillBarDisplay",
+    value: function _skillBarDisplay(data) {
       var html = [];
       var valNow;
       var width;
@@ -18249,7 +18249,7 @@ var SkillsView = /*#__PURE__*/function (_View) {
         }
         html.push("\n\t\t\t   <div class=\"progress-container mb-3\">\n\t\t\t\t   <span class=\"skill-name\">".concat(barArea.name, "</span>\n\t\t\t\t   <div class=\"progress\">\n\t\t\t\t\t   <div class=\"progress-bar ").concat(color, "\" role=\"progressbar\" style=\"width: ").concat(width, "%;\" aria-valuenow=\"").concat(valNow, "\" aria-valuemin=\"0\" aria-valuemax=\"100\" aria-labelledby=\"progress-").concat(barArea.level.toLowerCase(), "\">\n\t\t\t\t\t\t   ").concat(barArea.level, "\n\t\t\t\t\t   </div>\n\t\t\t\t   </div>\n\t\t\t   </div>\n\t\t   "));
       });
-      return html.join('');
+      return '<h3>Skills</h3>' + html.join('');
     }
   }]);
 }(_View2.default);
@@ -18307,7 +18307,8 @@ var controlSections = function controlSections() {
   _DesignView.default.addRevealSectionObserver();
 };
 var controllSkillDisplay = function controllSkillDisplay() {
-  _skillsView.default._render(_skillsView.default.skillBarDisplay(model.state.skills));
+  // usew update instead
+  _skillsView.default._render(_skillsView.default._skillBarDisplay(model.state.skills));
 };
 var init = function init() {
   controllNavBar();
@@ -18340,7 +18341,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "52224" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59311" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

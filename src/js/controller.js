@@ -14,7 +14,8 @@ const controlSections = () => {
    design.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
-   skillsView._render(skillsView.skillBarDisplay(model.state.skills))
+   // usew update instead
+   skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const init = () => {
    controllNavBar();

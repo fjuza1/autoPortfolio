@@ -1,7 +1,7 @@
 import View from './View.js';
 class SkillsView extends View {
     _parentElement = document.querySelectorAll('.container')[1];
-    skillBarDisplay(data) {
+    _skillBarDisplay(data) {
 		const html = [];
 		let valNow;
 		let width;
@@ -46,7 +46,7 @@ class SkillsView extends View {
 		   `);
 
 		});
-		return html.join('');
+		return'<h3>Skills</h3>' + html.join('');
 	}
 }
 export default new SkillsView();
