@@ -17952,9 +17952,10 @@ try {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RES_PER_PAGE = exports.EXPERT_LEVEL = void 0;
+exports.RES_PER_PAGE = exports.EXPERT_NUM = exports.EXPERT_LEVEL = void 0;
 var RES_PER_PAGE = exports.RES_PER_PAGE = 7;
 var EXPERT_LEVEL = exports.EXPERT_LEVEL = ['Beginner', 'Basic', 'Skillful', 'Advanced', 'Expert'];
+var EXPERT_NUM = exports.EXPERT_NUM = [1, 2, 3, 4, 5];
 },{}],"src/js/model.js":[function(require,module,exports) {
 "use strict";
 
@@ -17966,52 +17967,68 @@ var _config = require("./config.js");
 var state = exports.state = {
   skills: [{
     name: 'Postman',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'JavaScript',
-    level: _config.EXPERT_LEVEL[4]
+    level: _config.EXPERT_LEVEL[4],
+    levelNumber: _config.EXPERT_NUM[4]
   }, {
     name: 'HTML',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'XML',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'SQL',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'Cypress',
-    level: _config.EXPERT_LEVEL[2]
+    level: _config.EXPERT_LEVEL[2],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'SoapUI',
-    level: _config.EXPERT_LEVEL[1]
+    level: _config.EXPERT_LEVEL[1],
+    levelNumber: _config.EXPERT_NUM[1]
   }, {
     name: 'Azure DevOps Server',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'TFS',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'Microsoft Visual Studio Code',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'Microsoft SQL Servers Studio',
-    level: _config.EXPERT_LEVEL[2]
+    level: _config.EXPERT_LEVEL[2],
+    levelNumber: _config.EXPERT_NUM[2]
   }, {
     name: 'UML - Unified Modeling Language',
-    level: _config.EXPERT_LEVEL[2]
+    level: _config.EXPERT_LEVEL[2],
+    levelNumber: _config.EXPERT_NUM[2]
   }, {
     name: 'Enterprise Architect',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'Select Architect',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'Eclipse IDE for Java Developers',
-    level: _config.EXPERT_LEVEL[3]
+    level: _config.EXPERT_LEVEL[3],
+    levelNumber: _config.EXPERT_NUM[3]
   }, {
     name: 'CI/CD pipeline',
-    level: _config.EXPERT_LEVEL[1]
+    level: _config.EXPERT_LEVEL[1],
+    levelNumber: _config.EXPERT_NUM[1]
   }],
   res_per_page: _config.RES_PER_PAGE,
   currentPage: 1
@@ -18251,6 +18268,16 @@ var SkillsView = /*#__PURE__*/function (_View) {
       });
       return '<h3>Skills</h3>' + html.join('');
     }
+  }, {
+    key: "_sortingSkills",
+    value: function _sortingSkills(array, orderBy, order) {
+      var sorting = function sorting() {
+        return array.sort(function (a, b) {
+          return a.name.localeCompare(b.name);
+        });
+      };
+      if (order === 'desc') return sorting().reverse();else return sorting();
+    }
   }]);
 }(_View2.default);
 var _default = exports.default = new SkillsView();
@@ -18308,6 +18335,8 @@ var controlSections = function controlSections() {
 };
 var controllSkillDisplay = function controllSkillDisplay() {
   // usew update instead
+  // skillsView._sortingSkills(model.state.skills, 'desc')
+  console.log(model.state.skills);
   _skillsView.default._render(_skillsView.default._skillBarDisplay(model.state.skills));
 };
 var init = function init() {
@@ -18341,7 +18370,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "59311" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55881" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

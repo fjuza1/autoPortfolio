@@ -15,6 +15,8 @@ const controlSections = () => {
 }
 const controllSkillDisplay = () => {
    // usew update instead
+   // skillsView._sortingSkills(model.state.skills, 'desc')
+   console.log(model.state.skills);
    skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const init = () => {

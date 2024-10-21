@@ -48,5 +48,10 @@ class SkillsView extends View {
 		});
 		return'<h3>Skills</h3>' + html.join('');
 	}
+	_sortingSkills(array,orderBy, order){
+		const sorting = ()=> array.sort((a,b)=>a.name.localeCompare(b.name))
+		if(order === 'desc') return sorting().reverse()
+			else return sorting()
+	}
 }
 export default new SkillsView();
