@@ -18270,13 +18270,16 @@ var SkillsView = /*#__PURE__*/function (_View) {
     }
   }, {
     key: "_sortingSkills",
-    value: function _sortingSkills(array, orderBy, order) {
-      var sorting = function sorting() {
-        return array.sort(function (a, b) {
-          return a.name.localeCompare(b.name);
-        });
+    value: function _sortingSkills(options) {
+      var sortFunctions = {
+        expertise: function expertise(a, b) {
+          return options.order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber;
+        },
+        name: function name(a, b) {
+          return options.order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name);
+        }
       };
-      if (order === 'desc') return sorting().reverse();else return sorting();
+      return options.array.sort(sortFunctions[options.sortBy]);
     }
   }]);
 }(_View2.default);
@@ -18335,8 +18338,7 @@ var controlSections = function controlSections() {
 };
 var controllSkillDisplay = function controllSkillDisplay() {
   // usew update instead
-  // skillsView._sortingSkills(model.state.skills, 'desc')
-  console.log(model.state.skills);
+  //skillsView._sortingSkills(options)
   _skillsView.default._render(_skillsView.default._skillBarDisplay(model.state.skills));
 };
 var init = function init() {
@@ -18370,7 +18372,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = "" || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + "55881" + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + "63130" + '/');
   ws.onmessage = function (event) {
     checkedAssets = {};
     assetsToAccept = [];

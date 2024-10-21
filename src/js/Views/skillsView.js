@@ -48,10 +48,14 @@ class SkillsView extends View {
 		});
 		return'<h3>Skills</h3>' + html.join('');
 	}
-	_sortingSkills(array,orderBy, order){
-		const sorting = ()=> array.sort((a,b)=>a.name.localeCompare(b.name))
-		if(order === 'desc') return sorting().reverse()
-			else return sorting()
+	_sortingSkills(options) {
+		const sortFunctions = {
+			expertise: (a, b) => options.order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+			name: (a, b) => options.order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name)
+		};
+		
+		return options.array.sort(sortFunctions[options.sortBy]);
 	}
+	
 }
 export default new SkillsView();
