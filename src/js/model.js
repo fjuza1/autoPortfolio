@@ -1,4 +1,4 @@
-import {RES_PER_PAGE, EXPERT_LEVEL, EXPERT_NUM} from './config.js'
+import {EXPERT_LEVEL, EXPERT_NUM} from './config.js'
 export const state = {
 	skills: [{
 		name: 'Postman',
@@ -64,7 +64,5 @@ export const state = {
         name: 'CI/CD pipeline',
         level: EXPERT_LEVEL[1],
         levelNumber:EXPERT_NUM[1]
-    }],
-	res_per_page: RES_PER_PAGE,
-	currentPage: 1
+    }]
 }
