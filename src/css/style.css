@@ -30,3 +30,6 @@ section {
 .section.section--hidden{
   opacity:0;
 }
+#skillBtnGroup {
+  margin-left: -17px;
+}
