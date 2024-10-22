@@ -1,9 +1,9 @@
 import View from './View.js';
 class SkillsView extends View {
-	_parentElement = document.querySelector('#skillsContainer')
+	_parentElement = document.querySelector('#skillsContainer');
 	_sortFilter = document.getElementById('sortSkillFilter');
+    _skillBtnGroup = document.getElementById('skillBtnGroup')
 	_skillBarDisplay(data) {
-		console.log(this._sortFilter);
 		const html = [];
 		let valNow;
 		let width;
@@ -50,15 +50,22 @@ class SkillsView extends View {
 		});
 		return html.join('');
 	}
+    _displayCollapsedSection(e){
+        const btnSet = e.target.closest('.btn.btn-link').dataset.btn
+        const colapseSection = document.getElementById(`${btnSet}`);
+        colapseSection.classList.toggle('show');
+    }
 	_sortingSkills(options) {
 		const sortFunctions = {
 			expertise: (a, b) => options.order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
 			name: (a, b) => options.order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
 			category: (a, b) => options.order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
 		};
-
 		return options.array.sort(sortFunctions[options.sortBy]);
 	}
+    addCollapseHandler(handler){
+        this._skillBtnGroup.addEventListener('click', this._displayCollapsedSection);
+    }
 	addSortHandler(handler) {
 		this._sortFilter.addEventListener('change', handler);
 	}
