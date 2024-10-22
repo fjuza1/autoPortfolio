@@ -2,11 +2,13 @@ import View from './View.js';
 class SkillsView extends View {
 	_parentElement = document.querySelector('#skillsContainer');
 	_sortFilter = document.getElementById('sortSkillFilter');
-    _skillBtnGroup = document.getElementById('skillBtnGroup')
+    _skillBtnGroup = document.getElementById('skillBtnGroup');
+    _skillSection = document.getElementById('Skills');
+    _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     constructor() {
         super();
-        this._addHandlerShowSection();
         this._addHandlerHideSection();
+        this._addHandlerShowSection();
     }
 	_skillBarDisplay(data) {
 		const html = [];
@@ -60,6 +62,9 @@ class SkillsView extends View {
         const colapseSection = document.getElementById(`${btnSet}`);
         colapseSection.classList.toggle('show');
     }
+    _hideSection(e){
+        this._multiCollapse.forEach(el=>el.classList.remove('show'));
+    }
 	_sortingSkills(options) {
 		const sortFunctions = {
 			expertise: (a, b) => options.order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
@@ -72,7 +77,7 @@ class SkillsView extends View {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideSection(){
-        // TODO: Implement hiding sections on outside section click
+        this._skillSection.addEventListener('mouseup', this._hideSection.bind(this));
         
     }
 	addSortHandler(handler) {
