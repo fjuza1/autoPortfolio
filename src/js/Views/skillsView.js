@@ -3,6 +3,11 @@ class SkillsView extends View {
 	_parentElement = document.querySelector('#skillsContainer');
 	_sortFilter = document.getElementById('sortSkillFilter');
     _skillBtnGroup = document.getElementById('skillBtnGroup')
+    constructor() {
+        super();
+        this._addHandlerShowSection();
+        this._addHandlerHideSection();
+    }
 	_skillBarDisplay(data) {
 		const html = [];
 		let valNow;
@@ -50,7 +55,7 @@ class SkillsView extends View {
 		});
 		return html.join('');
 	}
-    _displayCollapsedSection(e){
+    _toggleSection(e){
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn
         const colapseSection = document.getElementById(`${btnSet}`);
         colapseSection.classList.toggle('show');
@@ -63,8 +68,12 @@ class SkillsView extends View {
 		};
 		return options.array.sort(sortFunctions[options.sortBy]);
 	}
-    addCollapseHandler(handler){
-        this._skillBtnGroup.addEventListener('click', this._displayCollapsedSection);
+    _addHandlerShowSection(){
+        this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
+    }
+    _addHandlerHideSection(){
+        // TODO: Implement hiding sections on outside section click
+        
     }
 	addSortHandler(handler) {
 		this._sortFilter.addEventListener('change', handler);
