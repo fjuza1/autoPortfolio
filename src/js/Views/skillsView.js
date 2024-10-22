@@ -8,11 +8,17 @@ class SkillsView extends View {
         let width;
         let color
         const filterinfo = `          
-			<button type="button" class="btn btn-link"> 
+			<button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Filter & Sort"> 
 				<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
 				<path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
 				</svg>
 			</button>`
+		const exportBtn = `
+		    <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Export"> 
+				<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+				<path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
+				</svg>
+          	</button>`
         data.forEach(barArea => {
             switch (barArea.level) {
                 case 'Beginner':
@@ -53,7 +59,7 @@ class SkillsView extends View {
 		   `);
 
         });
-        return '<h3>Skills</h3>' + filterinfo + html.join('');
+        return '<h3>Skills</h3>' + filterinfo + exportBtn + html.join('');
     }
     _sortingSkills(options) {
         const sortFunctions = {
