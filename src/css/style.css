@@ -31,8 +31,5 @@ section {
   opacity:0;
 }
 #skillBtnGroup {
-  margin-left: -17px;
+  margin-left: -20px; /* Adjust to space properly */
 }
-/* .card.card-body {
-  width: 35%;
-} */
