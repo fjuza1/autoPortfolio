@@ -63,8 +63,9 @@ class SkillsView extends View {
         colapseSection.classList.toggle('show');
     }
     _hideSection(e){
-        const target = e.target
-        this._multiCollapse.forEach(el=>!target.classList.contains('card-body') ?el.classList.remove('show'):'');
+        const target = e.target;
+        const multi = [...this._multiCollapse].some(el=>el.contains(target));
+        this._multiCollapse.forEach(el=>!multi ?el.classList.remove('show'):'');
     }
 	_sortingSkills(options) {
 		const sortFunctions = {
