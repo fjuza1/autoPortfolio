@@ -1,5 +1,4 @@
 import View from './View.js';
-//this._multiCollapse.forEach(el=>el.classList.remove('show'));
 class SkillsView extends View {
 	_parentElement = document.querySelector('#skillsContainer');
 	_sortFilter = document.getElementById('sortSkillFilter');
@@ -58,15 +57,18 @@ class SkillsView extends View {
 		});
 		return html.join('');
 	}
-    _toggleSection(e){
-        const btnSet = e.target.closest('.btn.btn-link').dataset.btn
+    _toggleSection(e) {
+        const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
-        colapseSection.classList.toggle('show');
+        const isAlreadyShown = colapseSection.classList.contains('show');
+        this._multiCollapse.forEach(section => section.classList.remove('show'));
+        if (!isAlreadyShown) colapseSection.classList.add('show');
     }
     _hideSection(e){
         const target = e.target;
+        const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el=>el.contains(target));
-        this._multiCollapse.forEach(el=>!multi ?el.classList.remove('show'):'');
+        this._multiCollapse.forEach(el=>!multi && ! button?el.classList.remove('show'):'');
     }
 	_sortingSkills(options) {
 		const sortFunctions = {
