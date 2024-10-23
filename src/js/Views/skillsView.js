@@ -1,4 +1,5 @@
 import View from './View.js';
+//this._multiCollapse.forEach(el=>el.classList.remove('show'));
 class SkillsView extends View {
 	_parentElement = document.querySelector('#skillsContainer');
 	_sortFilter = document.getElementById('sortSkillFilter');
