@@ -4,7 +4,7 @@ class SkillsView extends View {
 	_parentElement = document.querySelector('#skillsContainer');
 	_sortFilter = document.getElementById('sortSkillFilter');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
-    _skillSection = document.getElementById('Skills');
+    _body = document.body;
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     constructor() {
         super();
@@ -80,7 +80,7 @@ class SkillsView extends View {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideSection(){
-        this._skillSection.addEventListener('mouseup', this._hideSection.bind(this));
+        this._body.addEventListener('mouseup', this._hideSection.bind(this));
     }
 	addSortHandler(handler) {
 		this._sortFilter.addEventListener('change', handler);
