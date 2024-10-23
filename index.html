@@ -52,13 +52,95 @@
       </section>      
       <section class="section section--hidden" id="Skills">
         <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="btn-group" id="skillBtnGroup" role="group" aria-label="Filtering Buttons">
+                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Filter & Sort" data-btn="filter&sort"> 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+                  </svg>
+                </button>
+                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Export" data-btn="export"> 
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
+                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
+                  </svg>
+                </button>
+              </div>
+              <!-- dataset -->
+              <div class="container">
+                <!-- Adjust the width of the multi-collapse container -->
+                <div class="multi-collapse collapse w-50" id="filter&sort"> <!-- Adjust width and center align -->            
+                  <!-- First Group: Filter by Name or Level -->
+                  <div class="bg-light p-3 border">
+                    <form class="filterActivities mb-3">
+                      <label for="searchName">Name</label>
+                      <input type="text" class="form-control" placeholder="Search by name">
+                    </form>
+                    <form class="sortActivities">
+                      <div class="form-group">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="sort" id="Name" value="Name" checked>
+                          <label class="form-check-label" for="Name">
+                            Name
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="sort" id="Level" value="Level">
+                          <label class="form-check-label" for="Level">
+                            Level
+                          </label>
+                        </div>
+              
+                        <hr class="my-3">
+              
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="order" id="Ascending" value="Ascending" checked>
+                          <label class="form-check-label" for="Ascending">
+                            Ascending
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="order" id="Descending" value="Descending">
+                          <label class="form-check-label" for="Descending">
+                            Descending
+                          </label>
+                        </div>
+              
+                        <br>
+              
+                        <button class="btn btn-secondary">
+                          Reset
+                        </button>
+                        <button class="btn btn-primary">
+                          Apply
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              
+                <!-- Other multi-collapse content -->
+                <div class="multi-collapse collapse" id="export">
+                  <!-- Example content in another multi-collapse section -->
+                  <div class="col-sm-9 bg-light p-3 border">
+                    <p>This is another section with a width of 75% above the 'sm' breakpoint.</p>
+                  </div>
+                </div>
+              </div>
+              
+          </div>
+          <h3>Skills</h3>
+          <div id="skillsContainer"></div>
         </div>
       </section>
+      
       <section class="section section--hidden" id="Projects">
         <div class="container">
+          <h3>Projects</h3>
       </section>
       <section class="section section--hidden" id="Contact">
         <div class="container">
+          <h3>Contact</h3>
           <form>
             <div class="form-group">
               <label for="name">Name/Company name</label>
