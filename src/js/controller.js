@@ -4,6 +4,7 @@ import {async} from 'regenerator-runtime';
 import * as model from './model.js';
 import design from './Views/DesignView.js';
 import skillsView from './Views/skillsView.js';
+console.log("🚀 ~ skillsView:", skillsView)
 const controllNavBar = () => {
    design.addHandlerHover(design.handleHover)
    design.addHandlerNavObserver()
