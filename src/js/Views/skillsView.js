@@ -87,6 +87,5 @@ class SkillsView extends View {
 	addSortHandler(handler) {
 		this._sortFilter.addEventListener('change', handler);
 	}
-
 }
 export default new SkillsView();
