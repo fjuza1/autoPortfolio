@@ -4,7 +4,7 @@ class Design extends View {
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
 	_navLink = document
 	_sections = document.querySelectorAll('.section');
-	_firstSection = document.querySelector("#About");
+	_firstSection = document.querySelector("#Home");
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;

@@ -10,7 +10,7 @@ footer {
   margin-top: 20px; 
 }
 
-#About, #Skills, #Projects, #Contact {
+#About, #Skills, #Projects, #Contact, #AboutMe {
   background-attachment: fixed;
   min-height: 90vh;
   display: flex;
@@ -33,3 +33,6 @@ section {
 #skillBtnGroup {
   margin-left: -20px; /* Adjust to space properly */
 }
+/* .hidden{
+  display: none;
+} */

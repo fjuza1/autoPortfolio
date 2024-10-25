@@ -19,6 +19,9 @@
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
             <li class="nav-item">
+              <a class="nav-link" aria-current="page" href="#about">About</a>
+            </li>
+            <li class="nav-item">
               <a class="nav-link" aria-current="page" href="#skills">Skills</a>
             </li>
             <li class="nav-item">
@@ -32,7 +35,7 @@
       </div>
     </nav>
     <main id="main">
-      <section id="About" style="min-height: 100vh; display: flex; align-items: center;">
+      <section id="Home" style="min-height: 100vh; display: flex; align-items: center;">
         <div class="container">
           <div class="d-flex flex-column align-items-center justify-content-center text-center w-100">
             <img class="masthead-avatar mb-5" src="./public/pics/cropped.jpg" alt="Avatar">
@@ -49,7 +52,26 @@
             <p class="masthead-subheading font-weight-light mb-0">QA Engineer - Manual Tester - JavaScript</p>
           </div>
         </div>
-      </section>      
+      </section> 
+      <section id="About" class="section section--hidden">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-8 col-md-10">
+                    <div class="text-center my-5">
+                        <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About Me</span></h2>
+                        <p class="lead fw-light mb-4">My name is [Your Name], and I specialize in helping businesses achieve growth.</p>
+                        <p class="text-muted">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate</p>
+                        <div class="d-flex justify-content-center fs-2 gap-4">
+                            <a class="text-gradient" href="#!"><i class="bi bi-twitter"></i></a>
+                            <a class="text-gradient" href="#!"><i class="bi bi-linkedin"></i></a>
+                            <a class="text-gradient" href="#!"><i class="bi bi-github"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
       <section class="section section--hidden" id="Skills">
         <div class="container">
           <div class="row">
@@ -123,7 +145,24 @@
                 <div class="multi-collapse collapse" id="export">
                   <!-- Example content in another multi-collapse section -->
                   <div class="col-sm-9 bg-light p-3 border">
-                    <p>This is another section with a width of 75% above the 'sm' breakpoint.</p>
+                    <form class="exportActivities mb-3">
+                      <h6>Export as:</h6>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio"> JSON
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio"> XML
+                      </label>
+                      <label class="radio-inline">
+                        <input type="radio" name="optradio"> CSV
+                      </label>
+                      <div id="name" class="content hidden">
+                        <h6>File name</h6>
+                        <label class="input-group">
+                          <input type="text" name="fileName" placeholder="Place exported file name">
+                        </label>
+                      </div>
+                    </form>
                   </div>
                 </div>
               </div>
