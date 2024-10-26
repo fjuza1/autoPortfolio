@@ -19,7 +19,7 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
 	scrollIntoSection(e) {
-		const targetSectionId = e.target.closest('.nav-link')?.textContent.trim();
+		const targetSectionId = e.target.closest('.nav-link').dataset.navlink.trim();
 		if (!targetSectionId) return
 		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
 		const navHeight = document.querySelector('.nav').offsetHeight;
