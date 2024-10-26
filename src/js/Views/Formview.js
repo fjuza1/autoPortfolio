@@ -19,7 +19,7 @@ class FormView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    _handleFormSubmit(e) {
+    _handleFormSubmit(form , e) {
         e.preventDefault();
         const data = Object.fromEntries([...new FormData(this._form)])
         return data;
@@ -30,7 +30,7 @@ class FormView {
     _addHandlerHideSection() {
         this._body.addEventListener('mouseup', this._hideSection.bind(this));
     }
-    _addHandlerSubmit(handler, form) {
+    _addHandlerSubmit(handler) {
         form.addEventListener('submit', handler);
     }
 }
