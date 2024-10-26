@@ -2,9 +2,7 @@ class FormView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _body = document.body;
     _skillBtnGroup = document.getElementById('skillBtnGroup');
-    _form = document.querySelector('form');
     constructor() {
-        this._addHandlerSubmit(this._handleFormSubmit.bind(this));
         this._addHandlerHideSection();
         this._addHandlerShowSection();
     }
@@ -31,8 +29,8 @@ class FormView {
     _addHandlerHideSection() {
         this._body.addEventListener('mouseup', this._hideSection.bind(this));
     }
-    _addHandlerSubmit(handler) {
-        this._form.addEventListener('submit', handler);
+    _addHandlerSubmit(handler, form) {
+        form.addEventListener('submit', handler);
     }
 }
 export default new FormView();
