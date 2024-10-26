@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import * as model from './model.js';
+import formView from './Views/Formview.js';
 import design from './Views/DesignView.js';
 import skillsView from './Views/skillsView.js';
 const controllNavBar = () => {
