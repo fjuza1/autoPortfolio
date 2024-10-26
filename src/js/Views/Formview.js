@@ -22,6 +22,7 @@ class FormView {
     _handleFormSubmit(e) {
         e.preventDefault();
         const data = Object.fromEntries([...new FormData(this._form)])
+        return data;
     }
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
