@@ -21,7 +21,7 @@ class FormView {
     }
     _handleFormSubmit(form , e) {
         e.preventDefault();
-        const data = Object.fromEntries([...new FormData(this._form)])
+        const data = Object.fromEntries([...new FormData(form)])
         return data;
     }
     _addHandlerShowSection() {
@@ -31,7 +31,7 @@ class FormView {
         this._body.addEventListener('mouseup', this._hideSection.bind(this));
     }
     _addHandlerSubmit(handler) {
-        form.addEventListener('submit', handler);
+        ['submit','input'].forEach(ev=>form.addEventListener(ev,handler))
     }
 }
 export default new FormView();
