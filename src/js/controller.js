@@ -14,8 +14,6 @@ const controlSections = () => {
    design.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
-   // usew update instead
-   //skillsView._sortingSkills(options)
    skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const init = () => {

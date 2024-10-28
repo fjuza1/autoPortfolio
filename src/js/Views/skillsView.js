@@ -1,12 +1,11 @@
 import View from './View.js';
+import * as model from '../model.js'
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
     _sortFilter = document.getElementById('sortSkillFilter');
-    constructor() {
-        super();
-    }
+     _form = document.querySelector('.filterActivities')
+     _formBtn = document.querySelector('button[type="submit"]');
     _skillBarDisplay(data) {
-        console.log(FormView);
         const html = [];
         let valNow;
         let width;
@@ -60,9 +59,6 @@ class SkillsView extends View {
             category: (a, b) => options.order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
         };
         return options.array.sort(sortFunctions[options.sortBy]);
-    }
-    addSortHandler(handler) {
-        this._sortFilter.addEventListener('change', handler);
     }
 }
 export default new SkillsView();

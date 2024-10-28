@@ -1,6 +1,11 @@
+import * as model from '../model.js'
 export default class View {
     _parentElement = null;
     _msg = ''
+    _form = ''
+    super(){
+        this._addHandlerSubmit.bind(this);
+    }
     _cleanup(){
         this._parentElement.innerHTML = '';
     };
@@ -12,12 +17,12 @@ export default class View {
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
-    _handleFormSubmit(form , e) {
+    _handleFormSubmit(e) {
         e.preventDefault();
-        const data = Object.fromEntries([...new FormData(form)])
+        const data = Object.fromEntries([...new FormData(this._form)])
         return data;
     }
     _addHandlerSubmit(handler) {
-        ['submit','input'].forEach(ev=>this._formBtn.addEventListener(ev,handler))
+        ['submit'].forEach(ev=>this._form.addEventListener(ev,handler))
     }
 }
