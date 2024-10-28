@@ -6,6 +6,7 @@ class SkillsView extends View {
         super();
     }
     _skillBarDisplay(data) {
+        console.log(FormView);
         const html = [];
         let valNow;
         let width;
