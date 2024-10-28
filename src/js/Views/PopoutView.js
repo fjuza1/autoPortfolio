@@ -1,4 +1,4 @@
-class FormView {
+class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _body = document.body;
     _skillBtnGroup = document.getElementById('skillBtnGroup');
@@ -20,19 +20,11 @@ class FormView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    _handleFormSubmit(form , e) {
-        e.preventDefault();
-        const data = Object.fromEntries([...new FormData(form)])
-        return data;
-    }
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideSection() {
         this._body.addEventListener('mouseup', this._hideSection.bind(this));
     }
-    _addHandlerSubmit(handler) {
-        ['submit','input'].forEach(ev=>this._formBtn.addEventListener(ev,handler))
-    }
 }
-export default new FormView();
+export default new PopupView();
