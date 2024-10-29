@@ -17,12 +17,13 @@ export default class View {
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
-    _handleFormSubmit(e) {
-        e.preventDefault();
-        const data = Object.fromEntries([...new FormData(this._form)])
-        return data;
-    }
     _addHandlerSubmit(handler) {
-        ['submit'].forEach(ev=>this._form.addEventListener(ev,handler))
+        this._form.addEventListener('submit', (e)=>{
+            e.preventDefault();
+            const formEntries = [...new FormData(this._form)];
+            const data = Object.fromEntries(formEntries);
+            this._data = data;
+            handler(data);
+        })
     }
 }

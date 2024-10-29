@@ -16,9 +16,13 @@ const controlSections = () => {
 const controllSkillDisplay = () => {
    skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
+const controllResults = () =>{
+   console.log(skillsView);
+}
 const init = () => {
    controllSkillDisplay();
    controllNavBar();
    controlSections();
+   skillsView._addHandlerSubmit(controllResults)
 }
 init()

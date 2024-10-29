@@ -3,7 +3,7 @@ import * as model from '../model.js'
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
     _sortFilter = document.getElementById('sortSkillFilter');
-     _form = document.querySelector('.filterActivities')
+     _form = document.querySelector('form')
      _formBtn = document.querySelector('button[type="submit"]');
     _skillBarDisplay(data) {
         const html = [];
