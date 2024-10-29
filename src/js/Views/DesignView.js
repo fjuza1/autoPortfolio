@@ -4,7 +4,7 @@ class Design extends View {
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
 	_navLink = document
 	_sections = document.querySelectorAll('.section');
-	_firstSection = document.querySelector("#About");
+	_firstSection = document.querySelector("#Home");
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -19,7 +19,7 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
 	scrollIntoSection(e) {
-		const targetSectionId = e.target.closest('.nav-link')?.textContent.trim();
+		const targetSectionId = e.target.closest('.nav-link')?.dataset.navlink.trim();
 		if (!targetSectionId) return
 		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
 		const navHeight = document.querySelector('.nav').offsetHeight;
@@ -65,5 +65,4 @@ class Design extends View {
 		document.addEventListener('load', handler);
 	}
 }
-
 export default new Design();

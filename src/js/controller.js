@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import * as model from './model.js';
+import popupView from './Views/PopoutView.js';
 import design from './Views/DesignView.js';
 import skillsView from './Views/skillsView.js';
 const controllNavBar = () => {
@@ -13,13 +14,23 @@ const controlSections = () => {
    design.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
-   // usew update instead
-   //skillsView._sortingSkills(options)
    skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+}
+const controllResults = () =>{
+   const array = model.state.skills;
+   skillsView._data.array = model.state.skills;
+   const sorted = skillsView._sortingSkills(skillsView._data)
+   skillsView._render(skillsView._skillBarDisplay(sorted))
+}
+const controllResultsReset = () =>{
+   const originalArraySkills = model.original.skills;
+   skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
 }
 const init = () => {
    controllSkillDisplay();
    controllNavBar();
    controlSections();
+   skillsView._addHandlerFormReset(controllResultsReset)
+   skillsView._addHandlerSubmit(controllResults)
 }
 init()
