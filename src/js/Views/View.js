@@ -1,9 +1,5 @@
-import * as model from '../model.js'
 export default class View {
-    _parentElement = null;
-    _msg = ''
-    _form = ''
-    super(){
+    constructor (){
         this._addHandlerSubmit.bind(this);
     }
     _cleanup(){

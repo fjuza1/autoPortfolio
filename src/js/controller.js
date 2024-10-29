@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import * as model from './model.js';
+import * as help from './helpers.js'
 import popupView from './Views/PopoutView.js';
 import design from './Views/DesignView.js';
 import skillsView from './Views/skillsView.js';
@@ -21,11 +22,12 @@ const controllResults = () =>{
    skillsView._data.array = model.state.skills;
    skillsView._renderSpinner();
    const sorted = skillsView._sortingSkills(skillsView._data)
-   skillsView._render(skillsView._skillBarDisplay(sorted))
+   help.timeout(() => {
+      skillsView._render(skillsView._skillBarDisplay(sorted))
+   });
 }
 const controllResultsReset = () =>{
    const originalArraySkills = model.original.skills;
-   skillsView._renderSpinner();
    skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
 }
 const init = () => {
