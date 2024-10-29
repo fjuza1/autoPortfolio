@@ -3,16 +3,18 @@ import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import * as model from './model.js';
 import * as help from './helpers.js'
-import popupView from './Views/PopoutView.js';
-import design from './Views/DesignView.js';
+import popupView from './Views/popoutView.js';
+import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
+import skillsExportView from './Views/skillsExportView.js';
+console.log("🚀 ~ skillsExportView:", skillsExportView)
 const controllNavBar = () => {
-   design.addHandlerHover(design.handleHover)
-   design.addHandlerNavObserver()
-   design.addScrollIntoHandler(design.scrollIntoSection)
+   designView.addHandlerHover(designView.handleHover)
+   designView.addHandlerNavObserver()
+   designView.addScrollIntoHandler(designView.scrollIntoSection)
 }
 const controlSections = () => {
-   design.addRevealSectionObserver()
+   designView.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
    skillsView._render(skillsView._skillBarDisplay(model.state.skills))
