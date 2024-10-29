@@ -22,10 +22,15 @@ const controllResults = () =>{
    const sorted = skillsView._sortingSkills(skillsView._data)
    skillsView._render(skillsView._skillBarDisplay(sorted))
 }
+const controllResultsReset = () =>{
+   const originalArraySkills = model.original.skills;
+   skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
+}
 const init = () => {
    controllSkillDisplay();
    controllNavBar();
    controlSections();
+   skillsView._addHandlerFormReset(controllResultsReset)
    skillsView._addHandlerSubmit(controllResults)
 }
 init()

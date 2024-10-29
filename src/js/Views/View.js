@@ -26,4 +26,7 @@ export default class View {
             handler(data);
         })
     }
+    _addHandlerFormReset(handler) {
+        this._form.addEventListener('reset', handler)
+    }
 }

@@ -83,3 +83,7 @@ export const state = {
 	}],
     projects:[]
 }
+export const original = {
+	skills: Object.freeze([...state.skills]),
+    projects: Object.freeze([...state.projects])
+}
