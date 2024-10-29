@@ -19,11 +19,13 @@ const controllSkillDisplay = () => {
 const controllResults = () =>{
    const array = model.state.skills;
    skillsView._data.array = model.state.skills;
+   skillsView._renderSpinner();
    const sorted = skillsView._sortingSkills(skillsView._data)
    skillsView._render(skillsView._skillBarDisplay(sorted))
 }
 const controllResultsReset = () =>{
    const originalArraySkills = model.original.skills;
+   skillsView._renderSpinner();
    skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
 }
 const init = () => {
