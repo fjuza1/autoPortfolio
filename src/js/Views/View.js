@@ -5,10 +5,10 @@ export default class View {
     _cleanup(){
         this._parentElement.innerHTML = '';
     };
-    _render(data){
-        if(typeof data !=='string') return new Error('Invalid value, must be a string')
+    _render(_data){
+        if(typeof _data !=='string') return new Error('Invalid value, must be a string')
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', data)
+        this._parentElement.insertAdjacentHTML('afterbegin', _data)
     }
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)

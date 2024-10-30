@@ -8,34 +8,35 @@ import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 const controllNavBar = () => {
-   designView.addHandlerHover(designView.handleHover)
-   designView.addHandlerNavObserver()
-   designView.addScrollIntoHandler(designView.scrollIntoSection)
+	designView.addHandlerHover(designView.handleHover)
+	designView.addHandlerNavObserver()
+	designView.addScrollIntoHandler(designView.scrollIntoSection)
 }
 const controlSections = () => {
-   designView.addRevealSectionObserver()
+	designView.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
-   skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+	console.log(skillsView);
+	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
-const controllResults = () =>{
-   const array = model.state.skills;
-   skillsView._data.array = model.state.skills;
-   skillsView._renderSpinner();
-   const sorted = skillsView._sortingSkills(skillsView._data)
-   help.timeout(() => {
-      skillsView._render(skillsView._skillBarDisplay(sorted))
-   });
+const controllResults = () => {
+	const array = {array: model.state.skills}
+	const options = Object.assign(array, skillsView._data)
+	skillsView._renderSpinner();
+	const sorted = skillsView._sortingSkills(options)
+	help.timeout(() => {
+		skillsView._render(skillsView._skillBarDisplay(sorted))
+	});
 }
-const controllResultsReset = () =>{
-   const originalArraySkills = model.original.skills;
-   skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
+const controllResultsReset = () => {
+	const originalArraySkills = model.original.skills;
+	skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
 }
 const init = () => {
-   controllSkillDisplay();
-   controllNavBar();
-   controlSections();
-   skillsView._addHandlerFormReset(controllResultsReset)
-   skillsView._addHandlerSubmit(controllResults)
+	controllSkillDisplay();
+	controllNavBar();
+	controlSections();
+	skillsView._addHandlerFormReset(controllResultsReset)
+	skillsView._addHandlerSubmit(controllResults)
 }
 init()

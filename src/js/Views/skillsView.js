@@ -5,12 +5,13 @@ class SkillsView extends View {
     _sortFilter = document.getElementById('sortSkillFilter');
      _form = document.querySelector('form')
      _formBtn = document.querySelector('button[type="submit"]');
-    _skillBarDisplay(data) {
+    _skillBarDisplay(_data) {
+        this._data = _data;
         const html = [];
         let valNow;
         let width;
         let color
-        data.forEach(barArea => {
+        _data.forEach(barArea => {
             switch (barArea.level) {
                 case 'Beginner':
                     valNow = 0;
