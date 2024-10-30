@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import * as model from './model.js';
+console.log(model.state.skills);
 import * as help from './helpers.js'
 import popupView from './Views/popoutView.js';
 import designView from './Views/designView.js';
@@ -16,7 +17,6 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const controllSkillDisplay = () => {
-	console.log(skillsView);
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const controllResults = () => {
