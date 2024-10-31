@@ -1,5 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES} from './config.js'
 export const state = {
+	_data:[],
 	skills: [{
 		name: 'Postman',
 		level: EXPERT_LEVEL[3],

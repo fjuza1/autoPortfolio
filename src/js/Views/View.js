@@ -1,29 +1,43 @@
-import * as model from '../model.js'
 export default class View {
-    _parentElement = null;
-    _msg = ''
-    _form = ''
-    super(){
+    constructor (){
         this._addHandlerSubmit.bind(this);
     }
     _cleanup(){
         this._parentElement.innerHTML = '';
     };
-    _render(el){
-        if(typeof el !=='string') return new Error('Invalid value, must be a string')
+    _render(_data){
+        if(typeof _data !=='string') return new Error('Invalid value, must be a string')
         this._cleanup();
-        this._parentElement.innerHTML = el
+        this._parentElement.insertAdjacentHTML('afterbegin', _data)
     }
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
+    _renderSpinner(){
+        const markup = `
+        <div class="d-flex align-items-center">
+            <strong>Loading...</strong>
+            <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
+        </div>`;
+        this._cleanup();
+        this._parentElement.insertAdjacentHTML('afterbegin', markup)
+    }
+    _filterByKeys(array,keys,values){
+        values = values.map(el => el === 0 ? '' : el);
+        const found = array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+        this._data = found;
+        return found
+    }
+    _submitEvent(e){
+        e.preventDefault();
+        const formEntries = [...new FormData(this._form)];
+        const data = Object.fromEntries(formEntries);
+        this._formData = data;
+    }
     _addHandlerSubmit(handler) {
         this._form.addEventListener('submit', (e)=>{
-            e.preventDefault();
-            const formEntries = [...new FormData(this._form)];
-            const data = Object.fromEntries(formEntries);
-            this._data = data;
-            handler(data);
+            this._submitEvent(e)
+            handler(this._formData);
         })
     }
     _addHandlerFormReset(handler) {

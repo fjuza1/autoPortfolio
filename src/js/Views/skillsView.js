@@ -5,12 +5,13 @@ class SkillsView extends View {
     _sortFilter = document.getElementById('sortSkillFilter');
      _form = document.querySelector('form')
      _formBtn = document.querySelector('button[type="submit"]');
-    _skillBarDisplay(data) {
+    _skillBarDisplay(_data) {
+        this._data = _data;
         const html = [];
         let valNow;
         let width;
         let color
-        data.forEach(barArea => {
+        _data.forEach(barArea => {
             switch (barArea.level) {
                 case 'Beginner':
                     valNow = 0;
@@ -58,7 +59,20 @@ class SkillsView extends View {
             name: (a, b) => options.order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
             category: (a, b) => options.order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
         };
-        return options.array.sort(sortFunctions[options.sortBy]);
+        const sorted = options.array.sort(sortFunctions[options.sortBy]);
+        this._data = sorted
+        return sorted
+    }
+    _addFilterSkillsHandler(handler){
+        ['input','change'].forEach(ev=>this._form.addEventListener(ev, (e) =>{
+            const allowedList = ['name','levelNumber']
+            const name = e.target.getAttribute('name')
+            if(!name) return;
+            if (allowedList.includes(name)) {
+                this._submitEvent(e)
+                handler(this._data)
+            }
+        }))
     }
 }
 export default new SkillsView();
