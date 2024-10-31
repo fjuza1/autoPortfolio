@@ -19,12 +19,13 @@ const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const controllSortedSkills = () => {
-	const array = {array: skillsView._data}
+	const array = {array: model.state.skills}
+	console.log(array);
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
-	const sorted = skillsView._sortingSkills(options)
+	skillsView._sortingSkills(options)
 	help.timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(sorted))
+		skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	});
 }
 // BUG loader is there when cicked outside not good
@@ -36,7 +37,7 @@ const controllFilterSkills = () =>{
 	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const keys = options['params'];
 	const values = options['values'];
-	const filtered = skillsView._filterByKeys(skillsView._data, keys, values);
+	const filtered = skillsView._filterByKeys(model.state.skills, keys, values);
     skillsView._renderSpinner();
     help.timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))
