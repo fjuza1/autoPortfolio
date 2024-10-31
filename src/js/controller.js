@@ -18,6 +18,7 @@ const controlSections = () => {
 const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
+console.log(skillsView);
 const controllSortedSkills = () => {
 	const array = {array: model.state.skills}
 	console.log(array);

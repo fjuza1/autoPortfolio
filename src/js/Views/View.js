@@ -2,13 +2,16 @@ export default class View {
     constructor (){
         this._addHandlerSubmit.bind(this);
     }
+    _generateMarkup(data){
+        return data.join('');
+    }
     _cleanup(){
         this._parentElement.innerHTML = '';
     };
     _render(_data){
-        if(typeof _data !=='string') return new Error('Invalid value, must be a string')
+        this._data = _data
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', _data)
+        this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(this._data));
     }
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)

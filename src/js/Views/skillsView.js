@@ -7,11 +7,10 @@ class SkillsView extends View {
      _formBtn = document.querySelector('button[type="submit"]');
     _skillBarDisplay(_data) {
         this._data = _data;
-        const html = [];
         let valNow;
         let width;
         let color
-        _data.forEach(barArea => {
+        return  _data.map(barArea => {
             switch (barArea.level) {
                 case 'Beginner':
                     valNow = 0;
@@ -39,7 +38,7 @@ class SkillsView extends View {
                     color = 'bg-success';
                     break;
             }
-            html.push(`
+            return `
 			   <div class="progress-container mb-3">
 				   <span class="skill-name">${barArea.name}</span>
 				   <div class="progress">
@@ -48,10 +47,8 @@ class SkillsView extends View {
 					   </div>
 				   </div>
 			   </div>
-		   `);
-
+		   `
         });
-        return html.join('');
     }
     _sortingSkills(options) {
         const sortFunctions = {
