@@ -23,14 +23,8 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup)
     }
     _filterByKeys(array,keys,values){
+        values = values.map(el => el === 0 ? '' : el);
         return array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
-        /*
-        ex 
-        const cars = [{type: "Fiat", model: "500", color: "white"}];
-        const options = {params: ['type', 'color'], values: ['Fiat', 'te']};
-        const keys = options['params'];
-        const values = options['values'];        
-        */
     }
     _submitEvent(e){
         e.preventDefault();

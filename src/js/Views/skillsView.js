@@ -61,5 +61,16 @@ class SkillsView extends View {
         };
         return options.array.sort(sortFunctions[options.sortBy]);
     }
+    _addFilterSkillsHandler(handler){
+        ['input','change'].forEach(ev=>this._form.addEventListener(ev, (e) =>{
+            const allowedList = ['name','levelNumber']
+            const name = e.target.getAttribute('name')
+            if(!name) return;
+            if (allowedList.includes(name)) {
+                this._submitEvent(e)
+                handler(this._data)
+            }
+        }))
+    }
 }
 export default new SkillsView();

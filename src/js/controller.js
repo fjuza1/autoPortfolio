@@ -18,7 +18,7 @@ const controlSections = () => {
 const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
-const controllResults = () => {
+const controllSortedSkills = () => {
 	const array = {array: model.state.skills}
 	const options = Object.assign(array, skillsView._data)
 	skillsView._renderSpinner();
@@ -27,15 +27,27 @@ const controllResults = () => {
 		skillsView._render(skillsView._skillBarDisplay(sorted))
 	});
 }
-const controllResultsReset = () => {
+// BUG loader is there when cicked outside not good
+const controllSortedResetSkills = () => {
 	const originalArraySkills = model.original.skills;
 	skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
+}
+const controllFilterSkills = () =>{
+	const options = {params:['name','levelNumber'],values:[skillsView._data.name,+skillsView._data.levelNumber]};
+	const keys = options['params'];
+	const values = options['values'];
+	const filtered = skillsView._filterByKeys(model.state.skills, keys, values);
+    skillsView._renderSpinner();
+    help.timeout(() => {
+        skillsView._render(skillsView._skillBarDisplay(filtered))
+    });
 }
 const init = () => {
 	controllSkillDisplay();
 	controllNavBar();
 	controlSections();
-	skillsView._addHandlerFormReset(controllResultsReset)
-	skillsView._addHandlerSubmit(controllResults)
+	skillsView._addHandlerFormReset(controllSortedResetSkills);
+	skillsView._addFilterSkillsHandler(controllFilterSkills);
+	skillsView._addHandlerSubmit(controllSortedSkills);
 }
 init()
