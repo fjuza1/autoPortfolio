@@ -24,18 +24,20 @@ export default class View {
     }
     _filterByKeys(array,keys,values){
         values = values.map(el => el === 0 ? '' : el);
-        return array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+        const found = array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+        this._data = found;
+        return found
     }
     _submitEvent(e){
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];
         const data = Object.fromEntries(formEntries);
-        this._data = data;
+        this._formData = data;
     }
     _addHandlerSubmit(handler) {
         this._form.addEventListener('submit', (e)=>{
             this._submitEvent(e)
-            handler(this._data);
+            handler(this._formData);
         })
     }
     _addHandlerFormReset(handler) {

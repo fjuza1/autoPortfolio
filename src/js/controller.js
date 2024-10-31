@@ -19,10 +19,11 @@ const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const controllSortedSkills = () => {
-	const array = {array: model.state.skills}
-	const options = Object.assign(array, skillsView._data)
+	const array = {array: skillsView._data}
+	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
 	const sorted = skillsView._sortingSkills(options)
+	console.log(skillsView);
 	help.timeout(() => {
 		skillsView._render(skillsView._skillBarDisplay(sorted))
 	});
@@ -33,10 +34,11 @@ const controllSortedResetSkills = () => {
 	skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
 }
 const controllFilterSkills = () =>{
-	const options = {params:['name','levelNumber'],values:[skillsView._data.name,+skillsView._data.levelNumber]};
+	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const keys = options['params'];
 	const values = options['values'];
-	const filtered = skillsView._filterByKeys(model.state.skills, keys, values);
+	console.log("🚀 ~ controllFilterSkills ~ keys:", keys, values)
+	const filtered = skillsView._filterByKeys(skillsView._data, keys, values);
     skillsView._renderSpinner();
     help.timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))
