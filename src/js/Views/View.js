@@ -22,13 +22,26 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', markup)
     }
+    _filterByKeys(array,keys,values){
+        return array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+        /*
+        ex 
+        const cars = [{type: "Fiat", model: "500", color: "white"}];
+        const options = {params: ['type', 'color'], values: ['Fiat', 'te']};
+        const keys = options['params'];
+        const values = options['values'];        
+        */
+    }
+    _submitEvent(e){
+        e.preventDefault();
+        const formEntries = [...new FormData(this._form)];
+        const data = Object.fromEntries(formEntries);
+        this._data = data;
+    }
     _addHandlerSubmit(handler) {
         this._form.addEventListener('submit', (e)=>{
-            e.preventDefault();
-            const formEntries = [...new FormData(this._form)];
-            const data = Object.fromEntries(formEntries);
-            this._data = data;
-            handler(data);
+            this._submitEvent(e)
+            handler(this._data);
         })
     }
     _addHandlerFormReset(handler) {

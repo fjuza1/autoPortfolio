@@ -100,8 +100,19 @@
                   <!-- First Group: Filter by Name or Level -->
                   <div class="bg-light p-3 border">
                     <form class="filterActivities mb-3">
-                      <label for="searchName">Name</label>
-                      <input type="text" class="form-control" placeholder="Search by name" name="activityName">
+                      <div class="form-group mb-3">
+                        <label for="searchName">Name</label>
+                        <input type="text" class="form-control mb-2" placeholder="Search by name" name="name">
+                        <label for="searchLevel">Expertise level</label>
+                        <select class="custom-select" name="levelNumber">
+                          <option selected hidden></option>
+                          <option value="1">Beginner</option>
+                          <option value="2">Basic</option>
+                          <option value="3">Skillful</option>
+                          <option value="4">Advanced</option>
+                          <option value="5">Expert</option>
+                        </select>
+                      </div>                      
                       <div class="form-group">
                         <div class="form-check">
                           <input class="form-check-input" type="radio" name="sortBy" id="Name" value="name" data-label="Name Label" checked>
