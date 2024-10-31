@@ -21,7 +21,6 @@ const controllSkillDisplay = () => {
 console.log(skillsView);
 const controllSortedSkills = () => {
 	const array = {array: model.state.skills}
-	console.log(array);
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
 	skillsView._sortingSkills(options)
