@@ -6,7 +6,6 @@ class SkillsView extends View {
      _form = document.querySelector('form')
      _formBtn = document.querySelector('button[type="submit"]');
     _skillBarDisplay(_data) {
-        this._data = _data;
         let valNow;
         let width;
         let color
