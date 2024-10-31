@@ -23,7 +23,6 @@ const controllSortedSkills = () => {
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
 	const sorted = skillsView._sortingSkills(options)
-	console.log(skillsView);
 	help.timeout(() => {
 		skillsView._render(skillsView._skillBarDisplay(sorted))
 	});
@@ -37,7 +36,6 @@ const controllFilterSkills = () =>{
 	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const keys = options['params'];
 	const values = options['values'];
-	console.log("🚀 ~ controllFilterSkills ~ keys:", keys, values)
 	const filtered = skillsView._filterByKeys(skillsView._data, keys, values);
     skillsView._renderSpinner();
     help.timeout(() => {
