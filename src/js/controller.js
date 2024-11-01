@@ -1,6 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
+import {Papa, xml2js, saveAs} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
 import popupView from './Views/popoutView.js';
@@ -18,7 +19,6 @@ const controlSections = () => {
 const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
-console.log(skillsView);
 const controllSortedSkills = () => {
 	const array = {array: model.state.skills}
 	const options = Object.assign(array, skillsView._formData)
@@ -28,6 +28,14 @@ const controllSortedSkills = () => {
 	timeout(() => {
 		skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	});
+}
+const controllSkillsExport = async () => {
+	try {
+		const options = {array:model.original.skills,fileType:'json',fileName:'skills'};
+		await skillsExportView.export(options);
+	} catch (err) {
+		throw err;
+	}
 }
 // BUG loader is there when cicked outside not good
 const controllSortedResetSkills = () => {
@@ -52,5 +60,6 @@ const init = () => {
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
+	skillsExportView._addHandlerSubmit(controllSkillsExport)
 }
 init()

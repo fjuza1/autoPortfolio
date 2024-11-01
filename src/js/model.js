@@ -1,6 +1,6 @@
-import { writeFile } from 'fs/promises';
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES} from './config.js';
 import {toXml,toCsv,toJSON} from './helpers.js';
+import {saveAs} from './lib.js';
 import path from "path";
 export const state = {
 	_data:[],
@@ -91,18 +91,17 @@ export const original = {
 	skills: Object.freeze([...state.skills]),
     projects: Object.freeze([...state.projects])
 }
-// var obj = {root: {$: {id: "my id"}, _: "my inner text"}};
-
-// var builder = new xml2js.Builder();
-// var xml = builder.buildObject(obj);
-export const toFile = async (options) => {
-	//TODO use {blob,createObjectURL} instead in model or view
+export const toFile = (options) => {
 	try {
+		const array = options.array
 		const errors = [];
-		const fileTypes = ['xml', 'json', 'csv']
-		if (!fileTypes.includes(options.fileType)) throw new Error('Incorrect or no specified fileType')
-		if (!options.array) throw new Error('Please provide an array');
-		if (!options.fileName.trim().length === 0) errors[errors.length] = {
+		const fileTypes = ['xml', 'json', 'csv'];
+		const encoding = 'charset=utf-8'
+		let content;
+		let textType;
+		if (!fileTypes.includes(options.fileType)) throw new Error('Incorrect or no specified file type')
+		if (!array) throw new Error('Please provide an array');
+		if (options.fileName.trim().length === 0) errors[errors.length] = {
 			message: 'Please provide a fileName',
 			type: 'fileName'
 		}
@@ -110,23 +109,25 @@ export const toFile = async (options) => {
 			message: 'Please provide a fileType',
 			type: 'fileType'
 		}
-		let content;
 		switch (options.fileType) {
 			case 'xml':
-				const string = options.array.join('\n');
-				content = toXml(string,'skills')
+				content = toXml(array, 'skills')
+				type = { type: `application/xml; ${encoding}` }
 				break;
 			case 'json':
-				content = JSON.stringify(options.array)
+				content = toJSON(array)
+				type = { type: `application/json; ${encoding}` }
 				break;
 			case 'csv':
-
+				content = toCsv(array);
+				type = { type: `text/csv; ${encoding}` }
 				break;
 			default:
-				throw new Error('Unknown option.fileType');
+				throw new Error('Unknown option');
 		}
-		await writeFile(path.resolve('../../public', options.fileName), content)
-		return [errors,content];
+		const blob = new Blob([String(content)], type);
+		saveAs(blob, options.fileName);
+		return errors;
 	} catch (err) {
 		throw err;
 	}

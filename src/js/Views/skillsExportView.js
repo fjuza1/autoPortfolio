@@ -1,8 +1,7 @@
 import View from './View.js';
-import {Papa, xml2js} from '../lib.js';
-import * as model  from '../model.js';
+import { toFile }  from '../model.js';
 class SkillsExportView extends View {
-    _form = document.getElementById('export');
+    _form = document.querySelector('.exportActivities');
     constructor(){
         super();
     }
@@ -10,13 +9,17 @@ class SkillsExportView extends View {
 
     }
     // Add your export functionality here;
-    exportToFile(fileErrors){
+    async export(options){
+        options = await toFile(options)
+        const fileErrors = options
+        if(!fileErrors) return;
         this.fileErrors = fileErrors;
-        if(fileErrors && fileErrors.length > 0) this._outlineErrors(this.fileErrors)
-        // Implement your export functionality here
-        // For example, you can use the FileSaver.js library to create a file
-        // with the exported data
-        //...
+        if(fileErrors && fileErrors.some(err=>err.message.toLowerCase().includes('type'))) this._outlineErrors(fileError.find(err=>err.message.toLowerCase().includes('type')))
+        if(fileErrors && fileErrors.length > 0) this._outlineErrors(this.fileErrors);
+		/*
+		const blob = new Blob([String(options)], type);
+		FileSaver.saveAs(blob, options.fileName);
+		*/
     }
 }
 export default new SkillsExportView();

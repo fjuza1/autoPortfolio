@@ -17,6 +17,7 @@ export default class View {
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
     _outlineErrors(errors){
+        if(!errors) return
         errors.forEach(err=>{
             const type = err.type;
             const message = err.message;
