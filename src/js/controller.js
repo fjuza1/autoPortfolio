@@ -29,9 +29,11 @@ const controllSortedSkills = () => {
 		skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	});
 }
-const controllSkillsExport = async () => {
+const controllSkillsExport =  async () => {
 	try {
-		const options = {array:model.original.skills,fileType:'json',fileName:'skills'};
+		const array = {array:model.original.skills}
+		const options = {...array, ... skillsExportView._formData};
+		console.log(options);
 		await skillsExportView.export(options);
 	} catch (err) {
 		throw err;

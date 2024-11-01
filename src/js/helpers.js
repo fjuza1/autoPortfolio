@@ -11,5 +11,5 @@ export const toXml = (array, id) => {
     const xml = builder.buildObject(obj);
     return xml
 }
-export const toCsv = (object, config) =>  Papa.unparse(object, config);
+export const toCsv = (array, config) =>  Papa.unparse(array, config);
 export const toJSON = (array) => JSON.stringify(array, null, '\t')

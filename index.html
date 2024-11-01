@@ -161,13 +161,13 @@
                       <h6>Export as:</h6>
                       <div id = "fileType">
                       <label class="radio-inline">
-                        <input type="radio" name="optradio"> JSON
+                        <input type="radio" name="fileType" value="json"> JSON
                       </label>
                       <label class="radio-inline">
-                        <input type="radio" name="optradio"> XML
+                        <input type="radio" name="fileType" value="xml"> XML
                       </label>
                       <label class="radio-inline">
-                        <input type="radio" name="optradio"> CSV
+                        <input type="radio" name="fileType" value="csv"> CSV
                       </label>
                     </div>
                       <div class="content hidden">
@@ -175,14 +175,9 @@
                         <label class="input-group">
                           <input id="fileName" type="text" name="fileName" placeholder="Place exported file name">
                         </label>
-                        <div class="btn-group">
                           <button class="btn btn-primary" type="submit" download>
                             Download
                           </button>
-                          <button class="btn btn-secondary" type="button" download>
-                            Show details
-                          </button>
-                        </div>
                       </div>
                     </form>
                   </div>

@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "parcel index.html --no-cache",
+    "start": "parcel index.html",
     "build": "parcel build index.html"
   },
   "dependencies": {
@@ -14,7 +14,6 @@
   },
   "devDependencies": {
     "buffer": "^6.0.3",
-    "path-browserify": "^1.0.1",
     "stream-browserify": "^3.0.0"
   }
 }

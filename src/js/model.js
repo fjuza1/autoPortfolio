@@ -1,7 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES} from './config.js';
 import {toXml,toCsv,toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
-import path from "path";
 export const state = {
 	_data:[],
 	skills: [{
@@ -99,7 +98,6 @@ export const toFile = (options) => {
 		const encoding = 'charset=utf-8'
 		let content;
 		let textType;
-		if (!fileTypes.includes(options.fileType)) throw new Error('Incorrect or no specified file type')
 		if (!array) throw new Error('Please provide an array');
 		if (options.fileName.trim().length === 0) errors[errors.length] = {
 			message: 'Please provide a fileName',
@@ -112,21 +110,20 @@ export const toFile = (options) => {
 		switch (options.fileType) {
 			case 'xml':
 				content = toXml(array, 'skills')
-				type = { type: `application/xml; ${encoding}` }
+				textType = { type: `application/xml; ${encoding}` }
 				break;
 			case 'json':
 				content = toJSON(array)
-				type = { type: `application/json; ${encoding}` }
+				textType = { type: `application/json; ${encoding}` }
 				break;
 			case 'csv':
 				content = toCsv(array);
-				type = { type: `text/csv; ${encoding}` }
+				textType = { type: `text/csv; ${encoding}` }
 				break;
 			default:
-				throw new Error('Unknown option');
 		}
-		const blob = new Blob([String(content)], type);
-		saveAs(blob, options.fileName);
+		const blob = new Blob([String(content)], textType);
+		errors.length > 0 ? false : saveAs(blob, options.fileName);
 		return errors;
 	} catch (err) {
 		throw err;

@@ -8,18 +8,14 @@ class SkillsExportView extends View {
     _revealExportContainer(){
 
     }
-    // Add your export functionality here;
-    async export(options){
-        options = await toFile(options)
-        const fileErrors = options
+    export(options){
+        this._formData = options
+        const fileErrors = toFile(options)
         if(!fileErrors) return;
         this.fileErrors = fileErrors;
-        if(fileErrors && fileErrors.some(err=>err.message.toLowerCase().includes('type'))) this._outlineErrors(fileError.find(err=>err.message.toLowerCase().includes('type')))
+        console.log(fileErrors);
+        if(fileErrors && fileErrors.some(err=>err.message.toLowerCase().includes('type')) && fileErrors.length === 1) this._outlineErrors(fileError.find(err=>err.message.toLowerCase().includes('type')))
         if(fileErrors && fileErrors.length > 0) this._outlineErrors(this.fileErrors);
-		/*
-		const blob = new Blob([String(options)], type);
-		FileSaver.saveAs(blob, options.fileName);
-		*/
     }
 }
 export default new SkillsExportView();
