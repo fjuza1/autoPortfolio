@@ -1,8 +1,8 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
+import {timeout} from './helpers.js'
 import * as model from './model.js';
-import * as help from './helpers.js'
 import popupView from './Views/popoutView.js';
 import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
@@ -25,7 +25,7 @@ const controllSortedSkills = () => {
 	skillsView._renderSpinner();
 	skillsView._sortingSkills(options)
 	console.log(skillsView);
-	help.timeout(() => {
+	timeout(() => {
 		skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	});
 }
@@ -41,7 +41,7 @@ const controllFilterSkills = () =>{
 	const filtered = skillsView._filterByKeys(model.state.skills, keys, values);
     skillsView._renderSpinner();
 	console.log(skillsView);
-    help.timeout(() => {
+    timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))
     });
 }

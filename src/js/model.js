@@ -1,4 +1,7 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES} from './config.js'
+import { writeFile } from 'fs/promises';
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES} from './config.js';
+import {toXml,toCsv,toJSON} from './helpers.js';
+import path from "path";
 export const state = {
 	_data:[],
 	skills: [{
@@ -87,4 +90,44 @@ export const state = {
 export const original = {
 	skills: Object.freeze([...state.skills]),
     projects: Object.freeze([...state.projects])
+}
+// var obj = {root: {$: {id: "my id"}, _: "my inner text"}};
+
+// var builder = new xml2js.Builder();
+// var xml = builder.buildObject(obj);
+export const toFile = async (options) => {
+	//TODO use {blob,createObjectURL} instead in model or view
+	try {
+		const errors = [];
+		const fileTypes = ['xml', 'json', 'csv']
+		if (!fileTypes.includes(options.fileType)) throw new Error('Incorrect or no specified fileType')
+		if (!options.array) throw new Error('Please provide an array');
+		if (!options.fileName.trim().length === 0) errors[errors.length] = {
+			message: 'Please provide a fileName',
+			type: 'fileName'
+		}
+		if (!options.fileType) errors[errors.length] = {
+			message: 'Please provide a fileType',
+			type: 'fileType'
+		}
+		let content;
+		switch (options.fileType) {
+			case 'xml':
+				const string = options.array.join('\n');
+				content = toXml(string,'skills')
+				break;
+			case 'json':
+				content = JSON.stringify(options.array)
+				break;
+			case 'csv':
+
+				break;
+			default:
+				throw new Error('Unknown option.fileType');
+		}
+		await writeFile(path.resolve('../../public', options.fileName), content)
+		return [errors,content];
+	} catch (err) {
+		throw err;
+	}
 }

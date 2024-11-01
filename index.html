@@ -159,6 +159,7 @@
                   <div class="col-sm-9 bg-light p-3 border">
                     <form class="exportActivities mb-3">
                       <h6>Export as:</h6>
+                      <div id = "fileType">
                       <label class="radio-inline">
                         <input type="radio" name="optradio"> JSON
                       </label>
@@ -168,11 +169,20 @@
                       <label class="radio-inline">
                         <input type="radio" name="optradio"> CSV
                       </label>
-                      <div id="name" class="content hidden">
+                    </div>
+                      <div class="content hidden">
                         <h6>File name</h6>
                         <label class="input-group">
-                          <input type="text" name="fileName" placeholder="Place exported file name">
+                          <input id="fileName" type="text" name="fileName" placeholder="Place exported file name">
                         </label>
+                        <div class="btn-group">
+                          <button class="btn btn-primary" type="submit" download>
+                            Download
+                          </button>
+                          <button class="btn btn-secondary" type="button" download>
+                            Show details
+                          </button>
+                        </div>
                       </div>
                     </form>
                   </div>

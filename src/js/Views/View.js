@@ -16,6 +16,21 @@ export default class View {
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
+    _outlineErrors(errors){
+        errors.forEach(err=>{
+            const type = err.type;
+            const message = err.message;
+            const found = document.querySelector(`#${type}`)
+            found.style.outline = 'none';
+            found.textContent = ''
+            found.style.outline = 'color: red';
+            found.textContent = message
+        }
+        )
+    }
+    _renderErrorList(errors){
+        errors.forEach(err=>err)
+    }
     _renderSpinner(){
         const markup = `
         <div class="d-flex align-items-center">
