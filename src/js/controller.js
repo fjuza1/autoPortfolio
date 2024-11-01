@@ -33,7 +33,6 @@ const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.original.skills}
 		const options = {...array, ... skillsExportView._formData};
-		console.log(options);
 		await skillsExportView.export(options);
 	} catch (err) {
 		throw err;

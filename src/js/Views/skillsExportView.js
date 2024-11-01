@@ -13,7 +13,6 @@ class SkillsExportView extends View {
         const fileErrors = toFile(options)
         if(!fileErrors) return;
         this.fileErrors = fileErrors;
-        console.log(fileErrors);
         if(fileErrors && fileErrors.some(err=>err.message.toLowerCase().includes('type')) && fileErrors.length === 1) this._outlineErrors(fileError.find(err=>err.message.toLowerCase().includes('type')))
         if(fileErrors && fileErrors.length > 0) this._outlineErrors(this.fileErrors);
     }

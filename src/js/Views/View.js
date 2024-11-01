@@ -16,18 +16,18 @@ export default class View {
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
-    _outlineErrors(errors){
-        if(!errors) return
-        errors.forEach(err=>{
+    _outlineErrors(errors) {
+        console.log(errors);
+        errors.forEach(err => {
             const type = err.type;
             const message = err.message;
-            const found = document.querySelector(`#${type}`)
-            found.style.outline = 'none';
-            found.textContent = ''
-            found.style.outline = 'color: red';
-            found.textContent = message
-        }
-        )
+            const dataSet = document.querySelector(`div[data-formerror="${type}"]`);
+            const found = document.querySelector(`#${type}`);
+            if (found) found.style.outline = 'none';
+            if (dataSet) dataSet.textContent = '';
+            if (found) found.style.outline = '2px solid red !important';
+            if (dataSet) dataSet.textContent = message;
+        });
     }
     _renderErrorList(errors){
         errors.forEach(err=>err)
