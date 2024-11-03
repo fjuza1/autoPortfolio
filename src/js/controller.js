@@ -20,13 +20,14 @@ const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const controllSortedSkills = () => {
-	const array = {array: model.state.skills}
+	const array = {array: skillsView._data || model.state.skills}
 	const options = Object.assign(array, skillsView._formData)
+	console.log("🚀 ~ controllSortedSkills ~ array:", array)
 	skillsView._renderSpinner();
 	skillsView._sortingSkills(options)
 	console.log(skillsView);
 	timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+		skillsView._render(skillsView._skillBarDisplay(options.array))
 	});
 }
 const controllSkillsExport =  async () => {
