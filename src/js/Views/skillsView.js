@@ -1,16 +1,15 @@
 import View from './View.js';
-import * as model from '../model.js'
+import { ALLOWED_FILTER_SKILLS } from "../config.js";
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
     _sortFilter = document.getElementById('sortSkillFilter');
      _form = document.querySelector('form')
      _formBtn = document.querySelector('button[type="submit"]');
-    _skillBarDisplay(data) {
-        const html = [];
+    _skillBarDisplay(_data) {
         let valNow;
         let width;
         let color
-        data.forEach(barArea => {
+        return  _data.map(barArea => {
             switch (barArea.level) {
                 case 'Beginner':
                     valNow = 0;
@@ -38,7 +37,7 @@ class SkillsView extends View {
                     color = 'bg-success';
                     break;
             }
-            html.push(`
+            return `
 			   <div class="progress-container mb-3">
 				   <span class="skill-name">${barArea.name}</span>
 				   <div class="progress">
@@ -47,18 +46,27 @@ class SkillsView extends View {
 					   </div>
 				   </div>
 			   </div>
-		   `);
-
+		   `
         });
-        return html.join('');
     }
     _sortingSkills(options) {
+        options.array = this._data ?? options.array ?? []
         const sortFunctions = {
             expertise: (a, b) => options.order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
             name: (a, b) => options.order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
             category: (a, b) => options.order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
         };
-        return options.array.sort(sortFunctions[options.sortBy]);
+       return [...options.array].sort(sortFunctions[options.sortBy]);
+    }
+    _addFilterSkillsHandler(handler){
+        ['input','change'].forEach(ev=>this._form.addEventListener(ev, (e) =>{
+            const name = e.target.getAttribute('name')
+            if(!name) return;
+            if (ALLOWED_FILTER_SKILLS.includes(name)) {
+                this._submitEvent(e)
+                handler(this._data)
+            }
+        }))
     }
 }
 export default new SkillsView();
