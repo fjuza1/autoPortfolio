@@ -1,4 +1,4 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, ORDER_NUM} from './config.js';
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS} from './config.js';
 import {toXml, toCsv, toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
@@ -84,7 +84,51 @@ export const state = {
 		levelNumber: EXPERT_NUM[1],
 		category: CATEGORIES[3]
 	}],
-    projects:[]
+	projects: 
+	[
+		{
+		name: PROJECT_NAME[0],
+		levelNumber: PROJECT_ORDER_NUM[0],
+		description: PROJECT_DESCRIPTOR[0],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[1],
+		levelNumber: PROJECT_ORDER_NUM[1],
+		description: PROJECT_DESCRIPTOR[1],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[2],
+		levelNumber: PROJECT_ORDER_NUM[2],
+		description: PROJECT_DESCRIPTOR[2],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[3],
+		levelNumber: PROJECT_ORDER_NUM[3],
+		description: PROJECT_DESCRIPTOR[3],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[4],
+		levelNumber: PROJECT_ORDER_NUM[4],
+		description: PROJECT_DESCRIPTOR[4],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[5],
+		levelNumber: PROJECT_ORDER_NUM[5],
+		description: PROJECT_DESCRIPTOR[5],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	}
+]
 }
 export const original = {
     projects: Object.freeze([...state.projects])
