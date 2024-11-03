@@ -20,29 +20,27 @@ const controllSkillDisplay = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 }
 const controllSortedSkills = () => {
-	const array = {array: skillsView._data || model.state.skills}
+	const array = {array: model.state.skills}
 	const options = Object.assign(array, skillsView._formData)
-	console.log("🚀 ~ controllSortedSkills ~ array:", array)
 	skillsView._renderSpinner();
-	skillsView._sortingSkills(options)
-	console.log(skillsView);
+	const skills = skillsView._sortingSkills(options)
 	timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(options.array))
+		skillsView._render(skillsView._skillBarDisplay(skills))
 	});
 }
 const controllSkillsExport =  async () => {
 	try {
-		const array = {array:model.original.skills}
+		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
 		await skillsExportView.export(options);
 	} catch (err) {
 		throw err;
 	}
 }
-// BUG loader is there when cicked outside not good
 const controllSortedResetSkills = () => {
-	const originalArraySkills = model.original.skills;
-	skillsView._render(skillsView._skillBarDisplay(originalArraySkills))
+	const original = model.state.skills
+	skillsView._data =  original
+	skillsView._render(skillsView._skillBarDisplay( original))
 }
 const controllFilterSkills = () =>{
 	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
@@ -50,15 +48,14 @@ const controllFilterSkills = () =>{
 	const values = options['values'];
 	const filtered = skillsView._filterByKeys(model.state.skills, keys, values);
     skillsView._renderSpinner();
-	console.log(skillsView);
     timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))
     });
 }
 const init = () => {
-	controllSkillDisplay();
 	controllNavBar();
 	controlSections();
+	skillsView._addHandlerLoad(controllSkillDisplay)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
