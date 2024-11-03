@@ -4,7 +4,9 @@ export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const toXml = (array, id) => {
     const obj = {
         root: {
-            skill: array
+            skills:{
+                skill: array
+            }
         }
     };
     const builder = new xml2js.Builder();
