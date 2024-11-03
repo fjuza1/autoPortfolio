@@ -9,20 +9,20 @@ export default class View {
         this._parentElement.innerHTML = '';
     };
     _render(_data){
-        this._data = _data
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(this._data));
+        this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(_data));
     }
     _renderMessage(){
         this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
     }
     _outlineErrors(errors) {
-        console.log(errors);
+        let found;
+        let dataset;
         errors.forEach(err => {
             const type = err.type;
             const message = err.message;
-            const dataSet = document.querySelector(`div[data-formerror="${type}"]`);
-            const found = document.querySelector(`#${type}`);
+            dataSet = document.querySelector(`div[data-formerror="${type}"]`);
+            found = document.querySelector(`#${type}`);
             if (found) found.style.outline = 'none';
             if (dataSet) dataSet.textContent = '';
             if (found) found.style.outline = '2px solid red !important';

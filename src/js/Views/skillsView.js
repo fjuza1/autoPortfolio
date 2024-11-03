@@ -1,5 +1,5 @@
 import View from './View.js';
-import * as model from '../model.js'
+import { ALLOWED_FILTER_SKILLS } from "../config.js";
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
     _sortFilter = document.getElementById('sortSkillFilter');
@@ -59,10 +59,9 @@ class SkillsView extends View {
     }
     _addFilterSkillsHandler(handler){
         ['input','change'].forEach(ev=>this._form.addEventListener(ev, (e) =>{
-            const allowedList = ['name','levelNumber']
             const name = e.target.getAttribute('name')
             if(!name) return;
-            if (allowedList.includes(name)) {
+            if (ALLOWED_FILTER_SKILLS.includes(name)) {
                 this._submitEvent(e)
                 handler(this._data)
             }

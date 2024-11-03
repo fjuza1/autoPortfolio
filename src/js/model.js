@@ -1,4 +1,4 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES} from './config.js';
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST} from './config.js';
 import {toXml,toCsv,toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
@@ -94,7 +94,6 @@ export const toFile = (options) => {
 	try {
 		const array = options.array
 		const errors = [];
-		const fileTypes = ['xml', 'json', 'csv'];
 		const encoding = 'charset=utf-8'
 		let content;
 		let textType;
@@ -103,10 +102,10 @@ export const toFile = (options) => {
 			message: 'Please provide a fileName',
 			type: 'fileName'
 		}
-		if (!options.fileType) errors[errors.length] = {
-			message: 'Please provide a fileType',
-			type: 'fileType'
-		}
+		if (!EXPORT_WHITELIST.includes(options.fileType)) errors[errors.length] = {
+            message: `Please choose a supported fileType. Supported fileTypes are: ${EXPORT_WHITELIST.join('; ')}`,
+            type: 'fileType'
+        }
 		switch (options.fileType) {
 			case 'xml':
 				content = toXml(array, 'skills')
