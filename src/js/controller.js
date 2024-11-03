@@ -9,7 +9,6 @@ import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import slidesView from './Views/slidesView.js';
-console.log("🚀 ~ slidesView:", slidesView)
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
 	designView.addHandlerNavObserver()
