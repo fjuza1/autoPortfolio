@@ -150,15 +150,15 @@ export const toFile = (options) => {
             type: 'fileType'
         }
 		switch (options.fileType) {
-			case 'xml':
+			case EXPORT_WHITELIST[0]:
 				content = toXml(array, 'skills')
 				textType = { type: `application/xml; ${encoding}` }
 				break;
-			case 'json':
+			case EXPORT_WHITELIST[1]:
 				content = toJSON(array)
 				textType = { type: `application/json; ${encoding}` }
 				break;
-			case 'csv':
+			case EXPORT_WHITELIST[2]:
 				content = toCsv(array);
 				textType = { type: `text/csv; ${encoding}` }
 				break;
