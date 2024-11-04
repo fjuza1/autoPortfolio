@@ -1,6 +1,7 @@
 import {ANIMATIONTIME} from './config.js';
 import {xml2js, Papa} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
+export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
 export const toXml = (array, id) => {
     const obj = {
         root: {

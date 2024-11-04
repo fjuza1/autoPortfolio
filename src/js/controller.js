@@ -47,7 +47,7 @@ const controllFilterSkills = () =>{
 	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const keys = options['params'];
 	const values = options['values'];
-	const filtered = skillsView._filterByKeys(model.state.skills, keys, values);
+	const filtered = skillsView._filterActivities(model.state.skills, keys, values);
     skillsView._renderSpinner();
     timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))

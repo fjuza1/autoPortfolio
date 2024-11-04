@@ -41,12 +41,6 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', markup)
     }
-    _filterByKeys(array,keys,values){
-        values = values.map(el => el === 0 ? '' : el);
-        const found = array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
-        this._data = found;
-        return found
-    }
     _submitEvent(e){
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];

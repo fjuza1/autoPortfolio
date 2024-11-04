@@ -1,5 +1,6 @@
 import View from './View.js';
 import { ALLOWED_FILTER_SKILLS } from "../config.js";
+import { filterByKeys } from "../helpers.js";
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
     _sortFilter = document.getElementById('sortSkillFilter');
@@ -57,6 +58,12 @@ class SkillsView extends View {
             category: (a, b) => options.order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
         };
        return [...options.array].sort(sortFunctions[options.sortBy]);
+    }
+        _filterActivities (array,keys,values){
+        values = values.map(el => el === 0 ? '' : el);
+        const found = filterByKeys(array,keys,values)
+        this._data = found;
+        return found
     }
     _addFilterSkillsHandler(handler){
         ['input','change'].forEach(ev=>this._form.addEventListener(ev, (e) =>{
