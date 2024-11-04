@@ -5,6 +5,7 @@ class SlidesView {
     _nextBtn = document.querySelector('.carousel-control-next-icon');
     _slideIndicators = document.querySelector('.carousel-indicators');
 
+    _renderSlides (){}
     _removeSlideClass (){
         this._slides.forEach(slide => slide.classList.remove('active'));
     }
