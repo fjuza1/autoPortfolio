@@ -2,6 +2,7 @@ import View from './View.js';
 import { toFile }  from '../model.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
+    _parentElement = document.getElementById('exportModal')
     constructor(){
         super();
     }
