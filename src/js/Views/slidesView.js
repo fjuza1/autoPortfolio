@@ -4,7 +4,6 @@ class SlidesView {
     _prevBtn = document.querySelector('.carousel-control-prev-icon');
     _nextBtn = document.querySelector('.carousel-control-next-icon');
     _slideIndicators = document.querySelector('.carousel-indicators');
-    _currentSlide = 0;
 
     _removeSlideClass (){
         this._slides.forEach(slide => slide.classList.remove('active'));
@@ -12,8 +11,15 @@ class SlidesView {
     _removeIndicatorsClass () {
         this._slideIndicators.forEach(indicator => indicator.classList.remove('active'));
     }
+    _goto(index) {
+        this._removeSlideClass();
+        this._removeIndicatorsClass();
+        this._slides(index).classList.add('active');
+        this._slideIndicators(index).classList.add('active');
+    }
     goToSlide(slide) {
-        let initialSlide = 0;
+        let init = 0;
+        
     }
     nextSlide() {}
     prevSlide() {}
