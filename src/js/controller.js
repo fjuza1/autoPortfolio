@@ -1,7 +1,6 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
-import {Papa, xml2js, saveAs} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
 import popupView from './Views/popoutView.js';
