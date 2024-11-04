@@ -1,4 +1,4 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS} from './config.js';
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE} from './config.js';
 import {toXml, toCsv, toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
@@ -152,15 +152,15 @@ export const toFile = (options) => {
 		switch (options.fileType) {
 			case EXPORT_WHITELIST[0]:
 				content = toXml(array, 'skills')
-				textType = { type: `application/xml; ${encoding}` }
+				textType = { type: `${XML_TYPE}; ${encoding}` }
 				break;
 			case EXPORT_WHITELIST[1]:
 				content = toJSON(array)
-				textType = { type: `application/json; ${encoding}` }
+				textType = { type: `${JSON_TYPE}; ${encoding}` }
 				break;
 			case EXPORT_WHITELIST[2]:
 				content = toCsv(array);
-				textType = { type: `text/csv; ${encoding}` }
+				textType = { type: `${CSV_TYPE}; ${encoding}` }
 				break;
 			default:
 		}
