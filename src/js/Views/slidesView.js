@@ -1,11 +1,18 @@
 class SlidesView {
     _parentElement = document.querySelector('#carouselExampleDark')
-    _slides = document.querySelector('.carousel-inner')
-    _prevBtn = document.querySelector('.carousel-control-prev-icon');
-    _nextBtn = document.querySelector('.carousel-control-next-icon');
-    _slideIndicators = document.querySelector('.carousel-indicators');
+    _slides = null;
+    _prevBtn = null;
+    _nextBtn = null;
+    _slideIndicators = null;
 
-    _renderSlides (){}
+    _renderSlides (){
+        // Implement logic to render slides and slide indicators here
+        this._slides = document.querySelector('.carousel-inner')
+        this._prevBtn = document.querySelector('.carousel-control-prev-icon');
+        this._nextBtn = document.querySelector('.carousel-control-next-icon');
+        this._slideIndicators = document.querySelector('.carousel-indicators');
+        // end
+    }
     _removeSlideClass (){
         this._slides.forEach(slide => slide.classList.remove('active'));
     }
