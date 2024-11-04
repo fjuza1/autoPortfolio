@@ -22,7 +22,7 @@ export default class View {
         this._cleanup();
         const successAlert = `
         <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; top: 5px; right: 10px; outline: none; border: none; background: transparent;">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
         <span aria-hidden="true">&times;</span>
         </button>
         ${this._msg}

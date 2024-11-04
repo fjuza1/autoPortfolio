@@ -11,7 +11,7 @@ class SlidesView {
     _removeIndicatorsClass () {
         this._slideIndicators.forEach(indicator => indicator.classList.remove('active'));
     }
-    _goto(index) {
+    _goto(index = index - 1) {
         this._removeSlideClass();
         this._removeIndicatorsClass();
         this._slides(index).classList.add('active');
@@ -19,7 +19,7 @@ class SlidesView {
     }
     goToSlide(slide) {
         let init = 0;
-        
+
     }
     nextSlide() {}
     prevSlide() {}

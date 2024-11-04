@@ -34,3 +34,10 @@ section {
 #skillBtnGroup {
   margin-left: -20px;
 }
+.close{
+  position: absolute; top: 5px; 
+  right: 10px; 
+  outline: none; 
+  border: none; 
+  background: transparent;
+}
