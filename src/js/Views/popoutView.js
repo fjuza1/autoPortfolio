@@ -22,6 +22,7 @@ class PopupView {
     }
     _createModal(){}
     _deleteModal(){}
+    _addHandleModal(){}
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
