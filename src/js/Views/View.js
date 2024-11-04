@@ -1,19 +1,33 @@
 export default class View {
-    constructor (){
+    constructor() {
         this._addHandlerSubmit.bind(this);
     }
-    _generateMarkup(data){
+    _generateMarkup(data) {
         return data.join('');
     }
-    _cleanup(){
+    _cleanup() {
         this._parentElement.innerHTML = '';
-    };
-    _render(_data){
+    }
+    _render(_data) {
+        if (Array.isArray(this._data) && this._data.length === 0) return this._renderError()
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(_data));
     }
-    _renderMessage(){
-        this._render(`<div class="alert alert-info" role="alert">${this._msg}</div>`)
+    _renderError() {
+        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._msg}</div>`;
+        this._cleanup();
+        this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
+    }
+    _renderSuccessMessage() {
+        this._cleanup();
+        const successAlert = `
+        <div class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" style="position: absolute; top: 5px; right: 10px; outline: none; border: none; background: transparent;">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        ${this._msg}
+        </div>`
+        this._parentElement.insertAdjacentHTML('afterbegin', successAlert);
     }
     _outlineErrors(errors) {
         let found;
@@ -29,10 +43,10 @@ export default class View {
             if (dataSet) dataSet.textContent = message;
         });
     }
-    _renderErrorList(errors){
-        errors.forEach(err=>err)
+    _renderErrorList(errors) {
+        errors.forEach(err => err)
     }
-    _renderSpinner(){
+    _renderSpinner() {
         const markup = `
         <div class="d-flex align-items-center">
             <strong>Loading...</strong>
@@ -41,15 +55,15 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', markup)
     }
-    _submitEvent(e){
+    _submitEvent(e) {
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];
         const data = Object.fromEntries(formEntries);
         this._formData = data;
     }
-    _addHandlerLoad = (handler) => window.addEventListener('load', handler) 
+    _addHandlerLoad = (handler) => window.addEventListener('load', handler)
     _addHandlerSubmit(handler) {
-        this._form.addEventListener('submit', (e)=>{
+        this._form.addEventListener('submit', (e) => {
             this._submitEvent(e)
             handler(this._formData);
         })

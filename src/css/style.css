@@ -32,8 +32,5 @@ section {
   opacity:0;
 }
 #skillBtnGroup {
-  margin-left: -20px; /* Adjust to space properly */
+  margin-left: -20px;
 }
-/* .hidden{
-  display: none;
-} */
