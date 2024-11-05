@@ -1,4 +1,6 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE} from './config.js';
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES
+} from './config.js';
 import {toXml, toCsv, toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
@@ -130,37 +132,33 @@ export const state = {
 	}
 ]
 }
-export const original = {
-    projects: Object.freeze([...state.projects])
-}
 export const toFile = (options) => {
 	try {
 		const array = options.array
 		const errors = [];
-		const encoding = 'charset=utf-8'
 		let content;
 		let textType;
-		if (!array) throw new Error('Please provide an array');
+		if (!array) throw new Error(ERROR_ARRAY_MISSING);
 		if (options.fileName.trim().length === 0) errors[errors.length] = {
-			message: 'Please provide a fileName',
+			message: ERROR_MISSING_FILENAME,
 			type: 'fileName'
 		}
 		if (!EXPORT_WHITELIST.includes(options.fileType)) errors[errors.length] = {
-            message: `Please choose a supported fileType. Supported fileTypes are: ${EXPORT_WHITELIST.join('; ')}`,
+            message: ERROR_SUPPORTED_FILE_TYPES,
             type: 'fileType'
         }
 		switch (options.fileType) {
 			case EXPORT_WHITELIST[0]:
-				content = toXml(array, 'skills')
-				textType = { type: `${XML_TYPE}; ${encoding}` }
+				content = toXml(array)
+				textType = { type: `${XML_TYPE}; ${DEFAULT_ENCODING}` }
 				break;
 			case EXPORT_WHITELIST[1]:
 				content = toJSON(array)
-				textType = { type: `${JSON_TYPE}; ${encoding}` }
+				textType = { type: `${JSON_TYPE}; ${DEFAULT_ENCODING}` }
 				break;
 			case EXPORT_WHITELIST[2]:
 				content = toCsv(array);
-				textType = { type: `${CSV_TYPE}; ${encoding}` }
+				textType = { type: `${CSV_TYPE}; ${DEFAULT_ENCODING}` }
 				break;
 			default:
 		}

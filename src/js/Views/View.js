@@ -1,3 +1,4 @@
+import '../../css/bootstrap.min.css'
 export default class View {
     constructor() {
         this._addHandlerSubmit.bind(this);
