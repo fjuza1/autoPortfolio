@@ -1,3 +1,4 @@
+import '../../css/bootstrap.min.css'
 import View from './View.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
