@@ -55,13 +55,16 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', markup)
     }
+    //form
     _submitEvent(e) {
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];
         const data = Object.fromEntries(formEntries);
         this._formData = data;
     }
+    //end
     _addHandlerLoad = (handler) => window.addEventListener('load', handler)
+    //form
     _addHandlerSubmit(handler) {
         this._form.addEventListener('submit', (e) => {
             this._submitEvent(e)
@@ -71,4 +74,5 @@ export default class View {
     _addHandlerFormReset(handler) {
         this._form.addEventListener('reset', handler)
     }
+    //end
 }
