@@ -6,6 +6,7 @@
   "dependencies": {
     "core-js": "^3.38.1",
     "file-saver": "^2.0.5",
+    "mailersend": "^2.3.0",
     "papaparse": "^5.4.1",
     "parcel": "^2.0.0",
     "regenerator-runtime": "^0.14.1",
