@@ -3,7 +3,7 @@ const EmailParams = require("mailersend").EmailParams;
 const MailerSend = require("mailersend");
 
 const mailersend = new MailerSend({
-    apiKey: "key",
+    apiKey: `${process.env.MAILSENDER_API_KEY_PRODUCTION}`,
 });
 
 const recipients = [new Recipient("recipient@email.com", "Recipient")];
