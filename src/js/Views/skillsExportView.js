@@ -8,8 +8,9 @@ class SkillsExportView extends View {
     constructor(){
         super();
         this._form.addEventListener('change', () => {
-            this._revealExportContainer();
+            this._revealExportContainer()
         });
+        this._errorRemoveEvent();
     }
     _changeType(){
         const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
@@ -69,6 +70,13 @@ class SkillsExportView extends View {
         const fileName = fileErrors.find(err=>err.type === 'fileName')
         if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
             else if (!fileType) this._outlineError({type: fileName.type,message:fileName.message})
+    }
+    _errorRemoveEvent() {
+        ['input', 'change'].forEach(ev => {
+            this._form.addEventListener(ev, () => {
+                this._removeOutlineError();
+            });
+        });
     }
 }
 export default new SkillsExportView();
