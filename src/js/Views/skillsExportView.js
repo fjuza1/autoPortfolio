@@ -13,17 +13,18 @@ class SkillsExportView extends View {
     _revealExportContainer(){
         if(this._fileType.classList.contains('d-none')) this._fileType.classList.remove('d-none');
     }
+    _outlineError(options) {
+        const { type, message} = options
+        const dom  = document.querySelector(`div[data-formerror="${type}"]`)
+        dom.textContent = message
+        console.log("🚀 ~ SkillsExportView ~ _outlineError ~ dom:", type)
+       document.getElementById('fileType').style.outline = '2px solid red'
+    }
     export(options){
         this._formData = options
         const fileErrors = toFile(options)
         const fileType = fileErrors.find(err=>err.type === 'fileType')
-        console.log("🚀 ~ SkillsExportView ~ export ~ fileType:", fileType)
-        let typeElement
-        typeElement = fileType.type
-        console.log(typeElement);
-        if(!fileType) return;
-        this._outlineErrors(fileErrors,typeElement)
-        console.log(fileErrors);
+        if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
     }
 }
 export default new SkillsExportView();

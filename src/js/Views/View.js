@@ -32,9 +32,6 @@ export default class View {
     }
     //end
     //error handling
-    _outlineErrors(errors,el) {
-        const dom  = document.querySelector(`div[data-formerror="${el}"]`)
-    }
     _renderErrorList(errors) {
         errors.forEach(err => err)
     }
