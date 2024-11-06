@@ -5,6 +5,7 @@ import {toXml, toCsv, toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	_data:[],
+	_exportState: '',
 	skills: [{
 		name: 'Postman',
 		level: EXPERT_LEVEL[3],

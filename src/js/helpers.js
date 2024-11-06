@@ -32,3 +32,10 @@ export const sendMail = (options) => {
     
     mailersend.send(emailParams);
 }
+export const watchGenerationStream = (callback) => {
+    /*
+        example
+            const stream = fs.createReadStream('path/to/your/file.csv');
+            stream.pipe(csvParser()).on('data', (row) => callback(row)).on('end', () => console.log('CSV file successfully processed'))
+    */
+}
