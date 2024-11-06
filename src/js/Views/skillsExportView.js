@@ -68,7 +68,9 @@ class SkillsExportView extends View {
         const fileName = fileErrors.find(err=>err.type === 'fileName');
         if(!fileName) return;
         if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
-            else this._outlineError({type: fileName.type,me020ssage:fileName.message})
+            else this._outlineError({type: fileName.type,message:fileName.message})
+
+        // TODO create modal if success show blob details else show error
     }
     _errorRemoveEvent() {
         ['input', 'change','submit'].forEach(ev => {
