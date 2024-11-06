@@ -13,6 +13,7 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(_data));
     }
+    //rendering msessage 
     _renderError() {
         const messageMarkup = `<div class="alert alert-danger" role="alert">${this._msg}</div>`;
         this._cleanup();
@@ -29,6 +30,8 @@ export default class View {
         </div>`
         this._parentElement.insertAdjacentHTML('afterbegin', successAlert);
     }
+    //end
+    //error handling
     _outlineErrors(errors) {
         let found;
         let dataset;
@@ -46,6 +49,8 @@ export default class View {
     _renderErrorList(errors) {
         errors.forEach(err => err)
     }
+    //end
+    //spinner
     _renderSpinner() {
         const markup = `
         <div class="d-flex align-items-center">
@@ -55,6 +60,7 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', markup)
     }
+    //end
     //form
     _submitEvent(e) {
         e.preventDefault();
