@@ -60,15 +60,15 @@ class SkillsExportView extends View {
         const { type, message } = options;
         this._setOutline(type, message);
     }
-    export(options){
+    async export(options){
         this._removeOutlineError();
         this._formData = options
-        const fileErrors = toFile(options)
+        const fileErrors = await toFile(options)
         const fileType = fileErrors.find(err=>err.type === 'fileType');
         const fileName = fileErrors.find(err=>err.type === 'fileName');
         if(!fileName) return;
         if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
-            else this._outlineError({type: fileName.type,message:fileName.message})
+            else this._outlineError({type: fileName.type,me020ssage:fileName.message})
     }
     _errorRemoveEvent() {
         ['input', 'change','submit'].forEach(ev => {

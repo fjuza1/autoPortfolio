@@ -1,8 +1,8 @@
-import {ANIMATIONTIME, SENDTO} from './config.js';
+import {ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, Recipient, EmailParams, MailerSend} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
-export const toXml = (array, id) => {
+export const toXml = (array) => {
     const obj = {
         root: {
             skills:{
@@ -32,10 +32,10 @@ export const sendMail = (options) => {
     
     mailersend.send(emailParams);
 }
-export const watchGenerationStream = (callback) => {
-    /*
-        example
-            const stream = fs.createReadStream('path/to/your/file.csv');
-            stream.pipe(csvParser()).on('data', (row) => callback(row)).on('end', () => console.log('CSV file successfully processed'))
-    */
+export const watchGeneration = async (blob) => {
+    try {
+        return new TextDecoder().decode(await blob.arrayBuffer())
+    } catch (err) {
+        return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
+    }
 }

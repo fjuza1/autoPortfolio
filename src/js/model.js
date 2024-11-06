@@ -1,7 +1,7 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
-	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE
 } from './config.js';
-import {toXml, toCsv, toJSON} from './helpers.js';
+import {toXml, toCsv, toJSON, watchGeneration} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	_data:[],
@@ -133,7 +133,7 @@ export const state = {
 	}
 ]
 }
-export const toFile = (options) => {
+export const toFile = async (options) => {
 	try {
 		const array = options.array
 		const errors = [];
@@ -164,6 +164,10 @@ export const toFile = (options) => {
 			default:
 		}
 		const blob = new Blob([String(content)], textType);
+		if(errors.length === 0) {
+			const generatedMessage = await watchGeneration(blob);
+			if( generatedMessage.includes(UNGENERATED_FILE_MESSAGE)) errors[errors.length] = {message: generatedMessage,type:'generation error'};
+		}
 		errors.length > 0 ? false : saveAs(blob, options.fileName);
 		return errors;
 	} catch (err) {
