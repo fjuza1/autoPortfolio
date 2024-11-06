@@ -223,31 +223,43 @@
                 </div>
         </section>
         <section class="section section--hidden" id="Contact">
-            <div class="container my-5 p-4 border rounded shadow-sm">
-                <h3 class="fw-bold text-primary mb-4">Contact Us</h3>
-                <form>
-                    <div class="form-group mb-3">
-                        <label for="name" class="form-label fw-semibold">Name/Company Name</label>
-                        <input type="text" class="form-control" id="name" name="name" placeholder="Your name or company name" required>
+            <div class="container my-5 p-4">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 col-lg-6">
+                        <div class="card shadow-sm border-0">
+                            <div class="card-header bg-info text-white text-center">
+                                <h3 class="card-title mb-0"><i class="fa fa-envelope"></i> Contact Us</h3>
+                                <p class="m-0">filipjuzaqa@gmail.com</p>
+                            </div>
+                            <div class="card-body">
+                                <form id="contactForm">
+                                    <div class="form-group mb-3">
+                                        <label for="name" class="form-label fw-semibold">Name/Company Name</label>
+                                        <input type="text" class="form-control required" id="name" name="name" placeholder="Your name or company name">
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="email" class="form-label fw-semibold">Email Address</label>
+                                        <input type="email" class="form-control required" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter your email">
+                                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                                    </div>
+                                    <div class="form-group mb-3">
+                                        <label for="subject" class="form-label fw-semibold">Subject</label>
+                                        <input type="text" class="form-control required" id="subject" name="subject" placeholder="Subject">
+                                    </div>
+                                    <div class="form-group mb-4">
+                                        <label for="message" class="form-label fw-semibold">Message</label>
+                                        <textarea class="form-control required" id="message" name="message" rows="5" placeholder="Type your message here"></textarea>
+                                    </div>
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary px-4">Send</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group mb-3">
-                        <label for="email" class="form-label fw-semibold">Email Address</label>
-                        <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter your email" required>
-                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-                    </div>
-                    <div class="form-group mb-3">
-                        <label for="subject" class="form-label fw-semibold">Subject</label>
-                        <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-                    </div>
-                    <div class="form-group mb-4">
-                        <label for="message" class="form-label fw-semibold">Message</label>
-                        <textarea class="form-control" id="message" name="message" rows="5" placeholder="Type your message here" required></textarea>
-                    </div>
-                    <div class="d-flex justify-content-end">
-                        <button type="submit" class="btn btn-primary px-4">Send</button>
-                    </div>
-                </form>
+                </div>
             </div>
+            
         </section>
     </main>
     <div class="container">
