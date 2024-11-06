@@ -141,11 +141,13 @@
                               </div>
                               <div data-formError="fileType"></div>
                               <div class="content d-none">
+                              <div id="fileName">
                                  <h6>File name</h6>
                                  <label class="input-group">
-                                 <input id="fileName" type="text" name="fileName" placeholder="Place exported file name"> </label>
-                                 <div data-formError="fileName"></div>
-								</div>
+                                 <input type="text" name="fileName" placeholder="Place exported file name"> </label>
+                              </div>
+                              <div data-formError="fileName"></div>
+                              </div>
                                  <button class="btn btn-primary" type="submit" download> Download </button>
                                  <!-- modal and such -->
                                  <div id="exportModal" class="modal fade bg-light" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
