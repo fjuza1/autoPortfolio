@@ -7,9 +7,7 @@ class SkillsExportView extends View {
     _fileName = document.querySelector('input[name="fileName"]')
     constructor(){
         super();
-        this._form.addEventListener('change', () => {
-            this._revealExportContainer()
-        });
+        this._revealNameEvent();
         this._errorRemoveEvent();
     }
     _changeType(){
@@ -66,16 +64,22 @@ class SkillsExportView extends View {
         this._removeOutlineError();
         this._formData = options
         const fileErrors = toFile(options)
-        const fileType = fileErrors.find(err=>err.type === 'fileType')
-        const fileName = fileErrors.find(err=>err.type === 'fileName')
+        const fileType = fileErrors.find(err=>err.type === 'fileType');
+        const fileName = fileErrors.find(err=>err.type === 'fileName');
+        if(!fileName) return;
         if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
-            else if (!fileType) this._outlineError({type: fileName.type,message:fileName.message})
+            else this._outlineError({type: fileName.type,message:fileName.message})
     }
     _errorRemoveEvent() {
-        ['input', 'change'].forEach(ev => {
+        ['input', 'change','submit'].forEach(ev => {
             this._form.addEventListener(ev, () => {
                 this._removeOutlineError();
             });
+        });
+    }
+    _revealNameEvent (){
+        this._form.addEventListener('change', () => {
+            this._revealExportContainer()
         });
     }
 }
