@@ -20,6 +20,9 @@ class PopupView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
+    _createModal(){}
+    _deleteModal(){}
+    _addHandleModal(){}
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }

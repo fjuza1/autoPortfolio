@@ -1,5 +1,7 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST} from './config.js';
-import {toXml,toCsv,toJSON} from './helpers.js';
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES
+} from './config.js';
+import {toXml, toCsv, toJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	_data:[],
@@ -84,39 +86,79 @@ export const state = {
 		levelNumber: EXPERT_NUM[1],
 		category: CATEGORIES[3]
 	}],
-    projects:[]
-}
-export const original = {
-    projects: Object.freeze([...state.projects])
+	projects: 
+	[
+		{
+		name: PROJECT_NAME[0],
+		levelNumber: PROJECT_ORDER_NUM[0],
+		description: PROJECT_DESCRIPTOR[0],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[1],
+		levelNumber: PROJECT_ORDER_NUM[1],
+		description: PROJECT_DESCRIPTOR[1],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[2],
+		levelNumber: PROJECT_ORDER_NUM[2],
+		description: PROJECT_DESCRIPTOR[2],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[3],
+		levelNumber: PROJECT_ORDER_NUM[3],
+		description: PROJECT_DESCRIPTOR[3],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[4],
+		levelNumber: PROJECT_ORDER_NUM[4],
+		description: PROJECT_DESCRIPTOR[4],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[5],
+		levelNumber: PROJECT_ORDER_NUM[5],
+		description: PROJECT_DESCRIPTOR[5],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	}
+]
 }
 export const toFile = (options) => {
 	try {
 		const array = options.array
 		const errors = [];
-		const encoding = 'charset=utf-8'
 		let content;
 		let textType;
-		if (!array) throw new Error('Please provide an array');
+		if (!array) throw new Error(ERROR_ARRAY_MISSING);
 		if (options.fileName.trim().length === 0) errors[errors.length] = {
-			message: 'Please provide a fileName',
+			message: ERROR_MISSING_FILENAME,
 			type: 'fileName'
 		}
 		if (!EXPORT_WHITELIST.includes(options.fileType)) errors[errors.length] = {
-            message: `Please choose a supported fileType. Supported fileTypes are: ${EXPORT_WHITELIST.join('; ')}`,
+            message: ERROR_SUPPORTED_FILE_TYPES,
             type: 'fileType'
         }
 		switch (options.fileType) {
-			case 'xml':
-				content = toXml(array, 'skills')
-				textType = { type: `application/xml; ${encoding}` }
+			case EXPORT_WHITELIST[0]:
+				content = toXml(array)
+				textType = { type: `${XML_TYPE}; ${DEFAULT_ENCODING}` }
 				break;
-			case 'json':
+			case EXPORT_WHITELIST[1]:
 				content = toJSON(array)
-				textType = { type: `application/json; ${encoding}` }
+				textType = { type: `${JSON_TYPE}; ${DEFAULT_ENCODING}` }
 				break;
-			case 'csv':
+			case EXPORT_WHITELIST[2]:
 				content = toCsv(array);
-				textType = { type: `text/csv; ${encoding}` }
+				textType = { type: `${CSV_TYPE}; ${DEFAULT_ENCODING}` }
 				break;
 			default:
 		}

@@ -6,7 +6,6 @@
     <title>QA Automation Portfolio - Filip Juza</title>
     <link rel="stylesheet" href="./src/css/style.css">
     <script src="/src/js/controller.js" type="module" charset="utf-8"></script>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
     <meta name="description" content="Portfolio of Filip Juza - QA Automation Engineer, showcasing skills, projects, and contact information.">
   </head>
   <body>
@@ -43,7 +42,7 @@
       <section id="Home" style="min-height: 100vh; display: flex; align-items: center;">
         <div class="container">
           <div class="d-flex flex-column align-items-center justify-content-center text-center w-100">
-            <img class="masthead-avatar mb-5" src="./public/pics/cropped.jpg" alt="Avatar">
+            <img class="masthead-avatar mb-5 img-fluid" src="./public/pics/cropped.jpg" alt="Avatar">
             <h1 class="masthead-heading mb-0">Quality Assurance</h1>
             <div class="divider-custom divider-light">
               <div class="divider-custom-line"></div>
@@ -57,56 +56,74 @@
             <p class="masthead-subheading font-weight-light mb-0">QA Engineer - Manual Tester - JavaScript</p>
           </div>
         </div>
-      </section> 
+      </section>
       <section id="About" class="section section--hidden">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 col-md-10">
-                    <div class="text-center my-5">
-                        <h2 class="display-5 fw-bolder"><span class="text-gradient d-inline">About Me</span></h2>
-                        <p class="lead fw-light mb-4">My name is Filip Jůza, and I specialize in QA</p>
-                        <p class="text-muted">I am a dedicated QA Tester with a strong background in both manual testing and experience in automated testing, committed to delivering high-quality software quality assurance solutions. I specialize in designing and executing test cases across various testing phases, including integration testing, system testing, and user acceptance testing (UAT). My expertise includes manual testing for web applications, thick clients, and API testing with tools such as Postman and SoapUI. Furthermore, I bring hands-on experience in automating backend API testing and frontend testing using Cypress.</p>
-                        <div class="d-flex justify-content-center fs-2 gap-4">
-                            <a class="text-gradient" href="#!"><i class="bi bi-twitter"></i></a>
-                            <a class="text-gradient" href="#!"><i class="bi bi-linkedin"></i></a>
-                            <a class="text-gradient" href="#!"><i class="bi bi-github"></i></a>
-                        </div>
-                    </div>
+          <div class="row justify-content-center">
+            <div class="col-lg-8 col-md-10">
+              <div class="text-center my-5">
+                <h2 class="display-5 fw-bolder">
+                  <span class="text-gradient d-inline">About Me</span>
+                </h2>
+                <p class="lead fw-light mb-4">My name is Filip Jůza, and I specialize in QA</p>
+                <p class="text-muted">I am a dedicated QA Tester with a strong background in both manual testing and experience in automated testing, committed to delivering high-quality software quality assurance solutions. I specialize in designing and executing test cases across various testing phases, including integration testing, system testing, and user acceptance testing (UAT). My expertise includes manual testing for web applications, thick clients, and API testing with tools such as Postman and SoapUI. Furthermore, I bring hands-on experience in automating backend API testing and frontend testing using Cypress.</p>
+                <div class="d-flex justify-content-center fs-2 gap-4">
+                  <a class="text-gradient" href="#!">
+                    <i class="bi bi-twitter"></i>
+                  </a>
+                  <a class="text-gradient" href="#!">
+                    <i class="bi bi-linkedin"></i>
+                  </a>
+                  <a class="text-gradient" href="#!">
+                    <i class="bi bi-github"></i>
+                  </a>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    </section>
-    
+      </section>
       <section class="section section--hidden" id="Skills">
         <div class="container">
           <div class="row">
             <div class="col-12">
               <div class="btn-group" id="skillBtnGroup" role="group" aria-label="Filtering Buttons">
-                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Filter & Sort" data-btn="filter&sort"> 
+                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Filter & Sort" data-btn="filter&sort">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
-                    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5"/>
+                    <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
                   </svg>
                 </button>
-                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Export" data-btn="export"> 
+                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Export" data-btn="export">
                   <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-save" viewBox="0 0 16 16">
-                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z"/>
+                    <path d="M2 1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H9.5a1 1 0 0 0-1 1v7.293l2.646-2.647a.5.5 0 0 1 .708.708l-3.5 3.5a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L7.5 9.293V2a2 2 0 0 1 2-2H14a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h2.5a.5.5 0 0 1 0 1z" />
                   </svg>
                 </button>
               </div>
               <!-- dataset -->
               <div class="container">
                 <!-- Adjust the width of the multi-collapse container -->
-                <div class="multi-collapse collapse w-50" id="filter&sort"> <!-- Adjust width and center align -->            
+                <div class="multi-collapse collapse" id="filter&sort">
+                  <!-- Adjust width and center align -->
                   <!-- First Group: Filter by Name or Level -->
-                  <div class="bg-light p-3 border">
-                    <form class="filterActivities mb-3">
-                      <h4>Filter data</h4>
-                      <div class="form-group mb-3" id="filterActivities">
-                        <label for="searchName">Name</label>
-                        <input type="text" class="form-control mb-2" placeholder="Search by name" name="name">
-                        <label for="searchLevel">Expertise level</label>
-                        <select class="custom-select" name="levelNumber">
-                          <option selected hidden></option>
+                  <div class="bg-light p-4 border rounded shadow-sm">
+                    <form class="filterActivities mb-4">
+                      <h4 class="fw-bold text-primary">Filter Data</h4>
+                      <div class="form-group mb-4" id="filterActivities">
+                        <div class="input-group">
+                          <label for="searchName" class="form-label text-muted">Name</label>
+                          <div class="input-group">
+                              <input type="text" class="form-control" placeholder="Search by name" name="name" id="searchName">
+                              <span class="input-group-text bg-white border-left-0">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
+                                      <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
+                                      <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
+                                  </svg>
+                              </span>
+                          </div>
+                      </div>
+                        <label for="searchLevel" class="form-label text-muted">Expertise Level</label>
+                        <select class="form-select mb-3" name="levelNumber">
+                          <option selected hidden>Select level</option>
                           <option value="1">Beginner</option>
                           <option value="2">Basic</option>
                           <option value="3">Skillful</option>
@@ -114,87 +131,99 @@
                           <option value="5">Expert</option>
                         </select>
                       </div>
-                      <hr class="my-3 dark opacity-100">
-                      <h4>Sort data</h4>                  
-                      <div class="form-group">
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="sortBy" id="Name" value="name" data-label="Name Label" checked>
-                          <label class="form-check-label" for="Name">
-                            Name
-                          </label>
+                      <hr class="my-4">
+                      <h4 class="fw-bold text-primary">Sort Data</h4>
+                      <div class="form-group mb-4">
+                        <p class="fw-semibold">Sort by:</p>
+                        <div class="form-check mb-2">
+                          <input class="form-check-input" type="radio" name="sortBy" id="Name" value="name" checked>
+                          <label class="form-check-label" for="Name">Name</label>
                         </div>
-                        <div class="form-check">
-                          <input class="form-check-input" type="radio" name="sortBy" id="Level" value="expertise" data-label="Level Label">
-                          <label class="form-check-label" for="Level">
-                            Level
-                          </label>
+                        <div class="form-check mb-3">
+                          <input class="form-check-input" type="radio" name="sortBy" id="Level" value="expertise">
+                          <label class="form-check-label" for="Level">Level</label>
                         </div>
-                        
-                        <hr class="my-3">
-              
-                        <div class="form-check">
+                        <p class="fw-semibold">Order:</p>
+                        <div class="form-check mb-2">
                           <input class="form-check-input" type="radio" name="order" id="Ascending" value="asc" checked>
-                          <label class="form-check-label" for="Ascending">
-                            Ascending
-                          </label>
+                          <label class="form-check-label" for="Ascending">Ascending</label>
                         </div>
-                        <div class="form-check">
+                        <div class="form-check mb-4">
                           <input class="form-check-input" type="radio" name="order" id="Descending" value="desc">
-                          <label class="form-check-label" for="Descending">
-                            Descending
-                          </label>
+                          <label class="form-check-label" for="Descending">Descending</label>
                         </div>
-                        <br>
-                        <button class="btn btn-secondary" type="reset">
-                          Reset
-                        </button>
-                        <button class="btn btn-primary" type="submit">
-                          Apply
-                        </button>
+                        <div class="d-flex justify-content-end">
+                          <button class="btn btn-outline-secondary me-2" type="reset">Reset</button>
+                          <button class="btn btn-primary" type="submit">Apply</button>
+                        </div>
                       </div>
                     </form>
                   </div>
                 </div>
-              
                 <!-- Other multi-collapse content -->
                 <div class="multi-collapse collapse" id="export">
                   <!-- Example content in another multi-collapse section -->
-                  <div class="col-sm-9 bg-light p-3 border">
-                    <form class="exportActivities mb-3">
-                      <h6>Export as:</h6>
-                      <div id = "fileType">
-                      <label class="radio-inline">
-                        <input type="radio" name="fileType" value="json"> JSON
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="fileType" value="xml"> XML
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="fileType" value="csv"> CSV
-                      </label>
-                      <div data-formError="fileType"></div>
-                    </div>
-                      <div class="content hidden">
-                        <h6>File name</h6>
-                        <label class="input-group">
-                          <input id="fileName" type="text" name="fileName" placeholder="Place exported file name">
-                        </label>
-                        <div data-formError="fileName"></div>
-                          <button class="btn btn-primary" type="submit" download>
-                            Download
-                          </button>
+                  <div class="col-sm-9 bg-light p-4 border rounded shadow-sm">
+                    <form class="exportActivities mb-4">
+                      <h5 class="fw-bold text-primary mb-3">Export Options</h5>
+                      <h6 class="fw-semibold text-muted">Export as:</h6>
+                      <div id="fileType" class="mb-4">
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input type="radio" name="fileType" value="json"> JSON </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input type="radio" name="fileType" value="xml"> XML </label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                          <label class="form-check-label">
+                            <input type="radio" name="fileType" value="csv"> CSV </label>
+                        </div>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                          <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                        </svg>
+                      </div>
+                      <div data-formError="fileType" class="text-danger mt-2"></div>
+                      <div class="content d-none mb-4">
+                        <div id="fileName" class="form-group mb-3">
+                          <div class="d-flex align-items-center">
+                              <h6 class="me-1 mb-0">File name</h6>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                  <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                              </svg>
+                          </div>
+                          <label class="input-group">
+                            <div class="input-group">
+                              <input type="text" name="fileName" class="form-control" placeholder="Place exported file name">
+                              <span class="input-group-text" id="tp"></span>
+                          </div>
+                          
+                          </label>
+                      </div>                      
+                        <div data-formError="fileName" class="text-danger mt-2"></div>
+                      </div>
+                      <div class="d-flex justify-content-end mt-3">
+                        <button class="btn btn-primary" type="submit" download>
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
+                            <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
+                            <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"></path>
+                          </svg> Export </button>
+                      </div>
+                      <!-- modal and such -->
+                      <div id="exportModal" class="modal fade bg-light" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
+                        <!-- TODO here gets inserted afterbegin -->
                       </div>
                     </form>
                   </div>
                 </div>
               </div>
-              
+            </div>
+            <h3>Skills</h3>
+            <br>
+            <div id="skillsContainer"></div>
           </div>
-          <h3>Skills</h3>
-          <div id="skillsContainer"></div>
-        </div>
       </section>
-      
       <section class="section section--hidden" id="Projects">
         <div class="container">
           <h3>Projects</h3>
@@ -238,32 +267,88 @@
           </div>
       </section>
       <section class="section section--hidden" id="Contact">
-        <div class="container">
-          <h3>Contact</h3>
-          <form>
-            <div class="form-group">
-              <label for="name">Name/Company name</label>
-              <input type="text" class="form-control" id="name" name="activityName" placeholder="Your name/Company name" required>
+        <div class="container my-5 p-4">
+          <div class="row justify-content-center">
+            <div class="col-md-8 col-lg-6">
+              <div class="card shadow-sm border-0">
+                <div class="card-header bg-info text-white text-center">
+                  <h3 class="card-title mb-0">
+                    <i class="fa fa-envelope"></i> Contact Us
+                  </h3>
+                  <p class="m-0">filipjuzaqa@gmail.com</p>
+                </div>
+                <div class="card-body">
+                  <form id="contactForm">
+                    <div class="form-group mb-3">
+                      <label for="name" class="form-label fw-semibold">Name/Company Name</label>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                        <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                      </svg>
+                      <div class="input-group">
+                        <input type="text" class="form-control required" id="name" name="name" placeholder="Your name or company name">
+                        <span class="input-group-text" id="basic-addon1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
+                            <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="email" class="form-label fw-semibold">Email Address</label>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                        <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                      </svg>
+                      <div class="input-group">
+                        <input type="email" class="form-control required" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter your email">
+                        <span class="input-group-text" id="basic-addon1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-envelope-at" viewBox="0 0 16 16">
+                            <path d="M2 2a2 2 0 0 0-2 2v8.01A2 2 0 0 0 2 14h5.5a.5.5 0 0 0 0-1H2a1 1 0 0 1-.966-.741l5.64-3.471L8 9.583l7-4.2V8.5a.5.5 0 0 0 1 0V4a2 2 0 0 0-2-2zm3.708 6.208L1 11.105V5.383zM1 4.217V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v.217l-7 4.2z"></path>
+                            <path d="M14.247 14.269c1.01 0 1.587-.857 1.587-2.025v-.21C15.834 10.43 14.64 9 12.52 9h-.035C10.42 9 9 10.36 9 12.432v.214C9 14.82 10.438 16 12.358 16h.044c.594 0 1.018-.074 1.237-.175v-.73c-.245.11-.673.18-1.18.18h-.044c-1.334 0-2.571-.788-2.571-2.655v-.157c0-1.657 1.058-2.724 2.64-2.724h.04c1.535 0 2.484 1.05 2.484 2.326v.118c0 .975-.324 1.39-.639 1.39-.232 0-.41-.148-.41-.42v-2.19h-.906v.569h-.03c-.084-.298-.368-.63-.954-.63-.778 0-1.259.555-1.259 1.4v.528c0 .892.49 1.434 1.26 1.434.471 0 .896-.227 1.014-.643h.043c.118.42.617.648 1.12.648m-2.453-1.588v-.227c0-.546.227-.791.573-.791.297 0 .572.192.572.708v.367c0 .573-.253.744-.564.744-.354 0-.581-.215-.581-.8Z"></path>
+                          </svg>
+                        </span>
+                      </div>
+                      <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+                    </div>
+                    <div class="form-group mb-3">
+                      <label for="subject" class="form-label fw-semibold">Subject</label>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                        <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                      </svg>
+                      <div class="input-group">
+                        <input type="text" class="form-control required" id="subject" name="subject" placeholder="Subject">
+                        <span class="input-group-text" id="basic-addon1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
+                            <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
+                            <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="form-group mb-4">
+                      <label for="message" class="form-label fw-semibold">Message</label>
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                        <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                      </svg>
+                      <div class="input-group">
+                        <textarea class="form-control required" id="exampleFormControlTextarea1" rows="3" placeholder="Enter email message here"></textarea>
+                        <span class="input-group-text" id="basic-addon1">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-textarea-t" viewBox="0 0 16 16">
+                            <path d="M1.5 2.5A1.5 1.5 0 0 1 3 1h10a1.5 1.5 0 0 1 1.5 1.5v3.563a2 2 0 0 1 0 3.874V13.5A1.5 1.5 0 0 1 13 15H3a1.5 1.5 0 0 1-1.5-1.5V9.937a2 2 0 0 1 0-3.874zm1 3.563a2 2 0 0 1 0 3.874V13.5a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V9.937a2 2 0 0 1 0-3.874V2.5A.5.5 0 0 0 13 2H3a.5.5 0 0 0-.5.5zM2 7a1 1 0 1 0 0 2 1 1 0 0 0 0-2m12 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2"></path>
+                            <path d="M11.434 4H4.566L4.5 5.994h.386c.21-1.252.612-1.446 2.173-1.495l.343-.011v6.343c0 .537-.116.665-1.049.748V12h3.294v-.421c-.938-.083-1.054-.21-1.054-.748V4.488l.348.01c1.56.05 1.963.244 2.173 1.496h.386z"></path>
+                          </svg>
+                        </span>
+                      </div>
+                    </div>
+                    <div class="d-flex justify-content-end">
+                      <button type="submit" class="btn btn-primary px-4">Send</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
             </div>
-            
-            <div class="form-group">
-              <label for="email">Email address</label>
-              <input type="email" class="form-control" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter your email" required>
-              <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
-            </div>
-          
-            <div class="form-group">
-              <label for="subject">Subject</label>
-              <input type="text" class="form-control" id="subject" name="subject" placeholder="Subject" required>
-            </div>
-          
-            <div class="form-group">
-              <label for="message">Message</label>
-              <textarea class="form-control" id="message" name="message" rows="4" placeholder="Type your message here/public/pics/white_background.jpeg" required></textarea>
-            </div>
-          
-            <button type="submit" class="btn btn-primary">Send</button>
-          </form>
+          </div>
+        </div>
       </section>
     </main>
     <div class="container">
