@@ -34,7 +34,7 @@
         <section id="Home" style="min-height: 100vh; display: flex; align-items: center;">
             <div class="container">
                 <div class="d-flex flex-column align-items-center justify-content-center text-center w-100">
-                    <img class="masthead-avatar mb-5" src="./public/pics/cropped.jpg" alt="Avatar">
+                    <img class="masthead-avatar mb-5 img-fluid" src="./public/pics/cropped.jpg" alt="Avatar">
                     <h1 class="masthead-heading mb-0">Quality Assurance</h1>
                     <div class="divider-custom divider-light">
                         <div class="divider-custom-line"></div>
@@ -235,25 +235,58 @@
                                 <form id="contactForm">
                                     <div class="form-group mb-3">
                                         <label for="name" class="form-label fw-semibold">Name/Company Name</label>
-                                        <input type="text" class="form-control required" id="name" name="name" placeholder="Your name or company name">
-                                    </div>
+                                        <div class="input-group">
+                                            <input type="text" class="form-control required" id="name" name="name" placeholder="Your name or company name">
+                                            <span class="input-group-text bg-white border-left-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                                    <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"/>
+                                                </svg>
+                                            </span>
+                                        </div>
+                                    </div>                                  
+                                
                                     <div class="form-group mb-3">
                                         <label for="email" class="form-label fw-semibold">Email Address</label>
-                                        <input type="email" class="form-control required" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter your email">
+                                        <div class="input-group">
+                                            <input type="email" class="form-control required" id="email" name="email" aria-describedby="emailHelp" placeholder="Enter your email">
+                                            <span class="input-group-text bg-white border-left-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                                    <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"/>
+                                                </svg>
+                                            </span>
+                                        </div>
                                         <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
                                     </div>
+                                
                                     <div class="form-group mb-3">
                                         <label for="subject" class="form-label fw-semibold">Subject</label>
-                                        <input type="text" class="form-control required" id="subject" name="subject" placeholder="Subject">
+                                        <div class="input-group">
+                                            <input type="text" class="form-control required" id="subject" name="subject" placeholder="Subject">
+                                            <span class="input-group-text bg-white border-left-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                                    <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"/>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </div>
+                                
                                     <div class="form-group mb-4">
                                         <label for="message" class="form-label fw-semibold">Message</label>
-                                        <textarea class="form-control required" id="message" name="message" rows="5" placeholder="Type your message here"></textarea>
+                                        <div class="input-group">
+                                            <textarea class="form-control required" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                            <span class="input-group-text bg-white border-left-0">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                                                    <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"/>
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </div>
+                                
                                     <div class="d-flex justify-content-end">
                                         <button type="submit" class="btn btn-primary px-4">Send</button>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
                     </div>
