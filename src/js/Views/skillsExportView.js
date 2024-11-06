@@ -4,14 +4,20 @@ class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
     _parentElement = document.getElementById('exportModal')
     _fileType = document.querySelector('.content.d-none');
+    _fileName = document.querySelector('input[name="fileName"]')
     constructor(){
         super();
         this._form.addEventListener('change', () => {
             this._revealExportContainer();
         });
     }
+    _changeType(){
+        const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
+        document.getElementById('tp').innerText = `.${selectedVariable}`
+    }
     _revealExportContainer(){
         if(this._fileType.classList.contains('d-none')) this._fileType.classList.remove('d-none');
+        this._changeType()
     }
     _clearOutline(elementId) {
         const element = document.getElementById(elementId);
