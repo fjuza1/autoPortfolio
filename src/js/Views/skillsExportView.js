@@ -13,25 +13,47 @@ class SkillsExportView extends View {
     _revealExportContainer(){
         if(this._fileType.classList.contains('d-none')) this._fileType.classList.remove('d-none');
     }
+    _clearOutline(elementId) {
+        const element = document.getElementById(elementId);
+        if (element) {
+            if (elementId === 'fileType') {
+                // Clear outline on #fileType div
+                element.style.outline = '';
+            } else {
+                // Clear outline on input field within element
+                const inputField = element.querySelector('input');
+                if (inputField) inputField.style.outline = '';
+            }
+        }
+    }
+    _setOutline(elementId, message) {
+        const formErrorElement = document.querySelector(`div[data-formerror="${elementId}"]`);
+        if (formErrorElement) {
+            formErrorElement.textContent = message;
+        }
+    
+        const element = document.getElementById(elementId);
+        if (element) {
+            if (elementId === 'fileType') {
+                // Apply outline to entire #fileType div
+                element.style.outline = '2px solid red';
+            } else {
+                // Apply outline to input field within element
+                const inputField = element.querySelector('input');
+                if (inputField) inputField.style.outline = '2px solid red';
+            }
+        }
+    }
     _removeOutlineError() {
         const allFormErrors = document.querySelectorAll(`div[data-formerror]`);
         allFormErrors.forEach(dom => {
             dom.textContent = '';
-            const errorOutline = document.getElementById(dom.dataset.formerror);
-            console.log("🚀 ~ SkillsExportView ~ _removeOutlineError ~ errorOutline:", errorOutline);
-            if (errorOutline) {
-                // Reset the outline style
-                errorOutline.style.outline = '';
-            }
+            this._clearOutline(dom.dataset.formerror);
         });
     }
     _outlineError(options) {
-        const { type, message} = options
-        const dom  = document.querySelector(`div[data-formerror="${type}"]`)
-        dom.textContent = message;
-        const selectedType = document.getElementById(type)
-        selectedType.style.outline = 'none'
-        selectedType.style.outline = '2px solid red'
+        const { type, message } = options;
+        this._setOutline(type, message);
     }
     export(options){
         this._removeOutlineError();
