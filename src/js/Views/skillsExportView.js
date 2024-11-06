@@ -16,7 +16,14 @@ class SkillsExportView extends View {
     export(options){
         this._formData = options
         const fileErrors = toFile(options)
-        if(!fileErrors) return;
+        const fileType = fileErrors.find(err=>err.type === 'fileType')
+        console.log("🚀 ~ SkillsExportView ~ export ~ fileType:", fileType)
+        let typeElement
+        typeElement = fileType.type
+        console.log(typeElement);
+        if(!fileType) return;
+        this._outlineErrors(fileErrors,typeElement)
+        console.log(fileErrors);
     }
 }
 export default new SkillsExportView();

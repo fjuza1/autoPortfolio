@@ -32,19 +32,8 @@ export default class View {
     }
     //end
     //error handling
-    _outlineErrors(errors) {
-        let found;
-        let dataset;
-        errors.forEach(err => {
-            const type = err.type;
-            const message = err.message;
-            dataSet = document.querySelector(`div[data-formerror="${type}"]`);
-            found = document.querySelector(`#${type}`);
-            if (found) found.style.outline = 'none';
-            if (dataSet) dataSet.textContent = '';
-            if (found) found.style.outline = '2px solid red !important';
-            if (dataSet) dataSet.textContent = message;
-        });
+    _outlineErrors(errors,el) {
+        const dom  = document.querySelector(`div[data-formerror="${el}"]`)
     }
     _renderErrorList(errors) {
         errors.forEach(err => err)
