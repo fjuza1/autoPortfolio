@@ -13,15 +13,17 @@ class SkillsExportView extends View {
     _revealExportContainer(){
         if(this._fileType.classList.contains('d-none')) this._fileType.classList.remove('d-none');
     }
-    _removeOutlineError(){
-        const allFormErrors = document.querySelectorAll(`div[data-formerror]`)
+    _removeOutlineError() {
+        const allFormErrors = document.querySelectorAll(`div[data-formerror]`);
         allFormErrors.forEach(dom => {
-
             dom.textContent = '';
-            const errorOutline = document.getElementById(dom.dataset.formerror)
-            console.log("🚀 ~ SkillsExportView ~ _removeOutlineError ~ errorOutline:", errorOutline)
-            if(!errorOutline) return
-        })
+            const errorOutline = document.getElementById(dom.dataset.formerror);
+            console.log("🚀 ~ SkillsExportView ~ _removeOutlineError ~ errorOutline:", errorOutline);
+            if (errorOutline) {
+                // Reset the outline style
+                errorOutline.style.outline = '';
+            }
+        });
     }
     _outlineError(options) {
         const { type, message} = options
