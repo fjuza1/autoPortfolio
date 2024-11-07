@@ -66,8 +66,7 @@ class SkillsExportView extends View {
         this._formData = options;
         const data = await toFile(options)
         const [fileErrors]= data
-        const generatedData = data[1]
-        console.log("🚀 ~ SkillsExportView ~ export ~ generatedData:", generatedData)
+        const generatedData = data[1];
         const fileType = fileErrors.find(err=>err.type === 'fileType');
         const fileName = fileErrors.find(err=>err.type === 'fileName');
         if(!fileName) return;

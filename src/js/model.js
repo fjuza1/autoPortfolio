@@ -166,7 +166,7 @@ export const toFile = async (options) => {
 		}
 		const blob = new Blob([String(content)], textType);
 		if(errors.length === 0) {
-			generatedMessage = await watchGeneration(blob);
+			generatedMessage = await watchGeneration(undefined);
 			if(!generatedMessage) return;
 			if( generatedMessage.includes(UNGENERATED_FILE_MESSAGE)) errors[errors.length] = {message: generatedMessage,type:'generation error'};
 		}
