@@ -139,6 +139,7 @@ export const toFile = async (options) => {
 		const errors = [];
 		let content;
 		let textType;
+		let generatedMessage;
 		if (!array) throw new Error(ERROR_ARRAY_MISSING);
 		if (options.fileName.trim().length === 0) errors[errors.length] = {
 			message: ERROR_MISSING_FILENAME,
@@ -165,11 +166,12 @@ export const toFile = async (options) => {
 		}
 		const blob = new Blob([String(content)], textType);
 		if(errors.length === 0) {
-			const generatedMessage = await watchGeneration(blob);
+			generatedMessage = await watchGeneration(blob);
+			if(!generatedMessage) return;
 			if( generatedMessage.includes(UNGENERATED_FILE_MESSAGE)) errors[errors.length] = {message: generatedMessage,type:'generation error'};
 		}
 		errors.length > 0 ? false : saveAs(blob, options.fileName);
-		return errors;
+		return [errors,generatedMessage];
 	} catch (err) {
 		throw err;
 	}

@@ -1,5 +1,6 @@
 import View from './View.js';
 import { toFile }  from '../model.js';
+import {UNGENERATED_FILE_MESSAGE} from  '../config.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
     _parentElement = document.getElementById('exportModal')
@@ -62,8 +63,11 @@ class SkillsExportView extends View {
     }
     async export(options){
         this._removeOutlineError();
-        this._formData = options
-        const fileErrors = await toFile(options)
+        this._formData = options;
+        const data = await toFile(options)
+        const [fileErrors]= data
+        const generatedData = data[1]
+        console.log("🚀 ~ SkillsExportView ~ export ~ generatedData:", generatedData)
         const fileType = fileErrors.find(err=>err.type === 'fileType');
         const fileName = fileErrors.find(err=>err.type === 'fileName');
         if(!fileName) return;

@@ -15,8 +15,8 @@ export const CSV_TYPE = 'text/csv';
 export const SENDTO = 'filipjuzaqa@gmail.com';
 export const DEFAULT_ENCODING = 'charset=utf-8';
 export const ERROR_MISSING_FILENAME = 'Please provide a file name';
-export const ERROR_SUPPORTED_FILE_TYPES = `Please choose a supported fileType. Supported fileTypes are: ${EXPORT_WHITELIST.join('; ')}`;
+export const ERROR_SUPPORTED_FILE_TYPES = `Please choose a supported file type. Supported file types are: ${EXPORT_WHITELIST.join('; ')}`;
 export const ERROR_ARRAY_MISSING = 'Please provide an array';
 export const NAME_FILE_NAME = 'fileName'
 export const FILE_TYPE_FILE = 'fileType';
-export const UNGENERATED_FILE_MESSAGE = 'Your message was not generated! Please try again.'
+export const UNGENERATED_FILE_MESSAGE = 'Your file was not generated! Please try again.'
