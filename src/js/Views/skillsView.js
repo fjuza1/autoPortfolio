@@ -1,12 +1,11 @@
 import View from './View.js';
-import { ALLOWED_FILTER_SKILLS } from "../config.js";
+import { ALLOWED_FILTER_SKILLS, SKILLSVIEW_MESSAGE } from "../config.js";
 import { filterByKeys } from "../helpers.js";
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
-    _sortFilter = document.getElementById('sortSkillFilter');
     _form = document.querySelector('form')
     _formBtn = document.querySelector('button[type="submit"]');
-    _msg = 'No skills were found! Please try again.';
+    _msg = SKILLSVIEW_MESSAGE;
     _skillBarDisplay(_data) {
         let valNow;
         let width;
