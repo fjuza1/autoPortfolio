@@ -1,6 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
+import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
 import popupView from './Views/popoutView.js';
@@ -9,7 +10,8 @@ import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
-console.log(popupView, designView, skillsView, skillsExportView, slidesView, contactView);
+// console.log(emailValidator, createCaptcha);
+//console.log(popupView, designView, skillsView, skillsExportView, slidesView, contactView);
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
 	designView.addHandlerNavObserver()

@@ -5,12 +5,13 @@
   },
   "dependencies": {
     "core-js": "^3.38.1",
+    "email-validator": "^2.0.4",
     "file-saver": "^2.0.5",
+    "i-am-not-a-robot": "^0.7.2",
     "mailersend": "^2.3.0",
     "papaparse": "^5.4.1",
     "parcel": "^2.0.0",
     "regenerator-runtime": "^0.14.1",
-    "validator": "^13.12.0",
     "xml2js": "^0.6.2"
   },
   "devDependencies": {
