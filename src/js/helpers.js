@@ -32,7 +32,7 @@ export const sendMail = (options) => {
     
     mailersend.send(emailParams);
 }
-export const watchGeneration = async (blob) => {
+export const handleFileGeneration = async (blob) => {
     try {
         return new TextDecoder().decode(await blob.arrayBuffer())
     } catch (err) {
