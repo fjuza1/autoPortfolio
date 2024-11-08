@@ -65,7 +65,6 @@ class SkillsView extends View {
         return [...options.array].sort(sortFunctions[options.sortBy]);
     }
     _filterActivities(array, keys, values) {
-        console.log(this._formData);
         values = values.map(el => el === 0 ? '' : el);
         const found = filterByKeys(array, keys, values)
         this._data = found;

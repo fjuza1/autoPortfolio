@@ -5,6 +5,9 @@ import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	_data:[],
+	search: {
+		skills:{}
+	},
 	_exportState: '',
 	skills: [{
 		name: 'Postman',

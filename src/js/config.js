@@ -19,5 +19,5 @@ export const ERROR_SUPPORTED_FILE_TYPES = `Please choose a supported file type. 
 export const ERROR_ARRAY_MISSING = 'Please provide an array';
 export const NAME_FILE_NAME = 'fileName'
 export const FILE_TYPE_FILE = 'fileType';
-export const UNGENERATED_FILE_MESSAGE = 'Your file was not generated! Please try again.'
+export const UNGENERATED_FILE_MESSAGE = 'There was a problem generating! Please try again.'
 export const SKILLSVIEW_MESSAGE = 'No skills were found! Please try again.'
