@@ -3,9 +3,13 @@ class PopupView {
     _body = document.body;
     _skillBtnGroup = document.getElementById('skillBtnGroup');
     _formBtn = document.querySelector('button[type="submit"]');
+    _mobileNav = document.getElementById('mobileNav')
+    _dropdownNav = document.querySelector('.dropdown-menu')
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
+        this.addHandlerShowMobileNav();
+        this._addHandlerHideDropdownNav();
     }
     _toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
@@ -22,9 +26,25 @@ class PopupView {
     }
     _showModal(){}
     _hideModal(){}
+    toggleMobileNav(e) {
+        const target = e.target
+        const targetDropdownMenu = target.nextElementSibling
+		const clickedNavBtn = target.closest('button');
+        targetDropdownMenu.classList.contains('show') ? targetDropdownMenu.classList.remove('show') : targetDropdownMenu.classList.add('show');
+	}
+    hideMobileNav(e){
+        const targetDropdownMenu = this._dropdownNav;
+        if(targetDropdownMenu.classList.contains('show') && !e.target.classList.contains('dropdown-item')) targetDropdownMenu.classList.remove('show')
+    }
+    addHandlerShowMobileNav () {
+        this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
+    }
     _addHandleModal(){}
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
+    }
+    _addHandlerHideDropdownNav () {
+        this._body.addEventListener('mouseup',this.hideMobileNav.bind(this));
     }
     _addHandlerHideSection() {
         this._body.addEventListener('mouseup', this._hideSection.bind(this));

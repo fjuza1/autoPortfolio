@@ -40,7 +40,7 @@ class Design extends View {
 			requestAnimationFrame(() => { gotoSegment(domElement, document.querySelector('.nav')) });
 		 else 
 			gotoSegment(domElement, document.querySelector('.nav'));
-	}	
+	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,

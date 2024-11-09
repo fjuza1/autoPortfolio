@@ -20,7 +20,6 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const loadAndRenderContent = () => {
-	designView._showSectionByHash();
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	//projectViewRender
 }
