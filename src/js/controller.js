@@ -15,7 +15,6 @@ import contactView from './Views/contactView.js';
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
 	designView.addHandlerNavObserver()
-	designView.addScrollIntoHandler(designView.scrollIntoSection)
 }
 const controlSections = () => {
 	designView.addRevealSectionObserver()
@@ -59,6 +58,7 @@ const controllFilterSkills = () =>{
     });
 }
 const init = () => {
+	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
 	controlSections();
 	skillsView._addHandlerLoad(loadAndRenderContent)

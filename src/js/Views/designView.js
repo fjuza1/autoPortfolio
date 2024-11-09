@@ -22,8 +22,11 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
 	scrollIntoSection(e) {
-		const targetSectionId = e.target.closest('.nav-link')?.dataset.navlink.trim();
-		if (!targetSectionId) return
+		let targetSectionId;
+		const hash = window.location.hash
+		if(hash.length > 0) targetSectionId = titleCaseWord ( hash.slice(1) )
+		if(!targetSectionId) return
+		console.log(e);
 		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
 		const navHeight = document.querySelector('.nav').offsetHeight;
 		const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
@@ -73,7 +76,7 @@ class Design extends View {
 		document.addEventListener('load', handler);
 	}
 	addHandlerLoadHash(handler) {
-		window.addEventListener('load', handler);
+		['load','hashchange'].forEach(ev=>window.addEventListener(ev,handler))
 	}
 }
 export default new Design();
