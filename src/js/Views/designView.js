@@ -22,18 +22,25 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
 	scrollIntoSection(e) {
-		let targetSectionId;
-		const hash = window.location.hash
-		if(hash.length === 0 && e.type === 'load') setTimeout(() => {gotoTop()}, 200);
-		if(hash.length > 0) targetSectionId = titleCaseWord ( hash.slice(1) )
-		if(!targetSectionId) return
-		const domElement = document.getElementById(targetSectionId)
-		if(domElement.classList.contains('section--hidden')) domElement.classList.remove('section--hidden')
-		if(e.type === 'load' && hash.length > 0) {
-			requestAnimationFrame(() => {gotoSegment(domElement, document.querySelector('.nav'))});
-		}
-		gotoSegment(domElement, document.querySelector('.nav'))
-	}
+		const hash = window.location.hash;
+		let targetSectionId = '';
+	
+		if (hash.length === 0 && e.type === 'load') 
+			setTimeout(() => { gotoTop() }, 200);
+		else if (hash.length > 0) 
+			targetSectionId = titleCaseWord(hash.slice(1));
+		
+	
+		if (!targetSectionId) return;
+	
+		const domElement = document.getElementById(targetSectionId);
+		domElement.classList.remove('section--hidden');
+	
+		if (e.type === 'load' && hash.length > 0) 
+			requestAnimationFrame(() => { gotoSegment(domElement, document.querySelector('.nav')) });
+		 else 
+			gotoSegment(domElement, document.querySelector('.nav'));
+	}	
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
