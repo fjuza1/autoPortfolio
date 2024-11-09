@@ -1,5 +1,5 @@
 import View from './View.js';
-import sendMail from '../helpers.js';
+import {sendMail} from '../helpers.js';
 class ContactView extends View {
     _parentElement = document.getElementById('contactForm')
     _getRequiredFields (){

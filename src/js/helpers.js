@@ -1,8 +1,8 @@
-import {ANIMATIONTIME, SENDTO} from './config.js';
+import {ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, Recipient, EmailParams, MailerSend} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
-export const toXml = (array, id) => {
+export const toXml = (array) => {
     const obj = {
         root: {
             skills:{
@@ -31,4 +31,30 @@ export const sendMail = (options) => {
         .setText(message);
     
     mailersend.send(emailParams);
+}
+export const handleFileGeneration = async (blob) => {
+    try {
+        return new TextDecoder().decode(await blob.arrayBuffer())
+    } catch (err) {
+        return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
+    }
+}
+export const titleCaseWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)
+export const gotoSegment = (domElement, nav) =>{
+    const targetSection = domElement.getBoundingClientRect();
+    const navHeight = nav.offsetHeight;
+    const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
+    const sectionPositionLeft = targetSection.left + window.pageXOffset;
+    window.scrollTo({
+        left: sectionPositionLeft,
+        top: sectionPositionTop,
+        behavior: 'smooth',
+    })
+}
+export const gotoTop = () =>{
+    window.scrollTo(0,0)
+}
+export const removeClass = (options) => {
+    const {element, className} = options
+    element.classList.contains(className) ? el.classList.remove(className) : ''
 }

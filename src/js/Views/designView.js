@@ -1,5 +1,7 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
+import {titleCaseWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
+import {SECTION_REVEAL_TRESHOLD} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
@@ -20,20 +22,24 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add('sticky-top') : this._navBar.classList.remove('sticky-top');
 	}
 	scrollIntoSection(e) {
-		const targetSectionId = e.target.closest('.nav-link')?.dataset.navlink.trim();
-		if (!targetSectionId) return
-		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
-		const navHeight = document.querySelector('.nav').offsetHeight;
-		const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
-		const sectionPositionLeft = targetSection.left + window.pageXOffset
-		window.scrollTo({
-			left: sectionPositionLeft,
-			top: sectionPositionTop,
-			behavior: 'smooth',
-		})
-	}
-	addScrollIntoHandler(handler) {
-		this._navBar.addEventListener('click', handler)
+		const hash = window.location.hash;
+		let targetSectionId = '';
+	
+		if (hash.length === 0 && e.type === 'load') 
+			setTimeout(() => { gotoTop() }, 200);
+		else if (hash.length > 0) 
+			targetSectionId = titleCaseWord(hash.slice(1));
+		
+	
+		if (!targetSectionId) return;
+	
+		const domElement = document.getElementById(targetSectionId);
+		domElement.classList.remove('section--hidden');
+	
+		if (e.type === 'load' && hash.length > 0) 
+			requestAnimationFrame(() => { gotoSegment(domElement, document.querySelector('.nav')) });
+		 else 
+			gotoSegment(domElement, document.querySelector('.nav'));
 	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
@@ -49,10 +55,15 @@ class Design extends View {
 		entry.target.classList.remove('section--hidden');
 		observer.unobserve(entry.target);
 	}
+	_showSectionByHash(hash = location.hash.slice(1)){
+		if(!hash) return;
+		const id = titleCaseWord(hash);
+		document.getElementById(id).classList.remove('section--hidden');
+	}
 	addRevealSectionObserver() {
 		const sectionObserver = new IntersectionObserver(this.revealSection, {
 			root: null,
-			threshold: 0.1,
+			threshold: SECTION_REVEAL_TRESHOLD / 100,
 		})
 		this._sections.forEach(function(section) {
 			sectionObserver.observe(section)
@@ -64,6 +75,9 @@ class Design extends View {
 	}
 	addHandlerLoad(handler) {
 		document.addEventListener('load', handler);
+	}
+	addHandlerLoadHash(handler) {
+		['load','popstate'].forEach(ev=>window.addEventListener(ev,handler))
 	}
 }
 export default new Design();

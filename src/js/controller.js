@@ -1,6 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
+import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
 import popupView from './Views/popoutView.js';
@@ -9,16 +10,18 @@ import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
+// console.log(emailValidator, createCaptcha);
+//console.log(popupView, designView, skillsView, skillsExportView, slidesView, contactView);
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
 	designView.addHandlerNavObserver()
-	designView.addScrollIntoHandler(designView.scrollIntoSection)
 }
 const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
-const controllSkillDisplay = () => {
+const loadAndRenderContent = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+	//projectViewRender
 }
 const controllSortedSkills = () => {
 	const array = {array: model.state.skills}
@@ -54,9 +57,10 @@ const controllFilterSkills = () =>{
     });
 }
 const init = () => {
+	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
 	controlSections();
-	skillsView._addHandlerLoad(controllSkillDisplay)
+	skillsView._addHandlerLoad(loadAndRenderContent)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);

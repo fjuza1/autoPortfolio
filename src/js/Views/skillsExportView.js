@@ -1,5 +1,6 @@
 import View from './View.js';
 import { toFile }  from '../model.js';
+import {UNGENERATED_FILE_MESSAGE} from  '../config.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
     _parentElement = document.getElementById('exportModal')
@@ -7,9 +8,8 @@ class SkillsExportView extends View {
     _fileName = document.querySelector('input[name="fileName"]')
     constructor(){
         super();
-        this._form.addEventListener('change', () => {
-            this._revealExportContainer();
-        });
+        this._revealNameEvent();
+        this._errorRemoveEvent();
     }
     _changeType(){
         const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
@@ -61,14 +61,31 @@ class SkillsExportView extends View {
         const { type, message } = options;
         this._setOutline(type, message);
     }
-    export(options){
+    async export(options){
         this._removeOutlineError();
-        this._formData = options
-        const fileErrors = toFile(options)
-        const fileType = fileErrors.find(err=>err.type === 'fileType')
-        const fileName = fileErrors.find(err=>err.type === 'fileName')
+        this._formData = options;
+        const data = await toFile(options)
+        const [fileErrors]= data
+        const generatedData = data[1];
+        const fileType = fileErrors.find(err=>err.type === 'fileType');
+        const fileName = fileErrors.find(err=>err.type === 'fileName');
+        if(!fileName) return;
         if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
-            else if (!fileType) this._outlineError({type: fileName.type,message:fileName.message})
+            else this._outlineError({type: fileName.type,message:fileName.message})
+
+        // TODO create modal if success show blob details else show error
+    }
+    _errorRemoveEvent() {
+        ['input', 'change','submit'].forEach(ev => {
+            this._form.addEventListener(ev, () => {
+                this._removeOutlineError();
+            });
+        });
+    }
+    _revealNameEvent (){
+        this._form.addEventListener('change', () => {
+            this._revealExportContainer()
+        });
     }
 }
 export default new SkillsExportView();

@@ -13,8 +13,8 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="/">Filip Juza - Portfolio</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-          <div class="dropdown-menu show">
+          <span class="navbar-toggler-icon" id="mobileNav"></span>
+          <div class="dropdown-menu">
             <a class="dropdown-item" href="#about" data-navLink="About">About</a>
             <a class="dropdown-item" href="#skills" data-navLink="Skills">Skills</a>
             <a class="dropdown-item" href="#projects" data-navLink="Projects">Projects</a>
@@ -123,7 +123,7 @@
                       </div>
                         <label for="searchLevel" class="form-label text-muted">Expertise Level</label>
                         <select class="form-select mb-3" name="levelNumber">
-                          <option selected hidden>Select level</option>
+                          <option selected hidden></option>
                           <option value="1">Beginner</option>
                           <option value="2">Basic</option>
                           <option value="3">Skillful</option>
@@ -213,6 +213,16 @@
                       <!-- modal and such -->
                       <div id="exportModal" class="modal fade bg-light" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
                         <!-- TODO here gets inserted afterbegin -->
+
+                        <!-- TODO into modal have accorsdion fail or success -->
+                         <!-- <div class="accordion" id="accordionExample">
+                                <div class="accordion-item">
+                                  <h2 class="accordion-header" id="headingOne">
+                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                                      Accordion Item #1
+                                    </button>
+                                  </h2> 
+                                </div> -->
                       </div>
                     </form>
                   </div>

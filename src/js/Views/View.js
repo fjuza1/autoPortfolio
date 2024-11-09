@@ -55,7 +55,9 @@ export default class View {
         this._formData = data;
     }
     //end
-    _addHandlerLoad = (handler) => window.addEventListener('load', handler)
+    _addHandlerLoad (handler){
+        window.addEventListener('load', handler)
+    }
     //form
     _addHandlerSubmit(handler) {
         this._form.addEventListener('submit', (e) => {
