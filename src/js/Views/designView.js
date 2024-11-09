@@ -1,6 +1,6 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
-import {titleCaseWord} from '../helpers.js';
+import {titleCaseWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
 import {SECTION_REVEAL_TRESHOLD} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
@@ -24,18 +24,15 @@ class Design extends View {
 	scrollIntoSection(e) {
 		let targetSectionId;
 		const hash = window.location.hash
+		if(hash.length === 0 && e.type === 'load') setTimeout(() => {gotoTop()}, 200);
 		if(hash.length > 0) targetSectionId = titleCaseWord ( hash.slice(1) )
 		if(!targetSectionId) return
-		console.log(e);
-		const targetSection = document.getElementById(targetSectionId).getBoundingClientRect();
-		const navHeight = document.querySelector('.nav').offsetHeight;
-		const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
-		const sectionPositionLeft = targetSection.left + window.pageXOffset
-		window.scrollTo({
-			left: sectionPositionLeft,
-			top: sectionPositionTop,
-			behavior: 'smooth',
-		})
+		const domElement = document.getElementById(targetSectionId)
+		if(domElement.classList.contains('section--hidden')) domElement.classList.remove('section--hidden')
+		if(e.type === 'load' && hash.length > 0) {
+			requestAnimationFrame(() => {gotoSegment(domElement, document.querySelector('.nav'))});
+		}
+		gotoSegment(domElement, document.querySelector('.nav'))
 	}
 	addScrollIntoHandler(handler) {
 		this._navBar.addEventListener('click', handler)
