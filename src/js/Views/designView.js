@@ -34,9 +34,6 @@ class Design extends View {
 		}
 		gotoSegment(domElement, document.querySelector('.nav'))
 	}
-	addScrollIntoHandler(handler) {
-		this._navBar.addEventListener('click', handler)
-	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
@@ -73,7 +70,7 @@ class Design extends View {
 		document.addEventListener('load', handler);
 	}
 	addHandlerLoadHash(handler) {
-		['load','hashchange'].forEach(ev=>window.addEventListener(ev,handler))
+		['load','popstate'].forEach(ev=>window.addEventListener(ev,handler))
 	}
 }
 export default new Design();
