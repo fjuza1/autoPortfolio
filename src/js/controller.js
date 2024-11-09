@@ -20,8 +20,10 @@ const controllNavBar = () => {
 const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
-const controllSkillDisplay = () => {
+const loadAndRenderContent = () => {
+	designView._showSectionByHash();
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+	//projectViewRender
 }
 const controllSortedSkills = () => {
 	const array = {array: model.state.skills}
@@ -59,7 +61,7 @@ const controllFilterSkills = () =>{
 const init = () => {
 	controllNavBar();
 	controlSections();
-	skillsView._addHandlerLoad(controllSkillDisplay)
+	skillsView._addHandlerLoad(loadAndRenderContent)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);

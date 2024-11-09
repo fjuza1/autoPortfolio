@@ -39,3 +39,4 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
+export const titleCaseWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)

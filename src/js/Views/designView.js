@@ -1,5 +1,7 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
+import {titleCaseWord} from '../helpers.js';
+import {SECTION_REVEAL_TRESHOLD} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
@@ -49,10 +51,15 @@ class Design extends View {
 		entry.target.classList.remove('section--hidden');
 		observer.unobserve(entry.target);
 	}
+	_showSectionByHash(hash = location.hash.slice(1)){
+		if(!hash) return;
+		const id = titleCaseWord(hash);
+		document.getElementById(id).classList.remove('section--hidden');
+	}
 	addRevealSectionObserver() {
 		const sectionObserver = new IntersectionObserver(this.revealSection, {
 			root: null,
-			threshold: 0.1,
+			threshold: SECTION_REVEAL_TRESHOLD / 100,
 		})
 		this._sections.forEach(function(section) {
 			sectionObserver.observe(section)
@@ -64,6 +71,9 @@ class Design extends View {
 	}
 	addHandlerLoad(handler) {
 		document.addEventListener('load', handler);
+	}
+	addHandlerLoadHash(handler) {
+		window.addEventListener('load', handler);
 	}
 }
 export default new Design();
