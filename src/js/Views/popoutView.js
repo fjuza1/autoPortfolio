@@ -40,7 +40,7 @@ class PopupView {
         this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav () {
-        this._body.addEventListener('mouseup',this.hideMobileNav.bind(this));
+        document.addEventListener('click', (e) => this.hideMobileNav.bind(this));
     }
     _openModal(){
         console.log('we are calling openModal');
