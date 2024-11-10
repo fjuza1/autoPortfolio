@@ -36,7 +36,18 @@ const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
-		await skillsExportView.export(options);
+		const data = await model.toFile(options)
+        const [fileErrors]= data
+        const generatedData = data[1];
+        const fileType = fileErrors.find(err=>err.type === 'fileType');
+        const fileName = fileErrors.find(err=>err.type === 'fileName');
+		if(!fileName){
+			console.log('o file name');
+			popoutView._addHandleOpenModal()
+			return;
+		}
+        if(fileType) skillsExportView._outlineError({type: fileType.type,message:fileType.message})
+            else skillsExportView._outlineError({type: fileName.type,message:fileName.message})
 	} catch (err) {
 		throw err;
 	}

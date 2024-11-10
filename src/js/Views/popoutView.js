@@ -26,6 +26,22 @@ class PopupView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
+    toggleMobileNav(e) {
+        const target = e.target
+        const targetDropdownMenu = this._dropdownNav
+        targetDropdownMenu.classList.toggle('show')
+	}
+    hideMobileNav(e){
+        const targetDropdownMenu = this._dropdownNav;
+        if(targetDropdownMenu !== e.target)
+        targetDropdownMenu.classList.remove('show')
+    }
+    addHandlerShowMobileNav () {
+        this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
+    }
+    _addHandlerHideDropdownNav () {
+        this._body.addEventListener('mouseup',this.hideMobileNav.bind(this));
+    }
     _openModal(){
         console.log('we are calling openModal');
         const markup = `
@@ -51,28 +67,12 @@ class PopupView {
         modalCenter.classList.add('show');
     }
     _closeModal(){}
-    toggleMobileNav(e) {
-        const target = e.target
-        const targetDropdownMenu = target.nextElementSibling
-		const clickedNavBtn = target.closest('button');
-        targetDropdownMenu.classList.contains('show') ? targetDropdownMenu.classList.remove('show') : targetDropdownMenu.classList.add('show');
-	}
-    hideMobileNav(e){
-        const targetDropdownMenu = this._dropdownNav;
-        if(targetDropdownMenu.classList.contains('show') && !e.target.classList.contains('dropdown-item')) targetDropdownMenu.classList.remove('show')
-    }
-    addHandlerShowMobileNav () {
-        this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
-    }
     _addHandleOpenModal(){
         this._modal.addEventListener('click', this._openModal.bind(this));
     }
     _addHandleCloseModal(){}
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
-    }
-    _addHandlerHideDropdownNav () {
-        this._body.addEventListener('mouseup',this.hideMobileNav.bind(this));
     }
     _addHandlerHideSection() {
         this._body.addEventListener('mouseup', this._hideSection.bind(this));
