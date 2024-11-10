@@ -24,17 +24,40 @@ class PopupView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    _showModal(){}
-    _hideModal(){}
+    _openModal(){
+        const markup = `
+            <div id="modalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 17px;">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                    </div>
+                </div>
+            </div>
+        `
+        this._body.insertAdjacentHTML('afterbegin', markup);
+        const modalCenter = document.getElementById('modalCenter');
+        modalCenter.classList.add('show');
+    }
+    _closeModal(){}
     toggleMobileNav(e) {
         const target = e.target
-        const targetDropdownMenu = target.nextElementSibling
+        const targetDropdownMenu = this._dropdownNav
 		const clickedNavBtn = target.closest('button');
-        targetDropdownMenu.classList.contains('show') ? targetDropdownMenu.classList.remove('show') : targetDropdownMenu.classList.add('show');
+        targetDropdownMenu.classList.toggle('show')
 	}
     hideMobileNav(e){
+        const target = e.target;
         const targetDropdownMenu = this._dropdownNav;
-        if(targetDropdownMenu.classList.contains('show') && !e.target.classList.contains('dropdown-item')) targetDropdownMenu.classList.remove('show')
+        if(target.classList.contains('dropdown-item') || !target.classList.contains('dropdown-item')) targetDropdownMenu.classList.remove('show')
     }
     addHandlerShowMobileNav () {
         this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
@@ -44,6 +67,7 @@ class PopupView {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideDropdownNav () {
+        this._dropdownNav.addEventListener('click',this.hideMobileNav.bind(this));
         this._body.addEventListener('mouseup',this.hideMobileNav.bind(this));
     }
     _addHandlerHideSection() {
