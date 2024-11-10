@@ -4,8 +4,7 @@ import {async} from 'regenerator-runtime';
 import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
-//import { toFile }  from '../model.js';
-import popupView from './Views/popoutView.js';
+import popoutView from './Views/popoutView.js'
 import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
@@ -43,8 +42,10 @@ const controllSkillsExport =  async () => {
         const fileType = fileErrors.find(err=>err.type === 'fileType');
         const fileName = fileErrors.find(err=>err.type === 'fileName');
         if(!fileName) return;
+		console.log(skillsExportView._formData);
         if(fileType) skillsExportView._outlineError({type: fileType.type,message:fileType.message})
             else skillsExportView._outlineError({type: fileName.type,message:fileName.message})
+			// popoutView._addHandleOpenModal()
 	} catch (err) {
 		throw err;
 	}

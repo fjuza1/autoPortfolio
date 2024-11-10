@@ -5,6 +5,8 @@ class PopupView {
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('mobileNav')
     _dropdownNav = document.querySelector('.dropdown-menu')
+    _body = document.body;
+    _modal = document.querySelector('button[data-toggle="modal"]')
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
@@ -25,8 +27,9 @@ class PopupView {
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
     _openModal(){
+        console.log('we are calling openModal');
         const markup = `
-            <div id="modalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" style="padding-right: 17px;">
+            <div id="modalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle style = display:block">
                 <div class="modal-dialog modal-dialog-centered" role="document">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -62,7 +65,10 @@ class PopupView {
     addHandlerShowMobileNav () {
         this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
     }
-    _addHandleModal(){}
+    _addHandleOpenModal(){
+        this._modal.addEventListener('click', this._openModal.bind(this));
+    }
+    _addHandleCloseModal(){}
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
