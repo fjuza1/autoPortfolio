@@ -53,14 +53,13 @@ class PopupView {
     _closeModal(){}
     toggleMobileNav(e) {
         const target = e.target
-        const targetDropdownMenu = this._dropdownNav
+        const targetDropdownMenu = target.nextElementSibling
 		const clickedNavBtn = target.closest('button');
-        targetDropdownMenu.classList.toggle('show')
+        targetDropdownMenu.classList.contains('show') ? targetDropdownMenu.classList.remove('show') : targetDropdownMenu.classList.add('show');
 	}
     hideMobileNav(e){
-        const target = e.target;
         const targetDropdownMenu = this._dropdownNav;
-        if(target.classList.contains('dropdown-item') || !target.classList.contains('dropdown-item')) targetDropdownMenu.classList.remove('show')
+        if(targetDropdownMenu.classList.contains('show') && !e.target.classList.contains('dropdown-item')) targetDropdownMenu.classList.remove('show')
     }
     addHandlerShowMobileNav () {
         this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
@@ -73,7 +72,6 @@ class PopupView {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideDropdownNav () {
-        this._dropdownNav.addEventListener('click',this.hideMobileNav.bind(this));
         this._body.addEventListener('mouseup',this.hideMobileNav.bind(this));
     }
     _addHandlerHideSection() {
