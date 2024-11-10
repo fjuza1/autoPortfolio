@@ -61,20 +61,6 @@ class SkillsExportView extends View {
         const { type, message } = options;
         this._setOutline(type, message);
     }
-    async export(options){
-        this._removeOutlineError();
-        this._formData = options;
-        const data = await toFile(options)
-        const [fileErrors]= data
-        const generatedData = data[1];
-        const fileType = fileErrors.find(err=>err.type === 'fileType');
-        const fileName = fileErrors.find(err=>err.type === 'fileName');
-        if(!fileName) return;
-        if(fileType) this._outlineError({type: fileType.type,message:fileType.message})
-            else this._outlineError({type: fileName.type,message:fileName.message})
-
-        // TODO create modal if success show blob details else show error
-    }
     _errorRemoveEvent() {
         ['input', 'change','submit'].forEach(ev => {
             this._form.addEventListener(ev, () => {
