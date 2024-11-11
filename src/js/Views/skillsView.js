@@ -70,6 +70,12 @@ class SkillsView extends View {
         this._data = found;
         return found
     }
+    _generateSkillsExportModal () {
+        
+        const markup = `
+        
+        `
+    }
     _addFilterSkillsHandler(handler) {
         ['input', 'change'].forEach(ev => this._form.addEventListener(ev, (e) => {
             const name = e.target.getAttribute('name')

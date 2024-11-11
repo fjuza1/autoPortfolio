@@ -9,17 +9,37 @@
     <meta name="description" content="Portfolio of Filip Juza - QA Automation Engineer, showcasing skills, projects, and contact information.">
   </head>
   <body>
+    <div id="modalCenter" class="modal fade" tabindex="1;" role="dialog" aria-labelledby="exampleModalCenterTitle" style = "display:none">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+           <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalCenterTitle">Generation done</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">×</span>
+              </button>
+          </div>
+            <!-- have created on own
+          <div class="modal-body">
+          </div>
+          <div class="modal-footer">
+          </div> -->
+          </div>
+      </div>
+  </div>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">Filip Juza - Portfolio</a>
+        <div class="dropdown">
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon" id="mobileNav"></span>
-          <div class="dropdown-menu">
-            <a class="dropdown-item" href="#about" data-navLink="About">About</a>
-            <a class="dropdown-item" href="#skills" data-navLink="Skills">Skills</a>
-            <a class="dropdown-item" href="#projects" data-navLink="Projects">Projects</a>
-            <a class="dropdown-item" href="#contact" data-navLink="Contact">Contact</a>
         </button>
+        <div class="dropdown-menu dropdown-menu-right">
+          <a class="dropdown-item" href="#about" data-navLink="About">About</a>
+          <a class="dropdown-item" href="#skills" data-navLink="Skills">Skills</a>
+          <a class="dropdown-item" href="#projects" data-navLink="Projects">Projects</a>
+          <a class="dropdown-item" href="#contact" data-navLink="Contact">Contact</a>
+        </div>
+        </div>
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
             <li class="nav-item">
@@ -204,25 +224,11 @@
                         <div data-formError="fileName" class="text-danger mt-2"></div>
                       </div>
                       <div class="d-flex justify-content-end mt-3">
-                        <button class="btn btn-primary" type="submit" download>
+                        <button class="btn btn-primary" type="submit" data-toggle="modal" download>
                           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-download" viewBox="0 0 16 16">
                             <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5"></path>
                             <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708z"></path>
                           </svg> Export </button>
-                      </div>
-                      <!-- modal and such -->
-                      <div id="exportModal" class="modal fade bg-light" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle">
-                        <!-- TODO here gets inserted afterbegin -->
-
-                        <!-- TODO into modal have accorsdion fail or success -->
-                         <!-- <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                  <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                      Accordion Item #1
-                                    </button>
-                                  </h2> 
-                                </div> -->
                       </div>
                     </form>
                   </div>
