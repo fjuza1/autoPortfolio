@@ -55,12 +55,14 @@ class PopupView {
         if(show === true) {
             this._modal.classList.add('show');
             this._modal.style.display = 'block';
+            this._body.style.overflow = 'hidden'
         }
     }
     _closeModal(e){
         if(e.target.closest('button') === this._closeModalButton) 
             this._modal.style.display = 'none';
             this._modal.classList.remove('show');
+            this._body.style.overflow = 'auto'
     }
     _addHandleOpenModal(){
         this._modalToggle.addEventListener('click', this._openModal.bind(this));

@@ -45,3 +45,10 @@ section {
   border: none; 
   background: transparent;
 }
+#modalCenter {
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  backdrop-filter: blur(3px); /* Blur effect */
+  z-index: 1050; /* Adjust if needed to ensure it sits below the modal */
+  backface-visibility: hidden; /* Prevent rendering issues */
+  transform: translateZ(0); /* Force GPU rendering for smoother effects */
+}
