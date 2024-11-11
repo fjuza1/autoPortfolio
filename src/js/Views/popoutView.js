@@ -55,6 +55,7 @@ class PopupView {
         if(show === true) {
             this._modal.classList.add('show');
             this._modal.style.display = 'block';
+            this._body.style.overflow = 'hidden'
         }
     }
     _closeModal(e) {
