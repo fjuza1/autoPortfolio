@@ -6,12 +6,16 @@ class PopupView {
     _mobileNav = document.getElementById('mobileNav')
     _dropdownNav = document.querySelector('.dropdown-menu')
     _body = document.body;
-    _modal = document.querySelector('button[data-toggle="modal"]')
+    _modalToggle = document.querySelector('button[data-toggle="modal"]')
+    _closeModalButton = document.querySelector('button[data-dismiss="modal"')
+    _modal = document.getElementById('modalCenter');
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
         this.addHandlerShowMobileNav();
         this._addHandlerHideDropdownNav();
+        this._addHandleOpenModal();
+        this._addHandleCloseModal();
     }
     _toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
@@ -26,7 +30,7 @@ class PopupView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    toggleMobileNav() {
+    showMobileNav() {
         const targetDropdownMenu = this._dropdownNav
         const isAlreadyShown = targetDropdownMenu.classList.contains('show');
         if(!isAlreadyShown) targetDropdownMenu.classList.add('show');
@@ -42,40 +46,26 @@ class PopupView {
         }
     }
     addHandlerShowMobileNav () {
-        this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
+        this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav () {
         this._body.addEventListener('mouseup', this.hideMobileNav.bind(this));
     }
     _openModal(){
-        console.log('we are calling openModal');
-        const markup = `
-            <div id="modalCenter" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle style = display:block">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Modal title</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">×</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                    </div>
-                </div>
-            </div>
-        `
-        this._body.insertAdjacentHTML('afterbegin', markup);
-        const modalCenter = document.getElementById('modalCenter');
-        modalCenter.classList.add('show');
+        this._modal.classList.add('show');
+        this._modal.style.display = 'block';
     }
-    _closeModal(){}
+    _closeModal(e){
+        if(e.target.closest('button') === this._closeModalButton) 
+            this._modal.style.display = 'none';
+            this._modal.classList.remove('show');
+    }
     _addHandleOpenModal(){
-        this._modal.addEventListener('click', this._openModal.bind(this));
+        this._modalToggle.addEventListener('click', this._openModal.bind(this));
     }
-    _addHandleCloseModal(){}
+    _addHandleCloseModal(){
+        this._closeModalButton.addEventListener('click', this._closeModal.bind(this));
+    }
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
