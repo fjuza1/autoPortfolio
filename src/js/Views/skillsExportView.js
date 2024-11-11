@@ -83,14 +83,15 @@ class SkillsExportView extends View {
                     </div>
                     <div class="modal-body">
                         <h5>Everything was generated</h5>
-                        <div class="accordion" id="accordionExample">
+                        <div class="accordion open" id="accordionExample">
                             <div class="accordion-item">
                                 <h2 class="accordion-header" id="headingOne">
                                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                                         Detail
+                                        <i class="bi bi-chevron-down ms-2"></i>
                                     </button>
                                 </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
                                         <pre id="xmlContent">${data.startsWith("<?xml") ? this.escapeXml(data) : data}}</pre>
                                     </div>
@@ -107,6 +108,7 @@ class SkillsExportView extends View {
         this._modal.innerHTML = '';
         this._modal.insertAdjacentHTML('afterbegin', markup);
     }
+    
     escapeXml(unsafe) {
         return unsafe.replace(/[<>&'"]/g, function (c) {
             switch (c) {
