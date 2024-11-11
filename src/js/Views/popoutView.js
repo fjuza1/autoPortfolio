@@ -26,21 +26,26 @@ class PopupView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    toggleMobileNav(e) {
-        const target = e.target
+    toggleMobileNav() {
         const targetDropdownMenu = this._dropdownNav
-        targetDropdownMenu.classList.toggle('show')
+        const isAlreadyShown = targetDropdownMenu.classList.contains('show');
+        if(!isAlreadyShown) targetDropdownMenu.classList.add('show');
+        else targetDropdownMenu.classList.remove('show');
 	}
-    hideMobileNav(e){
+    hideMobileNav(e) {
         const targetDropdownMenu = this._dropdownNav;
-        if(targetDropdownMenu !== e.target)
-        targetDropdownMenu.classList.remove('show')
+        if (!targetDropdownMenu.contains(e.target) && e.target !== this._mobileNav) {
+            targetDropdownMenu.classList.remove('show');
+        }
+        if (e.target.classList.contains('dropdown-item')) {
+            targetDropdownMenu.classList.remove('show');
+        }
     }
     addHandlerShowMobileNav () {
         this._mobileNav.addEventListener('click', this.toggleMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav () {
-        document.addEventListener('click', (e) => this.hideMobileNav.bind(this));
+        this._body.addEventListener('mouseup', this.hideMobileNav.bind(this));
     }
     _openModal(){
         console.log('we are calling openModal');
