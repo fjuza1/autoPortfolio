@@ -36,8 +36,7 @@ const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
-		const data = await model.toFile(options);
-		const done = model.state.export.fileState.done === true
+		const data = await model.toFile(options)
         const [fileErrors]= data
         const generatedData = data[1];
         const fileType = fileErrors.find(err=>err.type === 'fileType');
@@ -49,7 +48,7 @@ const controllSkillsExport =  async () => {
 				return;
 			}
 		}
-		if(fileType) skillsExportView._outlineError({type: fileType.type,message:fileType.message})
+        if(fileType) skillsExportView._outlineError({type: fileType.type,message:fileType.message})
             else skillsExportView._outlineError({type: fileName.type,message:fileName.message})
 	} catch (err) {
 		throw err;
