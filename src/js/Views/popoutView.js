@@ -49,7 +49,7 @@ class PopupView {
         this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav () {
-        this._body.addEventListener('mouseup', this.hideMobileNav.bind(this));
+        !document.addEventListener('mouseup', this.hideMobileNav.bind(this));
     }
     _openModal(show){
         if(show === true) {
@@ -74,7 +74,7 @@ class PopupView {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideSection() {
-        this._body.addEventListener('mouseup', this._hideSection.bind(this));
+        !document.addEventListener('mouseup', this._hideSection.bind(this));
     }
 }
 export default new PopupView();
