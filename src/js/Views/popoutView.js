@@ -25,6 +25,7 @@ class PopupView {
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
     _hideSection(e) {
+        if(this._modal.classList.contains('show') && this._modal.style.display === 'block') return
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
