@@ -42,8 +42,7 @@ const controllSkillsExport =  async () => {
         const fileType = fileErrors.find(err=>err.type === 'fileType');
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
-			console.log('o file name');
-			popoutView._addHandleOpenModal()
+			popoutView._openModal(true);
 			return;
 		}
         if(fileType) skillsExportView._outlineError({type: fileType.type,message:fileType.message})
