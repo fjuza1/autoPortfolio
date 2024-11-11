@@ -6,7 +6,6 @@ class SkillsExportView extends View {
     _parentElement = document.getElementById('exportModal')
     _fileType = document.querySelector('.content.d-none');
     _fileName = document.querySelector('input[name="fileName"]')
-    _modal = document.querySelector('#modalCenter')
     constructor(){
         super();
         this._revealNameEvent();
@@ -74,39 +73,5 @@ class SkillsExportView extends View {
             this._revealExportContainer()
         });
     }
-    _exportModal(data) {
-        const markup = `
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Generation done</h5>
-                        <button type="button" class="btn-close dismiss-modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <h5>Everything was generated</h5>
-                        <div class="accordion" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Detail
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <pre id="xmlContent"></pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary dismiss-modal">OK</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        this._modal.insertAdjacentHTML('afterbegin', markup); // Insert modal content
-    }
-    
 }
 export default new SkillsExportView();
