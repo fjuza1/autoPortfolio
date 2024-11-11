@@ -79,8 +79,7 @@ class SkillsExportView extends View {
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Generation done</h5>
-                        <button type="button" class="btn-close dismiss-modal" aria-label="Close"></button>
+                        <h5 class="modal-title" id="exampleModalCenterTitle">Generation Done</h5>
                     </div>
                     <div class="modal-body">
                         <h5>Everything was generated</h5>
@@ -93,20 +92,19 @@ class SkillsExportView extends View {
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <pre id="xmlContent"></pre>
+                                        <pre id="xmlContent">${data}</pre>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary dismiss-modal">OK</button>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-primary btn-lg w-100 dismiss-modal">OK</button>
                     </div>
                 </div>
             </div>
         `;
         this._modal.insertAdjacentHTML('afterbegin', markup); // Insert modal content
-    }
-    
+    } 
 }
 export default new SkillsExportView();
