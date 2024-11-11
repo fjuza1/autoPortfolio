@@ -6,6 +6,7 @@ class SkillsExportView extends View {
     _parentElement = document.getElementById('exportModal')
     _fileType = document.querySelector('.content.d-none');
     _fileName = document.querySelector('input[name="fileName"]')
+    _modalHeader = document.querySelector('.modal-header');
     constructor(){
         super();
         this._revealNameEvent();
@@ -73,5 +74,21 @@ class SkillsExportView extends View {
             this._revealExportContainer()
         });
     }
+    _generateExport(detailData) {
+        const markup = `
+        <div class="modal-body">
+                            <div class="bd-example bg-light">
+                        <div id="flush-collapseOne" class="accordion-collapse collapse show" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample" style="">
+                            <div class="accordion-body">${JSON.stringify(detailData), null , '\t'}</div>
+                        </div>
+                    </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>`;
+        this._modalHeader.insertAdjacentHTML('afterend', markup);
+    }
+    
 }
 export default new SkillsExportView();
