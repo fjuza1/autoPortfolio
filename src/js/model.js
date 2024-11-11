@@ -4,13 +4,6 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
-	export:{
-		fileState: {
-			empty:false,
-			loading: false,
-			done:false
-		},
-	},
 	skills: [{
 		name: 'Postman',
 		level: EXPERT_LEVEL[3],
@@ -138,29 +131,6 @@ export const state = {
 	}
 ]
 }
-export const readFileState = async (file) => {
-    try {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-			reader.onerror = (error) => {
-                reject(error);
-            };
-			state.export.fileState.empty = true;
-			reader.readAsText(file);
-			state.export.fileState.empty = false;
-			state.export.fileState.loading = true;
-
-			reader.onloadend = (event) => {
-
-			  state.export.fileState.loading = false;
-			  state.export.fileState.done = true;
-			  resolve(event.target.result);
-			};
-        });
-    } catch (err) {
-        throw err;
-    }
-};
 export const toFile = async (options) => {
 	try {
 		const array = options.array
@@ -191,14 +161,9 @@ export const toFile = async (options) => {
 				break;
 			default:
 		}
-		const checkValsEmpty = Object.values(options).every(val=> val.length !== 0)
-		let generatedMessage;
-		if(checkValsEmpty) {
-			const blob = new Blob([String(content)], textType);
-			const read = await readFileState(blob)
-			generatedMessage = await handleFileGeneration(blob);
-			errors.length > 0 || generatedMessage.includes( UNGENERATED_FILE_MESSAGE ) ? false : saveAs(blob, options.fileName);
-		}
+		const blob = new Blob([String(content)], textType);
+		const generatedMessage = await handleFileGeneration(blob);
+		errors.length > 0 || generatedMessage.includes( UNGENERATED_FILE_MESSAGE ) ? false : saveAs(blob, options.fileName);
 		return [errors,generatedMessage];
 	} catch (err) {
 		throw err;
