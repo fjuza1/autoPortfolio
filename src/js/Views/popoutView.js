@@ -58,11 +58,18 @@ class PopupView {
             this._body.style.overflow = 'hidden'
         }
     }
-    _closeModal(e){
-        if(e.target.closest('button').classList.contains('close')) 
+    _closeModal(e) {
+        const target = e.target.closest('button');
+        if (!target) return;
+    
+        const targetClass = target.classList;
+        if (!targetClass) return;
+    
+        if (targetClass.contains('dismiss-modal')) {
             this._modal.style.display = 'none';
             this._modal.classList.remove('show');
-            this._body.style.overflow = 'auto'
+            this._body.style.overflow = 'auto';
+        }
     }
     _addHandleOpenModal(){
         this._modalToggle.addEventListener('click', this._openModal.bind(this));

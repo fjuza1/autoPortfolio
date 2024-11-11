@@ -44,6 +44,7 @@ const controllSkillsExport =  async () => {
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
 			if(done) {
+				skillsExportView._exportModal(generatedData);
 				popoutView._openModal(true);
 				return;
 			}
