@@ -51,7 +51,7 @@ class PopupView {
     _addHandlerHideDropdownNav () {
         this._body.addEventListener('mouseup', this.hideMobileNav.bind(this));
     }
-    _openModal(e){
+    _openModal(){
         const dataToggled = this._modal.dataset.beToggled
         if(dataToggled === 1) {
             this._modal.classList.add('show');
