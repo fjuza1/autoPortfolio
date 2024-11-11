@@ -92,7 +92,7 @@ class SkillsExportView extends View {
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <pre id="xmlContent">${data}</pre>
+                                        <pre id="xmlContent">${data.startsWith("<?xml") ? this.escapeXml(data) : data}}</pre>
                                     </div>
                                 </div>
                             </div>
@@ -104,7 +104,19 @@ class SkillsExportView extends View {
                 </div>
             </div>
         `;
-        this._modal.insertAdjacentHTML('afterbegin', markup); // Insert modal content
-    } 
+        this._modal.innerHTML = '';
+        this._modal.insertAdjacentHTML('afterbegin', markup);
+    }
+    escapeXml(unsafe) {
+        return unsafe.replace(/[<>&'"]/g, function (c) {
+            switch (c) {
+                case '<': return '&lt;';
+                case '>': return '&gt;';
+                case '&': return '&amp;';
+                case '\'': return '&apos;';
+                case '"': return '&quot;';
+            }
+        });
+    }
 }
 export default new SkillsExportView();
