@@ -45,7 +45,6 @@ const controllSkillsExport =  async () => {
 		if(!fileName){
 			if(done) {
 				popoutView._openModal(true);
-				skillsExportView._generateExport(generatedData)
 				return;
 			}
 		}
