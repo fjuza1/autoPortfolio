@@ -53,10 +53,9 @@ section {
   transform: translateZ(0); /* Force GPU rendering for smoother effects */
 }
 .carousel-inner {
-  animation: dummyAnimation 2s infinite;
+  animation: nextSlideAnimation 2s infinite;
 }
-
-@keyframes dummyAnimation {
+@keyframes nextSlideAnimation {
   from { opacity: 1; }
   to { opacity: 0.9; }
 }
