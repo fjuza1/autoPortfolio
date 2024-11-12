@@ -31,7 +31,8 @@ class PopupView {
         const openButton = target.closest('button')
         if(!openButton) return
         const sibling = openButton.dataset.bsTarget
-        if(sibling){
+        const isAccordionButton = openButton.classList.contains('accordion-button')
+        if(sibling && isAccordionButton){
             if(openButton.classList.contains('accordion-button')){
                 const isOpen = openButton.classList.toggle('open');
                 openButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');

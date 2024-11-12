@@ -23,7 +23,9 @@ class SlidesView {
     _goto(index) {
         this._deactivateAllSlides();
         this._deactivateAllIndicators();
-        this._slides[index].classList.add('active');
+        const slide = this._slides[index]
+        if(!slide) return;
+        slide.classList.add('active');
         this._slideIndicators[index].classList.add('active');
     }
     goToSlide(e) {
@@ -60,8 +62,7 @@ class SlidesView {
         this._isAnimating = true;
         let curSlide = this._slides[this._slideIndex];
         const interval = +curSlide.dataset.bsInterval;
-        if(!interval) return;
-        
+        if(!interval ) return;
         wait(() => {
             this.goForward()
             this._goto(this._slideIndex);
