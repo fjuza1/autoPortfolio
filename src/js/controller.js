@@ -33,7 +33,7 @@ const controllSortedSkills = () => {
 	});
 }
 const controllSlides = () => {
-	slidesView.addSlideHandler()
+	slidesView.handleSlides()
 }
 const controllProjects = () =>{
 }

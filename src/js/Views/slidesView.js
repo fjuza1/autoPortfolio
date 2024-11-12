@@ -11,15 +11,15 @@ class SlidesView {
 
         // end
     }
-    _removeSlideClass (){
+    _deactivateAllSlides (){
         this._slides.forEach(slide => slide.classList.remove('active'));
     }
-    _removeIndicatorsClass () {
+    _deactivateAllIndicators () {
         [...this._slideIndicators].forEach(indicator => indicator.classList.remove('active'));
     }
     _goto(index) {
-        this._removeSlideClass();
-        this._removeIndicatorsClass();
+        this._deactivateAllSlides();
+        this._deactivateAllIndicators();
         this._slides[index].classList.add('active');
         this._slideIndicators[index].classList.add('active');
     }
@@ -42,21 +42,21 @@ class SlidesView {
         let curSlide = this._slideIndex;
         this._slideIndex = (curSlide - 1 + len) % len;
     }
-    nextSlide(e) {
+    showNextSlide(e) {
         this.goForward(e)
         this._goto(this._slideIndex)
     }
-    prevSlide(e) {
+    showPreviousSlide(e) {
         this.goBack(e)
         this._goto(this._slideIndex)
     }
     _animateSlides() {
         // TODO Implement logic to animate slides here
     }
-    addSlideHandler() {
+    handleSlides() {
         this._slideIndicatorsContainer.addEventListener('click', this.goToSlide.bind(this));
-        this._nextBtn.addEventListener('click', this.nextSlide.bind(this));
-        this._prevBtn.addEventListener('click', this.prevSlide.bind(this));
+        this._nextBtn.addEventListener('click', this.showNextSlide.bind(this));
+        this._prevBtn.addEventListener('click', this.showPreviousSlide.bind(this));
     }
 }
 export default new SlidesView();
