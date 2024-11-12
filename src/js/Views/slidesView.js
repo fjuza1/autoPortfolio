@@ -1,9 +1,9 @@
 class SlidesView {
     _parentElement = document.querySelector('#carouselExampleDark')
-    _slides = null;
-    _prevBtn = null;
-    _nextBtn = null;
-    _slideIndicators = null;
+    _slides = document.querySelectorAll('.carousel-item');
+    _prevBtn = document.querySelector('.carousel-control-prev');
+    _nextBtn = document.querySelector('.carousel-control-next');
+    _slideIndicators = document.querySelector('.carousel-indicators').children;
 
     _renderSlides (){
         // Implement logic to render slides and slide indicators here
@@ -31,6 +31,9 @@ class SlidesView {
     }
     nextSlide() {}
     prevSlide() {}
+    _animateSlides() {
+        // TODO Implement logic to animate slides here
+    }
     addSlideHandler(handler) {}
 }
 export default new SlidesView();
