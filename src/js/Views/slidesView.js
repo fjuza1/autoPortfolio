@@ -1,9 +1,11 @@
+import { wait } from '../helpers.js';
 class SlidesView {
     _parentElement = document.querySelector('#carouselExampleDark')
     _slides = document.querySelectorAll('.carousel-item');
     _prevBtn = document.querySelector('.carousel-control-prev');
     _nextBtn = document.querySelector('.carousel-control-next');
     _slideIndicatorsContainer = document.querySelector('.carousel-indicators')
+    _slidesContainer = document.querySelector('.carousel-inner');
     _slideIndicators = this._slideIndicatorsContainer.children;
     _slideIndex = 0;
     _renderSlides (){
@@ -52,11 +54,25 @@ class SlidesView {
     }
     _animateSlides() {
         // TODO Implement logic to animate slides here
+        const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || item.dataset.bsInterval.length > 0)
+        if(animationQuestion) return;
+        let curSlide = this._slideIndex;
+        const interval = curSlide.dataset.bsInterval;
+        if(!interval) {
+            this.showNextSlide()
+            return;
+        }
+        wait(() => {
+            this.showNextSlide()
+        },interval)
+        console.log('animationiscalled');
     }
     handleSlides() {
         this._slideIndicatorsContainer.addEventListener('click', this.goToSlide.bind(this));
         this._nextBtn.addEventListener('click', this.showNextSlide.bind(this));
         this._prevBtn.addEventListener('click', this.showPreviousSlide.bind(this));
+        this._slidesContainer.addEventListener('animationstart', this._animateSlides.bind(this));
+        this._slidesContainer.addEventListener('animationiteration', this._animateSlides.bind(this));
     }
 }
 export default new SlidesView();
