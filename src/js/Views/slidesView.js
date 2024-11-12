@@ -60,12 +60,8 @@ class SlidesView {
         this._isAnimating = true;
         let curSlide = this._slides[this._slideIndex];
         const interval = +curSlide.dataset.bsInterval;
-        if(!interval || interval === 0) {
-            this.goForward();
-            this._goto(this._slideIndex);
-            this._isAnimating = false;
-            return;
-        }
+        if(!interval) return;
+        
         wait(() => {
             this.goForward()
             this._goto(this._slideIndex);
