@@ -25,6 +25,7 @@ class SlidesView {
     }
     goToSlide(e) {
         const dataset = e.target.dataset.bsSlideTo;
+        this._slideIndex = dataset
         this._goto(dataset)
     }
     goForward(e){
