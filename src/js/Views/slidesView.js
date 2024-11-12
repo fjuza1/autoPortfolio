@@ -31,30 +31,29 @@ class SlidesView {
         this._slideIndex = dataset
         this._goto(dataset)
     }
-    goForward(e){
-        const target = e.target.closest('button');
-        if (!target) return;
+    goForward(){
         const len = this._slides.length;
         let curSlide = this._slideIndex;
         this._slideIndex = (curSlide + 1) % len;
     }
-    goBack(e){
-        const target = e.target.closest('button');
-        if (!target) return;
+    goBack(){
         const len = this._slides.length;
         let curSlide = this._slideIndex;
         this._slideIndex = (curSlide - 1 + len) % len;
     }
     showNextSlide(e) {
+        const target = e.target.closest('button');
+        if (!target) return;
         this.goForward(e)
         this._goto(this._slideIndex)
     }
     showPreviousSlide(e) {
+        const target = e.target.closest('button');
+        if (!target) return;
         this.goBack(e)
         this._goto(this._slideIndex)
     }
     _animateSlides() {
-        // TODO Implement logic to animate slides here
         const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || +item.dataset.bsInterval === 0);
         if (animationQuestion) return;
         if(this._isAnimating) return;
@@ -62,21 +61,21 @@ class SlidesView {
         let curSlide = this._slides[this._slideIndex];
         const interval = +curSlide.dataset.bsInterval;
         if(!interval || interval === 0) {
-            this.showNextSlide();
+            this.goForward();
+            this._goto(this._slideIndex);
             this._isAnimating = false;
             return;
         }
         wait(() => {
-            this.showNextSlide()
+            this.goForward()
+            this._goto(this._slideIndex);
             this._isAnimating = false;
         }, interval)
-        console.log('animationiscalled');
     }
     handleSlides() {
         this._slideIndicatorsContainer.addEventListener('click', this.goToSlide.bind(this));
         this._nextBtn.addEventListener('click', this.showNextSlide.bind(this));
         this._prevBtn.addEventListener('click', this.showPreviousSlide.bind(this));
-        this._slidesContainer.addEventListener('animationstart', this._animateSlides.bind(this));
         this._slidesContainer.addEventListener('animationiteration', this._animateSlides.bind(this));
     }
 }
