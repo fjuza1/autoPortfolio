@@ -5,6 +5,7 @@ class SlidesView {
     _nextBtn = document.querySelector('.carousel-control-next');
     _slideIndicatorsContainer = document.querySelector('.carousel-indicators')
     _slideIndicators = this._slideIndicatorsContainer.children;
+    _slideIndex = 0;
     _renderSlides (){
         // Implement logic to render slides and slide indicators here
 
@@ -26,13 +27,35 @@ class SlidesView {
         const dataset = e.target.dataset.bsSlideTo;
         this._goto(dataset)
     }
-    nextSlide() {}
-    prevSlide() {}
+    goForward(e){
+        const target = e.target.closest('button');
+        if (!target) return;
+        const len = this._slides.length;
+        let curSlide = this._slideIndex;
+        this._slideIndex = (curSlide + 1) % len;
+    }
+    goBack(e){
+        const target = e.target.closest('button');
+        if (!target) return;
+        const len = this._slides.length;
+        let curSlide = this._slideIndex;
+        this._slideIndex = (curSlide - 1 + len) % len;
+    }
+    nextSlide(e) {
+        this.goForward(e)
+        this._goto(this._slideIndex)
+    }
+    prevSlide(e) {
+        this.goBack(e)
+        this._goto(this._slideIndex)
+    }
     _animateSlides() {
         // TODO Implement logic to animate slides here
     }
-    addSlideHandler(handler) {
-        this._slideIndicatorsContainer.addEventListener('click', handler);
+    addSlideHandler() {
+        this._slideIndicatorsContainer.addEventListener('click', this.goToSlide.bind(this));
+        this._nextBtn.addEventListener('click', this.nextSlide.bind(this));
+        this._prevBtn.addEventListener('click', this.prevSlide.bind(this));
     }
 }
 export default new SlidesView();
