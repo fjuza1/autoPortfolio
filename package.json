@@ -4,6 +4,7 @@
     "build": "parcel build index.html"
   },
   "dependencies": {
+    "bootstrap-icons": "^1.11.3",
     "core-js": "^3.38.1",
     "email-validator": "^2.0.4",
     "file-saver": "^2.0.5",

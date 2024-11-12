@@ -32,6 +32,11 @@ const controllSortedSkills = () => {
 		skillsView._render(skillsView._skillBarDisplay(skills))
 	});
 }
+const controllSlides = () => {
+	slidesView.handleSlides()
+}
+const controllProjects = () =>{
+}
 const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
@@ -74,6 +79,7 @@ const init = () => {
 	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
 	controlSections();
+	controllSlides();
 	skillsView._addHandlerLoad(loadAndRenderContent)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
