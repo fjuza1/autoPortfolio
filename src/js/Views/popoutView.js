@@ -9,6 +9,7 @@ class PopupView {
     _modalToggle = document.querySelector('button[data-toggle="modal"]')
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
+    _toggleAccordionBtn = document.querySelector('.accordion-button');
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
@@ -16,6 +17,7 @@ class PopupView {
         this._addHandlerHideDropdownNav();
         this._addHandleOpenModal();
         this._addHandleCloseModal();
+        this._addHandleAccordion();
     }
     _toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
@@ -24,7 +26,21 @@ class PopupView {
         this._multiCollapse.forEach(section => section.classList.remove('show'));
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
+    _toggleAccordion(e) {
+        const target = e.target
+        const openButton = target.closest('button')
+        if(!openButton) return
+        const sibling = openButton.dataset.bsTarget
+        if(sibling){
+            if(openButton.classList.contains('accordion-button')){
+                const isOpen = openButton.classList.toggle('open');
+                openButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            }
+            document.getElementById(sibling.slice(1)).classList.toggle('show');
+        }
+    }
     _hideSection(e) {
+        if(this._modal.classList.contains('show') && this._modal.style.display === 'block') return
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
@@ -50,6 +66,9 @@ class PopupView {
     }
     _addHandlerHideDropdownNav () {
         !document.addEventListener('mouseup', this.hideMobileNav.bind(this));
+    }
+    _addHandleAccordion(){
+        document.addEventListener('click', this._toggleAccordion.bind(this));
     }
     _openModal(show){
         if(show === true) {
