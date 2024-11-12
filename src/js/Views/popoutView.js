@@ -35,6 +35,7 @@ class PopupView {
             if(openButton.classList.contains('accordion-button')){
                 const isOpen = openButton.classList.toggle('open');
                 openButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+                openButton.classList.toggle('collapsed');
             }
             document.getElementById(sibling.slice(1)).classList.toggle('show');
         }
