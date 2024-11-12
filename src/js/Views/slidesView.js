@@ -8,6 +8,7 @@ class SlidesView {
     _slidesContainer = document.querySelector('.carousel-inner');
     _slideIndicators = this._slideIndicatorsContainer.children;
     _slideIndex = 0;
+    _isAnimating = false
     _renderSlides (){
         // Implement logic to render slides and slide indicators here
 
@@ -54,17 +55,21 @@ class SlidesView {
     }
     _animateSlides() {
         // TODO Implement logic to animate slides here
-        const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || item.dataset.bsInterval.length > 0)
-        if(animationQuestion) return;
-        let curSlide = this._slideIndex;
-        const interval = curSlide.dataset.bsInterval;
-        if(!interval) {
-            this.showNextSlide()
+        const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || +item.dataset.bsInterval === 0);
+        if (animationQuestion) return;
+        if(this._isAnimating) return;
+        this._isAnimating = true;
+        let curSlide = this._slides[this._slideIndex];
+        const interval = +curSlide.dataset.bsInterval;
+        if(!interval || interval === 0) {
+            this.showNextSlide();
+            this._isAnimating = false;
             return;
         }
         wait(() => {
             this.showNextSlide()
-        },interval)
+            this._isAnimating = false;
+        }, interval)
         console.log('animationiscalled');
     }
     handleSlides() {
