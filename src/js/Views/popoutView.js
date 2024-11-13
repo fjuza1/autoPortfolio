@@ -67,7 +67,7 @@ class PopupView {
         this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav () {
-        !document.addEventListener('mouseup', this.hideMobileNav.bind(this));
+        window.addEventListener('mouseup', this.hideMobileNav.bind(this));
     }
     _addHandleAccordion(){
         document.addEventListener('click', this._toggleAccordion.bind(this));
@@ -102,7 +102,7 @@ class PopupView {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideSection() {
-        !document.addEventListener('mouseup', this._hideSection.bind(this));
+        window.addEventListener('mouseup', this._hideSection.bind(this));
     }
 }
 export default new PopupView();
