@@ -1,7 +1,7 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, CUR_PAGE, RES_PER_PAGE_TRESHOLD
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	export:{
@@ -14,6 +14,7 @@ export const state = {
 	skills: {
 		currentPage: CUR_PAGE,
 		resPerPage : RES_PER_PAGE_TRESHOLD,
+		filtered:'',
 		data:	[{
 			name: 'Postman',
 			level: EXPERT_LEVEL[3],
@@ -207,6 +208,28 @@ export const toFile = async (options) => {
 	} catch (err) {
 		throw err;
 	}
+}
+export const filterSkills = function (options) {
+    let value;
+    const { array, keys, values } = options;
+    const copiedArray = [...array];
+    value = values.map(el => el === 0 ? '' : el);
+
+    const filteredData = filterByKeys(copiedArray, keys, value);
+	state.skills.filtered = filteredData
+	const froze = Object.freeze(state.skills.filtered)
+
+    return filteredData;
+}
+export const sortingSkills = function(options) {
+	let {array, sortBy, order} = options;
+	state.skills.filtered.length > 0 ? array = state.skills.filtered : array;
+	const sortFunctions = {
+		expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+		name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+		category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
+	};
+	return [...array].sort(sortFunctions[sortBy]);
 }
 export const paginate = (arr, pageNumber = arr.currentPage, pageSize = arr.resPerPage) => {
 	const start = 0
