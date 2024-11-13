@@ -74,6 +74,9 @@ class SlidesView {
         this._nextBtn.addEventListener('click', this.showNextSlide.bind(this));
         this._prevBtn.addEventListener('click', this.showPreviousSlide.bind(this));
         this._slidesContainer.addEventListener('animationiteration', this._animateSlides.bind(this));
+        this._slidesContainer.addEventListener('animationiteration', () => {
+            requestAnimationFrame(()=> this._animateSlides());
+        })
     }
 }
 export default new SlidesView();
