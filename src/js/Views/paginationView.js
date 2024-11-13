@@ -4,15 +4,15 @@ class PaginationView {
     _getNumPages(_data) {
         return Math.ceil(this._data.length / this._itemsPerPage);
     }
-    _generateMarkup(){
+    _generateMarkup(_data){
         const curPage = this.currentPage;
-        const numPages = this._getNumPages();
+        const numpages = this._getNumPages(_data);
         // Page 1, and there are other pages
-        if(curPage < numPages) return `
+        if(curPage < numpages) return `
             <span class="d-block text-primary text-center py-2 cursor-pointer">Load more</span>
         `
         // If last page, no pagination needed
-        if(curPage === numpages && numPages > 1) {
+        if(curPage === numpages && numpages > 1) {
             return ''
         }
         return ''

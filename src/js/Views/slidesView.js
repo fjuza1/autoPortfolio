@@ -8,8 +8,8 @@ class SlidesView {
     _slidesContainer = document.querySelector('.carousel-inner');
     _slideIndicators = this._slideIndicatorsContainer.children;
     _slideIndex = 0;
-    _isAnimating = false
-    _renderSlides (){
+    _isAnimating = false;
+    _generateMarkup (){
         // Implement logic to render slides and slide indicators here
 
         // end
