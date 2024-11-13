@@ -4,8 +4,6 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
-	currentPage: CUR_PAGE,
-	resPerPage : RES_PER_PAGE_TRESHOLD,
 	export:{
 		fileState: {
 			empty:false,
@@ -13,87 +11,91 @@ export const state = {
 			done:false
 		},
 	},
-	skills: [{
-		name: 'Postman',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'JavaScript',
-		level: EXPERT_LEVEL[4],
-		levelNumber: EXPERT_NUM[4],
-		category: CATEGORIES[2]
-	}, {
-		name: 'HTML',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[2]
-	}, {
-		name: 'XML',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[2]
-	}, {
-		name: 'SQL',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[2]
-	}, {
-		name: 'Cypress',
-		level: EXPERT_LEVEL[2],
-		levelNumber: EXPERT_NUM[2],
-		category: CATEGORIES[0]
-	}, {
-		name: 'SoapUI',
-		level: EXPERT_LEVEL[1],
-		levelNumber: EXPERT_NUM[1],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Azure DevOps Server',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'TFS',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Microsoft Visual Studio Code',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Microsoft SQL Servers Studio',
-		level: EXPERT_LEVEL[2],
-		levelNumber: EXPERT_NUM[2],
-		category: CATEGORIES[0]
-	}, {
-		name: 'UML - Unified Modeling Language',
-		level: EXPERT_LEVEL[2],
-		levelNumber: EXPERT_NUM[2],
-		category: CATEGORIES[2]
-	}, {
-		name: 'Enterprise Architect',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Select Architect',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Eclipse IDE for Java Developers',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'CI/CD pipeline',
-		level: EXPERT_LEVEL[1],
-		levelNumber: EXPERT_NUM[1],
-		category: CATEGORIES[3]
-	}],
+	skills: {
+		currentPage: CUR_PAGE,
+		resPerPage : RES_PER_PAGE_TRESHOLD,
+		data:	[{
+			name: 'Postman',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'JavaScript',
+			level: EXPERT_LEVEL[4],
+			levelNumber: EXPERT_NUM[4],
+			category: CATEGORIES[2]
+		}, {
+			name: 'HTML',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[2]
+		}, {
+			name: 'XML',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[2]
+		}, {
+			name: 'SQL',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[2]
+		}, {
+			name: 'Cypress',
+			level: EXPERT_LEVEL[2],
+			levelNumber: EXPERT_NUM[2],
+			category: CATEGORIES[0]
+		}, {
+			name: 'SoapUI',
+			level: EXPERT_LEVEL[1],
+			levelNumber: EXPERT_NUM[1],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Azure DevOps Server',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'TFS',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Microsoft Visual Studio Code',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Microsoft SQL Servers Studio',
+			level: EXPERT_LEVEL[2],
+			levelNumber: EXPERT_NUM[2],
+			category: CATEGORIES[0]
+		}, {
+			name: 'UML - Unified Modeling Language',
+			level: EXPERT_LEVEL[2],
+			levelNumber: EXPERT_NUM[2],
+			category: CATEGORIES[2]
+		}, {
+			name: 'Enterprise Architect',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Select Architect',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Eclipse IDE for Java Developers',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'CI/CD pipeline',
+			level: EXPERT_LEVEL[1],
+			levelNumber: EXPERT_NUM[1],
+			category: CATEGORIES[3]
+		}]
+	},
 	projects: 
 	[
 		{

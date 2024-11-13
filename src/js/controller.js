@@ -21,12 +21,12 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const loadAndRenderContent = () => {
-	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+	skillsView._render(skillsView._skillBarDisplay(model.state.skills.data))
 	
 	//projectViewRender
 }
 const controllSortedSkills = () => {
-	const array = {array: model.state.skills}
+	const array = {array: model.state.skills.data}
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
 	const skills = skillsView._sortingSkills(options)
@@ -41,7 +41,7 @@ const controllProjects = () =>{
 }
 const controllSkillsExport =  async () => {
 	try {
-		const array = {array:model.state.skills}
+		const array = {array:model.state.skills.data}
 		const options = {...array, ... skillsExportView._formData};
 		const data = await model.toFile(options);
 		const done = model.state.export.fileState.done === true
@@ -63,7 +63,7 @@ const controllSkillsExport =  async () => {
 	}
 }
 const controllSortedResetSkills = () => {
-	const original = model.state.skills
+	const original = model.state.skills.data
 	skillsView._data =  original
 	skillsView._render(skillsView._skillBarDisplay( original))
 }
@@ -71,7 +71,7 @@ const controllFilterSkills = () =>{
 	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const keys = options['params'];
 	const values = options['values'];
-	const filtered = skillsView._filterActivities(model.state.skills, keys, values);
+	const filtered = skillsView._filterActivities(model.state.skills.data, keys, values);
     skillsView._renderSpinner();
     timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))
