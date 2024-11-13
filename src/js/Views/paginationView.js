@@ -3,8 +3,8 @@ class PaginationView{
     _pageStart = 0;
     addHandlerPagination(handler) {
         this._parentElement.addEventListener('click', (e) => {
-            if(e.target.tagName === 'SPAN' && e.target.id === 'loadMore') {
-                handler(_data.currentPage++);
+            if(e.target.id === 'loadMore') {
+                handler(this._data.currentPage ++);
             }
         });
     }
@@ -12,6 +12,7 @@ class PaginationView{
         return Math.ceil(_data.data.length / _data.resPerPage);
     }
     _generateMarkup(_data){
+        this._data = _data
         let markup
         const curPage = _data.currentPage;
         const numpages = this._getNumPages(_data);

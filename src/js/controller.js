@@ -89,5 +89,6 @@ const init = () => {
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport)
+	paginationView.addHandlerPagination(loadAndRenderContent)
 }
 init()
