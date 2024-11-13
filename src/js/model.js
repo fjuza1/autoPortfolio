@@ -208,8 +208,9 @@ export const toFile = async (options) => {
 		throw err;
 	}
 }
-export const paginate = (arr, pageNumber = state.currentPage, pageSize = state.resPerPage) => {
-	const start = pageSize * (pageNumber - 1);
+export const paginate = (arr, pageNumber = arr.currentPage, pageSize = arr.resPerPage) => {
+	const start = 0
 	const end = pageSize * pageNumber;
+	arr = Object.values(arr).find(arr=>Array.isArray(arr))
 	return arr.slice(start, end);
 }
