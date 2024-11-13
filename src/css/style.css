@@ -52,9 +52,15 @@ section {
   backface-visibility: hidden; /* Prevent rendering issues */
   transform: translateZ(0); /* Force GPU rendering for smoother effects */
 }
-.carousel-inner {
-  animation: nextSlideAnimation 2s infinite;
+.carousel-item {
+  transition: transform 1.5s ease-in-out, opacity 1.5s ease-in-out;
 }
+
+.carousel-item-next,
+.carousel-item-prev {
+  animation: nextSlideAnimation 2s;
+}
+
 @keyframes nextSlideAnimation {
   from { opacity: 1; }
   to { opacity: 0.9; }
