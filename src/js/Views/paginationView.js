@@ -3,7 +3,7 @@ class PaginationView extends View{
     _parentElement = document.querySelector('.pagination');
 
     _getNumPages(_data) {
-        return Math.ceil(this._data.length / this._itemsPerPage);
+        return Math.ceil(this._data.length / this.resPerPage);
     }
     _generateMarkup(_data){
         const curPage = this.currentPage;
