@@ -10,6 +10,7 @@ import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
+import paginationView from './Views/paginationView.js';
 // console.log(emailValidator, createCaptcha);
 //console.log(popupView, designView, skillsView, skillsExportView, slidesView, contactView);
 const controllNavBar = () => {
@@ -21,6 +22,7 @@ const controlSections = () => {
 }
 const loadAndRenderContent = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+	
 	//projectViewRender
 }
 const controllSortedSkills = () => {

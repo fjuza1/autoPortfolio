@@ -1,9 +1,11 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
-	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, CUR_PAGE, RES_PER_PAGE_TRESHOLD
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
+	currentPage: CUR_PAGE,
+	resPerPage : RES_PER_PAGE_TRESHOLD,
 	export:{
 		fileState: {
 			empty:false,
@@ -203,4 +205,9 @@ export const toFile = async (options) => {
 	} catch (err) {
 		throw err;
 	}
+}
+export const paginate = (arr,pageSize = state.currentPage, pageNumber = state.resPerPage) => {
+	const start = pageSize * (pageNumber - 1);
+	const end = pageSize * pageNumber;
+	return arr.slice(start, end);
 }
