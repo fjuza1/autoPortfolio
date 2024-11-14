@@ -4,6 +4,7 @@ import {async} from 'regenerator-runtime';
 import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
+import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js'
 import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
@@ -72,10 +73,10 @@ const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const filtered = model.filterSkills(options);
 	const paged = model.paginate(filtered)
-    console.log("🚀 ~ controllFilterSkills ~ paged:", paged)
     skillsView._renderSpinner();
     timeout(() => {
-        skillsView._render(skillsView._skillBarDisplay(filtered))
+        paginationView._render(paged)
+		skillsView._render(skillsView._skillBarDisplay( paged.data))
     });
 }
 const init = () => {

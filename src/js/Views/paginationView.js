@@ -4,25 +4,24 @@ class PaginationView extends View{
     addHandlerPagination(handler) {
         this._parentElement.addEventListener('click', (e) => {
             if(e.target.id === 'loadMore') {
-                handler(this._data.currentPage ++);
+                handler(this._data.currentPage++);
             }
         });
     }
-    _getNumPages(_data) {
-        return Math.ceil(this._data.length / this._itemsPerPage);
-    }
     _generateMarkup(_data){
-        const curPage = this.currentPage;
-        const numpages = this._getNumPages(_data);
+        this._data = _data;
+        const curPage = this._data.currentPage;
+        const numPages = this._data.pages;
+        let markup = '';
         // Page 1, and there are other pages
-        if(curPage < numpages) return `
+        if(curPage < numPages) markup =  `
             <span class="d-block text-primary text-center py-2 cursor-pointer">Load more</span>
         `
         // If last page, no pagination needed
-        if(curPage === numpages && numpages > 1) {
-            return ''
+        if(curPage === numPages && numPages > 1) {
+            markup =  ''
         }
-        return ''
+        return [markup]
     }
 }
 export default new PaginationView();
