@@ -1,7 +1,7 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	export:{
@@ -218,7 +218,7 @@ export const filterSkills = function (options) {
 }
 export const sortingSkills = function(options) {
 	let {array, sortBy, order} = options;
-	const skills = readFromSessionStorage('skills')
+	const skills = state.skills
 	const value = state.skills.filtered ? array = state.skills.filtered : skills;
 	const sortFunctions = {
 		expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
