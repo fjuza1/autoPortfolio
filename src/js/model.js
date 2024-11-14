@@ -1,5 +1,5 @@
-import {EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
-	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, CUR_PAGE, RES_PER_PAGE_TRESHOLD, SKILLS
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, CUR_PAGE, RES_PER_PAGE_TRESHOLD
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -11,9 +11,92 @@ export const state = {
 			done:false
 		},
 	},
-	currentPage: CUR_PAGE,
-	resPerPage : RES_PER_PAGE_TRESHOLD,
-	data: [],
+	skills: {
+		currentPage: CUR_PAGE,
+		resPerPage : RES_PER_PAGE_TRESHOLD,
+		filtered:'',
+		data:	[{
+			name: 'Postman',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'JavaScript',
+			level: EXPERT_LEVEL[4],
+			levelNumber: EXPERT_NUM[4],
+			category: CATEGORIES[2]
+		}, {
+			name: 'HTML',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[2]
+		}, {
+			name: 'XML',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[2]
+		}, {
+			name: 'SQL',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[2]
+		}, {
+			name: 'Cypress',
+			level: EXPERT_LEVEL[2],
+			levelNumber: EXPERT_NUM[2],
+			category: CATEGORIES[0]
+		}, {
+			name: 'SoapUI',
+			level: EXPERT_LEVEL[1],
+			levelNumber: EXPERT_NUM[1],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Azure DevOps Server',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'TFS',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Microsoft Visual Studio Code',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Microsoft SQL Servers Studio',
+			level: EXPERT_LEVEL[2],
+			levelNumber: EXPERT_NUM[2],
+			category: CATEGORIES[0]
+		}, {
+			name: 'UML - Unified Modeling Language',
+			level: EXPERT_LEVEL[2],
+			levelNumber: EXPERT_NUM[2],
+			category: CATEGORIES[2]
+		}, {
+			name: 'Enterprise Architect',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Select Architect',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'Eclipse IDE for Java Developers',
+			level: EXPERT_LEVEL[3],
+			levelNumber: EXPERT_NUM[3],
+			category: CATEGORIES[0]
+		}, {
+			name: 'CI/CD pipeline',
+			level: EXPERT_LEVEL[1],
+			levelNumber: EXPERT_NUM[1],
+			category: CATEGORIES[3]
+		}]
+	},
 	projects: 
 	[
 		{
@@ -59,9 +142,6 @@ export const state = {
 		endDate: '2020-12-31'
 	}
 ]
-}
-export const fetchSkills = () =>{
-	state.data = SKILLS
 }
 export const readFileState = async (file) => {
     try {
@@ -136,13 +216,14 @@ export const filterSkills = function (options) {
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-	state.data = filteredData
+	state.skills.filtered = filteredData
 	const froze = Object.freeze(state.skills.filtered)
 
     return filteredData;
 }
 export const sortingSkills = function(options) {
 	let {array, sortBy, order} = options;
+	state.skills.filtered.length > 0 ? array = state.skills.filtered : array;
 	const sortFunctions = {
 		expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
 		name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
@@ -150,8 +231,9 @@ export const sortingSkills = function(options) {
 	};
 	return [...array].sort(sortFunctions[sortBy]);
 }
-export const paginate = (arr, pageNumber = state.currentPage, pageSize = state.resPerPage) => {
+export const paginate = (arr, pageNumber = arr.currentPage, pageSize = arr.resPerPage) => {
 	const start = 0
 	const end = pageSize * pageNumber;
+	arr = Object.values(arr).find(arr=>Array.isArray(arr))
 	return arr.slice(start, end);
 }
