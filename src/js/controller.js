@@ -11,8 +11,6 @@ import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
-// console.log(emailValidator, createCaptcha);
-//console.log(popupView, designView, skillsView, skillsExportView, slidesView, contactView);
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
 	designView.addHandlerNavObserver()
@@ -81,7 +79,6 @@ const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	const paged = model.paginate(original)
 	original.filteredSkills = '';
-
 	handlePagination(original,(data)=> {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
