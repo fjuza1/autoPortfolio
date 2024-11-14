@@ -4,7 +4,6 @@ import {async} from 'regenerator-runtime';
 import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
-console.log("🚀 ~ model:", model)
 import popoutView from './Views/popoutView.js'
 import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';

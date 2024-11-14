@@ -1,7 +1,13 @@
 import View from './View.js';
 class PaginationView extends View{
     _parentElement = document.querySelector('.pagination');
-
+    addHandlerPagination(handler) {
+        this._parentElement.addEventListener('click', (e) => {
+            if(e.target.id === 'loadMore') {
+                handler(this._data.currentPage ++);
+            }
+        });
+    }
     _getNumPages(_data) {
         return Math.ceil(this._data.length / this._itemsPerPage);
     }
