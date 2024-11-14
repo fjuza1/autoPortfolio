@@ -77,10 +77,14 @@ const controllFilterSkills = () =>{
     timeout(() => {
         paginationView._render(paged)
 		skillsView._render(skillsView._skillBarDisplay( paged.data))
+
+		paginationView.addHandlerPagination((data)=>{
+			const updated = model.paginate(filtered,data)
+			paginationView._render(paged)
+			skillsView._render(skillsView._skillBarDisplay( updated.data))
+		})
     });
-	return filtered
 }
-console.log(controllFilterSkills);
 const init = () => {
 	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
@@ -89,7 +93,6 @@ const init = () => {
 	skillsView._addHandlerLoad(loadAndRenderContent)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
-	paginationView.addHandlerPagination(controllFilterSkills)
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport)
 }
