@@ -21,10 +21,12 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const loadAndRenderContent = () => {
-	const data = model.paginate(model.state.skills)
+	model.fetchSkills();
+	console.log(model.state.data);
+	const data = model.paginate(model.state.data)
 	skillsView._render(skillsView._skillBarDisplay(data))
 	//markup
-	paginationView._generateMarkup(model.state.skills)
+	paginationView._generateMarkup(model.state)
 	//projectViewRender
 }
 const controllSortedSkills = () => {

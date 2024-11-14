@@ -9,7 +9,9 @@ class PaginationView{
         });
     }
     _getNumPages(_data) {
-        return Math.ceil(_data.data.length / _data.resPerPage);
+        this._data = _data
+        console.log(this._data);
+        return Math.ceil(this._data.data.length / this._data.resPerPage);
     }
     _generateMarkup(_data){
         this._data = _data
