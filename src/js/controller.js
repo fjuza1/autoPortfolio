@@ -60,7 +60,14 @@ const controllSortedSkills = () => {
 	const paged = model.paginate(skills)
 	console.log("🚀 ~ controllpagedSkills ~ paged:", paged)
 	timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(skills))
+		paginationView._render(paged)
+		skillsView._render(skillsView._skillBarDisplay(paged.data))
+
+		paginationView.addHandlerPagination((data)=>{
+            const updated = model.paginate(skills,data)
+            paginationView._render(paged)
+            skillsView._render(skillsView._skillBarDisplay(updated.data))
+        })
 	});
 }
 const controllSortedResetSkills = () => {
