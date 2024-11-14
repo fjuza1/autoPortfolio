@@ -28,11 +28,10 @@ const loadAndRenderContent = () => {
 	//render
 	paginationView._render(paged)
     skillsView._render(skillsView._skillBarDisplay(paged.data))
-
+	// handle generation
 	paginationView.addHandlerPagination((data)=>{
 		const updated = model.paginate(model.state.skills,data)
 		paginationView._render(paged)
-		console.log(updated.data);
 		skillsView._render(skillsView._skillBarDisplay(updated.data))
 	})
 	//projectViewRender
@@ -72,7 +71,6 @@ const controllSortedSkills = () => {
 	const skills = model.sortingSkills(options)
 	const paged = model.paginate(skills)
 	timeout(() => {
-		paginationView._render(paged)
 		skillsView._render(skillsView._skillBarDisplay(paged.data))
 
 		paginationView.addHandlerPagination((data)=>{
@@ -84,9 +82,16 @@ const controllSortedSkills = () => {
 }
 const controllSortedResetSkills = () => {
 	const original = model.state.skills
+	const paged = model.paginate(original)
 	original.filteredSkills = '';
 	//skillsView._data =  original
-	skillsView._render(skillsView._skillBarDisplay( original))
+	skillsView._render(skillsView._skillBarDisplay( paged.data))
+	paginationView._render(paged)
+	paginationView.addHandlerPagination((data)=>{
+        const updated = model.paginate(original,data)
+        paginationView._render(paged)
+        skillsView._render(skillsView._skillBarDisplay(updated.data))
+    })
 }
 const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
