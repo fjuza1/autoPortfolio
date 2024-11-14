@@ -4,6 +4,7 @@ import {async} from 'regenerator-runtime';
 import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
+console.log("🚀 ~ model:", model)
 import popoutView from './Views/popoutView.js'
 import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
@@ -28,6 +29,8 @@ const controllSortedSkills = () => {
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
 	const skills = model.sortingSkills(options)
+	const paged = model.paginate(skills)
+	console.log("🚀 ~ controllpagedSkills ~ paged:", paged)
 	timeout(() => {
 		skillsView._render(skillsView._skillBarDisplay(skills))
 	});
@@ -62,7 +65,6 @@ const controllSkillsExport =  async () => {
 }
 const controllSortedResetSkills = () => {
 	const original = model.state.skills
-	console.log("🚀 ~ controllSortedResetSkills ~ original:", original)
 	original.filteredSkills = '';
 	//skillsView._data =  original
 	skillsView._render(skillsView._skillBarDisplay( original))
@@ -70,6 +72,8 @@ const controllSortedResetSkills = () => {
 const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const filtered = model.filterSkills(options);
+	const paged = model.paginate(filtered)
+    console.log("🚀 ~ controllFilterSkills ~ paged:", paged)
     skillsView._renderSpinner();
     timeout(() => {
         skillsView._render(skillsView._skillBarDisplay(filtered))
