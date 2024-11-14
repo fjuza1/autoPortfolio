@@ -56,7 +56,7 @@ export default class View {
     }
     //end
     _addHandlerLoad (handler){
-        window.addEventListener('load', handler)
+        window.addEventListener('load', handler, {once:true});
     }
     //form
     _addHandlerSubmit(handler) {

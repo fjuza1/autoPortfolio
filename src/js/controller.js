@@ -19,12 +19,12 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const handlePagination = (dataSource, callback) => {
-	const paged = model.paginate(dataSource)
+	const paged = model.loadMore(dataSource)
 	paginationView._render(paged)
 	callback(paged.data)
 
 	paginationView.addHandlerPagination((data)=>{
-		const updated = model.paginate(dataSource,data)
+		const updated = model.loadMore(dataSource,data)
 		paginationView._render(updated)
 		callback(updated.data)
 	})
@@ -76,13 +76,14 @@ const controllSortedSkills = () => {
 	});
 }
 const controllSortedResetSkills = () => {
-	const original = model.state.skills
-	const paged = model.paginate(original)
-	original.filteredSkills = '';
-	handlePagination(original,(data)=> {
-		skillsView._render(skillsView._skillBarDisplay(data))
-	})
-}
+    const original = [...model.state.skills]; // Clone to avoid mutation issues
+    model.state.curPage = 1; // Reset pagination to the first page
+
+    handlePagination(original, (data) => {
+        skillsView._render(skillsView._skillBarDisplay(data));
+    });
+};
+
 const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const filtered = model.filterSkills(options);
