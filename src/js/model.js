@@ -211,15 +211,15 @@ export const filterSkills = function (options) {
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-	state.skills.filtered = filteredData
-	const froze = Object.freeze(state.skills.filtered)
+	state.skills.filteredSkills = filteredData
+	const froze = Object.freeze(state.skills.filteredSkills)
 
     return filteredData;
 }
 export const sortingSkills = function(options) {
 	let {array, sortBy, order} = options;
 	const skills = state.skills
-	const value = state.skills.filtered ? array = state.skills.filtered : skills;
+	const value = state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
 	const sortFunctions = {
 		expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
 		name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),

@@ -63,7 +63,7 @@ const controllSkillsExport =  async () => {
 const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	console.log("🚀 ~ controllSortedResetSkills ~ original:", original)
-	original.filtered = '';
+	original.filteredSkills = '';
 	//skillsView._data =  original
 	skillsView._render(skillsView._skillBarDisplay( original))
 }
