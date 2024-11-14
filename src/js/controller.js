@@ -20,21 +20,23 @@ const controllNavBar = () => {
 const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
+const handlePagination = (dataSource, callback) => {
+	const paged = model.paginate(dataSource)
+	paginationView._render(paged)
+	callback(paged.data)
+
+	paginationView.addHandlerPagination((data)=>{
+		const updated = model.paginate(dataSource,data)
+		paginationView._render(updated)
+		callback(updated.data)
+	})
+}
 const loadAndRenderContent = () => {
 	skillsView._renderSpinner();
-	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
-	const paged = model.paginate(model.state.skills);
-
-	//render
-	paginationView._render(paged)
-    skillsView._render(skillsView._skillBarDisplay(paged.data))
 	// handle generation
-	paginationView.addHandlerPagination((data)=>{
-		const updated = model.paginate(model.state.skills,data)
-		paginationView._render(paged)
-		skillsView._render(skillsView._skillBarDisplay(updated.data))
+	handlePagination(model.state.skills,(data) => {
+		skillsView._render(skillsView._skillBarDisplay(data))
 	})
-	//projectViewRender
 }
 const controllSlides = () => {
 	slidesView.handleSlides()
@@ -69,44 +71,29 @@ const controllSortedSkills = () => {
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
 	const skills = model.sortingSkills(options)
-	const paged = model.paginate(skills)
 	timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(paged.data))
-
-		paginationView.addHandlerPagination((data)=>{
-            const updated = model.paginate(skills,data)
-            paginationView._render(paged)
-            skillsView._render(skillsView._skillBarDisplay(updated.data))
-        })
+		handlePagination(skills,(data)=>{
+			skillsView._render(skillsView._skillBarDisplay(data))
+		})
 	});
 }
 const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	const paged = model.paginate(original)
 	original.filteredSkills = '';
-	//skillsView._data =  original
-	skillsView._render(skillsView._skillBarDisplay( paged.data))
-	paginationView._render(paged)
-	paginationView.addHandlerPagination((data)=>{
-        const updated = model.paginate(original,data)
-        paginationView._render(paged)
-        skillsView._render(skillsView._skillBarDisplay(updated.data))
-    })
+
+	handlePagination(original,(data)=> {
+		skillsView._render(skillsView._skillBarDisplay(data))
+	})
 }
 const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	const filtered = model.filterSkills(options);
-	const paged = model.paginate(filtered)
     skillsView._renderSpinner();
     timeout(() => {
-        paginationView._render(paged)
-		skillsView._render(skillsView._skillBarDisplay( paged.data))
-
-		paginationView.addHandlerPagination((data)=>{
-			const updated = model.paginate(filtered,data)
-			paginationView._render(paged)
-			skillsView._render(skillsView._skillBarDisplay( updated.data))
-		})
+		handlePagination(filtered,(data)=>{
+            skillsView._render(skillsView._skillBarDisplay(data))
+        })
     });
 }
 const init = () => {
