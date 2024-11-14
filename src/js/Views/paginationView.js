@@ -5,7 +5,7 @@ class PaginationView extends View{
     addHandlerPagination(handler) {
         if(this._flag) return;
         this._parentElement.addEventListener('click', (e) => {
-            if(!e.target.id === 'loadMore')  return
+            if(e.target.id !== 'loadMore')  return
                 const next = +e.target.dataset.pageNext
                 handler(next);
         });
