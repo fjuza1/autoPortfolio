@@ -10,7 +10,6 @@ import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
-import paginationView from './Views/paginationView.js';
 // console.log(emailValidator, createCaptcha);
 //console.log(popupView, designView, skillsView, skillsExportView, slidesView, contactView);
 const controllNavBar = () => {
@@ -21,17 +20,16 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const loadAndRenderContent = () => {
-	const data = model.paginate(model.state.skills)
-	skillsView._render(skillsView._skillBarDisplay(data))
-	//markup
-	paginationView._generateMarkup(model.state.skills)
+	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	//projectViewRender
 }
 const controllSortedSkills = () => {
-	const sorted = model.sortingSkills({array:model.state.skills.data, sortBy:skillsView._formData.sortBy, order: skillsView._formData.order})
+	const array = {array: model.state.skills}
+	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
+	const skills = skillsView._sortingSkills(options)
 	timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(sorted))
+		skillsView._render(skillsView._skillBarDisplay(skills))
 	});
 }
 const controllSlides = () => {
@@ -41,7 +39,7 @@ const controllProjects = () =>{
 }
 const controllSkillsExport =  async () => {
 	try {
-		const array = {array:model.state.skills.data}
+		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
 		const data = await model.toFile(options);
 		const done = model.state.export.fileState.done === true
@@ -63,17 +61,18 @@ const controllSkillsExport =  async () => {
 	}
 }
 const controllSortedResetSkills = () => {
-	const original = model.state.skills.data
+	const original = model.state.skills
 	skillsView._data =  original
-	model.state.skills.filtered = [];
 	skillsView._render(skillsView._skillBarDisplay( original))
 }
 const controllFilterSkills = () =>{
-	const options = {array: model.state.skills.data, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
-	model.filterSkills(options)
+	const options = {params:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
+	const keys = options['params'];
+	const values = options['values'];
+	const filtered = skillsView._filterActivities(model.state.skills, keys, values);
     skillsView._renderSpinner();
     timeout(() => {
-        skillsView._render(skillsView._skillBarDisplay(model.state.skills.filtered))
+        skillsView._render(skillsView._skillBarDisplay(filtered))
     });
 }
 const init = () => {
@@ -86,6 +85,5 @@ const init = () => {
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport)
-	paginationView.addHandlerPagination(loadAndRenderContent)
 }
 init()

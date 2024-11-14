@@ -13,36 +13,6 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(_data));
     }
-    _showState(string) {
-        if(typeof string !== 'string') throw new TypeError('string expected');
-        return  markup = `
-                <p>${string}</p>
-            <div class="spinner-grow text-primary" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-secondary" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-success" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-danger" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-warning" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-info" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-light" role="status">
-                <span class="sr-only">Loading...</span>
-                </div>
-                <div class="spinner-grow text-dark" role="status">
-                <span class="sr-only">Loading...</span>
-            </div>
-        `
-    }
     //rendering msessage 
     _renderError() {
         const messageMarkup = `<div class="alert alert-danger" role="alert">${this._msg}</div>`;

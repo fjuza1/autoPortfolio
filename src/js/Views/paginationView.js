@@ -1,31 +1,22 @@
-class PaginationView{
+import View from './View.js';
+class PaginationView extends View{
     _parentElement = document.querySelector('.pagination');
-    _pageStart = 0;
-    addHandlerPagination(handler) {
-        this._parentElement.addEventListener('click', (e) => {
-            if(e.target.id === 'loadMore') {
-                handler(this._data.currentPage ++);
-            }
-        });
-    }
+
     _getNumPages(_data) {
-        return Math.ceil(_data.data.length / _data.resPerPage);
+        return Math.ceil(this._data.length / this._itemsPerPage);
     }
     _generateMarkup(_data){
-        this._data = _data
-        let markup
-        const curPage = _data.currentPage;
+        const curPage = this.currentPage;
         const numpages = this._getNumPages(_data);
         // Page 1, and there are other pages
-        if(curPage < numpages) markup = `
-            <span class="d-block text-primary text-center py-2 cursor-pointer" id="loadMore" >Load more</span>
+        if(curPage < numpages) return `
+            <span class="d-block text-primary text-center py-2 cursor-pointer">Load more</span>
         `
         // If last page, no pagination needed
         if(curPage === numpages && numpages > 1) {
-            markup = ''
+            return ''
         }
-        this._parentElement.innerHTML = '';
-        this._parentElement.insertAdjacentHTML('afterbegin', markup);
+        return ''
     }
 }
 export default new PaginationView();

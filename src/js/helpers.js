@@ -40,8 +40,8 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
-export const saveToLocalStorage = (name, data) => localStorage.setItem(name, JSON.stringify(data));
-export const readFromLocalStorage = name => JSON.parse(localStorage.getItem(name));
+export const saveToSessionStorage = (name, data) => sessionStorage.setItem(name, JSON.stringify(data));
+export const readFromSessionStorage = name => JSON.parse(sessionStorage.getItem(name));
 export const titleCaseWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)
 export const gotoSegment = (domElement, nav) =>{
     const targetSection = domElement.getBoundingClientRect();
