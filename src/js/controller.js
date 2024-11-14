@@ -21,7 +21,20 @@ const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
 const loadAndRenderContent = () => {
+	skillsView._renderSpinner();
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
+	const paged = model.paginate(model.state.skills);
+
+	//render
+	paginationView._render(paged)
+    skillsView._render(skillsView._skillBarDisplay(paged.data))
+
+	paginationView.addHandlerPagination((data)=>{
+		const updated = model.paginate(model.state.skills,data)
+		paginationView._render(paged)
+		console.log(updated.data);
+		skillsView._render(skillsView._skillBarDisplay(updated.data))
+	})
 	//projectViewRender
 }
 const controllSlides = () => {
@@ -58,7 +71,6 @@ const controllSortedSkills = () => {
 	skillsView._renderSpinner();
 	const skills = model.sortingSkills(options)
 	const paged = model.paginate(skills)
-	console.log("🚀 ~ controllpagedSkills ~ paged:", paged)
 	timeout(() => {
 		paginationView._render(paged)
 		skillsView._render(skillsView._skillBarDisplay(paged.data))
