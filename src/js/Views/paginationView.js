@@ -1,19 +1,21 @@
 import View from './View.js';
 class PaginationView extends View{
     _parentElement = document.querySelector('.pagination');
-    _flag = false;
     addHandlerPagination(handler) {
-        if(this._flag) return;
-        this._parentElement.addEventListener('click', (e) => {
-            if(e.target.id !== 'loadMore')  return
-                const next = +e.target.dataset.pageNext
-                handler(next);
-        });
-        this._flag = true;
+        this._parentElement.removeEventListener('click', this._paginationClickHandler);
+        this._paginationClickHandler = (e) => {
+            const pageNext = e.target.dataset.pageNext;
+            if (!pageNext) return;
+            const next = +pageNext;
+            handler(next);
+        };
+        this._parentElement.addEventListener('click', this._paginationClickHandler);
     }
+    
     _generateMarkup(_data){
-        const curPage = _data.currentPage;
-        const numPages = _data.pages;
+        this._data = _data;
+        const curPage = this._data.currentPage;
+        const numPages = this._data.pages;
         let markup = '';
         // Page 1, and there are other pages
         if(curPage < numPages) markup =  `
@@ -23,6 +25,7 @@ class PaginationView extends View{
         if(curPage === numPages && numPages > 1) {
             markup =  ''
         }
+        console.log(markup);
         return [markup]
     }
 }
