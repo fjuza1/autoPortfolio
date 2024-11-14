@@ -9,7 +9,7 @@ export default class View {
         this._parentElement.innerHTML = '';
     }
     _render(_data) {
-        if (Array.isArray(this._data) && this._data.length === 0) return this._renderError()
+        if (Array.isArray(_data) && _data.length === 0) return this._renderError()
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(_data));
     }

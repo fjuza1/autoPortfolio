@@ -229,7 +229,7 @@ export const sortingSkills = function(options) {
 	};
 	return [...array].sort(sortFunctions[sortBy]);
 }
-export const paginate = function(array,currentPage = state.curPage ,itemsPerPage = state.perPage) {
+export const loadMore = function(array,currentPage = state.curPage ,itemsPerPage = state.perPage) {
 	const start = 0;
 	const end = currentPage * itemsPerPage;
 	return {
