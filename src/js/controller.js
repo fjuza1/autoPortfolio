@@ -24,17 +24,6 @@ const loadAndRenderContent = () => {
 	skillsView._render(skillsView._skillBarDisplay(model.state.skills))
 	//projectViewRender
 }
-const controllSortedSkills = () => {
-	const array = {array: model.state.skills}
-	const options = Object.assign(array, skillsView._formData)
-	skillsView._renderSpinner();
-	const skills = model.sortingSkills(options)
-	const paged = model.paginate(skills)
-	console.log("🚀 ~ controllpagedSkills ~ paged:", paged)
-	timeout(() => {
-		skillsView._render(skillsView._skillBarDisplay(skills))
-	});
-}
 const controllSlides = () => {
 	slidesView.handleSlides()
 }
@@ -63,6 +52,17 @@ const controllSkillsExport =  async () => {
 		throw err;
 	}
 }
+const controllSortedSkills = () => {
+	const array = {array: model.state.skills}
+	const options = Object.assign(array, skillsView._formData)
+	skillsView._renderSpinner();
+	const skills = model.sortingSkills(options)
+	const paged = model.paginate(skills)
+	console.log("🚀 ~ controllpagedSkills ~ paged:", paged)
+	timeout(() => {
+		skillsView._render(skillsView._skillBarDisplay(skills))
+	});
+}
 const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	original.filteredSkills = '';
@@ -78,7 +78,9 @@ const controllFilterSkills = () =>{
         paginationView._render(paged)
 		skillsView._render(skillsView._skillBarDisplay( paged.data))
     });
+	return filtered
 }
+console.log(controllFilterSkills);
 const init = () => {
 	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
@@ -87,6 +89,7 @@ const init = () => {
 	skillsView._addHandlerLoad(loadAndRenderContent)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
+	paginationView.addHandlerPagination(controllFilterSkills)
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport)
 }

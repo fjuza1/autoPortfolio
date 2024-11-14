@@ -1,11 +1,12 @@
 import View from './View.js';
 class PaginationView extends View{
     _parentElement = document.querySelector('.pagination');
+    _pageStart = 1;
     addHandlerPagination(handler) {
         this._parentElement.addEventListener('click', (e) => {
-            if(e.target.id === 'loadMore') {
-                handler(this._data.currentPage++);
-            }
+            if(!e.target.id === 'loadMore')  return
+            this._data.currentPage += 1;
+                handler(this._data.currentPage);
         });
     }
     _generateMarkup(_data){
