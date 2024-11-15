@@ -9,9 +9,15 @@ export default class View {
         this._parentElement.innerHTML = '';
     }
     _render(_data) {
-        if (Array.isArray(this._data) && this._data.length === 0) return this._renderError()
+        // If no data, render an error and exit
+        if (Array.isArray(_data) && _data.length === 0) return this._renderError();
+    
+        // Clear content to prevent duplicates
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', this._generateMarkup(_data));
+    
+        // Generate new markup and add to the DOM
+        const markup = this._generateMarkup(_data);
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //rendering msessage 
     _renderError() {
@@ -56,7 +62,7 @@ export default class View {
     }
     //end
     _addHandlerLoad (handler){
-        window.addEventListener('load', handler)
+        window.addEventListener('load', handler, {once:true});
     }
     //form
     _addHandlerSubmit(handler) {

@@ -21,5 +21,6 @@ export const NAME_FILE_NAME = 'fileName'
 export const FILE_TYPE_FILE = 'fileType';
 export const UNGENERATED_FILE_MESSAGE = 'There was a problem generating! Please try again.'
 export const SKILLSVIEW_MESSAGE = 'No skills were found! Please try again.';
-export const RES_PER_PAGE = 5;
+export const RES_PER_PAGE_TRESHOLD = 5;
 export const SECTION_REVEAL_TRESHOLD = 10;
+export const CURRENT_PAGE = 1;

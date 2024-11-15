@@ -55,21 +55,6 @@ class SkillsView extends View {
         `;
         });
     }
-    _sortingSkills(options) {
-        options.array = this._data ?? options.array ?? []
-        const sortFunctions = {
-            expertise: (a, b) => options.order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
-            name: (a, b) => options.order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
-            category: (a, b) => options.order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
-        };
-        return [...options.array].sort(sortFunctions[options.sortBy]);
-    }
-    _filterActivities(array, keys, values) {
-        values = values.map(el => el === 0 ? '' : el);
-        const found = filterByKeys(array, keys, values)
-        this._data = found;
-        return found
-    }
     _generateSkillsExportModal () {
         
         const markup = `

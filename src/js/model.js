@@ -1,7 +1,7 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
-	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
 	export:{
@@ -11,6 +11,8 @@ export const state = {
 			done:false
 		},
 	},
+	curPage:CURRENT_PAGE,
+	perPage: RES_PER_PAGE_TRESHOLD,
 	skills: [{
 		name: 'Postman',
 		level: EXPERT_LEVEL[3],
@@ -202,5 +204,38 @@ export const toFile = async (options) => {
 		return [errors,generatedMessage];
 	} catch (err) {
 		throw err;
+	}
+}
+export const filterSkills = function (options) {
+    let value;
+    const { array, keys, values } = options;
+    const copiedArray = [...array];
+    value = values.map(el => el === 0 ? '' : el);
+
+    const filteredData = filterByKeys(copiedArray, keys, value);
+	state.skills.filteredSkills = filteredData
+	const froze = Object.freeze(state.skills.filteredSkills)
+
+    return filteredData;
+}
+export const sortingSkills = function(options) {
+	let {array, sortBy, order} = options;
+	const skills = state.skills
+	const value = state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
+	const sortFunctions = {
+		expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+		name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+		category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
+	};
+	return [...array].sort(sortFunctions[sortBy]);
+}
+export const loadMore = function(array,currentPage = state.curPage ,itemsPerPage = state.perPage) {
+	const start = 0;
+	const end = currentPage * itemsPerPage;
+	return {
+		currentPage: currentPage,
+        data: array.slice(start, end),
+		pages: Math.ceil(array.length / itemsPerPage),
+		perPage: itemsPerPage
 	}
 }

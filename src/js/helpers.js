@@ -40,6 +40,8 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
+export const saveToSessionStorage = (name, data) => sessionStorage.setItem(name, JSON.stringify(data));
+export const readFromSessionStorage = name => JSON.parse(sessionStorage.getItem(name));
 export const titleCaseWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)
 export const gotoSegment = (domElement, nav) =>{
     const targetSection = domElement.getBoundingClientRect();
@@ -58,4 +60,8 @@ export const gotoTop = () =>{
 export const removeClass = (options) => {
     const {element, className} = options
     element.classList.contains(className) ? el.classList.remove(className) : ''
+}
+export const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
 }

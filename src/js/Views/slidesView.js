@@ -55,6 +55,9 @@ class SlidesView {
         this.goBack(e)
         this._goto(this._slideIndex)
     }
+    _animationObserver(e){
+        
+    }
     _animateSlides() {
         const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || +item.dataset.bsInterval === 0);
         if (animationQuestion) return;
@@ -74,6 +77,9 @@ class SlidesView {
         this._nextBtn.addEventListener('click', this.showNextSlide.bind(this));
         this._prevBtn.addEventListener('click', this.showPreviousSlide.bind(this));
         this._slidesContainer.addEventListener('animationiteration', this._animateSlides.bind(this));
+        this._slidesContainer.addEventListener('animationiteration', () => {
+            requestAnimationFrame(()=> this._animateSlides());
+        })
     }
 }
 export default new SlidesView();
