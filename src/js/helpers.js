@@ -61,3 +61,7 @@ export const removeClass = (options) => {
     const {element, className} = options
     element.classList.contains(className) ? el.classList.remove(className) : ''
 }
+export const validateEmail = (email) => {
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return regex.test(email);
+}

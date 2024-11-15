@@ -11,7 +11,6 @@ class PaginationView extends View{
         };
         this._parentElement.addEventListener('click', this._paginationClickHandler);
     }
-    
     _generateMarkup(_data){
         this._data = _data;
         const curPage = this._data.currentPage;
@@ -25,7 +24,6 @@ class PaginationView extends View{
         if(curPage === numPages && numPages > 1) {
             markup =  ''
         }
-        console.log(markup);
         return [markup]
     }
 }

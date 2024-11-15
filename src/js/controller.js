@@ -31,7 +31,6 @@ const controllSlides = () => {
 	slidesView.handleSlides()
 }
 
-
 // pagination basic
 const handlePagination = (dataSource, callback) => {
 	const paged = model.loadMore(dataSource)
@@ -79,6 +78,7 @@ const controllFilterSkills = () =>{
     });
 }
 
+// export skills
 const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
@@ -90,9 +90,13 @@ const controllSkillsExport =  async () => {
         const fileType = fileErrors.find(err=>err.type === 'fileType');
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
-			if(done) {
+			if(done === true) {
+				// animate
+				skillsExportView._animateState('Generating file')
+				//remove animating
 				skillsExportView._exportModal(generatedData);
-				popoutView._openModal(true);
+				skillsExportView._removeAnimationState();
+				if(skillsExportView._generatingfileState === null) {popoutView._openModal(true)}
 				return;
 			}
 		}

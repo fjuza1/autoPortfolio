@@ -3,10 +3,13 @@ import { toFile }  from '../model.js';
 import {UNGENERATED_FILE_MESSAGE} from  '../config.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
-    _parentElement = document.getElementById('exportModal')
+    _parentElement = document.querySelector('exportModal')
+    _exportContainer = document.querySelector("#export > div > form > div.content.d-none.mb-4")
+    _exportState = document.querySelector('div[data-formerror="fileName"]');
     _fileType = document.querySelector('.content.d-none');
     _fileName = document.querySelector('input[name="fileName"]')
     _modal = document.querySelector('#modalCenter')
+    _generatingfileState = null;
     constructor(){
         super();
         this._revealNameEvent();
@@ -74,6 +77,42 @@ class SkillsExportView extends View {
             this._revealExportContainer()
         });
     }
+    _animateState(text){
+        this._generatingfileState = document.getElementById('generatingfileState')
+        const id = text.split(' ').join('').toLowerCase()
+        const statusMarkup = `
+        <div id = "${id}State">
+            ${text} <div class="spinner-grow spinner-grow-sm text-primary" role="status">
+             <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-secondary" role="status">
+            <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-success" role="status">
+            <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+            <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-warning" role="status">
+            <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-info" role="status">
+            <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-light" role="status">
+            <span class="sr-only"></span>
+            </div>
+            <div class="spinner-grow spinner-grow-sm text-dark" role="status">
+            <span class="sr-only"></span>
+            </div>
+        </div>
+            `
+        this._exportContainer.insertAdjacentHTML('beforeend', statusMarkup);
+    }
+    _removeAnimationState (){
+        this._exportState.nextElementSibling.remove();
+    }
     _exportModal(data) {
         const markup = `
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -108,7 +147,6 @@ class SkillsExportView extends View {
         this._modal.innerHTML = '';
         this._modal.insertAdjacentHTML('afterbegin', markup);
     }
-    
     escapeXml(unsafe) {
         return unsafe.replace(/[<>&'"]/g, function (c) {
             switch (c) {

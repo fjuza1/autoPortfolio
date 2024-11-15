@@ -55,6 +55,9 @@ class SlidesView {
         this.goBack(e)
         this._goto(this._slideIndex)
     }
+    _animationObserver(e){
+        
+    }
     _animateSlides() {
         const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || +item.dataset.bsInterval === 0);
         if (animationQuestion) return;
