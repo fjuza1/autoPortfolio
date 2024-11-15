@@ -76,7 +76,8 @@ const controllSortedSkills = () => {
 	});
 }
 const controllSortedResetSkills = () => {
-    const original = [...model.state.skills]; // Clone to avoid mutation issues
+	const original = model.state.skills
+	original.filteredSkills = '';
     model.state.curPage = 1; // Reset pagination to the first page
 
     handlePagination(original, (data) => {
