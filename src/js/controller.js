@@ -28,7 +28,7 @@ const loadAndRenderContent = () => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 4500}))
+	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 5000}))
 	slidesView._initializeElement();
 	slidesView.handleSlides()
 }

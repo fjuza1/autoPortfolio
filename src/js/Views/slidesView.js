@@ -17,7 +17,14 @@ class SlidesView {
         this._nextBtn = document.querySelector('.carousel-control-next');
         this._slideIndicatorsContainer = document.querySelector('.carousel-indicators')
         this._slidesContainer = document.querySelector('.carousel-inner');
-        this._slideIndicators = this._slideIndicatorsContainer.children
+        this._slideIndicators = [...this._slideIndicatorsContainer.children]
+    }
+    #debounce(fn,wait) {
+        let timeoutId;
+        return (...args) => {
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => fn.apply(this, args), wait);
+        };
     }
     #deactivateAllSlides() {
         this._slides.forEach(slide => slide.classList.remove('active'));
@@ -28,37 +35,40 @@ class SlidesView {
     #goto(index) {
         this.#deactivateAllSlides();
         this.#deactivateAllIndicators();
-        const slide = this._slides[index]
+        if (index < 0 || index >= this._slides.length) return;
+        const slide = this._slides[index];
         if (!slide) return;
+
         slide.classList.add('active');
         this._slideIndicators[index].classList.add('active');
+        this._slideIndex = index;
     }
     #goToSlide(e) {
-        const dataset = e.target.dataset.bsSlideTo;
-        this._slideIndex = dataset
+        const dataset = +e.target.dataset.bsSlideTo;
         this.#goto(dataset)
+        this._slideIndex = dataset
     }
     #goForward() {
         const len = this._slides.length;
-        let curSlide = this._slideIndex;
-        this._slideIndex = (curSlide + 1) % len;
+        this._slideIndex = (this._slideIndex + 1) % len;
     }
     #goBack() {
         const len = this._slides.length;
-        let curSlide = this._slideIndex;
-        this._slideIndex = (curSlide - 1 + len) % len;
+        this._slideIndex = (this._slideIndex - 1 + len) % len;
     }
     #showNextSlide(e) {
         const target = e.target.closest('button');
         if (!target) return;
         this.#goForward(e)
         this.#goto(this._slideIndex)
+        this._isAnimating = false;
     }
     #showPreviousSlide(e) {
         const target = e.target.closest('button');
         if (!target) return;
         this.#goBack(e)
         this.#goto(this._slideIndex)
+        this._isAnimating = false;
     }
     _animationObserver(e) {
 
@@ -72,6 +82,7 @@ class SlidesView {
         const interval = +curSlide.dataset.bsInterval;
         if (!interval) return;
         wait(() => {
+            if (!this._slides || !this._slidesContainer) return;
             this.#goForward()
             this.#goto(this._slideIndex);
             this._isAnimating = false;
@@ -79,9 +90,8 @@ class SlidesView {
     }
     handleSlides() {
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
-        this._nextBtn.addEventListener('click', this.#showNextSlide.bind(this));
-        this._prevBtn.addEventListener('click', this.#showPreviousSlide.bind(this));
-        this._slidesContainer.addEventListener('animationiteration', this._animateSlides.bind(this));
+        this._nextBtn.addEventListener('click', this.#debounce(this.#showNextSlide.bind(this), 100));
+        this._prevBtn.addEventListener('click', this.#debounce(this.#showPreviousSlide.bind(this),100));
         this._slidesContainer.addEventListener('animationiteration', () => {
             requestAnimationFrame(() => this._animateSlides());
         })
