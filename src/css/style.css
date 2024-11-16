@@ -75,3 +75,6 @@ section {
   width: auto; 
   margin: 0 auto; 
 }
+.carousel > .carousel-inner > .carousel-item{
+  height:50vh;
+}
