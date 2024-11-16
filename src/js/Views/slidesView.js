@@ -1,14 +1,24 @@
 import { wait } from '../helpers.js';
 class SlidesView {
-    _parentElement = document.querySelector('#carouselExampleDark')
-    _slides = document.querySelectorAll('.carousel-item');
-    _prevBtn = document.querySelector('.carousel-control-prev');
-    _nextBtn = document.querySelector('.carousel-control-next');
-    _slideIndicatorsContainer = document.querySelector('.carousel-indicators')
-    _slidesContainer = document.querySelector('.carousel-inner');
-    _slideIndicators = this._slideIndicatorsContainer.children;
-    _slideIndex = 0;
-    _isAnimating = false;
+    constructor(){
+        this._parentElement = document.querySelector('#carouselProjects')
+        this._slides = null;
+        this._prevBtn = null;
+        this._nextBtn = null;
+        this._slideIndicatorsContainer = null;
+        this._slidesContainer = null;
+        this._slideIndicators = null;
+        this._slideIndex = 0;
+        this._isAnimating = false;
+    }
+    _initializeElement(){
+        this._slides = document.querySelectorAll('.carousel-item');
+        this._prevBtn = document.querySelector('.carousel-control-prev');
+        this._nextBtn = document.querySelector('.carousel-control-next');
+        this._slideIndicatorsContainer = document.querySelector('.carousel-indicators')
+        this._slidesContainer = document.querySelector('.carousel-inner');
+        this._slideIndicators = this._slideIndicatorsContainer.children
+    }
     _deactivateAllSlides() {
         this._slides.forEach(slide => slide.classList.remove('active'));
     }

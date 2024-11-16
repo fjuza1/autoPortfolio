@@ -2,7 +2,7 @@ import View from './View.js';
 class ProjectsView extends View {
     _parentElement = document.getElementById('carouselProjects');
     _end = '</div>'
-    _renderSlides(options) {
+    _renderSlidesMarkup(options) {
         let {interval, array} = options;
         if(!interval) interval = 0;
         const indicators = this._indicators(array);
@@ -22,9 +22,9 @@ class ProjectsView extends View {
     _indicators(data) {
         const indicatorsStart = '<div class="carousel-indicators">'
         const buttonIndicatorsMarkup = data.map((data, i) => {
-            return `<button type="button ${i === 0 ? 'active' : ''}" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" aria-label="Slide ${i}"></button>`;
+            return `<button type="button" class=" ${i === 0 ? 'active' : ''}" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" aria-label="Slide ${i}"></button>`;
         })
-        // return [indicatorsStart, ...buttonIndicatorsMarkup, this._end];
+        return [indicatorsStart, ...buttonIndicatorsMarkup, this._end];
 
     }
     _carrouselInner(array,interval) {
@@ -42,6 +42,7 @@ class ProjectsView extends View {
                         ${data.types.join(' • ')}
                      </p>
                     </div>
+                  </div>
         `
         })
         return [carouselInnerStart, ...carrouselItem, this._end];

@@ -4,14 +4,13 @@ import {async} from 'regenerator-runtime';
 import {emailValidator, createCaptcha} from './lib.js';
 import {timeout} from './helpers.js'
 import * as model from './model.js';
-// console.log("🚀 ~ model:", model.state.projects)
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
-import slidesView from './Views/slidesView.js';
 import designView from './Views/designView.js';
 import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import projectsView from './Views/projectsView.js';
+import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 
 // design part
@@ -28,6 +27,10 @@ const loadAndRenderContent = () => {
 	handlePagination(model.state.skills,(data) => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
+	// projects
+	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 3000}))
+	slidesView._initializeElement();
+	slidesView.handleSlides()
 }
 
 // pagination basic
@@ -109,8 +112,6 @@ const controllSkillsExport =  async () => {
 
 // project part
 const controllProjects = () => {
-	// projectsView._renderSlides({array: model.state.projects})
-	slidesView.handleSlides()
 }
 const init = () => {
 	designView.addHandlerLoadHash(designView.scrollIntoSection)
