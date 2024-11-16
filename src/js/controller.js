@@ -12,7 +12,8 @@ import skillsExportView from './Views/skillsExportView.js';
 import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
-
+import performanceView from './Views/performanceView.js';
+performanceView._perfObserver()
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
@@ -85,7 +86,9 @@ const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
+		performance.mark('export started')
 		const data = await model.toFile(options);
+		performance.measure('export finished')
 		const done = model.state.export.fileState.done === true
         const [fileErrors]= data
         const generatedData = data[1];
@@ -94,8 +97,11 @@ const controllSkillsExport =  async () => {
 		if(!fileName){
 			if(done === true) {
 				// animate
+				performance.mark('animation started')
 				skillsExportView._animateState('Generating file')
+				performance.measure('animation finished')
 				//remove animating
+				// TODO 1st have modal with animation
 				skillsExportView._exportModal(generatedData);
 				skillsExportView._removeAnimationState();
 				if(skillsExportView._generatingfileState === null) {popoutView._openModal(true)}
@@ -124,3 +130,4 @@ const init = () => {
 	skillsExportView._addHandlerSubmit(controllSkillsExport)
 }
 init()
+// performance optimization
