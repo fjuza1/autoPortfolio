@@ -19,46 +19,46 @@ class SlidesView {
         this._slidesContainer = document.querySelector('.carousel-inner');
         this._slideIndicators = this._slideIndicatorsContainer.children
     }
-    _deactivateAllSlides() {
+    #deactivateAllSlides() {
         this._slides.forEach(slide => slide.classList.remove('active'));
     }
-    _deactivateAllIndicators() {
+    #deactivateAllIndicators() {
         [...this._slideIndicators].forEach(indicator => indicator.classList.remove('active'));
     }
-    _goto(index) {
-        this._deactivateAllSlides();
-        this._deactivateAllIndicators();
+    #goto(index) {
+        this.#deactivateAllSlides();
+        this.#deactivateAllIndicators();
         const slide = this._slides[index]
         if (!slide) return;
         slide.classList.add('active');
         this._slideIndicators[index].classList.add('active');
     }
-    goToSlide(e) {
+    #goToSlide(e) {
         const dataset = e.target.dataset.bsSlideTo;
         this._slideIndex = dataset
-        this._goto(dataset)
+        this.#goto(dataset)
     }
-    goForward() {
+    #goForward() {
         const len = this._slides.length;
         let curSlide = this._slideIndex;
         this._slideIndex = (curSlide + 1) % len;
     }
-    goBack() {
+    #goBack() {
         const len = this._slides.length;
         let curSlide = this._slideIndex;
         this._slideIndex = (curSlide - 1 + len) % len;
     }
-    showNextSlide(e) {
+    #showNextSlide(e) {
         const target = e.target.closest('button');
         if (!target) return;
-        this.goForward(e)
-        this._goto(this._slideIndex)
+        this.#goForward(e)
+        this.#goto(this._slideIndex)
     }
-    showPreviousSlide(e) {
+    #showPreviousSlide(e) {
         const target = e.target.closest('button');
         if (!target) return;
-        this.goBack(e)
-        this._goto(this._slideIndex)
+        this.#goBack(e)
+        this.#goto(this._slideIndex)
     }
     _animationObserver(e) {
 
@@ -72,15 +72,15 @@ class SlidesView {
         const interval = +curSlide.dataset.bsInterval;
         if (!interval) return;
         wait(() => {
-            this.goForward()
-            this._goto(this._slideIndex);
+            this.#goForward()
+            this.#goto(this._slideIndex);
             this._isAnimating = false;
         }, interval)
     }
     handleSlides() {
-        this._slideIndicatorsContainer.addEventListener('click', this.goToSlide.bind(this));
-        this._nextBtn.addEventListener('click', this.showNextSlide.bind(this));
-        this._prevBtn.addEventListener('click', this.showPreviousSlide.bind(this));
+        this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
+        this._nextBtn.addEventListener('click', this.#showNextSlide.bind(this));
+        this._prevBtn.addEventListener('click', this.#showPreviousSlide.bind(this));
         this._slidesContainer.addEventListener('animationiteration', this._animateSlides.bind(this));
         this._slidesContainer.addEventListener('animationiteration', () => {
             requestAnimationFrame(() => this._animateSlides());

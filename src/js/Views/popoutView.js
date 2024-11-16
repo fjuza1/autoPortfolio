@@ -101,6 +101,7 @@ class PopupView {
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
+    //TODO add to [] multiple wanted event listeners
     _addHandlerHideSection() {
         window.addEventListener('mouseup', this._hideSection.bind(this));
     }
