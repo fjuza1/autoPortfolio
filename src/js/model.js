@@ -1,5 +1,6 @@
-import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, PROJECT_TAGS, JSON_TYPE, XML_TYPE, CSV_TYPE,
-	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE
+import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
+	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
+	MN_TYPE
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -100,6 +101,7 @@ export const state = {
 		name: PROJECT_NAME[0],
 		levelNumber: PROJECT_ORDER_NUM[0],
 		description: PROJECT_DESCRIPTOR[0],
+		types: [MN_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -107,6 +109,7 @@ export const state = {
 		name: PROJECT_NAME[1],
 		levelNumber: PROJECT_ORDER_NUM[1],
 		description: PROJECT_DESCRIPTOR[1],
+		types: [MN_TYPE, BE_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -114,6 +117,7 @@ export const state = {
 		name: PROJECT_NAME[2],
 		levelNumber: PROJECT_ORDER_NUM[2],
 		description: PROJECT_DESCRIPTOR[2],
+		types: [MN_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -121,6 +125,7 @@ export const state = {
 		name: PROJECT_NAME[3],
 		levelNumber: PROJECT_ORDER_NUM[3],
 		description: PROJECT_DESCRIPTOR[3],
+		types: [MN_TYPE, BE_TYPE,FE_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -128,6 +133,7 @@ export const state = {
 		name: PROJECT_NAME[4],
 		levelNumber: PROJECT_ORDER_NUM[4],
 		description: PROJECT_DESCRIPTOR[4],
+		types: [MN_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -135,6 +141,15 @@ export const state = {
 		name: PROJECT_NAME[5],
 		levelNumber: PROJECT_ORDER_NUM[5],
 		description: PROJECT_DESCRIPTOR[5],
+		types: [MN_TYPE, FE_TYPE],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
+		name: PROJECT_NAME[6],
+		levelNumber: PROJECT_ORDER_NUM[6],
+		description: PROJECT_DESCRIPTOR[6],
+		types: [DEV_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	}
