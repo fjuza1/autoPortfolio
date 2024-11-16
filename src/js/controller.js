@@ -114,11 +114,10 @@ const controllSkillsExport =  async () => {
 const controllProjects = () => {
 }
 const init = () => {
-	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
 	controlSections();
-	skillsView._addHandlerLoad(controllProjects)
-	skillsView._addHandlerLoad(loadAndRenderContent)
+	skillsView.addHandlerLoadHash(loadAndRenderContent)
+	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);

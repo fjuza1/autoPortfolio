@@ -76,8 +76,5 @@ class Design extends View {
 	addHandlerLoad(handler) {
 		document.addEventListener('load', handler);
 	}
-	addHandlerLoadHash(handler) {
-		['load','popstate'].forEach(ev=>window.addEventListener(ev,handler))
-	}
 }
 export default new Design();
