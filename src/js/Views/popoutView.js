@@ -1,11 +1,12 @@
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
-    _body = document.body;
     _skillBtnGroup = document.getElementById('skillBtnGroup');
+    _skills = document.querySelector('#Skills')
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('mobileNav')
     _dropdownNav = document.querySelector('.dropdown-menu')
     _body = document.body;
+    _main = document.querySelector('main')
     _modalToggle = document.querySelector('button[data-toggle="modal"]')
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
@@ -67,10 +68,10 @@ class PopupView {
         this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav () {
-        window.addEventListener('mouseup', this.hideMobileNav.bind(this));
+        [this._main,this._dropdownNav].forEach((listener)=>{listener.addEventListener('mouseup', this.hideMobileNav.bind(this))})
     }
     _addHandleAccordion(){
-        document.addEventListener('click', this._toggleAccordion.bind(this));
+        [this._modal].forEach(dom => dom.addEventListener('click',this._toggleAccordion.bind(this)))
     }
     _openModal(show){
         if(show === true) {
@@ -102,7 +103,7 @@ class PopupView {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
     _addHandlerHideSection() {
-        window.addEventListener('mouseup', this._hideSection.bind(this));
+        this._skills.addEventListener('mouseup', this._hideSection.bind(this));
     }
 }
 export default new PopupView();

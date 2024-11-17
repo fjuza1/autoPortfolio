@@ -1,7 +1,13 @@
 import {ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, Recipient, EmailParams, MailerSend} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
-export const wait = (callback,time) => setTimeout(callback,time);
+export const wait = (callback, time) => {
+    const expire = setTimeout(() => {
+        callback();
+    }, time);
+    return expire;
+};
+
 export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
 export const toXml = (array) => {
     const obj = {

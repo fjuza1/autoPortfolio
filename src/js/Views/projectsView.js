@@ -5,8 +5,8 @@ class ProjectsView extends View {
     _renderSlidesMarkup(options) {
         let {interval, array} = options;
         if(!interval) interval = 0;
-        const indicators = this._indicators(array);
-        const carrouselInner = this._carrouselInner(array, interval);
+        const indicators = this.#indicators(array);
+        const carrouselInner = this.#carrouselInner(array, interval);
         const endBtns = `
                 <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
                   <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -19,7 +19,7 @@ class ProjectsView extends View {
         `
         return [indicators, carrouselInner, [endBtns]].flat()
     }
-    _indicators(data) {
+    #indicators(data) {
         const indicatorsStart = '<div class="carousel-indicators">'
         const buttonIndicatorsMarkup = data.map((data, i) => {
             return `<button type="button" class=" ${i === 0 ? 'active' : ''}" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" aria-label="Slide ${i}"></button>`;
@@ -27,7 +27,7 @@ class ProjectsView extends View {
         return [indicatorsStart, ...buttonIndicatorsMarkup, this._end];
 
     }
-    _carrouselInner(array,interval) {
+    #carrouselInner(array,interval) {
         const carouselInnerStart = `<div class="carousel-inner" role="listbox">`
         const carrouselItem = array.map((data, i) => {
             return `

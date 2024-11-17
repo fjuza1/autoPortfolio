@@ -12,7 +12,9 @@ import skillsExportView from './Views/skillsExportView.js';
 import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
-
+import performanceView from './Views/performanceView.js';
+performanceView._perfObserver()
+console.log(performanceView._getMemoryStats());
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
@@ -28,7 +30,7 @@ const loadAndRenderContent = () => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 3000}))
+	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 5000}))
 	slidesView._initializeElement();
 	slidesView.handleSlides()
 }
@@ -94,8 +96,11 @@ const controllSkillsExport =  async () => {
 		if(!fileName){
 			if(done === true) {
 				// animate
+				performance.mark('animation started')
 				skillsExportView._animateState('Generating file')
+				performance.measure('animation finished')
 				//remove animating
+				// TODO 1st have modal with animation
 				skillsExportView._exportModal(generatedData);
 				skillsExportView._removeAnimationState();
 				if(skillsExportView._generatingfileState === null) {popoutView._openModal(true)}
@@ -114,14 +119,14 @@ const controllSkillsExport =  async () => {
 const controllProjects = () => {
 }
 const init = () => {
-	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	controllNavBar();
 	controlSections();
-	skillsView._addHandlerLoad(controllProjects)
-	skillsView._addHandlerLoad(loadAndRenderContent)
+	skillsView.addHandlerLoadHash(loadAndRenderContent)
+	designView.addHandlerLoadHash(designView.scrollIntoSection)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport)
 }
 init()
+// performance optimization
