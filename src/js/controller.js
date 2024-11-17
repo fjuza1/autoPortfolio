@@ -101,10 +101,15 @@ const controllSkillsExport =  async () => {
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
 			if(done === true) {
+				performance.mark('animation started')
 				if(skillsExportView._generatingfileState === null) {
+					performance.mark('animation started')
+					popoutView._openModal(true)
+					wait(()=>{
 						skillsExportView._exportModal(generatedData);
-						performance.measure('animation finished')
-					});
+					},1000)
+					skillsExportView._animateState('Generating file')
+					performance.measure('animation finished')
 				}
 				return;
 			}
