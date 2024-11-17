@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
-import {timeout, wait} from './helpers.js'
+import {timeout} from './helpers.js'
 import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
@@ -80,7 +80,14 @@ const controllFilterSkills = () =>{
         })
     });
 }
-
+					/*
+					(function(next) {
+  //do something
+  next()
+}(function() {
+  //do some more
+}))
+					*/
 // export skills
 const controllSkillsExport =  async () => {
 	try {
@@ -94,15 +101,18 @@ const controllSkillsExport =  async () => {
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
 			if(done === true) {
-				performance.mark('animation started')
 				if(skillsExportView._generatingfileState === null) {
-					performance.mark('animation started')
-					popoutView._openModal(true)
-					wait(()=>{
+					popoutView._openModal(true);
+					((next) => {
+						performance.mark('animation generating...');
+						skillsExportView._animateState('Generating file');
+						performance.measure('animation generating... is done');
+						next();
+					})(() => {
+						performance.mark('animation started');
 						skillsExportView._exportModal(generatedData);
-					},1000)
-					skillsExportView._animateState('Generating file')
-					performance.measure('animation finished')
+						performance.measure('animation finished')
+					});
 				}
 				return;
 			}
