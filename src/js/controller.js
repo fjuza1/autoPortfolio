@@ -1,8 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
-import {emailValidator, createCaptcha} from './lib.js';
-import {timeout} from './helpers.js'
+import {timeout, wait} from './helpers.js'
 import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
@@ -95,15 +94,16 @@ const controllSkillsExport =  async () => {
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
 			if(done === true) {
-				// animate
 				performance.mark('animation started')
-				skillsExportView._animateState('Generating file')
-				performance.measure('animation finished')
-				//remove animating
-				// TODO 1st have modal with animation
-				skillsExportView._exportModal(generatedData);
-				skillsExportView._removeAnimationState();
-				if(skillsExportView._generatingfileState === null) {popoutView._openModal(true)}
+				if(skillsExportView._generatingfileState === null) {
+					performance.mark('animation started')
+					popoutView._openModal(true)
+					wait(()=>{
+						skillsExportView._exportModal(generatedData);
+					},1000)
+					skillsExportView._animateState('Generating file')
+					performance.measure('animation finished')
+				}
 				return;
 			}
 		}
