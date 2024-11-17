@@ -27,19 +27,23 @@ class SlidesView {
             timeoutId = setTimeout(() => fn.apply(this, args), wait);
         };
     }
-    #deactivateAllSlides() {
-        this._slides.forEach(slide => slide.classList.remove('active'));
+    #findActive(element){
+        return [...element].findIndex(el=>el.classList.contains('active'))
     }
-    #deactivateAllIndicators() {
-        [...this._slideIndicators].forEach(indicator => indicator.classList.remove('active'));
+    #deactivateActiveSlide() {
+        const activeI = this.#findActive(this._slides)
+        this._slides[activeI].classList.remove('active')
+    }
+    #deactivateActiveIndicator() {
+        const activeI = this.#findActive(this._slideIndicators)
+        this._slideIndicators[activeI].classList.remove('active')
     }
     #goto(index) {
-        this.#deactivateAllSlides();
-        this.#deactivateAllIndicators();
+        this.#deactivateActiveSlide();
+        this.#deactivateActiveIndicator();
         if (index < 0 || index >= this._slides.length) return;
         const slide = this._slides[index];
         if (!slide) return;
-
         slide.classList.add('active');
         this._slideIndicators[index].classList.add('active');
         this._slideIndex = index;
