@@ -14,6 +14,7 @@ import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
 performanceView._perfObserver()
+console.log(performanceView._getMemoryStats());
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
@@ -29,9 +30,7 @@ const loadAndRenderContent = () => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	performance.mark('performance of animations')
 	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 5000}))
-	performance.measure('performance of animations');
 	slidesView._initializeElement();
 	slidesView.handleSlides()
 }
@@ -88,9 +87,7 @@ const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
-		performance.mark('export started')
 		const data = await model.toFile(options);
-		performance.measure('export finished')
 		const done = model.state.export.fileState.done === true
         const [fileErrors]= data
         const generatedData = data[1];
