@@ -10,6 +10,7 @@ class SlidesView {
         this._slideIndicators = null;
         this._slideIndex = 0;
         this._isAnimating = false;
+        this._interval = null;
     }
     _initializeElement(){
         this._slides = document.querySelectorAll('.carousel-item');
@@ -74,24 +75,38 @@ class SlidesView {
 
     }
     _animateSlides() {
-        const animationQuestion = [...this._slidesContainer.children].every(item => !item.dataset.bsInterval || +item.dataset.bsInterval === 0);
+        const animationQuestion = [...this._slidesContainer.children].every(
+            item => !item.dataset.bsInterval || +item.dataset.bsInterval === 0
+        );
         if (animationQuestion) return;
         if (this._isAnimating) return;
         this._isAnimating = true;
-        let curSlide = this._slides[this._slideIndex];
+    
+        const active = [...this._slides].findIndex(el => el.classList.contains('active'));
+        this._slideIndex = active;
+    
+        const curSlide = this._slides[active];
         const interval = +curSlide.dataset.bsInterval;
         if (!interval) return;
-        wait(() => {
-            if (!this._slides || !this._slidesContainer) return;
-            this.#goForward()
+    
+        if (this._interval) {
+            window.clearTimeout(this._interval);
+            this._interval = null;
+        }
+        this._interval = wait(() => {
+            this.#goForward();
             this.#goto(this._slideIndex);
             this._isAnimating = false;
-        }, interval)
+    
+
+            this._animateSlides();
+        }, interval);
     }
+    
     handleSlides() {
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
-        this._nextBtn.addEventListener('click', this.#debounce(this.#showNextSlide.bind(this), 100));
-        this._prevBtn.addEventListener('click', this.#debounce(this.#showPreviousSlide.bind(this),100));
+        this._nextBtn.addEventListener('click', this.#debounce(this.#showNextSlide.bind(this), 400));
+        this._prevBtn.addEventListener('click', this.#debounce(this.#showPreviousSlide.bind(this),400));
         this._slidesContainer.addEventListener('animationiteration', () => {
             requestAnimationFrame(() => this._animateSlides());
         })

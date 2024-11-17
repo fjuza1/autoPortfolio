@@ -29,7 +29,9 @@ const loadAndRenderContent = () => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
+	performance.mark('performance of animations')
 	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 5000}))
+	performance.measure('performance of animations');
 	slidesView._initializeElement();
 	slidesView.handleSlides()
 }
