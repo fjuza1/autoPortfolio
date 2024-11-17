@@ -102,14 +102,6 @@ const controllSkillsExport =  async () => {
 		if(!fileName){
 			if(done === true) {
 				if(skillsExportView._generatingfileState === null) {
-					popoutView._openModal(true);
-					((next) => {
-						performance.mark('animation generating...');
-						skillsExportView._animateState('Generating file');
-						performance.measure('animation generating... is done');
-						next();
-					})(() => {
-						performance.mark('animation started');
 						skillsExportView._exportModal(generatedData);
 						performance.measure('animation finished')
 					});
