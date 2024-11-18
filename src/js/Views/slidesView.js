@@ -90,7 +90,7 @@ class SlidesView {
         this._slideIndex = active;
     
         const curSlide = this._slides[active];
-        const interval = +curSlide.dataset.bsInterval;
+        const interval = +curSlide.dataset.bsInterval ?? 0;
         if (!interval) return;
     
         if (this._interval) {
