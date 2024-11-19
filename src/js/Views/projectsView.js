@@ -1,4 +1,5 @@
 import View from './View.js';
+import {DEFAULT_INTERVAL} from '../config.js';
 class ProjectsView extends View {
     _parentElement = document.getElementById('carouselProjects');
     _end = '</div>'
@@ -28,6 +29,8 @@ class ProjectsView extends View {
 
     }
     #carrouselInner(array,interval) {
+      if((typeof interval !== 'number') && (typeof interval !== 'boolean' || interval === false)) return;
+      if(interval === true) interval = DEFAULT_INTERVAL;
         const carouselInnerStart = `<div class="carousel-inner" role="listbox">`
         const carrouselItem = array.map((data, i) => {
             return `

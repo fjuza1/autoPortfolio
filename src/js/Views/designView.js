@@ -34,7 +34,8 @@ class Design extends View {
 		if (!targetSectionId) return;
 	
 		const domElement = document.getElementById(targetSectionId);
-		domElement.classList.remove('section--hidden');
+		if(!domElement) return;
+		if(domElement.classList.contains('section--hidden')) domElement.classList.remove('section--hidden');
 	
 		if (e.type === 'load' && hash.length > 0) 
 			requestAnimationFrame(() => { gotoSegment(domElement, document.querySelector('.nav')) });

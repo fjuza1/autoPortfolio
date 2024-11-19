@@ -1,4 +1,5 @@
 export const ANIMATIONTIME = 0.2;
+export const DEFAULT_INTERVAL = 5000;
 export const EXPERT_LEVEL = ['Beginner','Basic','Skillful','Advanced','Expert'];
 export const EXPERT_NUM = EXPERT_LEVEL.map((_,i)=> i + 1)
 export const CATEGORIES = ['Tool','Skill','Language','Other'];

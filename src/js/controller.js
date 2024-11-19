@@ -3,7 +3,6 @@ import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import {timeout, wait, debounce} from './helpers.js'
 import * as scrollspy from './tools/scrollspy.js';
-console.log("🚀 ~ scrollspy:", scrollspy)
 import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
@@ -31,7 +30,7 @@ const loadAndRenderContent = () => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 5000}))
+	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: true}))
 	slidesView._initializeElement();
 	slidesView.handleSlides()
 }
