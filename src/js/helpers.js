@@ -14,7 +14,7 @@ export const timeoutAPI = () =>{
         }, API_TIMEOUT_SEC * 1000);
     });
 }
-export const fetchData = async(url) =>{
+export const AJAX = async(url) =>{
     try {
         const fetchPro = fetch(url);
         const res = await Promise.race([fetchPro, timeoutAPI()])
