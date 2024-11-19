@@ -1,4 +1,4 @@
-import {ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
+import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, Recipient, EmailParams, MailerSend} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const wait = (callback, time) => {
@@ -7,7 +7,25 @@ export const wait = (callback, time) => {
     }, time);
     return expire;
 };
-
+export const timeoutAPI = () =>{
+    return new Promise((_, reject) => {
+        setTimeout(() => {
+            reject(new Error(`API request timed out after ${API_TIMEOUT_SEC} seconds.`));
+        }, API_TIMEOUT_SEC * 1000);
+    });
+}
+export const fetchData = async(url) =>{
+    try {
+        const fetchPro = fetch(url);
+        const res = await Promise.race([fetchPro, timeoutAPI()])
+        if (!res.ok) {
+            throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return await res.json();
+    } catch (error) {
+        throw error;
+    }
+};
 export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
 export const toXml = (array) => {
     const obj = {

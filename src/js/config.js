@@ -31,3 +31,4 @@ export const MN_TYPE = 'Manual tests';
 export const SECTION_HIDDEN_CLASS = 'section--hidden'
 export const STICKY_TOP_CLASS = 'sticky-top'
 export const LOAD_TYPE = 'load';
+export const API_TIMEOUT_SEC = 4;

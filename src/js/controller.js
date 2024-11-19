@@ -14,7 +14,6 @@ import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
 performanceView._perfObserver()
-console.log(performanceView._getMemoryStats());
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
@@ -141,3 +140,4 @@ const init = () => {
 }
 init()
 // performance optimization
+console.log(performanceView._getMemoryStats());
