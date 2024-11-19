@@ -30,7 +30,7 @@ class ProjectsView extends View {
     }
     #carrouselInner(array,interval) {
       if((typeof interval !== 'number') && (typeof interval !== 'boolean' || interval === false)) return;
-      if(interval === true) interval = DEFAULT_INTERVAL;
+      if(interval === true) interval = DEFAULT_INTERVAL * 1000;
         const carouselInnerStart = `<div class="carousel-inner" role="listbox">`
         const carrouselItem = array.map((data, i) => {
             return `
