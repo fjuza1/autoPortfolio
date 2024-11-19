@@ -123,6 +123,12 @@ const controllSkillsExport =  async () => {
 // project part
 const controllProjects = () => {
 }
+
+//contaction
+const controllContacting = () =>{
+	const email = contactView._formData
+	contactView._sendMail(email)
+}
 const init = () => {
 	controllNavBar();
 	controlSections();
