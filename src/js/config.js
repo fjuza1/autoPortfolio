@@ -28,3 +28,6 @@ export const DEV_TYPE = 'Development';
 export const FE_TYPE = 'Frontend tests automation';
 export const BE_TYPE = 'REST API tests automation';
 export const MN_TYPE = 'Manual tests';
+export const SECTION_HIDDEN_CLASS = 'section--hidden'
+export const STICKY_TOP_CLASS = 'sticky-top'
+export const LOAD_TYPE = 'load';

@@ -63,9 +63,8 @@ export const gotoSegment = (domElement, nav) =>{
 export const gotoTop = () =>{
     window.scrollTo(0,0)
 }
-export const removeClass = (options) => {
-    const {element, className} = options
-    element.classList.contains(className) ? el.classList.remove(className) : ''
+export const removeClass = (element, className) => {
+    if(element.classList.contains(className)) element.classList.remove(className)
 }
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
