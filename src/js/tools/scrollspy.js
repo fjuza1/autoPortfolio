@@ -5,7 +5,7 @@
  * --------------------------------------------------------------------------
  */
 
-import $ from 'jquery'
+import $ from './jquery.js'
 import Util from './util'
 
 /**

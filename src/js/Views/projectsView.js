@@ -19,9 +19,6 @@ class ProjectsView extends View {
         `
         return [indicators, carrouselInner, [endBtns]].flat()
     }
-    _generateModalProjectMarkup(){
-       // TODO Add your modal project markup here
-    }
     #indicators(data) {
         const indicatorsStart = '<div class="carousel-indicators">'
         const buttonIndicatorsMarkup = data.map((data, i) => {

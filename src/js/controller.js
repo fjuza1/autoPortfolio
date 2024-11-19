@@ -1,7 +1,9 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
-import {timeout, wait} from './helpers.js'
+import {timeout, wait, debounce} from './helpers.js'
+import * as scrollspy from './tools/scrollspy.js';
+console.log("🚀 ~ scrollspy:", scrollspy)
 import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
