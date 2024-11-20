@@ -136,7 +136,8 @@ const init = () => {
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
-	skillsExportView._addHandlerSubmit(controllSkillsExport)
+	skillsExportView._addHandlerSubmit(controllSkillsExport);
+	popoutView._addHandleOpenModal();
 }
 init()
 // performance optimization
