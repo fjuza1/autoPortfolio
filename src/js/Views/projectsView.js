@@ -60,18 +60,21 @@ class ProjectsView extends View {
       const cardContent = this.#contentProjectModal();
 
       const modalMarkup = `
-      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
-          <div class="modal-content">
-              <div class="modal-body">
-                  <div class="container-fluid">
-                      <div class="row g-3">
-                          ${cardContent}
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-  `;
+                <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="btn-close dismiss-modal" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="container-fluid">
+                                <div class="row g-3">
+                                    ${cardContent}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+    `;
       this._modal.innerHTML = '';
       this._modal.insertAdjacentHTML('afterbegin', modalMarkup);
   }
