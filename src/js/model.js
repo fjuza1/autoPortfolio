@@ -177,7 +177,8 @@ export const state = {
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	}
-]
+],
+projectDemos:''
 }
 export const readFileState = async (file) => {
     try {
@@ -257,13 +258,6 @@ export const filterSkills = function (options) {
 
     return filteredData;
 }
-export const getProjectDemos = (array = state.projects) =>{
-	return array.reduce((acc,cur)=>{
-		if(cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
-			acc[acc.length] =  cur
-        return acc;
-	},[])
-}
 export const sortingSkills = function(options) {
 	let {array, sortBy, order} = options;
 	const skills = state.skills
@@ -274,6 +268,14 @@ export const sortingSkills = function(options) {
 		category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
 	};
 	return [...array].sort(sortFunctions[sortBy]);
+}
+export const getProjectDemos = (array = state.projects) => {
+	const demos = array.reduce((acc,cur)=>{
+		if(cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+			acc[acc.length] =  cur
+        return acc;
+	},[])
+	state.projectDemos = demos
 }
 export const loadMore = function(array,currentPage = state.curPage ,itemsPerPage = state.perPage) {
 	const start = 0;

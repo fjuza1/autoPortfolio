@@ -120,7 +120,8 @@ const controllSkillsExport =  async () => {
 
 // project part
 const controllProjects = () => {
-	const demoProjects = model.getProjectDemos();
+	model.getProjectDemos(); 
+	// demo data model.state.projectDemos
 }
 
 //contaction
