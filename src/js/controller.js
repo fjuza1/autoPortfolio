@@ -105,7 +105,7 @@ const controllSkillsExport =  async () => {
 					popoutView._openModal(true)
 					wait(()=>{
 						skillsExportView._exportModal(generatedData);
-					},1000)
+					},800)
 					skillsExportView._animateState('Generating file')
 				}
 				return;

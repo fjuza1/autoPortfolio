@@ -7,7 +7,8 @@ class PopupView {
     _dropdownNav = document.querySelector('.dropdown-menu')
     _body = document.body;
     _main = document.querySelector('main')
-    _modalToggle = document.querySelector('button[data-toggle="modal"]')
+    _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
+    _projectsModalToggle = document.querySelector('[title="Get demos"]')
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
@@ -94,7 +95,8 @@ class PopupView {
         }
     }
     _addHandleOpenModal(){
-        this._modalToggle.addEventListener('click', this._openModal.bind(this));
+        this._exportModalToggle.addEventListener('click', this._openModal.bind(this));
+        this._projectsModalToggle.addEventListener('click', this._openModal.bind(this));
     }
     _addHandleCloseModal(){
         this._modal.addEventListener('click', this._closeModal.bind(this));
