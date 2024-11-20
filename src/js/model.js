@@ -102,6 +102,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[0],
 		description: PROJECT_DESCRIPTOR[0],
 		types: [MN_TYPE],
+		url: '',
+		imgPath: '',
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -110,6 +112,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[1],
 		description: PROJECT_DESCRIPTOR[1],
 		types: [MN_TYPE, BE_TYPE],
+		url: '',
+		imgPath: '',
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -118,6 +122,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[2],
 		description: PROJECT_DESCRIPTOR[2],
 		types: [MN_TYPE],
+		url: '',
+		imgPath: '',
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -126,6 +132,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[3],
 		description: PROJECT_DESCRIPTOR[3],
 		types: [MN_TYPE, BE_TYPE,FE_TYPE],
+		url: '',
+		imgPath: '',
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -134,6 +142,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[4],
 		description: PROJECT_DESCRIPTOR[4],
 		types: [MN_TYPE],
+		url: '',
+		imgPath: '',
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -142,6 +152,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[5],
 		description: PROJECT_DESCRIPTOR[5],
 		types: [MN_TYPE, FE_TYPE],
+		url: '',
+		imgPath: '',
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -150,6 +162,8 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[7],
 		description: PROJECT_DESCRIPTOR[7],
 		types: [FE_TYPE],
+		url: URL_CY_DEMO,
+		imgPath: IMG_CY_DEMO,
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	},
@@ -158,22 +172,13 @@ export const state = {
 		levelNumber: PROJECT_ORDER_NUM[6],
 		description: PROJECT_DESCRIPTOR[6],
 		types: [DEV_TYPE, FE_TYPE],
+		url: URL_PORTFOLIO_DEMO,
+		imgPath: IMG_PORTFOLIO_DEMO,
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	}
 ],
-demoProjects: [
-	{
-		name: PROJECT_NAME[6],
-		url: URL_PORTFOLIO_DEMO,
-		imgPath: IMG_PORTFOLIO_DEMO
-	},
-	{
-		name: PROJECT_NAME[7],
-		url: URL_CY_DEMO,
-		imgPath: IMG_CY_DEMO
-	}
-]
+demoProjects: []
 }
 export const readFileState = async (file) => {
     try {
@@ -252,6 +257,9 @@ export const filterSkills = function (options) {
 	const froze = Object.freeze(state.skills.filteredSkills)
 
     return filteredData;
+}
+export const getProjectDemos = () =>{
+
 }
 export const sortingSkills = function(options) {
 	let {array, sortBy, order} = options;
