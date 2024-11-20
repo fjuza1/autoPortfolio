@@ -105,7 +105,7 @@ class PopupView {
                 if(!modalDataset) return;
                 if(modalDataset.toggle === 'modal'){
                     if(!handler) this._openModal(true)
-                        else handler();
+                        else handler(this._openModal(true));
                 }
             });
         });

@@ -2,6 +2,7 @@ import View from './View.js';
 import {DEFAULT_INTERVAL} from '../config.js';
 class ProjectsView extends View {
   _parentElement = document.getElementById('carouselProjects');
+  _modal = document.getElementById('modalCenter');
   _end = '</div>'
   _renderSlidesMarkup(options) {
       let {
@@ -57,15 +58,19 @@ class ProjectsView extends View {
   _renderProjectModal(_data) {
       this._data = _data
       // Render project modal here
+
+      // values are trvalwe
       const containerSideNav = '<div class="container-fluid text-center>';
       const rowSidenav = '<div class="row content">';
-      const sideMarkup = [containerSideNav, rowSidenav, this.#sideNavProjectModal(), this._end, this._end].flat();
+      console.log(this.#sideNavProjectModal());
+    // generated
+      const sideMarkup = [containerSideNav, rowSidenav, this.#sideNavProjectModal(), this._end, this._end].flat()
       const card = this.#contentProjectModal();
       return sideMarkup
   }
   #sideNavProjectModal(_data) {
       const sideNav = 'div class="col-bg-3 sidenav">';
-      const links = this._data.map(sideNav => `<h5><a>${sideNav.name}</a></h5>`)
+      const links = this._data.map(sideNav => `<h5><a>${sideNav.name}</a></h5>`).join('');
       return [`${sideNav}${links}${this._end}`]
   }
   #contentProjectModal(_data) {
