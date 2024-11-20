@@ -3,7 +3,6 @@ import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import {timeout, wait, debounce} from './helpers.js';
 import * as model from './model.js';
-console.log(model.state.demoProjects);
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
@@ -121,6 +120,8 @@ const controllSkillsExport =  async () => {
 
 // project part
 const controllProjects = () => {
+	const data = model.state.demoProjects
+	console.log("🚀 ~ controllProjects ~ data:", data)
 }
 
 //contaction
@@ -138,6 +139,7 @@ const init = () => {
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
 	popoutView._addHandleOpenModal();
+	popoutView._addHandleOpenModal(controllProjects);
 }
 init()
 // performance optimization

@@ -97,13 +97,16 @@ class PopupView {
             this._modal.innerHTML = '';
         }
     }
-    _addHandleOpenModal(){
+    _addHandleOpenModal(handler){
         [this._projectsModalToggle].forEach(btn => {
             btn.addEventListener('click', (e) =>{
                 const dataModal = e.target.closest('button');
                 const modalDataset = dataModal.dataset;
                 if(!modalDataset) return;
-                if(modalDataset.toggle === 'modal') this._openModal(true)
+                if(modalDataset.toggle === 'modal'){
+                    if(!handler) this._openModal(true)
+                        else handler();
+                }
             });
         });
     }
