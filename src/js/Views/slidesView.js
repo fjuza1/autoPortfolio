@@ -25,6 +25,7 @@ class SlidesView {
     }
     #deactivateActiveSlide() {
         const activeI = this.#findActive(this._slides)
+        if(!this._slides[activeI]) return;
         this._slides[activeI].classList.remove('active')
     }
     #deactivateActiveIndicator() {

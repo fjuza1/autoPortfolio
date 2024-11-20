@@ -32,3 +32,5 @@ export const SECTION_HIDDEN_CLASS = 'section--hidden'
 export const STICKY_TOP_CLASS = 'sticky-top'
 export const LOAD_TYPE = 'load';
 export const API_TIMEOUT_SEC = 4;
+export const URL_CY_DEMO = 'https://github.com/fjuza1/CypressDemo'
+export const URL_PORTFOLIO_DEMO = 'https://github.com/fjuza1/portfolioCypress'

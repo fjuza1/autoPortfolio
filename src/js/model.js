@@ -1,6 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO
 } from './config.js';
 import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -146,12 +146,30 @@ export const state = {
 		endDate: '2020-12-31'
 	},
 	{
+		name: PROJECT_NAME[7],
+		levelNumber: PROJECT_ORDER_NUM[7],
+		description: PROJECT_DESCRIPTOR[7],
+		types: [FE_TYPE],
+		startDate: '2020-01-01',
+		endDate: '2020-12-31'
+	},
+	{
 		name: PROJECT_NAME[6],
 		levelNumber: PROJECT_ORDER_NUM[6],
 		description: PROJECT_DESCRIPTOR[6],
-		types: [DEV_TYPE],
+		types: [DEV_TYPE, FE_TYPE],
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
+	}
+],
+demoProjects: [
+	{
+		name: PROJECT_NAME[6],
+		url: URL_PORTFOLIO_DEMO
+	},
+	{
+		name: PROJECT_NAME[7],
+		url: URL_CY_DEMO
 	}
 ]
 }

@@ -20,6 +20,14 @@ class ProjectsView extends View {
         `
         return [indicators, carrouselInner, [endBtns]].flat()
     }
+    _renderProjectModal(_data){
+       // Render project modal here
+       this._data = _data;
+       const container = '<div class="container-fluid text-center>'
+       const sideMarkup = `
+       
+       `
+    }
     #indicators(data) {
         const indicatorsStart = '<div class="carousel-indicators">'
         const buttonIndicatorsMarkup = data.map((data, i) => {

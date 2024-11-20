@@ -4,6 +4,7 @@ import {async} from 'regenerator-runtime';
 import {timeout, wait, debounce} from './helpers.js'
 import * as scrollspy from './tools/scrollspy.js';
 import * as model from './model.js';
+console.log(model.state.demoProjects);
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
