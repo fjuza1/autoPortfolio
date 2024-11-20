@@ -55,56 +55,33 @@ class ProjectsView extends View {
       return [carouselInnerStart, ...carrouselItem, this._end];
   }
   _renderProjectModal(_data) {
-    // Ensure modal is extra-large and scrollable
-    if (!this._modal.classList.contains('modal-xl')) this._modal.classList.add('modal-xl');
     this._data = _data;
 
-    // Clear any previous content inside the modal
-    this._modal.innerHTML = '';
-
-    // Generate side navigation and card content
-    const sideNav = this.#sideNavProjectModal();
     const cardContent = this.#contentProjectModal();
 
-    // Modal markup with scrollable layout
     const modalMarkup = `
         <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="container-fluid">
                         <div class="row g-3">
-                            ${sideNav} <!-- Sidebar -->
-                            ${cardContent} <!-- Cards -->
+                            ${cardContent}
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     `;
-
-    // Insert modal markup into the DOM
+    this._modal.innerHTML = '';
     this._modal.insertAdjacentHTML('afterbegin', modalMarkup);
 }
 
-#sideNavProjectModal() {
-    // Sidebar content with responsive design
-    const sideNav = `
-        <div class="col-12 col-md-4 bg-light p-3" style="overflow-y: auto; max-height: 80vh;"> <!-- Added scroll for large content -->
-            ${this._data
-                .map(item => `<h5><a href="#">${item.name}</a></h5>`)
-                .join('')}
-        </div>
-    `;
-    return sideNav;
-}
-
 #contentProjectModal() {
-    // Main content area with responsive cards
     const cardContent = `
-        <div class="col-12 col-md-8" style="overflow-y: auto; max-height: 80vh;"> <!-- Added scroll for large content -->
+        <div class="col-12">
             ${this._data
                 .map(demo => `
-                    <div class="card mb-3">
+                    <div class="card mb-3 w-100"> <!-- Ensure card takes full width -->
                         <img class="card-img-top" src="${demo.imgPath}" alt="Card image cap">
                         <div class="card-body">
                             <p class="card-text">
@@ -118,7 +95,6 @@ class ProjectsView extends View {
     `;
     return cardContent;
 }
-
 
 }
 export default new ProjectsView();
