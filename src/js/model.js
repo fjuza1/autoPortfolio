@@ -177,8 +177,7 @@ export const state = {
 		startDate: '2020-01-01',
 		endDate: '2020-12-31'
 	}
-],
-demoProjects: []
+]
 }
 export const readFileState = async (file) => {
     try {
@@ -258,8 +257,12 @@ export const filterSkills = function (options) {
 
     return filteredData;
 }
-export const getProjectDemos = () =>{
-
+export const getProjectDemos = (array = state.projects) =>{
+	return array.reduce((acc,cur)=>{
+		if(cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+			acc[acc.length] =  cur
+        return acc;
+	},[])
 }
 export const sortingSkills = function(options) {
 	let {array, sortBy, order} = options;
