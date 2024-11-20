@@ -103,9 +103,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[0],
 		types: [MN_TYPE],
 		url: '',
-		imgPath: '',
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: ''
 	},
 	{
 		name: PROJECT_NAME[1],
@@ -113,9 +111,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[1],
 		types: [MN_TYPE, BE_TYPE],
 		url: '',
-		imgPath: '',
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: ''
 	},
 	{
 		name: PROJECT_NAME[2],
@@ -123,9 +119,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[2],
 		types: [MN_TYPE],
 		url: '',
-		imgPath: '',
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: ''
 	},
 	{
 		name: PROJECT_NAME[3],
@@ -133,9 +127,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[3],
 		types: [MN_TYPE, BE_TYPE,FE_TYPE],
 		url: '',
-		imgPath: '',
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: ''
 	},
 	{
 		name: PROJECT_NAME[4],
@@ -143,9 +135,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[4],
 		types: [MN_TYPE],
 		url: '',
-		imgPath: '',
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: ''
 	},
 	{
 		name: PROJECT_NAME[5],
@@ -153,9 +143,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[5],
 		types: [MN_TYPE, FE_TYPE],
 		url: '',
-		imgPath: '',
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: ''
 	},
 	{
 		name: PROJECT_NAME[7],
@@ -163,9 +151,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[7],
 		types: [FE_TYPE],
 		url: URL_CY_DEMO,
-		imgPath: IMG_CY_DEMO,
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: IMG_CY_DEMO
 	},
 	{
 		name: PROJECT_NAME[6],
@@ -173,9 +159,7 @@ export const state = {
 		description: PROJECT_DESCRIPTOR[6],
 		types: [DEV_TYPE, FE_TYPE],
 		url: URL_PORTFOLIO_DEMO,
-		imgPath: IMG_PORTFOLIO_DEMO,
-		startDate: '2020-01-01',
-		endDate: '2020-12-31'
+		imgPath: IMG_PORTFOLIO_DEMO
 	}
 ],
 projectDemos:''

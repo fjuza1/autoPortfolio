@@ -121,7 +121,9 @@ const controllSkillsExport =  async () => {
 // project part
 const controllProjects = () => {
 	model.getProjectDemos(); 
-	// demo data model.state.projectDemos
+	// demo data model.state.projectDemo
+	console.log(model.state.projectDemos);
+	projectsView._renderProjectModal(model.state.projectDemos)
 }
 
 //contaction

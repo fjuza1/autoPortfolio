@@ -20,14 +20,6 @@ class ProjectsView extends View {
         `
         return [indicators, carrouselInner, [endBtns]].flat()
     }
-    _renderProjectModal(_data){
-       // Render project modal here
-       this._data = _data;
-       const container = '<div class="container-fluid text-center>'
-       const sideMarkup = `
-       
-       `
-    }
     #indicators(data) {
         const indicatorsStart = '<div class="carousel-indicators">'
         const buttonIndicatorsMarkup = data.map((data, i) => {
@@ -58,5 +50,22 @@ class ProjectsView extends View {
         })
         return [carouselInnerStart, ...carrouselItem, this._end];
     }
+    // demo projects;
+    _renderProjectModal(_data){
+      this._data = _data
+      // Render project modal here
+      const containerSideNav = '<div class="container-fluid text-center>';
+      const rowSidenav = '<div class="row content">';
+      const sideMarkup = [containerSideNav, rowSidenav, this.#sideNavProjectModal(),this._end, this._end].flat();
+      return sideMarkup
+   }
+   #sideNavProjectModal (_data) {
+    const sideNav = 'div class="col-bg-3 sidenav">';
+    const links = this._data.map(sideNav =>`<h5><a>${sideNav.name}</a></h5>`)
+    return [`${sideNav}${links}${this._end}`]
+   }
+   #contentProjectModal(_data) {
+    
+   }
 }
 export default new ProjectsView();
