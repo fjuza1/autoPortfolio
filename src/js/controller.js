@@ -121,7 +121,6 @@ const controllSkillsExport =  async () => {
 // project part
 const controllProjects = () => {
 	const data = model.state.demoProjects
-	console.log("🚀 ~ controllProjects ~ data:", data)
 }
 
 //contaction
@@ -138,7 +137,6 @@ const init = () => {
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	popoutView._addHandleOpenModal();
 	popoutView._addHandleOpenModal(controllProjects);
 }
 init()
