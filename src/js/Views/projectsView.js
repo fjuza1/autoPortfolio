@@ -69,8 +69,8 @@ class ProjectsView extends View {
                         </div>
                         <div class="modal-body">
                             <div class="container-fluid">
+                                 ${demoInstructions}
                                 <div class="row g-3">
-                                    ${demoInstructions}
                                     ${cardContent}
                                 </div>
                             </div>
