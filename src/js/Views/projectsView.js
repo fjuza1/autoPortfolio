@@ -84,7 +84,7 @@ class ProjectsView extends View {
   #demoInfo(){
     // Render demo info here
     return `
-    <div class="jumbotron">
+    <div class="jumbotron jumbotron-fluid">
       <h5 class="display-5">How to start a demo</h5>
       <p class="lead">Example instructions: </p>
       <ul>
