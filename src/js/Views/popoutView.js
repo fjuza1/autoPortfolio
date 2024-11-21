@@ -7,7 +7,8 @@ class PopupView {
     _dropdownNav = document.querySelector('.dropdown-menu')
     _body = document.body;
     _main = document.querySelector('main')
-    _modalToggle = document.querySelector('button[data-toggle="modal"]')
+    _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
+    _projectsModalToggle = document.querySelector('[title="Get demos"]')
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
@@ -73,8 +74,8 @@ class PopupView {
     _addHandleAccordion(){
         [this._modal].forEach(dom => dom.addEventListener('click',this._toggleAccordion.bind(this)))
     }
-    _openModal(show){
-        if(show === true) {
+    _openModal(open){
+        if(open === true){
             this._modal.classList.add('show');
             this._modal.style.display = 'block';
             this._body.style.overflow = 'hidden'
@@ -91,10 +92,23 @@ class PopupView {
             this._modal.style.display = 'none';
             this._modal.classList.remove('show');
             this._body.style.overflow = 'auto';
+
+            // remove innerHTML
+            this._modal.innerHTML = '';
         }
     }
-    _addHandleOpenModal(){
-        this._modalToggle.addEventListener('click', this._openModal.bind(this));
+    _addHandleOpenModal(handler){
+        [this._projectsModalToggle].forEach(btn => {
+            btn.addEventListener('click', (e) =>{
+                const dataModal = e.target.closest('button');
+                const modalDataset = dataModal.dataset;
+                if(!modalDataset) return;
+                if(modalDataset.toggle === 'modal'){
+                    if(!handler) this._openModal(true)
+                        else handler(this._openModal(true));
+                }
+            });
+        });
     }
     _addHandleCloseModal(){
         this._modal.addEventListener('click', this._closeModal.bind(this));

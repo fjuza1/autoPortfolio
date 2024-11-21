@@ -1,4 +1,5 @@
 export const ANIMATIONTIME = 0.2;
+export const DEFAULT_INTERVAL = 5;
 export const EXPERT_LEVEL = ['Beginner','Basic','Skillful','Advanced','Expert'];
 export const EXPERT_NUM = EXPERT_LEVEL.map((_,i)=> i + 1)
 export const CATEGORIES = ['Tool','Skill','Language','Other'];
@@ -27,3 +28,11 @@ export const DEV_TYPE = 'Development';
 export const FE_TYPE = 'Frontend tests automation';
 export const BE_TYPE = 'REST API tests automation';
 export const MN_TYPE = 'Manual tests';
+export const SECTION_HIDDEN_CLASS = 'section--hidden'
+export const STICKY_TOP_CLASS = 'sticky-top'
+export const LOAD_TYPE = 'load';
+export const API_TIMEOUT_SEC = 4;
+export const URL_CY_DEMO = 'https://github.com/fjuza1/CypressDemo';
+export const URL_PORTFOLIO_DEMO = 'https://github.com/fjuza1/portfolioCypress';
+export const IMG_CY_DEMO = new URL('../img/CypressDemo.jpg', import.meta.url).toString();
+export const IMG_PORTFOLIO_DEMO = new URL('../img/autoPortfolio.jpg', import.meta.url).toString();

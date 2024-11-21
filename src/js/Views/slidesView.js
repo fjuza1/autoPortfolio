@@ -1,4 +1,4 @@
-import { wait } from '../helpers.js';
+import { wait, debounce} from '../helpers.js';
 class SlidesView {
     constructor(){
         this._parentElement = document.querySelector('#carouselProjects')
@@ -20,18 +20,12 @@ class SlidesView {
         this._slidesContainer = document.querySelector('.carousel-inner');
         this._slideIndicators = [...this._slideIndicatorsContainer.children]
     }
-    #debounce(fn,wait) {
-        let timeoutId;
-        return (...args) => {
-            clearTimeout(timeoutId);
-            timeoutId = setTimeout(() => fn.apply(this, args), wait);
-        };
-    }
     #findActive(element){
         return [...element].findIndex(el=>el.classList.contains('active'))
     }
     #deactivateActiveSlide() {
         const activeI = this.#findActive(this._slides)
+        if(!this._slides[activeI]) return;
         this._slides[activeI].classList.remove('active')
     }
     #deactivateActiveIndicator() {
@@ -90,7 +84,7 @@ class SlidesView {
         this._slideIndex = active;
     
         const curSlide = this._slides[active];
-        const interval = +curSlide.dataset.bsInterval;
+        const interval = +curSlide.dataset.bsInterval ?? 0;
         if (!interval) return;
     
         if (this._interval) {
@@ -109,8 +103,8 @@ class SlidesView {
     
     handleSlides() {
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
-        this._nextBtn.addEventListener('click', this.#debounce(this.#showNextSlide.bind(this), 400));
-        this._prevBtn.addEventListener('click', this.#debounce(this.#showPreviousSlide.bind(this),400));
+        this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
+        this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this),400));
         this._slidesContainer.addEventListener('animationiteration', () => {
             requestAnimationFrame(() => this._animateSlides());
         })

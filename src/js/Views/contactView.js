@@ -1,4 +1,5 @@
 import View from './View.js';
+import {emailValidator} from '../lib.js';
 import {sendMail} from '../helpers.js';
 class ContactView extends View {
     _parentElement = document.getElementById('contactForm')
@@ -7,8 +8,8 @@ class ContactView extends View {
         .map(reqField => reqField.classList.contains('required'))
     }
     _isRobot(){}
-    _sendMail(options){
-        const {name, email, subject, message} = options
+    _sendMail(fields){
+        const {name, email, subject, message} = fields
     }
 }
 export default new ContactView();

@@ -1,8 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
-import {emailValidator, createCaptcha} from './lib.js';
-import {timeout} from './helpers.js'
+import {timeout, wait, debounce} from './helpers.js';
 import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
@@ -14,7 +13,6 @@ import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
 performanceView._perfObserver()
-console.log(performanceView._getMemoryStats());
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
@@ -30,7 +28,7 @@ const loadAndRenderContent = () => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: 5000}))
+	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: true}))
 	slidesView._initializeElement();
 	slidesView.handleSlides()
 }
@@ -81,7 +79,14 @@ const controllFilterSkills = () =>{
         })
     });
 }
-
+					/*
+					(function(next) {
+  //do something
+  next()
+}(function() {
+  //do some more
+}))
+					*/
 // export skills
 const controllSkillsExport =  async () => {
 	try {
@@ -95,15 +100,13 @@ const controllSkillsExport =  async () => {
         const fileName = fileErrors.find(err=>err.type === 'fileName');
 		if(!fileName){
 			if(done === true) {
-				// animate
-				performance.mark('animation started')
-				skillsExportView._animateState('Generating file')
-				performance.measure('animation finished')
-				//remove animating
-				// TODO 1st have modal with animation
-				skillsExportView._exportModal(generatedData);
-				skillsExportView._removeAnimationState();
-				if(skillsExportView._generatingfileState === null) {popoutView._openModal(true)}
+				if(skillsExportView._generatingfileState === null) {
+					popoutView._openModal(true)
+					wait(()=>{
+						skillsExportView._exportModal(generatedData);
+					},800)
+					skillsExportView._animateState('Generating file')
+				}
 				return;
 			}
 		}
@@ -117,6 +120,15 @@ const controllSkillsExport =  async () => {
 
 // project part
 const controllProjects = () => {
+	model.getProjectDemos(); 
+	// demo data model.state.projectDemo
+	projectsView._renderProjectModal(model.state.projectDemos)
+}
+
+//contaction
+const controllContacting = () =>{
+	const email = contactView._formData
+	contactView._sendMail(email)
 }
 const init = () => {
 	controllNavBar();
@@ -126,7 +138,9 @@ const init = () => {
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
-	skillsExportView._addHandlerSubmit(controllSkillsExport)
+	skillsExportView._addHandlerSubmit(controllSkillsExport);
+	popoutView._addHandleOpenModal(controllProjects);
 }
 init()
 // performance optimization
+console.log(performanceView._getMemoryStats());

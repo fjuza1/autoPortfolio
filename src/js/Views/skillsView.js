@@ -55,8 +55,11 @@ class SkillsView extends View {
         `;
         });
     }
+    _errorGuard(){
+        // TODO Auto return immediately to stop anything else be put
+    }
     _addFilterSkillsHandler(handler) {
-        ['input', 'change'].forEach(ev => this._form.addEventListener(ev, (e) => {
+        ['keyup', 'paste'].forEach(ev => this._form.addEventListener(ev, (e) => {
             const name = e.target.getAttribute('name')
             if (!name) return;
             if (ALLOWED_FILTER_SKILLS.includes(name)) {

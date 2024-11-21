@@ -15,6 +15,9 @@ class SkillsExportView extends View {
         this._revealNameEvent();
         this._errorRemoveEvent();
     }
+    _cleanupModal(){
+        this._modal.innerHTML = '';
+    }
     _changeType(){
         const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
         document.getElementById('tp').innerText = `.${selectedVariable}`
@@ -78,42 +81,52 @@ class SkillsExportView extends View {
         });
     }
     _animateState(text){
+        this._cleanupModal();
         this._generatingfileState = document.getElementById('generatingfileState')
         const id = text.split(' ').join('').toLowerCase()
         const statusMarkup = `
-        <div id = "${id}State">
-            ${text} <div class="spinner-grow spinner-grow-sm text-primary" role="status">
-             <span class="sr-only"></span>
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                <div id = "${id}State">
+                    ${text} <div class="spinner-grow spinner-grow-sm text-primary" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-secondary" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-success" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-danger" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-warning" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-info" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-light" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                    <div class="spinner-grow spinner-grow-sm text-dark" role="status">
+                    <span class="sr-only"></span>
+                    </div>
+                </div>
+                </div>
             </div>
-            <div class="spinner-grow spinner-grow-sm text-secondary" role="status">
-            <span class="sr-only"></span>
             </div>
-            <div class="spinner-grow spinner-grow-sm text-success" role="status">
-            <span class="sr-only"></span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-danger" role="status">
-            <span class="sr-only"></span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-warning" role="status">
-            <span class="sr-only"></span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-info" role="status">
-            <span class="sr-only"></span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-light" role="status">
-            <span class="sr-only"></span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-dark" role="status">
-            <span class="sr-only"></span>
-            </div>
-        </div>
             `
-        this._exportContainer.insertAdjacentHTML('beforeend', statusMarkup);
+        this._modal.insertAdjacentHTML('afterbegin', statusMarkup);
     }
-    _removeAnimationState (){
-        this._exportState.nextElementSibling.remove();
-    }
+    // _removeAnimationState (){
+    //     this._exportState.nextElementSibling.remove();
+    // }
     _exportModal(data) {
+        this._cleanupModal();
         const markup = `
             <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
@@ -144,7 +157,6 @@ class SkillsExportView extends View {
                 </div>
             </div>
         `;
-        this._modal.innerHTML = '';
         this._modal.insertAdjacentHTML('afterbegin', markup);
     }
     escapeXml(unsafe) {
