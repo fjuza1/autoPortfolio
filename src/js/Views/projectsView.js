@@ -59,6 +59,8 @@ class ProjectsView extends View {
 
       const cardContent = this.#contentProjectModal();
 
+      const demoInstructions = this.#demoInfo()
+
       const modalMarkup = `
                 <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered" role="document">
                     <div class="modal-content">
@@ -68,6 +70,7 @@ class ProjectsView extends View {
                         <div class="modal-body">
                             <div class="container-fluid">
                                 <div class="row g-3">
+                                    ${demoInstructions}
                                     ${cardContent}
                                 </div>
                             </div>
@@ -77,6 +80,22 @@ class ProjectsView extends View {
     `;
       this._modal.innerHTML = '';
       this._modal.insertAdjacentHTML('afterbegin', modalMarkup);
+  }
+  #demoInfo(){
+    // Render demo info here
+    return `
+    <div class="jumbotron">
+      <h5 class="display-5">How to start a demo</h5>
+      <p class="lead">Example instructions: </p>
+      <ul>
+        <li>Download or clone the repository from GitHub</li>
+        <li>Open CMD/Powershell and navigate to the folder</li>
+        <li>Run npm i to install dependencies</li>
+        <li>Run npm start to launch Cypress</li>
+        <li>Wait for Cypress to launch and start running the tests</li>
+      </ul>
+    </div>
+    `
   }
   #contentProjectModal() {
       const cardContent = `
