@@ -87,13 +87,13 @@ class ProjectsView extends View {
     <div class="jumbotron jumbotron-fluid">
       <h5 class="display-5">How to start a demo</h5>
       <p class="lead">Example instructions: </p>
-      <ul>
+      <ol>
         <li>Download or clone the repository from GitHub</li>
         <li>Open CMD/Powershell and navigate to the folder</li>
         <li>Run npm i to install dependencies</li>
         <li>Run npm start to launch Cypress</li>
         <li>Wait for Cypress to launch and start running the tests</li>
-      </ul>
+      </ol>
     </div>
     `
   }

@@ -62,7 +62,7 @@ export default class View {
     }
     //end
 	addHandlerLoadHash(handler) {
-		['load','popstate'].forEach(ev=>window.addEventListener(ev,handler))
+		['load', 'popstate'].forEach(ev=>window.addEventListener(ev,handler))
 	}
     //form
     _addHandlerSubmit(handler) {

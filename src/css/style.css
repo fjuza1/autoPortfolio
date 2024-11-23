@@ -78,3 +78,7 @@ section {
 .carousel > .carousel-inner > .carousel-item{
   height:50vh
 }
+#secondary-navigation > div{
+  margin-top: 8px;
+  width: 100vw;
+}
