@@ -44,10 +44,6 @@ class Design extends View {
 		 else 
 			gotoSegment(domElement, document.querySelector('.nav'));
 	}
-	scrollSpy(entries){
-		const [entry] = entries;
-		if (!entry.isIntersecting) return;
-	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
@@ -56,20 +52,13 @@ class Design extends View {
 		});
 		sectionObserverNav.observe(this._firstSection);
 	}
-	addHandlerScrollSpyObserver () {
-		const spyObserver  = new IntersectionObserver(this.scrollSpy.bind(this, {
-			root:null,
-			threshold: 0.9,
-            rootMargin: '0px 0px -100px 0px'
-		}))
-		spyObserver.forEach(observer => observer.observe(this._modal))
-	}
 	revealSection(entries, observer) {
 		const [entry] = entries;
 		if (!entry.isIntersecting) return;
 		removeClass(entry.target, SECTION_HIDDEN_CLASS)
 		observer.unobserve(entry.target);
 	}
+	// TODO use ResizeObserver on revealSection
 	_showSectionByHash(hash = location.hash.slice(1)){
 		if(!hash) return;
 		const id = titleCaseWord(hash);
@@ -89,7 +78,7 @@ class Design extends View {
 		this._navBar.addEventListener('mouseout', handler.bind(1));
 	}
 	addHandlerLoad(handler) {
-		document.addEventListener(LOAD_TYPE, handler);
+		window.addEventListener(LOAD_TYPE, handler);
 	}
 }
 export default new Design();
