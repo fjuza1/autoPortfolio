@@ -4,6 +4,8 @@ import {titleCaseWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
 import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
+	_rightMenu = document.querySelector(".dropdown-menu-right");
+	_pcMenu = document.getElementById('navbarsExample03')
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
 	_navLink = document
 	_sections = document.querySelectorAll('.section');
@@ -28,7 +30,7 @@ class Design extends View {
 		if (hash.length === 0 && e.type === LOAD_TYPE) {
 			setTimeout(() => { gotoTop() }, 200);
 		}
-		else if(hash.length > 0) {
+		if(hash.length > 0 && e.type === LOAD_TYPE) {
 			const targetSectionId = titleCaseWord(hash.slice(1));
             const targetSection = document.getElementById(targetSectionId);
             if (!targetSection) return;
@@ -36,6 +38,7 @@ class Design extends View {
 			requestAnimationFrame(() => {
 				gotoSegment(targetSection, document.querySelector('.nav'));
 			});
+
 		}
 		const target = e.target.dataset;
 		if(!target) return
@@ -54,7 +57,8 @@ class Design extends View {
 		gotoSegment(domElement, document.querySelector('.nav'));
 	}
 	addHandleClickIntoSection(){
-		this._navBar.addEventListener('click', this.scrollIntoSection);
+		this._rightMenu.addEventListener('click', this.scrollIntoSection);
+		this._pcMenu.addEventListener('click', this.scrollIntoSection);
 	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
