@@ -24,25 +24,37 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add(STICKY_TOP_CLASS) : removeClass(this._navBar, STICKY_TOP_CLASS);
 	}
 	scrollIntoSection(e) {
-		const hash = window.location.hash;
-		let targetSectionId = '';
-	
-		if (hash.length === 0 && e.type === LOAD_TYPE) 
+		const hash = window.location.hash;	
+		if (hash.length === 0 && e.type === LOAD_TYPE) {
 			setTimeout(() => { gotoTop() }, 200);
-		else if (hash.length > 0) 
-			targetSectionId = titleCaseWord(hash.slice(1));
-		
-	
-		if (!targetSectionId) return;
-	
-		const domElement = document.getElementById(targetSectionId);
+		}
+		else if(hash.length > 0) {
+			const targetSectionId = titleCaseWord(hash.slice(1));
+            const targetSection = document.getElementById(targetSectionId);
+            if (!targetSection) return;
+			removeClass(targetSection, SECTION_HIDDEN_CLASS);
+			requestAnimationFrame(() => {
+				gotoSegment(targetSection, document.querySelector('.nav'));
+			});
+		}
+		const target = e.target.dataset;
+		if(!target) return
+		const section = target.navlink
+		const domElement = document.getElementById(section);
 		if(!domElement) return;
-		if(domElement.classList.contains(SECTION_HIDDEN_CLASS)) removeClass(domElement, SECTION_HIDDEN_CLASS)
+		
+		if (domElement.classList.contains(SECTION_HIDDEN_CLASS)) {
+			removeClass(domElement, SECTION_HIDDEN_CLASS);
+			requestAnimationFrame(() => {
+				gotoSegment(domElement, document.querySelector('.nav'));
+			});
+			return;
+		}
 	
-		if (e.type === LOAD_TYPE && hash.length > 0) 
-			requestAnimationFrame(() => { gotoSegment(domElement, document.querySelector('.nav')) });
-		 else 
-			gotoSegment(domElement, document.querySelector('.nav'));
+		gotoSegment(domElement, document.querySelector('.nav'));
+	}
+	addHandleClickIntoSection(){
+		this._navBar.addEventListener('click', this.scrollIntoSection);
 	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
