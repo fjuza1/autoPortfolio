@@ -133,8 +133,9 @@ const controllContacting = () =>{
 const init = () => {
 	controllNavBar();
 	controlSections();
-	skillsView.addHandlerLoadHash(loadAndRenderContent)
-	designView.addHandlerLoadHash(designView.scrollIntoSection)
+	designView.addHandleClickIntoSection()
+	skillsView.addHandlerLoad(loadAndRenderContent)
+	designView.addHandlerLoad(designView.scrollIntoSection)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);

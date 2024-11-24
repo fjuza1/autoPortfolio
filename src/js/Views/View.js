@@ -61,8 +61,8 @@ export default class View {
         this._formData = data;
     }
     //end
-	addHandlerLoadHash(handler) {
-		['load', 'popstate'].forEach(ev=>window.addEventListener(ev,handler))
+	addHandlerLoad(handler) {
+        window.addEventListener('load',handler);
 	}
     //form
     _addHandlerSubmit(handler) {
