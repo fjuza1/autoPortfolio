@@ -5,6 +5,9 @@ export default class View {
     _generateMarkup(data) {
         return data.join('');
     }
+    _getFields (){
+        return Object.values(this._parentElement)
+    }
     _cleanup() {
         this._parentElement.innerHTML = '';
     }

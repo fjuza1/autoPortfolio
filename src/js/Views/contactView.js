@@ -3,11 +3,14 @@ import {emailValidator} from '../lib.js';
 import {sendMail} from '../helpers.js';
 class ContactView extends View {
     _parentElement = document.getElementById('contactForm')
-    _getRequiredFields (){
-        [...this._parentElement]
-        .map(reqField => reqField.classList.contains('required'))
-    }
     _isRobot(){}
+    _getRequiredFields (){
+        return [...this._getFields()]
+       .filter(reqField => {
+        if(!reqField) return
+        if (reqField.classList.contains('required')) return reqField;
+       });
+    }
     _sendMail(fields){
         const {name, email, subject, message} = fields
     }

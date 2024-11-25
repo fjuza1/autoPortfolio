@@ -126,6 +126,7 @@ const controllProjects = () => {
 }
 
 //contaction
+console.log(contactView._getRequiredFields());
 const controllContacting = () =>{
 	const email = contactView._formData
 	contactView._sendMail(email)
