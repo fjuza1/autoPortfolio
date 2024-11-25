@@ -102,7 +102,7 @@ class ProjectsView extends View {
       <div class="col-12">
           ${this._data
               .map(demo => `
-                  <div class="card mb-3 w-100>
+                  <div class="card mb-3 w-100">
                       <img class="card-img-top img-fluid img-thumbnail" src="${demo.imgPath}" alt="Card image cap">
                       <div class="card-body">
                           <p class="card-text">
