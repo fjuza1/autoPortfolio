@@ -82,3 +82,6 @@ section {
   margin-top: 8px;
   width: 100vw;
 }
+[role="listbox"]{
+  height:80dvh !important;
+}
