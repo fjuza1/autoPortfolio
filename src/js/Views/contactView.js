@@ -41,9 +41,9 @@ class ContactView extends View {
 	_sendMail(fields) {
 		const errors = [...this._getValidityEmailField() , ...this._getRequiredFields()]
 		const { name, email, subject, message } = fields
-
+		console.log(name, email, subject, message);
 		if(Array.isArray(errors) && (!errors || errors.length > 0)) this._renderErrorList(errors)
-			else console.log(errors);
+			else sendMail(name, email, subject, message)
 	}
 }
 export default new ContactView();
