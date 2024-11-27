@@ -33,6 +33,8 @@ export default class View {
         const li = document.querySelector(`[data-ul = "${data}"]`)
         if(li) li.remove(li)
         errorField.classList.remove('outlineField')
+        const ul = document.querySelector('.list')
+        if(ul && ul.children.length === 0) ul.remove();
     }
     _renderSuccessMessage() {
         this._cleanup();
@@ -54,8 +56,6 @@ export default class View {
             lis[lis.length] = `<li data-ul="${err.id}">${err.name}</li>`
         })
         const lisMarkup = `<ul class = "list"> ${this._generateMarkup(lis)} </ul>`
-        const ul = document.querySelector('.list')
-        if(ul) ul.remove();
         this._parentElement.insertAdjacentHTML('afterend', lisMarkup)
     }
     //end
