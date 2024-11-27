@@ -28,6 +28,10 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
     }
+    _removeError(data){
+        const errorFields = document.getElementById(data) 
+        errorFields.classList.remove('outlineField')
+    }
     _renderSuccessMessage() {
         this._cleanup();
         const successAlert = `
@@ -42,7 +46,9 @@ export default class View {
     //end
     //error handling
     _renderErrorList(errors) {
-        errors.forEach(err => console.log(err))
+        errors.forEach(err => {
+            document.getElementById(err.id).classList.add('outlineField')
+        })
     }
     //end
     //spinner
@@ -57,6 +63,13 @@ export default class View {
     }
     //end
     //form
+    _errorRemoveEvent(){
+        ['input','textarea','select','change','submit','keyup'].forEach(ev=>{
+            this._form.addEventListener(ev, (e) => {
+                this._removeError(e.target.id);
+            })
+        })
+    }
     _submitEvent(e) {
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];
