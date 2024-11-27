@@ -4,11 +4,16 @@ class ContactView extends View {
 	_parentElement = document.getElementById('contactForm')
 	_isRobot() {}
 	_getRequiredFields() {
-		return [...this._getFields()]
+		const emptyReqFields = [...this._getFields()]
 			.filter(reqField => {
-				if (!reqField) return
-				if (reqField.classList.contains('required')) return reqField;
+				if (!reqField) return false
+				if (reqField.classList.contains('required') && reqField.value.trim().length < 1) return reqField;
+                return false;
 			});
+            return emptyReqFields.map(field=> ({
+                name: `Please fill in the required field: ${field.id}`,
+                type: `${field.tagName.toLowerCase()} required`,
+            }))
 	}
 	_getValidityEmailField() {
 		const invalidEmailFields = [...this._getFields()]
