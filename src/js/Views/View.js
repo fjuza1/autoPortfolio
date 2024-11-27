@@ -42,7 +42,7 @@ export default class View {
     //end
     //error handling
     _renderErrorList(errors) {
-        errors.forEach(err => err)
+        errors.forEach(err => console.log(err))
     }
     //end
     //spinner

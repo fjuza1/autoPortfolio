@@ -2,6 +2,7 @@ import View from './View.js';
 import {sendMail, validateEmail} from '../helpers.js';
 class ContactView extends View {
 	_parentElement = document.getElementById('contactForm')
+	_form = this._parentElement
 	_isRobot() {}
 	_getRequiredFields() {
 		const emptyReqFields = [...this._getFields()]
@@ -13,6 +14,7 @@ class ContactView extends View {
             return emptyReqFields.map(field=> ({
                 name: `Please fill in the required field: ${field.id}`,
                 type: `${field.tagName.toLowerCase()} required`,
+				id:field.id
             }))
 	}
 	_getValidityEmailField() {
@@ -27,13 +29,17 @@ class ContactView extends View {
 				return false;
 			});
 		return invalidEmailFields.map(mail => ({
-			name: 'Please enter a valid email',
-			type: 'email',
+			name: 'Please enter valid email',
+			type: 'email ',
+			id:mail.id
 		}));
 	}
 
 	_sendMail(fields) {
+		const errors = [...this._getValidityEmailField() , ...this._getRequiredFields()]
 		const { name, email, subject, message } = fields
+
+		if(Array.isArray(errors) && (!errors || errors.length > 0)) this._renderErrorList(errors);
 	}
 }
 export default new ContactView();
