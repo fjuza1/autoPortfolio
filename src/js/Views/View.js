@@ -29,8 +29,10 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
     }
     _removeError(data){
-        const errorFields = document.getElementById(data) 
-        errorFields.classList.remove('outlineField')
+        const errorField = document.getElementById(data)
+        const li = document.querySelector(`[data-ul = "${data}"]`)
+        if(li) li.remove(li)
+        errorField.classList.remove('outlineField')
     }
     _renderSuccessMessage() {
         this._cleanup();
@@ -46,9 +48,15 @@ export default class View {
     //end
     //error handling
     _renderErrorList(errors) {
+        const lis = [];
         errors.forEach(err => {
             document.getElementById(err.id).classList.add('outlineField')
+            lis[lis.length] = `<li data-ul="${err.id}">${err.name}</li>`
         })
+        const lisMarkup = `<ul class = "list"> ${this._generateMarkup(lis)} </ul>`
+        const ul = document.querySelector('.list')
+        if(ul) ul.remove();
+        this._parentElement.insertAdjacentHTML('afterend', lisMarkup)
     }
     //end
     //spinner
@@ -64,7 +72,7 @@ export default class View {
     //end
     //form
     _errorRemoveEvent(){
-        ['input','textarea','select','change','submit','keyup'].forEach(ev=>{
+        ['input','textarea','select','change'].forEach(ev=>{
             this._form.addEventListener(ev, (e) => {
                 this._removeError(e.target.id);
             })
