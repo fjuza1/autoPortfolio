@@ -55,7 +55,7 @@ export default class View {
             document.getElementById(err.id).classList.add('outlineField')
             lis[lis.length] = `<li data-ul="${err.id}">${err.name}</li>`
         })
-        const lisMarkup = `<ul class = "list"> ${this._generateMarkup(lis)} </ul>`
+        const lisMarkup = `<div class="alert alert-danger list" <ul > ${this._generateMarkup(lis)} </ul></div>`
         this._parentElement.insertAdjacentHTML('afterend', lisMarkup)
     }
     //end
