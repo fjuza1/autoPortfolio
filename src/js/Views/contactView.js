@@ -2,7 +2,7 @@ import View from './View.js';
 import {sendMail, validateEmail} from '../helpers.js';
 import {EMAIL_SUCCESS_MESSAGE, EMAIL_FAILURE_MESSAGE} from '../config.js';
 class ContactView extends View {
-	_parentElement = document.getElementById('contactForm');
+	_parentElement = document.getElementById('error-contact');
 	_form = document.getElementById('contactForm');
 	_msg = EMAIL_SUCCESS_MESSAGE;
 	_err = EMAIL_FAILURE_MESSAGE;
@@ -47,10 +47,10 @@ class ContactView extends View {
 		if(Array.isArray(errors) && (!errors || errors.length > 0)){
 			this._renderErrorList(errors)
 		}
-		else {
+		else if(errors.length === 0) {
 			const mailSendState = await sendMail({ name, email, subject, message })
-			if(!mailSendState) this._renderErrorBelow(this._err)
-				else this._renderSuccessMessage(this._msg)
+			if(!mailSendState) this._renderError()
+				else this._renderSuccessMessage()
 		} 
 	}
 }

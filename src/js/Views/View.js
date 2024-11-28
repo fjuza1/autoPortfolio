@@ -6,7 +6,7 @@ export default class View {
         return data.join('');
     }
     _getFields (){
-        return Object.values(this._parentElement)
+        return Object.values(this._form)
     }
     _cleanup() {
         this._parentElement.innerHTML = '';
@@ -27,15 +27,6 @@ export default class View {
         const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
-    }
-    _renderErrorBelow(){
-        const error = document.querySelector('.error')
-        if(error) error.remove()
-        const pos = window.scrollY + window.innerHeight;
-        const div = document.createElement('div');
-        div.classList.add('error');
-        div.style.bottom  = pos + 'px';
-        document.body.appendChild(div);
     }
     _removeError(data){
         const errorField = document.getElementById(data)
@@ -59,6 +50,7 @@ export default class View {
     //end
     //error handling
     _renderErrorList(errors) {
+        this._cleanup()
         const lis = [];
         errors.forEach(err => {
             document.getElementById(err.id).classList.add('outlineField')
@@ -67,7 +59,7 @@ export default class View {
         const ul = document.querySelector('.alert-danger.list')
         if(ul) ul.remove();
         const lisMarkup = `<div class="alert alert-danger list" <ul > ${this._generateMarkup(lis)} </ul></div>`
-        this._parentElement.insertAdjacentHTML('afterend', lisMarkup)
+        this._form.insertAdjacentHTML('afterend', lisMarkup)
     }
     //end
     //spinner
