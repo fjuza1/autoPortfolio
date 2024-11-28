@@ -38,11 +38,11 @@ class ContactView extends View {
 			id:mail.id
 		}));
 	}
-	_sendMail(fields) {
+	async _sendMail(fields) {
 		const errors = [...this._getValidityEmailField() , ...this._getRequiredFields()]
 		const { name, email, subject, message } = fields
 		if(Array.isArray(errors) && (!errors || errors.length > 0)) this._renderErrorList(errors)
-			else sendMail(name, email, subject, message)
+			else await sendMail(name, email, subject, message)
 	}
 }
 export default new ContactView();

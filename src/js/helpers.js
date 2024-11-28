@@ -1,5 +1,5 @@
-import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa, Recipient, EmailParams, MailerSend} from './lib.js';
+import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, ME_NAME ,UNGENERATED_FILE_MESSAGE} from './config.js';
+import {xml2js, Papa} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const wait = (callback, time) => {
     const expire = setTimeout(() => {
@@ -14,9 +14,17 @@ export const timeoutAPI = () =>{
         }, API_TIMEOUT_SEC * 1000);
     });
 }
-export const AJAX = async(url) =>{
+export const AJAX = async(url, body = undefined) =>{
     try {
-        const fetchPro = fetch(url);
+        const fetchPro = body ?
+        fetch(url, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(body)
+        })
+        :fetch(url);
         const res = await Promise.race([fetchPro, timeoutAPI()])
         if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -41,20 +49,12 @@ export const toXml = (array) => {
 }
 export const toCsv = (array, config) =>  Papa.unparse(array, config);
 export const toJSON = (array) => JSON.stringify(array, null, '\t')
-export const sendMail = (options) => {
-    const {name, email, subject, message} = options;
-    const mailersend = new MailerSend({
-        apiKey: `mlsn.42411142dcb52efc958fe0c9a34914782799cdd83ecea73c6e785c23dcda062b`,
-    });
-    const recipients = [new Recipient(SENDTO, "Recipient")];
-    const emailParams = new EmailParams()
-        .setFrom(email)
-        .setFromName(name)
-        .setRecipients(recipients)
-        .setSubject(subject)
-        .setText(message);
-    
-        mailersend.send(emailParams);
+export const sendMail = async (options) => {
+    try {
+        const {name, email, subject, message} = options;
+    } catch (err) {
+        throw err;
+    }
 }
 export const handleFileGeneration = async (blob) => {
     try {

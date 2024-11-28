@@ -36,3 +36,4 @@ export const URL_CY_DEMO = 'https://github.com/fjuza1/CypressDemo';
 export const URL_PORTFOLIO_DEMO = 'https://github.com/fjuza1/portfolioCypress';
 export const IMG_CY_DEMO = new URL('../img/CypressDemo.jpg', import.meta.url).toString();
 export const IMG_PORTFOLIO_DEMO = new URL('../img/autoPortfolio.jpg', import.meta.url).toString();
+export const ME_NAME = 'Filip Jůza'
