@@ -5,7 +5,7 @@ class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
     _form = document.querySelector('form')
     _formBtn = document.querySelector('button[type="submit"]');
-    _msg = SKILLSVIEW_MESSAGE;
+    _err = SKILLSVIEW_MESSAGE;
     _skillBarDisplay(_data) {
         let valNow;
         let width;
@@ -59,7 +59,7 @@ class SkillsView extends View {
         // TODO Auto return immediately to stop anything else be put
     }
     _addFilterSkillsHandler(handler) {
-        ['change','keyup', 'paste'].forEach(ev => this._form.addEventListener(ev, (e) => {
+        ['change','input', 'paste'].forEach(ev => this._form.addEventListener(ev, (e) => {
             const name = e.target.getAttribute('name')
             if (!name) return;
             if (ALLOWED_FILTER_SKILLS.includes(name)) {

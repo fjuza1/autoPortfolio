@@ -5,6 +5,9 @@ export default class View {
     _generateMarkup(data) {
         return data.join('');
     }
+    _getFields (){
+        return Object.values(this._form)
+    }
     _cleanup() {
         this._parentElement.innerHTML = '';
     }
@@ -21,9 +24,17 @@ export default class View {
     }
     //rendering msessage 
     _renderError() {
-        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._msg}</div>`;
+        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
+    }
+    _removeError(data){
+        const errorField = document.getElementById(data)
+        const li = document.querySelector(`[data-ul = "${data}"]`)
+        if(li) li.remove(li)
+        const ul = document.querySelector('.list')
+        if(ul && ul.children.length === 0) ul.remove();
+        errorField.classList.remove('outlineField')
     }
     _renderSuccessMessage() {
         this._cleanup();
@@ -39,7 +50,16 @@ export default class View {
     //end
     //error handling
     _renderErrorList(errors) {
-        errors.forEach(err => err)
+        this._cleanup()
+        const lis = [];
+        errors.forEach(err => {
+            document.getElementById(err.id).classList.add('outlineField')
+            lis[lis.length] = `<li data-ul="${err.id}">${err.name}</li>`
+        })
+        const ul = document.querySelector('.alert-danger.list')
+        if(ul) ul.remove();
+        const lisMarkup = `<div class="alert alert-danger list" <ul > ${this._generateMarkup(lis)} </ul></div>`
+        this._form.insertAdjacentHTML('afterend', lisMarkup)
     }
     //end
     //spinner
@@ -54,6 +74,13 @@ export default class View {
     }
     //end
     //form
+    _errorRemoveEvent(){
+        ['input','textarea','select','change'].forEach(ev=>{
+            this._form.addEventListener(ev, (e) => {
+                this._removeError(e.target.id);
+            })
+        })
+    }
     _submitEvent(e) {
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];

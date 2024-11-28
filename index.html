@@ -97,7 +97,7 @@
           <div class="row">
             <div class="col-12">
               <div class="btn-group" id="skillBtnGroup" role="group" aria-label="Filtering Buttons">
-                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Filter & Sort" data-btn="filter&sort">
+                <button type="button" class="btn btn-link" tabindex="0" data-toggle="tooltip" title="Filter & Sort" data-btn="filterSort">
                   <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
                     <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
                   </svg>
@@ -111,7 +111,7 @@
               <!-- dataset -->
               <div class="container">
                 <!-- Adjust the width of the multi-collapse container -->
-                <div class="multi-collapse collapse" id="filter&sort">
+                <div class="multi-collapse collapse" id="filterSort">
                   <!-- Adjust width and center align -->
                   <!-- First Group: Filter by Name or Level -->
                   <div class="bg-light p-4 border rounded shadow-sm">
@@ -248,7 +248,7 @@
         </div>              
       </section>
       <section class="section section--hidden" id="Contact">
-        <div class="container-fluid mt-3">
+        <div class="container-fluid mt-3 w-80">
           <div class="row justify-content-center">
             <div class="col-md-6 col-sm-8">
               <div class="card shadow-sm border-0">
@@ -266,7 +266,7 @@
                     </div>
                     <div class="form-group sm-2">
                       <label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
-                      <input type="email" class="form-control required" id="email" name="email" placeholder="Enter your email">
+                      <input type="text" class="form-control required email" id="email" name="email" placeholder="Enter your email">
                       <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group sm-2">
@@ -278,15 +278,15 @@
                       <textarea class="form-control required" id="message" name="message" rows="4" placeholder="Enter your message"></textarea>
                     </div>
                     <div class="d-flex justify-content-end">
-                      <button type="submit" class="btn btn-primary px-4">Send</button>
+                      <button type="submit" class="btn btn-primary my-2">Send</button>
                     </div>
                   </form>
+                  <div id="error-contact"></div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        
       </section>
     </main>
     <div class="container">

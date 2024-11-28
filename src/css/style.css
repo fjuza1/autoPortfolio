@@ -85,3 +85,6 @@ section {
 [role="listbox"]{
   height:80dvh !important;
 }
+.outlineField {
+  border: 2px solid red !important;
+}
