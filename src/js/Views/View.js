@@ -32,9 +32,9 @@ export default class View {
         const errorField = document.getElementById(data)
         const li = document.querySelector(`[data-ul = "${data}"]`)
         if(li) li.remove(li)
-        errorField.classList.remove('outlineField')
         const ul = document.querySelector('.list')
         if(ul && ul.children.length === 0) ul.remove();
+        errorField.classList.remove('outlineField')
     }
     _renderSuccessMessage() {
         this._cleanup();
@@ -55,6 +55,8 @@ export default class View {
             document.getElementById(err.id).classList.add('outlineField')
             lis[lis.length] = `<li data-ul="${err.id}">${err.name}</li>`
         })
+        const ul = document.querySelector('.alert-danger.list')
+        if(ul) ul.remove();
         const lisMarkup = `<div class="alert alert-danger list" <ul > ${this._generateMarkup(lis)} </ul></div>`
         this._parentElement.insertAdjacentHTML('afterend', lisMarkup)
     }

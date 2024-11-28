@@ -44,10 +44,9 @@ export const toJSON = (array) => JSON.stringify(array, null, '\t')
 export const sendMail = (options) => {
     const {name, email, subject, message} = options;
     const mailersend = new MailerSend({
-        apiKey: `${process.env.MAILSENDER_API_KEY_PRODUCTION}`,
+        apiKey: `mlsn.42411142dcb52efc958fe0c9a34914782799cdd83ecea73c6e785c23dcda062b`,
     });
     const recipients = [new Recipient(SENDTO, "Recipient")];
-    
     const emailParams = new EmailParams()
         .setFrom(email)
         .setFromName(name)
@@ -55,7 +54,7 @@ export const sendMail = (options) => {
         .setSubject(subject)
         .setText(message);
     
-    mailersend.send(emailParams);
+        mailersend.send(emailParams);
 }
 export const handleFileGeneration = async (blob) => {
     try {
