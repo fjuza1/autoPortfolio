@@ -1,8 +1,11 @@
 import View from './View.js';
 import {sendMail, validateEmail} from '../helpers.js';
+import {EMAIL_SUCCESS_MESSAGE, EMAIL_FAILURE_MESSAGE} from '../config.js';
 class ContactView extends View {
-	_parentElement = document.getElementById('contactForm')
-	_form = this._parentElement;
+	_parentElement = document.getElementById('contactForm');
+	_form = document.getElementById('contactForm');
+	_msg = EMAIL_SUCCESS_MESSAGE;
+	_err = EMAIL_FAILURE_MESSAGE;
 	constructor(){
 		super();
 		this._errorRemoveEvent()
@@ -41,8 +44,14 @@ class ContactView extends View {
 	async _sendMail(fields) {
 		const errors = [...this._getValidityEmailField() , ...this._getRequiredFields()]
 		const { name, email, subject, message } = fields
-		if(Array.isArray(errors) && (!errors || errors.length > 0)) this._renderErrorList(errors)
-			else await sendMail(name, email, subject, message)
+		if(Array.isArray(errors) && (!errors || errors.length > 0)){
+			this._renderErrorList(errors)
+		}
+		else {
+			const mailSendState = await sendMail({ name, email, subject, message })
+			if(!mailSendState) this._renderErrorAfter(this._err)
+				else this._renderSuccessMessage(this._msg)
+		} 
 	}
 }
 export default new ContactView();

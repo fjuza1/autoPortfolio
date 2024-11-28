@@ -1,5 +1,5 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, ME_NAME ,UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa} from './lib.js';
+import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const wait = (callback, time) => {
     const expire = setTimeout(() => {
@@ -52,8 +52,22 @@ export const toJSON = (array) => JSON.stringify(array, null, '\t')
 export const sendMail = async (options) => {
     try {
         const {name, email, subject, message} = options;
+        const template = {
+            to_name: name,
+            subject: subject,
+            message: message,
+            reply_to: email,
+            to_email: SENDTO,  
+        }
+        const result = await emailjs.send(
+            process.env.EMAIL_SERVICE_ID,
+            process.env.EMAIL_TEMPLATE_ID,
+            template,
+            process.env.EMAIL_PUBLIC_KEY,
+        )
+        return result;
     } catch (err) {
-        throw err;
+        if(err instanceof EmailJSResponseStatus) throw err;
     }
 }
 export const handleFileGeneration = async (blob) => {

@@ -24,9 +24,14 @@ export default class View {
     }
     //rendering msessage 
     _renderError() {
-        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._msg}</div>`;
+        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
+    }
+    _renderErrorAfter() {
+        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
+        console.log(this._parentElement.lastElementChild);
+        this._parentElement.insertAdjacentHTML('afterend', messageMarkup)
     }
     _removeError(data){
         const errorField = document.getElementById(data)
