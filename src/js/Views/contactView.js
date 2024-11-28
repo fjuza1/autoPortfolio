@@ -49,7 +49,7 @@ class ContactView extends View {
 		}
 		else {
 			const mailSendState = await sendMail({ name, email, subject, message })
-			if(!mailSendState) this._renderErrorAfter(this._err)
+			if(!mailSendState) this._renderErrorBelow(this._err)
 				else this._renderSuccessMessage(this._msg)
 		} 
 	}

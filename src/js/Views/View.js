@@ -28,10 +28,14 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
     }
-    _renderErrorAfter() {
-        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
-        console.log(this._parentElement.lastElementChild);
-        this._parentElement.insertAdjacentHTML('afterend', messageMarkup)
+    _renderErrorBelow(){
+        const error = document.querySelector('.error')
+        if(error) error.remove()
+        const pos = window.scrollY + window.innerHeight;
+        const div = document.createElement('div');
+        div.classList.add('error');
+        div.style.bottom  = pos + 'px';
+        document.body.appendChild(div);
     }
     _removeError(data){
         const errorField = document.getElementById(data)
