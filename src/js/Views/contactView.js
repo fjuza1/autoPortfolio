@@ -49,8 +49,9 @@ class ContactView extends View {
 		}
 		else if(errors.length === 0) {
 			const mailSendState = await sendMail({ name, email, subject, message })
-			if(!mailSendState) this._renderError()
+			if(!mailSendState) this._renderError({close:true})
 				else this._renderSuccessMessage()
+			this._closeAlert();
 		} 
 	}
 }

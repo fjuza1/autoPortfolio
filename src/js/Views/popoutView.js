@@ -99,6 +99,7 @@ class PopupView {
                 this.#unshowModal()
         }
     }
+    // modal evs
     _addHandleOpenModal(handler){
         [this._projectsModalToggle].forEach(btn => {
             btn.addEventListener('click', (e) =>{
@@ -116,6 +117,7 @@ class PopupView {
         this._modal.addEventListener('click', this._closeModal.bind(this))
         document.addEventListener('keydown', this._closeModal.bind(this));
     }
+    //section evs
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
