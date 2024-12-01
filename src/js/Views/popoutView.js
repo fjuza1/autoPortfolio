@@ -52,10 +52,8 @@ class PopupView {
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
     showMobileNav(e) {
-        const targetDropdownMenu = this._mobileDropdownMenu
-        const isAlreadyShown = targetDropdownMenu.classList.contains('show');
-        if(!isAlreadyShown) targetDropdownMenu.classList.add('show');
-        else targetDropdownMenu.classList.remove('show');
+        const targetDropdownMenu = this._mobileDropdownMenu;
+        targetDropdownMenu.classList.toggle('show');
 	}
     hideMobileNav(e) {
         const targetDropdownMenu = e.target;
@@ -82,20 +80,24 @@ class PopupView {
             this._body.style.overflow = 'hidden'
         }
     }
+    #unshowModal(){
+        this._modal.style.display = 'none';
+        this._modal.classList.remove('show');
+        this._body.style.overflow = 'auto';
+        this._modal.innerHTML = '';
+    }
     _closeModal(e) {
-        const target = e.target.closest('button');
-        if (!target) return;
-    
-        const targetClass = target.classList;
-        if (!targetClass) return;
-    
-        if (targetClass.contains('dismiss-modal')) {
-            this._modal.style.display = 'none';
-            this._modal.classList.remove('show');
-            this._body.style.overflow = 'auto';
-
-            // remove innerHTML
-            this._modal.innerHTML = '';
+        if(e.type === 'keydown') {
+            if(e.key === 'Escape') this.#unshowModal()
+        }
+        if(e.type === 'click') {
+            const target = e.target;
+            const targetClosest = target.closest('button');
+            if (!targetClosest) return;
+            const targetClass = targetClosest.classList;
+            if (!targetClass) return;
+            if (targetClass.contains('dismiss-modal'))
+                this.#unshowModal()
         }
     }
     _addHandleOpenModal(handler){
@@ -112,7 +114,8 @@ class PopupView {
         });
     }
     _addHandleCloseModal(){
-        this._modal.addEventListener('click', this._closeModal.bind(this));
+        this._modal.addEventListener('click', this._closeModal.bind(this))
+        document.addEventListener('keydown', this._closeModal.bind(this));
     }
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
