@@ -18,11 +18,6 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //rendering msessage 
-    _renderError(options) {
-        const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
-        this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
-    }
     _removeError(data){
         const errorField = document.getElementById(data)
         const li = document.querySelector(`[data-ul = "${data}"]`)
@@ -31,13 +26,25 @@ export default class View {
         if(ul && ul.children.length === 0) ul.remove();
         errorField.classList.remove('outlineField')
     }
-    _renderSuccessMessage() {
+    _renderError(options) {
+        let messageMarkup;
+        messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
+        if(options) {
+            if(options.close === true) messageMarkup = `<div class="alert alert-dismissible alert-danger" role="alert"> ${this._err}
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+        }
         this._cleanup();
-        const successAlert = `
-        <div class="alert alert-success" role="alert">
-        ${this._msg}
-        </div>`
-        this._parentElement.insertAdjacentHTML('afterbegin', successAlert);
+        this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
+    }
+    _renderSuccessMessage(options) {
+        let sucessMessageMarkup;
+        sucessMessageMarkup = `<div class="alert alert-success" role="alert">${this._msg}</div>`;
+        if(options) {
+            if(options.close === true) sucessMessageMarkup = `<div class="alert alert-dismissible alert-success" role="alert"> ${this._msg}
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+        }
+        this._cleanup();
+        this._parentElement.insertAdjacentHTML('afterbegin', sucessMessageMarkup);
     }
     //end
     //error handling
@@ -93,5 +100,11 @@ export default class View {
     _addHandlerFormReset(handler) {
         this._form.addEventListener('reset', handler)
     }
-    //end
+    // alert evs
+    _closeAlert(){
+        this._parentElement.addEventListener('click',(e) =>{
+            const alert = e.target;
+            if(alert && alert.type === 'button' && alert.closest('.alert').classList.contains('alert')) this._cleanup();
+        });
+    }
 }

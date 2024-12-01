@@ -79,15 +79,6 @@ const controllFilterSkills = () =>{
         })
     });
 }
-					/*
-					(function(next) {
-  //do something
-  next()
-}(function() {
-  //do some more
-}))
-					*/
-// export skills
 const controllSkillsExport =  async () => {
 	try {
 		const array = {array:model.state.skills}
@@ -116,8 +107,6 @@ const controllSkillsExport =  async () => {
 		throw err;
 	}
 }
-
-
 // project part
 const controllProjects = () => {
 	model.getProjectDemos(); 

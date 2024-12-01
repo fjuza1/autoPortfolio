@@ -29,6 +29,13 @@ class PopupView {
         this._multiCollapse.forEach(section => section.classList.remove('show'));
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
+    _hideSection(e) {
+        if(this._modal.classList.contains('show') && this._modal.style.display === 'block') return
+        const target = e.target;
+        const button = target.closest('button')?.tagName.toLowerCase()
+        const multi = [...this._multiCollapse].some(el => el.contains(target));
+        this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
+    }
     _toggleAccordion(e) {
         const target = e.target
         const openButton = target.closest('button')
@@ -43,13 +50,6 @@ class PopupView {
             }
             document.getElementById(sibling.slice(1)).classList.toggle('show');
         }
-    }
-    _hideSection(e) {
-        if(this._modal.classList.contains('show') && this._modal.style.display === 'block') return
-        const target = e.target;
-        const button = target.closest('button')?.tagName.toLowerCase()
-        const multi = [...this._multiCollapse].some(el => el.contains(target));
-        this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
     showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
@@ -99,6 +99,7 @@ class PopupView {
                 this.#unshowModal()
         }
     }
+    // modal evs
     _addHandleOpenModal(handler){
         [this._projectsModalToggle].forEach(btn => {
             btn.addEventListener('click', (e) =>{
@@ -116,6 +117,7 @@ class PopupView {
         this._modal.addEventListener('click', this._closeModal.bind(this))
         document.addEventListener('keydown', this._closeModal.bind(this));
     }
+    //section evs
     _addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
     }
