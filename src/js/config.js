@@ -38,4 +38,4 @@ export const IMG_CY_DEMO = new URL('../img/CypressDemo.jpg', import.meta.url).to
 export const IMG_PORTFOLIO_DEMO = new URL('../img/autoPortfolio.jpg', import.meta.url).toString();
 export const ME_NAME = 'Filip Jůza'
 export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
-export const EMAIL_FAILURE_MESSAGE = 'Email was not send! Please try again. Or contact us through your email service provider.'
+export const EMAIL_FAILURE_MESSAGE = 'The email was not sent! Please try again or contact us directly through your email service provider.'

@@ -18,7 +18,7 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //rendering msessage 
-    _renderError() {
+    _renderError(options) {
         const messageMarkup = `<div class="alert alert-danger" role="alert">${this._err}</div>`;
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
@@ -34,10 +34,7 @@ export default class View {
     _renderSuccessMessage() {
         this._cleanup();
         const successAlert = `
-        <div class="alert alert-success alert-dismissible" role="alert">
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-        </button>
+        <div class="alert alert-success" role="alert">
         ${this._msg}
         </div>`
         this._parentElement.insertAdjacentHTML('afterbegin', successAlert);

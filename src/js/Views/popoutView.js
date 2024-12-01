@@ -52,10 +52,8 @@ class PopupView {
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
     showMobileNav(e) {
-        const targetDropdownMenu = this._mobileDropdownMenu
-        const isAlreadyShown = targetDropdownMenu.classList.contains('show');
-        if(!isAlreadyShown) targetDropdownMenu.classList.add('show');
-        else targetDropdownMenu.classList.remove('show');
+        const targetDropdownMenu = this._mobileDropdownMenu;
+        targetDropdownMenu.classList.toggle('show');
 	}
     hideMobileNav(e) {
         const targetDropdownMenu = e.target;
