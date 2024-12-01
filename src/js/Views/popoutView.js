@@ -52,16 +52,14 @@ class PopupView {
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
     showMobileNav(e) {
-        const targetDropdownMenu = this._mobileDropdownMenu;
-        targetDropdownMenu.classList.toggle('show');
+        this._mobileDropdownMenu.classList.toggle('show');
 	}
     hideMobileNav(e) {
         const targetDropdownMenu = e.target;
-        if (e.target !== this._mobileNav) {
-            targetDropdownMenu.classList.remove('show');
-        }
         if (targetDropdownMenu.classList.contains('dropdown-item')) {
             targetDropdownMenu.classList.remove('show');
+        } else if (targetDropdownMenu !== this._mobileNav) {
+            this._mobileDropdownMenu.classList.remove('show');
         }
     }
     addHandlerShowMobileNav () {
@@ -93,6 +91,7 @@ class PopupView {
         if(e.type === 'click') {
             const target = e.target;
             const targetClosest = target.closest('button');
+            if(target.id.toLowerCase().includes('modal')) this.#unshowModal()
             if (!targetClosest) return;
             const targetClass = targetClosest.classList;
             if (!targetClass) return;
