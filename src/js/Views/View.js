@@ -12,13 +12,8 @@ export default class View {
         this._parentElement.innerHTML = '';
     }
     _render(_data) {
-        // If no data, render an error and exit
         if (Array.isArray(_data) && _data.length === 0) return this._renderError();
-    
-        // Clear content to prevent duplicates
         this._cleanup();
-    
-        // Generate new markup and add to the DOM
         const markup = this._generateMarkup(_data);
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
@@ -59,7 +54,7 @@ export default class View {
         const ul = document.querySelector('.alert-danger.list')
         if(ul) ul.remove();
         const lisMarkup = `<div class="alert alert-danger list" <ul > ${this._generateMarkup(lis)} </ul></div>`
-        this._form.insertAdjacentHTML('afterend', lisMarkup)
+        this._parentElement.insertAdjacentHTML('afterbegin', lisMarkup)
     }
     //end
     //spinner

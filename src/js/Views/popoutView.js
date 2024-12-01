@@ -3,7 +3,7 @@ class PopupView {
     _skillBtnGroup = document.getElementById('skillBtnGroup');
     _skills = document.querySelector('#Skills')
     _formBtn = document.querySelector('button[type="submit"]');
-    _mobileNav = document.getElementById('mobileNav')
+    _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
     _body = document.body;
     _main = document.querySelector('main')
@@ -12,6 +12,7 @@ class PopupView {
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
+    _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
@@ -50,18 +51,18 @@ class PopupView {
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    showMobileNav() {
-        const targetDropdownMenu = this._dropdownNav
+    showMobileNav(e) {
+        const targetDropdownMenu = this._mobileDropdownMenu
         const isAlreadyShown = targetDropdownMenu.classList.contains('show');
         if(!isAlreadyShown) targetDropdownMenu.classList.add('show');
         else targetDropdownMenu.classList.remove('show');
 	}
     hideMobileNav(e) {
-        const targetDropdownMenu = this._dropdownNav;
-        if (!targetDropdownMenu.contains(e.target) && e.target !== this._mobileNav) {
+        const targetDropdownMenu = e.target;
+        if (e.target !== this._mobileNav) {
             targetDropdownMenu.classList.remove('show');
         }
-        if (e.target.classList.contains('dropdown-item')) {
+        if (targetDropdownMenu.classList.contains('dropdown-item')) {
             targetDropdownMenu.classList.remove('show');
         }
     }

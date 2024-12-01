@@ -66,6 +66,8 @@ class Design extends View {
 			threshold: 0.12,
 			rootMargin: `-${this._navbarHeight}px`
 		});
+		const resizeNavObserver = new ResizeObserver(this.stickyNav.bind(this))
+		resizeNavObserver.observe(this._firstSection)
 		sectionObserverNav.observe(this._firstSection);
 	}
 	revealSection(entries, observer) {
@@ -81,12 +83,12 @@ class Design extends View {
 		removeClass(document.getElementById(id), SECTION_HIDDEN_CLASS)
 	}
 	addRevealSectionObserver() {
-		const sectionObserver = new IntersectionObserver(this.revealSection, {
-			root: null,
-			threshold: SECTION_REVEAL_TRESHOLD / 100,
-		})
+		const options = {root: null,threshold: SECTION_REVEAL_TRESHOLD / 100}
+		const sectionObserver = new IntersectionObserver(this.revealSection, options)
+		const resizeSectionObserver = new ResizeObserver(this.revealSection, options)
 		this._sections.forEach(function(section) {
 			sectionObserver.observe(section)
+			resizeSectionObserver.observe(section)
 		})
 	}
 	addHandlerHover(handler) {

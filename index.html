@@ -13,21 +13,20 @@
     <script defer src="/src/js/controller.js" type="module" charset="utf-8"></script>
   </head>
   <body>
-    <div id="modalCenter" class="modal fade" tabindex="1;" role="dialog" aria-labelledby="exampleModalCenterTitle" style = "display:none">
-  </div>
+    <div id="modalCenter" class="modal fade" tabindex="1;" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display:none"></div>
     <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">Filip Juza - Portfolio</a>
         <div class="dropdown" id="secondary-navigation">
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon" id="mobileNav"></span>
-        </button>
-        <div class="dropdown-menu dropdown-menu-right px-4">
-          <a class="dropdown-item" href="#about" data-navLink="About">About</a>
-          <a class="dropdown-item" href="#skills" data-navLink="Skills">Skills</a>
-          <a class="dropdown-item" href="#projects" data-navLink="Projects">Projects</a>
-          <a class="dropdown-item" href="#contact" data-navLink="Contact">Contact</a>
-        </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" id="mobileNav"></span>
+          </button>
+          <div class="dropdown-menu dropdown-menu-right px-4" id="mobileDropdownMenu">
+            <a class="dropdown-item" href="#about" data-navLink="About">About</a>
+            <a class="dropdown-item" href="#skills" data-navLink="Skills">Skills</a>
+            <a class="dropdown-item" href="#projects" data-navLink="Projects">Projects</a>
+            <a class="dropdown-item" href="#contact" data-navLink="Contact">Contact</a>
+          </div>
         </div>
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
@@ -121,15 +120,15 @@
                         <div class="input-group">
                           <label for="searchName" class="form-label text-muted">Name</label>
                           <div class="input-group">
-                              <input type="text" class="form-control" placeholder="Search by name" name="name" id="searchName">
-                              <span class="input-group-text bg-white border-left-0">
-                                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
-                                      <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
-                                      <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
-                                  </svg>
-                              </span>
+                            <input type="text" class="form-control" placeholder="Search by name" name="name" id="searchName">
+                            <span class="input-group-text bg-white border-left-0">
+                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
+                                <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
+                              </svg>
+                            </span>
                           </div>
-                      </div>
+                        </div>
                         <label for="searchLevel" class="form-label text-muted">Expertise Level</label>
                         <select class="form-select mb-3" name="levelNumber">
                           <option selected hidden></option>
@@ -197,19 +196,18 @@
                       <div class="content d-none mb-4">
                         <div id="fileName" class="form-group mb-3">
                           <div class="d-flex align-items-center">
-                              <h6 class="me-1 mb-0">File name</h6>
-                              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
-                                  <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
-                              </svg>
+                            <h6 class="me-1 mb-0">File name</h6>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-asterisk" viewBox="0 0 16 16">
+                              <path d="M8 0a1 1 0 0 1 1 1v5.268l4.562-2.634a1 1 0 1 1 1 1.732L10 8l4.562 2.634a1 1 0 1 1-1 1.732L9 9.732V15a1 1 0 1 1-2 0V9.732l-4.562 2.634a1 1 0 1 1-1-1.732L6 8 1.438 5.366a1 1 0 0 1 1-1.732L7 6.268V1a1 1 0 0 1 1-1"></path>
+                            </svg>
                           </div>
                           <label class="input-group">
                             <div class="input-group">
                               <input type="text" name="fileName" class="form-control" placeholder="Place exported file name">
                               <span class="input-group-text" id="tp"></span>
-                          </div>
-                          
+                            </div>
                           </label>
-                      </div>                      
+                        </div>
                         <div data-formError="fileName" class="text-danger mt-2"></div>
                       </div>
                       <div class="d-flex justify-content-end mt-3">
@@ -245,7 +243,7 @@
               <div id="carouselProjects" class="carousel carousel-dark slide"></div>
             </div>
           </div>
-        </div>              
+        </div>
       </section>
       <section class="section section--hidden" id="Contact">
         <div class="container-fluid mt-3 w-80">
@@ -261,29 +259,37 @@
                 <div class="card-body">
                   <form id="contactForm">
                     <div class="form-group sm-2">
-                      <label for="name" class="form-label fw-semibold">Name/Company Name <span class="text-danger">*</span></label>
+                      <label for="name" class="form-label fw-semibold">Name/Company Name <span class="text-danger">*</span>
+                      </label>
                       <input type="text" class="form-control required" id="name" name="name" placeholder="Your name or company name">
                     </div>
                     <div class="form-group sm-2">
-                      <label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span></label>
+                      <label for="email" class="form-label fw-semibold">Email Address <span class="text-danger">*</span>
+                      </label>
                       <input type="text" class="form-control required email" id="email" name="email" placeholder="Enter your email">
                       <small class="form-text text-muted">We'll never share your email with anyone else.</small>
                     </div>
                     <div class="form-group sm-2">
-                      <label for="subject" class="form-label fw-semibold">Subject <span class="text-danger">*</span></label>
+                      <label for="subject" class="form-label fw-semibold">Subject <span class="text-danger">*</span>
+                      </label>
                       <input type="text" class="form-control required" id="subject" name="subject" placeholder="Subject">
                     </div>
                     <div class="form-group sm-3">
-                      <label for="message" class="form-label fw-semibold">Message <span class="text-danger">*</span></label>
+                      <label for="message" class="form-label fw-semibold">Message <span class="text-danger">*</span>
+                      </label>
                       <textarea class="form-control required" id="message" name="message" rows="4" placeholder="Enter your message"></textarea>
                     </div>
                     <div class="d-flex justify-content-end">
                       <button type="submit" class="btn btn-primary my-2">Send</button>
                     </div>
                   </form>
-                  <div id="error-contact"></div>
                 </div>
               </div>
+            </div>
+          </div>
+          <div class="row justify-content-center">
+            <div class="col-md-6 col-sm-8 py-3">
+              <div id="error-contact"></div>
             </div>
           </div>
         </div>
