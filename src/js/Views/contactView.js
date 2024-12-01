@@ -1,5 +1,5 @@
 import View from './View.js';
-import {sendMail, validateEmail} from '../helpers.js';
+import {sendMail, validateEmail, capitalizeWord} from '../helpers.js';
 import {EMAIL_SUCCESS_MESSAGE, EMAIL_FAILURE_MESSAGE} from '../config.js';
 class ContactView extends View {
 	_parentElement = document.getElementById('error-contact');
@@ -19,7 +19,7 @@ class ContactView extends View {
                 return false;
 			});
             return emptyReqFields.map(field=> ({
-                name: `Please fill in the required field: ${field.id}`,
+                name: `Please fill in the required field: ${capitalizeWord (field.id)}`,
                 type: `${field.tagName.toLowerCase()} required`,
 				id:field.id
             }))

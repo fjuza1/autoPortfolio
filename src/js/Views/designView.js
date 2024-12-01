@@ -1,6 +1,6 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
-import {titleCaseWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
+import {capitalizeWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
 import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
@@ -31,7 +31,7 @@ class Design extends View {
 			setTimeout(() => { gotoTop() }, 200);
 		}
 		if(hash.length > 0 && e.type === LOAD_TYPE) {
-			const targetSectionId = titleCaseWord(hash.slice(1));
+			const targetSectionId = capitalizeWord(hash.slice(1));
             const targetSection = document.getElementById(targetSectionId);
             if (!targetSection) return;
 			removeClass(targetSection, SECTION_HIDDEN_CLASS);
@@ -79,7 +79,7 @@ class Design extends View {
 	// TODO use ResizeObserver on revealSection
 	_showSectionByHash(hash = location.hash.slice(1)){
 		if(!hash) return;
-		const id = titleCaseWord(hash);
+		const id = capitalizeWord(hash);
 		removeClass(document.getElementById(id), SECTION_HIDDEN_CLASS)
 	}
 	addRevealSectionObserver() {
