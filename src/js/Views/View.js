@@ -1,3 +1,4 @@
+import { wait } from '../helpers'
 export default class View {
     constructor() {
         this._addHandlerSubmit.bind(this);
@@ -32,6 +33,11 @@ export default class View {
         if(options) {
             if(options.close === true) messageMarkup = `<div class="alert alert-dismissible alert-danger" role="alert"> ${this._err}
            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+           if(options.disposeTime){
+            wait(()=>{
+                this._cleanup();
+            }, options.disposeTime)
+           }
         }
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
@@ -42,6 +48,11 @@ export default class View {
         if(options) {
             if(options.close === true) sucessMessageMarkup = `<div class="alert alert-dismissible alert-success" role="alert"> ${this._msg}
            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+           if(options.disposeTime){
+            wait(()=>{
+                this._cleanup();
+            }, options.disposeTime)
+           }
         }
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', sucessMessageMarkup);

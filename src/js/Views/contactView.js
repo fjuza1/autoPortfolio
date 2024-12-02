@@ -50,7 +50,7 @@ class ContactView extends View {
 		else if(errors.length === 0) {
 			const mailSendState = await sendMail({ name, email, subject, message })
 			if(!mailSendState) this._renderError({close:true})
-				else this._renderSuccessMessage()
+				else this._renderSuccessMessage({close:true, disposeTime : 3000})
 			this._closeAlert();
 		} 
 	}
