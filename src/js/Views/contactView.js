@@ -1,8 +1,9 @@
 import View from './View.js';
-import {sendMail, validateEmail, capitalizeWord} from '../helpers.js';
+import {sendMail, validateEmail, capitalizeWord, gotoSegment} from '../helpers.js';
 import {EMAIL_SUCCESS_MESSAGE, EMAIL_FAILURE_MESSAGE} from '../config.js';
 class ContactView extends View {
 	_parentElement = document.getElementById('error-contact');
+	_nav = document.querySelector('.nav')
 	_form = document.getElementById('contactForm');
 	_msg = EMAIL_SUCCESS_MESSAGE;
 	_err = EMAIL_FAILURE_MESSAGE;
@@ -46,6 +47,7 @@ class ContactView extends View {
 		const { name, email, subject, message } = fields
 		if(Array.isArray(errors) && (!errors || errors.length > 0)){
 			this._renderErrorList(errors)
+			gotoSegment(this._parentElement, this._nav)
 		}
 		else if(errors.length === 0) {
 			const mailSendState = await sendMail({ name, email, subject, message })
