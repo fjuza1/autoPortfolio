@@ -17,20 +17,22 @@ class SlidesView {
         this._prevBtn = document.querySelector('.carousel-control-prev');
         this._nextBtn = document.querySelector('.carousel-control-next');
         this._slideIndicatorsContainer = document.querySelector('.carousel-indicators')
-        this._slidesContainer = document.querySelector('.carousel-inner');
+        this._slidesContainer = document.querySelector('.carousel-inner')
         this._slideIndicators = [...this._slideIndicatorsContainer.children]
     }
     #findActive(element){
         return [...element].findIndex(el=>el.classList.contains('active'))
     }
     #deactivateActiveSlide() {
-        const activeI = this.#findActive(this._slides)
-        if(!this._slides[activeI]) return;
+        const activeI = this.#findActive(this._slides);
+        if(activeI === -1) return;
         this._slides[activeI].classList.remove('active')
     }
     #deactivateActiveIndicator() {
         const activeI = this.#findActive(this._slideIndicators)
-        this._slideIndicators[activeI].classList.remove('active')
+        if(activeI === -1) return;
+        const activeSlideIndicator = this._slideIndicators[activeI]
+        activeSlideIndicator.classList.remove('active')
     }
     #goto(index) {
         this.#deactivateActiveSlide();
@@ -43,7 +45,9 @@ class SlidesView {
         this._slideIndex = index;
     }
     #goToSlide(e) {
-        const dataset = +e.target.dataset.bsSlideTo;
+        const target = e.target
+        if(target.type !== 'button') return;
+        const dataset = +target.dataset.bsSlideTo;
         this.#goto(dataset)
         this._slideIndex = dataset
     }

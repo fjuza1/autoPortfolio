@@ -38,6 +38,7 @@ class PopupView {
     }
     _toggleAccordion(e) {
         const target = e.target
+        console.log(e.target.closest('.accordion'));
         const openButton = target.closest('button')
         if(!openButton) return
         const sibling = openButton.dataset.bsTarget
@@ -48,7 +49,8 @@ class PopupView {
                 openButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 openButton.classList.toggle('collapsed');
             }
-            document.getElementById(sibling.slice(1)).classList.toggle('show');
+            const element = document.getElementById(sibling.slice(1))
+            element.classList.toggle('show');
         }
     }
     showMobileNav(e) {

@@ -7,7 +7,7 @@ class Design extends View {
 	_rightMenu = document.querySelector(".dropdown-menu-right");
 	_pcMenu = document.getElementById('navbarsExample03')
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
-	_navLink = document
+	_nav = document.querySelector('.nav')
 	_sections = document.querySelectorAll('.section');
 	_firstSection = document.querySelector("#Home");
 	_modal = document.getElementById('modalCenter');
