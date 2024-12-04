@@ -46,7 +46,6 @@ class SlidesView {
     }
     #goToSlide(e) {
         const target = e.target
-        if(target.type !== 'button') return;
         const dataset = +target.dataset.bsSlideTo;
         this.#goto(dataset)
         this._slideIndex = dataset
@@ -72,6 +71,17 @@ class SlidesView {
         this.#goBack(e)
         this.#goto(this._slideIndex)
         this._isAnimating = false;
+    }
+    #keyboardNavigation(e){
+        const key = e.key.toLowerCase();
+        if(key === 'arrowright') {
+            this.#goForward()
+            this.#goto(this._slideIndex)
+        }
+            else if(key === 'arrowleft'){
+                this.#goBack();
+                this.#goto(this._slideIndex)
+            }
     }
     _animationObserver(e) {
 
@@ -106,12 +116,13 @@ class SlidesView {
     }
     
     handleSlides() {
+        document.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this),400));
-        this._slidesContainer.addEventListener('animationiteration', () => {
-            requestAnimationFrame(() => this._animateSlides());
-        })
+        // this._slidesContainer.addEventListener('animationiteration', () => {
+        //     requestAnimationFrame(() => this._animateSlides());
+        // })
     }
 }
 export default new SlidesView();
