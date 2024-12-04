@@ -40,8 +40,8 @@ class ProjectsView extends View {
           return `
             <div class="carousel-item ${i === 0 ? 'active' : ''} " data-bs-interval="${interval ? interval : ''}">
               <div class="d-flex flex-column align-items-center justify-content-center text-center w-100 h-100">
-                <h4 class="fs-3 fw-bold text-uppercase text-primary mb-3">${data.name}</h4>
-                <p class="fs-5 text-secondary mb-4">${data.description}</p>
+                <h4 class="fs-3 fw-bold text-uppercase text-primary mb-sm-2 mb-md-0">${data.name}</h4>
+                <p class="fs-5 text-secondary mb-sm-2 mb-md-0 lh-base w-50">${data.description}</p>
               </div>
               <div class="carousel-caption">
                 <h5 class="fs-5 fs-md-4 fs-lg-3">Types</h5>
@@ -103,7 +103,7 @@ class ProjectsView extends View {
           ${this._data
               .map(demo => `
                   <div class="card mb-3 w-100">
-                      <img class="card-img-top img-fluid img-thumbnail" src="${demo.imgPath}" alt="Card image cap">
+                      <img loading="lazy" class="card-img-top img-fluid img-thumbnail" src="${demo.imgPath}" alt="Card image cap">
                       <div class="card-body">
                           <p class="card-text">
                               <u><a href="${demo.url}" target="_blank">${demo.url}</a></u>

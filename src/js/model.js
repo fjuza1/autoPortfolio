@@ -125,7 +125,7 @@ export const state = {
 		name: PROJECT_NAME[3],
 		levelNumber: PROJECT_ORDER_NUM[3],
 		description: PROJECT_DESCRIPTOR[3],
-		types: [MN_TYPE, BE_TYPE,FE_TYPE],
+		types: [MN_TYPE],
 		url: '',
 		imgPath: ''
 	},
@@ -133,7 +133,7 @@ export const state = {
 		name: PROJECT_NAME[4],
 		levelNumber: PROJECT_ORDER_NUM[4],
 		description: PROJECT_DESCRIPTOR[4],
-		types: [MN_TYPE],
+		types: [MN_TYPE, BE_TYPE,FE_TYPE],
 		url: '',
 		imgPath: ''
 	},
