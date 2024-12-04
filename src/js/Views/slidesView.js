@@ -83,6 +83,10 @@ class SlidesView {
                 this.#goto(this._slideIndex)
             }
     }
+    #touchmoveNavigation(e){
+        const x = e.touches[0].clientX;
+        console.log("🚀 ~ SlidesView ~ #touchmoveNavigation ~ x:", x)
+    }
     _animationObserver(e) {
 
     }
@@ -116,7 +120,8 @@ class SlidesView {
     }
     
     handleSlides() {
-        document.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
+        window.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
+        this._parentElement.addEventListener('touchmove', debounce(this.#touchmoveNavigation.bind(this)));
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this),400));
