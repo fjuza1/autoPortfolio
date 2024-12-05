@@ -11,7 +11,6 @@ class ContactView extends View {
 		super();
 		this._errorRemoveEvent()
 	}
-	_isRobot() {}
 	_getRequiredFields() {
 		const emptyReqFields = [...this._getFields()]
 			.filter(reqField => {

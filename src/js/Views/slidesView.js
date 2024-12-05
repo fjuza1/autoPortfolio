@@ -11,6 +11,7 @@ class SlidesView {
         this._slideIndex = 0;
         this._isAnimating = false;
         this._interval = null;
+        this._startX = null;
     }
     _initializeElement(){
         this._slides = document.querySelectorAll('.carousel-item');
@@ -45,8 +46,8 @@ class SlidesView {
         this._slideIndex = index;
     }
     #goToSlide(e) {
-        const target = e.target
-        if(target.type !== 'button') return;
+        const target = e.target.closest('button');
+        if(!target) return;
         const dataset = +target.dataset.bsSlideTo;
         this.#goto(dataset)
         this._slideIndex = dataset
@@ -73,8 +74,45 @@ class SlidesView {
         this.#goto(this._slideIndex)
         this._isAnimating = false;
     }
-    _animationObserver(e) {
-
+    #keyboardNavigation(e){
+        const key = e.key.toLowerCase();
+        if(key === 'arrowright') {
+            this.#goForward()
+        }
+            else if(key === 'arrowleft'){
+                this.#goBack();
+            }
+            this.#goto(this._slideIndex)
+    }
+    #touchStart(e) {
+        this._startX = e.touches[0].clientX;
+    }
+    #touchMove(e){
+        const swipeTresh = 30
+        if (this._startX === null || this._isAnimating) return;
+        const curX = e.touches[0].clientX;
+        const diffX = curX - this._startX;
+        if (Math.abs(diffX) > swipeTresh) {
+            this._isAnimating = true;
+            this.#goForward();
+        } else if(diffX < 0 ) {
+            this.#goBack();
+        }
+        this.#goto(this._slideIndex);
+        this._isAnimating = false;
+        this._startX = null;
+    }
+    #touchEnd() {
+        this._startX = null;
+        wait(()=>{
+            this.isAnimating = false;
+        },400)
+    }
+    _animationObserver(e) {};
+    #handleTouchSlides () {
+        this._parentElement.addEventListener('touchstart', this.#touchStart.bind(this));
+        this._parentElement.addEventListener('touchmove', debounce(this.#touchMove.bind(this)),400);
+        this._parentElement.addEventListener('touchend', this.#touchEnd.bind(this));
     }
     _animateSlides() {
         const animationQuestion = [...this._slidesContainer.children].every(
@@ -106,6 +144,8 @@ class SlidesView {
     }
     
     handleSlides() {
+        this.#handleTouchSlides();
+        window.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this),400));

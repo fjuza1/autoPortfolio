@@ -12,7 +12,7 @@ footer {
 
 #About, #Skills, #Projects, #Contact {
   background-attachment: fixed;
-  min-height: 90vh;
+  height: 100vh;
   display: flex;
   padding: 20px;
   margin-bottom: 20px;

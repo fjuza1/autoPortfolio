@@ -5,9 +5,16 @@ export const EXPERT_NUM = EXPERT_LEVEL.map((_,i)=> i + 1)
 export const CATEGORIES = ['Tool','Skill','Language','Other'];
 export const EXPORT_WHITELIST = ['xml', 'json', 'csv'];
 export const ALLOWED_FILTER_SKILLS =  ['name','levelNumber'];
-export const PROJECT_NAME = ['DMS','CMS','NSAR','SOVA','CRM','POWERAPPS', 'AUTOPORTFOLIO', 'CYPRESSDEMO'];
+export const PROJECT_NAME = ['DMS','CMS','NSAR','CRM','SOVA','POWERAPPS', 'AUTOPORTFOLIO', 'CYPRESSDEMO'];
 export const PROJECT_ORDER_NUM = PROJECT_NAME.map((_ , i) => i + 1)
-export const PROJECT_DESCRIPTOR = ['a','b','c','d','e','f','g','i'];
+export const PROJECT_DESCRIPTOR = ['Document Management System that is part of CMS. Used for managing files in a web app.',
+    'Content Managment System. Internal system for creating content for websites, similar to Wix.',
+    'National System for Risk Analysis. Used by customs to determine risks associated with shipments.',
+    'Customer Relationship Management. Used internally.',
+    'SOVA app is the new Version of CRM, that is without the need for licenses. It replaced CRM.',
+    'Automating SOVA project in powerapps environment.',
+    'Automated current website during development.',
+    'Automated web app that is used for booking Flights,Hotels,Cars etc.'];
 export const SLIDES_BACKGROUND = '/public/pics/white_background.jpeg';
 export const JSON_TYPE = 'application/json';
 export const XML_TYPE = 'application/xml';
