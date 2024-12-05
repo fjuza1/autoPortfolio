@@ -113,15 +113,15 @@
                 <div class="multi-collapse collapse" id="filterSort">
                   <!-- Adjust width and center align -->
                   <!-- First Group: Filter by Name or Level -->
-                  <div class="bg-light p-4 border rounded shadow-sm">
-                    <form class="filterActivities mb-4">
+                  <div class="sm-light p-4 border rounded shadow-sm">
+                    <form class="filterActivities mb-2">
                       <h4 class="fw-bold text-primary">Filter Data</h4>
-                      <div class="form-group mb-4" id="filterActivities">
+                      <div class="form-group mb-2" id="filterActivities">
                         <div class="input-group">
                           <label for="searchName" class="form-label text-muted">Name</label>
                           <div class="input-group">
                             <input type="text" class="form-control" placeholder="Search by name" name="name" id="searchName">
-                            <span class="input-group-text bg-white border-left-0">
+                            <span class="input-group-text md-white border-left-0">
                               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
                                 <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
                                 <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
@@ -139,24 +139,24 @@
                           <option value="5">Expert</option>
                         </select>
                       </div>
-                      <hr class="my-4">
+                      <hr class="my-2">
                       <h4 class="fw-bold text-primary">Sort Data</h4>
-                      <div class="form-group mb-4">
+                      <div class="form-group mb-2">
                         <p class="fw-semibold">Sort by:</p>
-                        <div class="form-check mb-2">
+                        <div class="form-check mb-1">
                           <input class="form-check-input" type="radio" name="sortBy" id="Name" value="name" checked>
                           <label class="form-check-label" for="Name">Name</label>
                         </div>
-                        <div class="form-check mb-3">
+                        <div class="form-check mb-2">
                           <input class="form-check-input" type="radio" name="sortBy" id="Level" value="expertise">
                           <label class="form-check-label" for="Level">Level</label>
                         </div>
                         <p class="fw-semibold">Order:</p>
-                        <div class="form-check mb-2">
+                        <div class="form-check mb-3">
                           <input class="form-check-input" type="radio" name="order" id="Ascending" value="asc" checked>
                           <label class="form-check-label" for="Ascending">Ascending</label>
                         </div>
-                        <div class="form-check mb-4">
+                        <div class="form-check mb-2">
                           <input class="form-check-input" type="radio" name="order" id="Descending" value="desc">
                           <label class="form-check-label" for="Descending">Descending</label>
                         </div>
@@ -171,7 +171,7 @@
                 <!-- Other multi-collapse content -->
                 <div class="multi-collapse collapse" id="export">
                   <!-- Example content in another multi-collapse section -->
-                  <div class="col-sm-9 bg-light p-4 border rounded shadow-sm">
+                  <div class="col-sm-9 md-light p-4 border rounded shadow-sm">
                     <form class="exportActivities mb-4">
                       <h5 class="fw-bold text-primary mb-3">Export Options</h5>
                       <h6 class="fw-semibold text-muted">Export as:</h6>
@@ -229,7 +229,7 @@
           </div>
       </section>
       <section class="section section--hidden" id="Projects">
-        <div class="container-fluid py-5">
+        <div class="container-fluid">
           <div class="row justify-content-center">
             <div class="col-md-8 col-sm-9">
               <div class="d-flex align-items-center justify-content-start mb-4">
@@ -246,7 +246,7 @@
         </div>
       </section>
       <section class="section section--hidden" id="Contact">
-        <div class="container-fluid mt-3 w-80">
+        <div class="container-fluid w-80">
           <div class="row justify-content-center">
             <div class="col-md-6 col-sm-8">
               <div class="card shadow-sm border-0">
