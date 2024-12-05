@@ -11,6 +11,7 @@ class SlidesView {
         this._slideIndex = 0;
         this._isAnimating = false;
         this._interval = null;
+        this._startX = null;
     }
     _initializeElement(){
         this._slides = document.querySelectorAll('.carousel-item');
@@ -77,19 +78,41 @@ class SlidesView {
         const key = e.key.toLowerCase();
         if(key === 'arrowright') {
             this.#goForward()
-            this.#goto(this._slideIndex)
         }
             else if(key === 'arrowleft'){
                 this.#goBack();
-                this.#goto(this._slideIndex)
             }
+            this.#goto(this._slideIndex)
     }
-    #touchmoveNavigation(e){
-        const x = e.touches[0].clientX;
-        console.log("🚀 ~ SlidesView ~ #touchmoveNavigation ~ x:", x)
+    #touchStart(e) {
+        this._startX = e.touches[0].clientX;
     }
-    _animationObserver(e) {
-
+    #touchMove(e){
+        const swipeTresh = 30
+        if (this._startX === null || this._isAnimating) return;
+        const curX = e.touches[0].clientX;
+        const diffX = curX - this._startX;
+        if (Math.abs(diffX) > swipeTresh) {
+            this._isAnimating = true;
+            this.#goForward();
+        } else if(diffX < 0 ) {
+            this.#goBack();
+        }
+        this.#goto(this._slideIndex);
+        this._isAnimating = false;
+        this._startX = null;
+    }
+    #touchEnd() {
+        this._startX = null;
+        wait(()=>{
+            this.isAnimating = false;
+        },400)
+    }
+    _animationObserver(e) {};
+    #handleTouchSlides () {
+        this._parentElement.addEventListener('touchstart', this.#touchStart.bind(this));
+        this._parentElement.addEventListener('touchmove', debounce(this.#touchMove.bind(this)),400);
+        this._parentElement.addEventListener('touchend', this.#touchEnd.bind(this));
     }
     _animateSlides() {
         const animationQuestion = [...this._slidesContainer.children].every(
@@ -121,14 +144,14 @@ class SlidesView {
     }
     
     handleSlides() {
+        this.#handleTouchSlides();
         window.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
-        this._parentElement.addEventListener('touchmove', debounce(this.#touchmoveNavigation.bind(this)));
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this),400));
-        // this._slidesContainer.addEventListener('animationiteration', () => {
-        //     requestAnimationFrame(() => this._animateSlides());
-        // })
+        this._slidesContainer.addEventListener('animationiteration', () => {
+            requestAnimationFrame(() => this._animateSlides());
+        })
     }
 }
 export default new SlidesView();
