@@ -45,7 +45,8 @@ class SlidesView {
         this._slideIndex = index;
     }
     #goToSlide(e) {
-        const target = e.target
+        const target = e.target.closest('button');
+        if(!target) return;
         const dataset = +target.dataset.bsSlideTo;
         this.#goto(dataset)
         this._slideIndex = dataset
