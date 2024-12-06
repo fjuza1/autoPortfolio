@@ -145,7 +145,7 @@ class SkillsExportView extends View {
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <pre id="xmlContent">${data.startsWith("<?xml") ? this.escapeXml(data) : data}</pre>
+                                        <pre id="exportContent">${data.startsWith("<?xml") ? this.escapeXml(data) : data}</pre>
                                     </div>
                                 </div>
                             </div>
