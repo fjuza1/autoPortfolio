@@ -109,7 +109,6 @@ class SlidesView {
             this.isAnimating = false;
         }, 400)
     }
-    _animationObserver(e) {};
     #handleTouchSlides() {
         this._parentElement.addEventListener('touchstart', this.#touchStart.bind(this));
         this._parentElement.addEventListener('touchmove', debounce(this.#touchMove.bind(this)), 400);

@@ -1,3 +1,6 @@
+import View from './View.js';
+import {sendMail, validateEmail, capitalizeWord, gotoSegment} from '../helpers.js';
+import {EMAIL_SUCCESS_MESSAGE, EMAIL_FAILURE_MESSAGE} from '../config.js';
 class ContactView extends View {
     _parentElement = document.getElementById('error-contact');
     _nav = document.querySelector('.nav')
