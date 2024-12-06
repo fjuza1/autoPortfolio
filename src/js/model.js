@@ -160,6 +160,13 @@ export const state = {
     ],
     projectDemos: ''
 }
+/**
+ * Saves states of gfile generation
+ *
+ * @async
+ * @param {String} file
+ * @returns {Promise<Object>}
+ */
 export const readFileState = async (file) => {
     try {
         return new Promise((resolve, reject) => {
@@ -183,6 +190,13 @@ export const readFileState = async (file) => {
         throw err;
     }
 };
+/**
+ * Returns fileCOntents if successfull
+ *
+ * @async
+ * @param { Object } options
+ * @returns {Array || String}
+ */
 export const toFile = async (options) => {
     try {
         const array = options.array
@@ -232,6 +246,12 @@ export const toFile = async (options) => {
         throw err;
     }
 }
+/**
+ * Filter function for skills based on param,va;ue Object properties.
+ *
+ * @param {Object} options
+ * @returns {Array<Object>}
+ */
 export const filterSkills = function(options) {
     let value;
     const {array, keys, values} = options;
@@ -244,6 +264,12 @@ export const filterSkills = function(options) {
 
     return filteredData;
 }
+/**
+ * Sorting function for skills based on options.
+ *
+ * @param { Object } options
+ * @returns {Array<Object>}
+ */
 export const sortingSkills = function(options) {
     let { array, sortBy, order } = options;
     const skills = state.skills
@@ -255,6 +281,11 @@ export const sortingSkills = function(options) {
     };
     return [...array].sort(sortFunctions[sortBy]);
 }
+/**
+ * Return state.Project where url and img String are specified
+ *
+ * @param {{}} [array=state.projects]
+ */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
         if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
@@ -263,6 +294,14 @@ export const getProjectDemos = (array = state.projects) => {
     }, [])
     state.projectDemos = demos
 }
+/**
+ * Description placeholder
+ *
+ * @param {Array} array
+ * @param {number} [currentPage=state.curPage]
+ * @param {number} [itemsPerPage=state.perPage]
+ * @returns {{ currentPage: number; data: Array; pages: number; perPage: number; }}
+ */
 export const loadMore = function(array, currentPage = state.curPage, itemsPerPage = state.perPage) {
     const start = 0;
     const end = currentPage * itemsPerPage;
