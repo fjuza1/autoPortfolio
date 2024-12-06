@@ -2,7 +2,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
 } from './config.js';
-import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
+import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, newURL} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
     fileState: {
@@ -147,7 +147,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[7],
             types: [FE_TYPE],
             url: URL_CY_DEMO,
-            imgPath: IMG_CY_DEMO
+            imgPath: newURL (IMG_CY_DEMO)
         },
         {
             name: PROJECT_NAME[6],
@@ -155,7 +155,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[6],
             types: [DEV_TYPE, FE_TYPE],
             url: URL_PORTFOLIO_DEMO,
-            imgPath: IMG_PORTFOLIO_DEMO
+            imgPath: newURL (IMG_PORTFOLIO_DEMO)
         }
     ],
     projectDemos: ''

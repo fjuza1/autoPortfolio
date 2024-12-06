@@ -1,5 +1,7 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, ME_NAME ,UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
+export const newURL = (url) => new URL(url, import.meta.url).toString();
+
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const wait = (callback, time) => {
     const expire = setTimeout(() => {
