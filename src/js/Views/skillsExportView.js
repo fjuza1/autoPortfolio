@@ -10,20 +10,20 @@ class SkillsExportView extends View {
     _fileName = document.querySelector('input[name="fileName"]')
     _modal = document.querySelector('#modalCenter')
     _generatingfileState = null;
-    constructor(){
+    constructor() {
         super();
         this._revealNameEvent();
         this._errorRemoveEvent();
     }
-    _cleanupModal(){
+    _cleanupModal() {
         this._modal.innerHTML = '';
     }
-    _changeType(){
+    _changeType() {
         const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
         document.getElementById('tp').innerText = `.${selectedVariable}`
     }
-    _revealExportContainer(){
-        if(this._fileType.classList.contains('d-none')) this._fileType.classList.remove('d-none');
+    _revealExportContainer() {
+        if (this._fileType.classList.contains('d-none')) this._fileType.classList.remove('d-none');
         this._changeType()
     }
     _clearOutline(elementId) {
@@ -44,7 +44,7 @@ class SkillsExportView extends View {
         if (formErrorElement) {
             formErrorElement.textContent = message;
         }
-    
+
         const element = document.getElementById(elementId);
         if (element) {
             if (elementId === 'fileType') {
@@ -65,22 +65,25 @@ class SkillsExportView extends View {
         });
     }
     _outlineError(options) {
-        const { type, message } = options;
+        const {
+            type,
+            message
+        } = options;
         this._setOutline(type, message);
     }
     _errorRemoveEvent() {
-        ['input', 'change','submit'].forEach(ev => {
+        ['input', 'change', 'submit'].forEach(ev => {
             this._form.addEventListener(ev, () => {
                 this._removeOutlineError();
             });
         });
     }
-    _revealNameEvent (){
+    _revealNameEvent() {
         this._form.addEventListener('change', () => {
             this._revealExportContainer()
         });
     }
-    _animateState(text){
+    _animateState(text) {
         this._cleanupModal();
         this._generatingfileState = document.getElementById('generatingfileState')
         const id = text.split(' ').join('').toLowerCase()
@@ -160,13 +163,18 @@ class SkillsExportView extends View {
         this._modal.insertAdjacentHTML('afterbegin', markup);
     }
     escapeXml(unsafe) {
-        return unsafe.replace(/[<>&'"]/g, function (c) {
+        return unsafe.replace(/[<>&'"]/g, function(c) {
             switch (c) {
-                case '<': return '&lt;';
-                case '>': return '&gt;';
-                case '&': return '&amp;';
-                case '\'': return '&apos;';
-                case '"': return '&quot;';
+                case '<':
+                    return '&lt;';
+                case '>':
+                    return '&gt;';
+                case '&':
+                    return '&amp;';
+                case '\'':
+                    return '&apos;';
+                case '"':
+                    return '&quot;';
             }
         });
     }

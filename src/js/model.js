@@ -147,7 +147,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[7],
             types: [FE_TYPE],
             url: URL_CY_DEMO,
-            imgPath: newURL (IMG_CY_DEMO)
+            imgPath: newURL(IMG_CY_DEMO)
         },
         {
             name: PROJECT_NAME[6],
@@ -155,7 +155,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[6],
             types: [DEV_TYPE, FE_TYPE],
             url: URL_PORTFOLIO_DEMO,
-            imgPath: newURL (IMG_PORTFOLIO_DEMO)
+            imgPath: newURL(IMG_PORTFOLIO_DEMO)
         }
     ],
     projectDemos: ''
@@ -164,106 +164,112 @@ export const readFileState = async (file) => {
     try {
         return new Promise((resolve, reject) => {
             const reader = new FileReader();
-			reader.onerror = (error) => {
+            reader.onerror = (error) => {
                 reject(error);
             };
-			state.fileState.empty = true;
-			reader.readAsText(file);
-			state.fileState.empty = false;
-			state.fileState.loading = true;
+            state.fileState.empty = true;
+            reader.readAsText(file);
+            state.fileState.empty = false;
+            state.fileState.loading = true;
 
-			reader.onloadend = (event) => {
+            reader.onloadend = (event) => {
 
-			  state.fileState.loading = false;
-			  state.fileState.done = true;
-			  resolve(event.target.result);
-			};
+                state.fileState.loading = false;
+                state.fileState.done = true;
+                resolve(event.target.result);
+            };
         });
     } catch (err) {
         throw err;
     }
 };
 export const toFile = async (options) => {
-	try {
-		const array = options.array
-		const errors = [];
-		let content;
-		let textType;
-		if (!array) throw new Error(ERROR_ARRAY_MISSING);
-		if (options.fileName.trim().length === 0) errors[errors.length] = {
-			message: ERROR_MISSING_FILENAME,
-			type: 'fileName'
-		}
-		if (!EXPORT_WHITELIST.includes(options.fileType)) errors[errors.length] = {
+    try {
+        const array = options.array
+        const errors = [];
+        let content;
+        let textType;
+        if (!array) throw new Error(ERROR_ARRAY_MISSING);
+        if (options.fileName.trim().length === 0) errors[errors.length] = {
+            message: ERROR_MISSING_FILENAME,
+            type: 'fileName'
+        }
+        if (!EXPORT_WHITELIST.includes(options.fileType)) errors[errors.length] = {
             message: ERROR_SUPPORTED_FILE_TYPES,
             type: 'fileType'
         }
-		switch (options.fileType) {
-			case EXPORT_WHITELIST[0]:
-				content = toXml(array)
-				textType = { type: `${XML_TYPE}; ${DEFAULT_ENCODING}` }
-				break;
-			case EXPORT_WHITELIST[1]:
-				content = toJSON(array)
-				textType = { type: `${JSON_TYPE}; ${DEFAULT_ENCODING}` }
-				break;
-			case EXPORT_WHITELIST[2]:
-				content = toCsv(array);
-				textType = { type: `${CSV_TYPE}; ${DEFAULT_ENCODING}` }
-				break;
-			default:
-		}
-		const checkValsEmpty = Object.values(options).every(val=> val.length !== 0)
-		let generatedMessage;
-		if(checkValsEmpty) {
-			const blob = new Blob([String(content)], textType);
-			const read = await readFileState(blob)
-			generatedMessage = await handleFileGeneration(blob);
-			errors.length > 0 || generatedMessage.includes( UNGENERATED_FILE_MESSAGE ) ? false : saveAs(blob, options.fileName);
-		}
-		return [errors,generatedMessage];
-	} catch (err) {
-		throw err;
-	}
+        switch (options.fileType) {
+            case EXPORT_WHITELIST[0]:
+                content = toXml(array)
+                textType = {
+                    type: `${XML_TYPE}; ${DEFAULT_ENCODING}`
+                }
+                break;
+            case EXPORT_WHITELIST[1]:
+                content = toJSON(array)
+                textType = {
+                    type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
+                }
+                break;
+            case EXPORT_WHITELIST[2]:
+                content = toCsv(array);
+                textType = {
+                    type: `${CSV_TYPE}; ${DEFAULT_ENCODING}`
+                }
+                break;
+            default:
+        }
+        const checkValsEmpty = Object.values(options).every(val => val.length !== 0)
+        let generatedMessage;
+        if (checkValsEmpty) {
+            const blob = new Blob([String(content)], textType);
+            const read = await readFileState(blob)
+            generatedMessage = await handleFileGeneration(blob);
+            errors.length > 0 || generatedMessage.includes(UNGENERATED_FILE_MESSAGE) ? false : saveAs(blob, options.fileName);
+        }
+        return [errors, generatedMessage];
+    } catch (err) {
+        throw err;
+    }
 }
-export const filterSkills = function (options) {
+export const filterSkills = function(options) {
     let value;
-    const { array, keys, values } = options;
+    const {array, keys, values} = options;
     const copiedArray = [...array];
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-	state.skills.filteredSkills = filteredData
-	const froze = Object.freeze(state.skills.filteredSkills)
+    state.skills.filteredSkills = filteredData
+    const froze = Object.freeze(state.skills.filteredSkills)
 
     return filteredData;
 }
 export const sortingSkills = function(options) {
-	let {array, sortBy, order} = options;
-	const skills = state.skills
-	const value = state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
-	const sortFunctions = {
-		expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
-		name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
-		category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
-	};
-	return [...array].sort(sortFunctions[sortBy]);
+    let { array, sortBy, order } = options;
+    const skills = state.skills
+    const value = state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
+    const sortFunctions = {
+        expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+        name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+        category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
+    };
+    return [...array].sort(sortFunctions[sortBy]);
 }
 export const getProjectDemos = (array = state.projects) => {
-	const demos = array.reduce((acc,cur)=>{
-		if(cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
-			acc[acc.length] =  cur
+    const demos = array.reduce((acc, cur) => {
+        if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+            acc[acc.length] = cur
         return acc;
-	},[])
-	state.projectDemos = demos
+    }, [])
+    state.projectDemos = demos
 }
-export const loadMore = function(array,currentPage = state.curPage ,itemsPerPage = state.perPage) {
-	const start = 0;
-	const end = currentPage * itemsPerPage;
-	return {
-		currentPage: currentPage,
+export const loadMore = function(array, currentPage = state.curPage, itemsPerPage = state.perPage) {
+    const start = 0;
+    const end = currentPage * itemsPerPage;
+    return {
+        currentPage: currentPage,
         data: array.slice(start, end),
-		pages: Math.ceil(array.length / itemsPerPage),
-		perPage: itemsPerPage
-	}
+        pages: Math.ceil(array.length / itemsPerPage),
+        perPage: itemsPerPage
+    }
 }

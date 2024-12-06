@@ -9,24 +9,24 @@ export const wait = (callback, time) => {
     }, time);
     return expire;
 };
-export const timeoutAPI = () =>{
+export const timeoutAPI = () => {
     return new Promise((_, reject) => {
         setTimeout(() => {
             reject(new Error(`API request timed out after ${API_TIMEOUT_SEC} seconds.`));
         }, API_TIMEOUT_SEC * 1000);
     });
 }
-export const AJAX = async(url, body = undefined) =>{
+export const AJAX = async (url, body = undefined) => {
     try {
         const fetchPro = body ?
-        fetch(url, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(body)
-        })
-        :fetch(url);
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(body)
+            }) :
+            fetch(url);
         const res = await Promise.race([fetchPro, timeoutAPI()])
         if (!res.ok) {
             throw new Error(`HTTP error! status: ${res.status}`);
@@ -40,7 +40,7 @@ export const filterByKeys = (array,keys,values) => array.filter(item => keys.eve
 export const toXml = (array) => {
     const obj = {
         root: {
-            skills:{
+            skills: {
                 skill: array
             }
         }
@@ -79,10 +79,8 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
-export const saveToSessionStorage = (name, data) => sessionStorage.setItem(name, JSON.stringify(data));
-export const readFromSessionStorage = name => JSON.parse(sessionStorage.getItem(name));
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)
-export const gotoSegment = (domElement, nav) =>{
+export const gotoSegment = (domElement, nav) => {
     const targetSection = domElement.getBoundingClientRect();
     const navHeight = nav.offsetHeight;
     const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
@@ -93,17 +91,16 @@ export const gotoSegment = (domElement, nav) =>{
         behavior: 'smooth',
     })
 }
-export const gotoTop = () =>{
-    window.scrollTo(0,0)
-}
+export const gotoTop = () => window.scrollTo(0,0)
+
 export const removeClass = (element, className) => {
-    if(element.classList.contains(className)) element.classList.remove(className)
+    if (element.classList.contains(className)) element.classList.remove(className)
 }
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
-export const debounce = function (fn,wait) {
+export const debounce = function(fn, wait) {
     let timeoutId;
     return (...args) => {
         clearTimeout(timeoutId);

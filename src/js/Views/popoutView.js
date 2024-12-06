@@ -30,7 +30,7 @@ class PopupView {
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
     _hideSection(e) {
-        if(this._modal.classList.contains('show') && this._modal.style.display === 'block') return
+        if (this._modal.classList.contains('show') && this._modal.style.display === 'block') return
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
@@ -40,11 +40,11 @@ class PopupView {
         const target = e.target
         // console.log(e.target.closest('.accordion'));
         const openButton = target.closest('button')
-        if(!openButton) return
+        if (!openButton) return
         const sibling = openButton.dataset.bsTarget
         const isAccordionButton = openButton.classList.contains('accordion-button')
-        if(sibling && isAccordionButton){
-            if(openButton.classList.contains('accordion-button')){
+        if (sibling && isAccordionButton) {
+            if (openButton.classList.contains('accordion-button')) {
                 const isOpen = openButton.classList.toggle('open');
                 openButton.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
                 openButton.classList.toggle('collapsed');
@@ -55,7 +55,7 @@ class PopupView {
     }
     showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
-	}
+    }
     hideMobileNav(e) {
         const targetDropdownMenu = e.target;
         if (targetDropdownMenu.classList.contains('dropdown-item')) {
@@ -64,36 +64,38 @@ class PopupView {
             this._mobileDropdownMenu.classList.remove('show');
         }
     }
-    addHandlerShowMobileNav () {
+    addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
     }
-    _addHandlerHideDropdownNav () {
-        [this._main,this._dropdownNav].forEach((listener)=>{listener.addEventListener('mouseup', this.hideMobileNav.bind(this))})
+    _addHandlerHideDropdownNav() {
+        [this._main, this._dropdownNav].forEach((listener) => {
+            listener.addEventListener('mouseup', this.hideMobileNav.bind(this))
+        })
     }
-    _addHandleAccordion(){
-        [this._modal].forEach(dom => dom.addEventListener('click',this._toggleAccordion.bind(this)))
+    _addHandleAccordion() {
+        [this._modal].forEach(dom => dom.addEventListener('click', this._toggleAccordion.bind(this)))
     }
-    _openModal(open){
-        if(open === true){
+    _openModal(open) {
+        if (open === true) {
             this._modal.classList.add('show');
             this._modal.style.display = 'block';
             this._body.style.overflow = 'hidden'
         }
     }
-    #unshowModal(){
+    #unshowModal() {
         this._modal.style.display = 'none';
         this._modal.classList.remove('show');
         this._body.style.overflow = 'auto';
         this._modal.innerHTML = '';
     }
     _closeModal(e) {
-        if(e.type === 'keydown') {
-            if(e.key === 'Escape') this.#unshowModal()
+        if (e.type === 'keydown') {
+            if (e.key === 'Escape') this.#unshowModal()
         }
-        if(e.type === 'click') {
+        if (e.type === 'click') {
             const target = e.target;
             const targetClosest = target.closest('button');
-            if(target.id.toLowerCase().includes('modal')) this.#unshowModal()
+            if (target.id.toLowerCase().includes('modal')) this.#unshowModal()
             if (!targetClosest) return;
             const targetClass = targetClosest.classList;
             if (!targetClass) return;
@@ -102,20 +104,20 @@ class PopupView {
         }
     }
     // modal evs
-    _addHandleOpenModal(handler){
+    _addHandleOpenModal(handler) {
         [this._projectsModalToggle].forEach(btn => {
-            btn.addEventListener('click', (e) =>{
+            btn.addEventListener('click', (e) => {
                 const dataModal = e.target.closest('button');
                 const modalDataset = dataModal.dataset;
-                if(!modalDataset) return;
-                if(modalDataset.toggle === 'modal'){
-                    if(!handler) this._openModal(true)
-                        else handler(this._openModal(true));
+                if (!modalDataset) return;
+                if (modalDataset.toggle === 'modal') {
+                    if (!handler) this._openModal(true)
+                    else handler(this._openModal(true));
                 }
             });
         });
     }
-    _addHandleCloseModal(){
+    _addHandleCloseModal() {
         this._modal.addEventListener('click', this._closeModal.bind(this))
         document.addEventListener('keydown', this._closeModal.bind(this));
     }
