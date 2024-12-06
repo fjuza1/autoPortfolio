@@ -84,7 +84,7 @@ const controllSkillsExport =  async () => {
 		const array = {array:model.state.skills}
 		const options = {...array, ... skillsExportView._formData};
 		const data = await model.toFile(options);
-		const done = model.state.export.fileState.done === true
+		const done = model.state.fileState.done === true
         const [fileErrors]= data
         const generatedData = data[1];
         const fileType = fileErrors.find(err=>err.type === 'fileType');

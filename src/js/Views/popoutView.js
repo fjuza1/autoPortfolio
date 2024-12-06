@@ -38,7 +38,7 @@ class PopupView {
     }
     _toggleAccordion(e) {
         const target = e.target
-        console.log(e.target.closest('.accordion'));
+        // console.log(e.target.closest('.accordion'));
         const openButton = target.closest('button')
         if(!openButton) return
         const sibling = openButton.dataset.bsTarget

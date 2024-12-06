@@ -5,164 +5,160 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
-	export:{
-		fileState: {
-			empty:false,
-			loading: false,
-			done:false
-		},
-	},
-	curPage:CURRENT_PAGE,
-	perPage: RES_PER_PAGE_TRESHOLD,
-	skills: [{
-		name: 'Postman',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'JavaScript',
-		level: EXPERT_LEVEL[4],
-		levelNumber: EXPERT_NUM[4],
-		category: CATEGORIES[2]
-	}, {
-		name: 'HTML',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[2]
-	}, {
-		name: 'XML',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[2]
-	}, {
-		name: 'SQL',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[2]
-	}, {
-		name: 'Cypress',
-		level: EXPERT_LEVEL[2],
-		levelNumber: EXPERT_NUM[2],
-		category: CATEGORIES[0]
-	}, {
-		name: 'SoapUI',
-		level: EXPERT_LEVEL[1],
-		levelNumber: EXPERT_NUM[1],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Azure DevOps Server',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'TFS',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Microsoft Visual Studio Code',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Microsoft SQL Servers Studio',
-		level: EXPERT_LEVEL[2],
-		levelNumber: EXPERT_NUM[2],
-		category: CATEGORIES[0]
-	}, {
-		name: 'UML - Unified Modeling Language',
-		level: EXPERT_LEVEL[2],
-		levelNumber: EXPERT_NUM[2],
-		category: CATEGORIES[2]
-	}, {
-		name: 'Enterprise Architect',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Select Architect',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'Eclipse IDE for Java Developers',
-		level: EXPERT_LEVEL[3],
-		levelNumber: EXPERT_NUM[3],
-		category: CATEGORIES[0]
-	}, {
-		name: 'CI/CD pipeline',
-		level: EXPERT_LEVEL[1],
-		levelNumber: EXPERT_NUM[1],
-		category: CATEGORIES[3]
-	}],
-	projects: 
-	[
-		{
-		name: PROJECT_NAME[0],
-		levelNumber: PROJECT_ORDER_NUM[0],
-		description: PROJECT_DESCRIPTOR[0],
-		types: [MN_TYPE],
-		url: '',
-		imgPath: ''
-	},
-	{
-		name: PROJECT_NAME[1],
-		levelNumber: PROJECT_ORDER_NUM[1],
-		description: PROJECT_DESCRIPTOR[1],
-		types: [MN_TYPE, BE_TYPE],
-		url: '',
-		imgPath: ''
-	},
-	{
-		name: PROJECT_NAME[2],
-		levelNumber: PROJECT_ORDER_NUM[2],
-		description: PROJECT_DESCRIPTOR[2],
-		types: [MN_TYPE],
-		url: '',
-		imgPath: ''
-	},
-	{
-		name: PROJECT_NAME[3],
-		levelNumber: PROJECT_ORDER_NUM[3],
-		description: PROJECT_DESCRIPTOR[3],
-		types: [MN_TYPE],
-		url: '',
-		imgPath: ''
-	},
-	{
-		name: PROJECT_NAME[4],
-		levelNumber: PROJECT_ORDER_NUM[4],
-		description: PROJECT_DESCRIPTOR[4],
-		types: [MN_TYPE, BE_TYPE,FE_TYPE],
-		url: '',
-		imgPath: ''
-	},
-	{
-		name: PROJECT_NAME[5],
-		levelNumber: PROJECT_ORDER_NUM[5],
-		description: PROJECT_DESCRIPTOR[5],
-		types: [MN_TYPE, FE_TYPE],
-		url: '',
-		imgPath: ''
-	},
-	{
-		name: PROJECT_NAME[7],
-		levelNumber: PROJECT_ORDER_NUM[7],
-		description: PROJECT_DESCRIPTOR[7],
-		types: [FE_TYPE],
-		url: URL_CY_DEMO,
-		imgPath: IMG_CY_DEMO
-	},
-	{
-		name: PROJECT_NAME[6],
-		levelNumber: PROJECT_ORDER_NUM[6],
-		description: PROJECT_DESCRIPTOR[6],
-		types: [DEV_TYPE, FE_TYPE],
-		url: URL_PORTFOLIO_DEMO,
-		imgPath: IMG_PORTFOLIO_DEMO
-	}
-],
-projectDemos:''
+    fileState: {
+        empty: false,
+        loading: false,
+        done: false
+    },
+    curPage: CURRENT_PAGE,
+    perPage: RES_PER_PAGE_TRESHOLD,
+    skills: [{
+        name: 'Postman',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'JavaScript',
+        level: EXPERT_LEVEL[4],
+        levelNumber: EXPERT_NUM[4],
+        category: CATEGORIES[2]
+    }, {
+        name: 'HTML',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[2]
+    }, {
+        name: 'XML',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[2]
+    }, {
+        name: 'SQL',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[2]
+    }, {
+        name: 'Cypress',
+        level: EXPERT_LEVEL[2],
+        levelNumber: EXPERT_NUM[2],
+        category: CATEGORIES[0]
+    }, {
+        name: 'SoapUI',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0]
+    }, {
+        name: 'Azure DevOps Server',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'TFS',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'Microsoft Visual Studio Code',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'Microsoft SQL Servers Studio',
+        level: EXPERT_LEVEL[2],
+        levelNumber: EXPERT_NUM[2],
+        category: CATEGORIES[0]
+    }, {
+        name: 'UML - Unified Modeling Language',
+        level: EXPERT_LEVEL[2],
+        levelNumber: EXPERT_NUM[2],
+        category: CATEGORIES[2]
+    }, {
+        name: 'Enterprise Architect',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'Select Architect',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'Eclipse IDE for Java Developers',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0]
+    }, {
+        name: 'CI/CD pipeline',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[3]
+    }],
+    projects: [{
+            name: PROJECT_NAME[0],
+            levelNumber: PROJECT_ORDER_NUM[0],
+            description: PROJECT_DESCRIPTOR[0],
+            types: [MN_TYPE],
+            url: '',
+            imgPath: ''
+        },
+        {
+            name: PROJECT_NAME[1],
+            levelNumber: PROJECT_ORDER_NUM[1],
+            description: PROJECT_DESCRIPTOR[1],
+            types: [MN_TYPE, BE_TYPE],
+            url: '',
+            imgPath: ''
+        },
+        {
+            name: PROJECT_NAME[2],
+            levelNumber: PROJECT_ORDER_NUM[2],
+            description: PROJECT_DESCRIPTOR[2],
+            types: [MN_TYPE],
+            url: '',
+            imgPath: ''
+        },
+        {
+            name: PROJECT_NAME[3],
+            levelNumber: PROJECT_ORDER_NUM[3],
+            description: PROJECT_DESCRIPTOR[3],
+            types: [MN_TYPE],
+            url: '',
+            imgPath: ''
+        },
+        {
+            name: PROJECT_NAME[4],
+            levelNumber: PROJECT_ORDER_NUM[4],
+            description: PROJECT_DESCRIPTOR[4],
+            types: [MN_TYPE, BE_TYPE, FE_TYPE],
+            url: '',
+            imgPath: ''
+        },
+        {
+            name: PROJECT_NAME[5],
+            levelNumber: PROJECT_ORDER_NUM[5],
+            description: PROJECT_DESCRIPTOR[5],
+            types: [MN_TYPE, FE_TYPE],
+            url: '',
+            imgPath: ''
+        },
+        {
+            name: PROJECT_NAME[7],
+            levelNumber: PROJECT_ORDER_NUM[7],
+            description: PROJECT_DESCRIPTOR[7],
+            types: [FE_TYPE],
+            url: URL_CY_DEMO,
+            imgPath: IMG_CY_DEMO
+        },
+        {
+            name: PROJECT_NAME[6],
+            levelNumber: PROJECT_ORDER_NUM[6],
+            description: PROJECT_DESCRIPTOR[6],
+            types: [DEV_TYPE, FE_TYPE],
+            url: URL_PORTFOLIO_DEMO,
+            imgPath: IMG_PORTFOLIO_DEMO
+        }
+    ],
+    projectDemos: ''
 }
 export const readFileState = async (file) => {
     try {
@@ -171,15 +167,15 @@ export const readFileState = async (file) => {
 			reader.onerror = (error) => {
                 reject(error);
             };
-			state.export.fileState.empty = true;
+			state.fileState.empty = true;
 			reader.readAsText(file);
-			state.export.fileState.empty = false;
-			state.export.fileState.loading = true;
+			state.fileState.empty = false;
+			state.fileState.loading = true;
 
 			reader.onloadend = (event) => {
 
-			  state.export.fileState.loading = false;
-			  state.export.fileState.done = true;
+			  state.fileState.loading = false;
+			  state.fileState.done = true;
 			  resolve(event.target.result);
 			};
         });

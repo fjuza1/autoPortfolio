@@ -75,7 +75,9 @@ class SlidesView {
         this._isAnimating = false;
     }
     #keyboardNavigation(e){
-        const key = e.key.toLowerCase();
+        const ky = e.key;
+        if(!ky) return;
+        const key = ky.toLowerCase();
         if(key === 'arrowright') {
             this.#goForward()
         }
