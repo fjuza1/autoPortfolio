@@ -60,6 +60,12 @@ class Design extends View {
 		this._rightMenu.addEventListener('click', this.scrollIntoSection);
 		this._pcMenu.addEventListener('click', this.scrollIntoSection);
 	}
+	observeAnimationFrame(){
+
+	}
+	addHandlerAnimationFrameObserver(){
+
+	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,

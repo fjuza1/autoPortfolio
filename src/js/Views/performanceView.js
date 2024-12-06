@@ -1,12 +1,12 @@
 class PerformanceView {
-    _observeArray = ['mark', 'measure','navigation','element','resource'];
+    _observeArray = ['mark', 'measure', 'navigation', 'element', 'resource'];
     _eTypes = []
     _perfObserve(entries) {
         entries.getEntries().forEach(entry => {
-            performance.eventCounts.entries().forEach((element,i) => {
-                this._eTypes.push({type: element[0],event: element[1]});
+            performance.eventCounts.entries().forEach((element, i) => {
+                this._eTypes.push({ type: element[0], event: element[1]});
             });
-            switch(entry.entryType) {
+            switch (entry.entryType) {
                 case "mark":
                     console.log(`${entry.name}'s startTime: ${entry.startTime}`);
                     break;
@@ -34,16 +34,18 @@ class PerformanceView {
             }
         });
     }
-    _getMemoryStats(){
+    _getMemoryStats() {
         return [performance.memory, performance.timing]
     }
     _perfObserver() {
         const performanceObserver = new PerformanceObserver(this._perfObserve.bind(this));
-        performanceObserver.observe({ entryTypes: this._observeArray});
+        performanceObserver.observe({
+            entryTypes: this._observeArray
+        });
         console.log("PerformanceObserver initialized:", performanceObserver);
     }
-    _calcTimePerformace(){
-        return 
+    _calcTimePerformace() {
+        return
     }
     /*
             $$("*").map(el => {
