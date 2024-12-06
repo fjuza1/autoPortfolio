@@ -1,6 +1,11 @@
 class PerformanceView {
     _observeArray = ['mark', 'measure', 'navigation', 'element', 'resource'];
     _eTypes = []
+    /**
+     * Description placeholder
+     *
+     * @param {Array<object>} entries
+     */
     _perfObserve(entries) {
         entries.getEntries().forEach(entry => {
             performance.eventCounts.entries().forEach((element, i) => {
@@ -34,6 +39,11 @@ class PerformanceView {
             }
         });
     }
+    /**
+     * Description placeholder
+     *
+     * @returns {Array<object>}
+     */
     _getMemoryStats() {
         return [performance.memory, performance.timing]
     }

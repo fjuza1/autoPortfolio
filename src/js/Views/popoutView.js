@@ -22,6 +22,11 @@ class PopupView {
         this._addHandleCloseModal();
         this._addHandleAccordion();
     }
+    /**
+     * Description placeholder
+     *
+     * @param {Event} e
+     */
     _toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);

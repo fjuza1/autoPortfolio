@@ -11,6 +11,12 @@ class PaginationView extends View {
         };
         this._parentElement.addEventListener('click', this._paginationClickHandler);
     }
+    /**
+     * Generate pagination markup into VIEW
+     *
+     * @param {*} _data
+     * @returns {Array<string>}
+     */
     _generateMarkup(_data) {
         this._data = _data;
         const curPage = this._data.currentPage;
