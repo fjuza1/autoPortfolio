@@ -2,7 +2,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
 } from './config.js';
-import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, newURL} from './helpers.js';
+import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, newURL, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
     fileState: {
@@ -215,18 +215,24 @@ export const toFile = async (options) => {
         switch (options.fileType) {
             case EXPORT_WHITELIST[0]:
                 content = toXml(array)
+                const contentXML = isXML(content);
+                if(contentXML === false) return;
                 textType = {
                     type: `${XML_TYPE}; ${DEFAULT_ENCODING}`
                 }
                 break;
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
+                const contentJSON = isJSON(content);
+                if(contentJSON === false) return;
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
                 }
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
+                const contentCSV = isCSV(content);
+                if(contentCSV === false) return;
                 textType = {
                     type: `${CSV_TYPE}; ${DEFAULT_ENCODING}`
                 }

@@ -1,6 +1,48 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, ME_NAME ,UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
 /**
+ * Checks if is xml text
+ *
+ * @param {String} xml;
+ * @return {boolean}
+ */
+export const isXML = (xml) => {
+    xml2js.parseString(xml, (err, result) => {
+        if (err) {
+            return false;
+        }
+        return true;
+    });
+}
+/**
+ * Checks if is CSV text
+ *
+ * @param {String} csv;
+ * @return {boolean}
+ */
+export const isCSV = (csv) => {
+    Papa.parse(csv, (err, result) => {
+        if (err) {
+            return false;
+        }
+        return true;
+    });
+}
+/**
+ * Checks if is JSON object
+ *
+ * @param {Object<Array>} json;
+ * @return {boolean}
+ */
+export const isJSON = (json) => {
+    try {
+        JSON.parse(json);
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+/**
  * Description placeholder
  *
  * @param {String} url
