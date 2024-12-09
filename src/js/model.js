@@ -231,7 +231,7 @@ export const toFile = async (options) => {
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
-                const contentCSV = isCSV(content);
+                const contentCSV = await isCSV(content);
                 if(contentCSV === false) return;
                 textType = {
                     type: `${CSV_TYPE}; ${DEFAULT_ENCODING}`

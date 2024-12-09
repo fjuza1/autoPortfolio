@@ -6,12 +6,14 @@ import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
  * @param {String} xml;
  * @return {boolean}
  */
-export const isXML = (xml) => {
-    xml2js.parseString(xml, (err, result) => {
-        if (err) {
-            return false;
-        }
-        return true;
+export const isXML = async (xml) => {
+    return new Promise((resolve) => {
+        xml2js.parseString(xml, (err, result) => {
+            if (err) {
+                resolve(false);
+            }
+            resolve(true);
+        });
     });
 }
 /**
@@ -21,13 +23,13 @@ export const isXML = (xml) => {
  * @return {boolean}
  */
 export const isCSV = (csv) => {
-    Papa.parse(csv, (err, result) => {
-        if (err) {
-            return false;
-        }
-        return true;
-    });
-}
+    return new Promise((resolve) => {
+        Papa.parse(csv, {
+            complete: () => resolve(true),
+            error: () => resolve(false)
+            })
+        });
+};
 /**
  * Checks if is JSON object
  *
