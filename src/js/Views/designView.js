@@ -82,7 +82,6 @@ class Design extends View {
 		removeClass(entry.target, SECTION_HIDDEN_CLASS)
 		observer.unobserve(entry.target);
 	}
-	// TODO use ResizeObserver on revealSection
 	_showSectionByHash(hash = location.hash.slice(1)){
 		if(!hash) return;
 		const id = capitalizeWord(hash);
