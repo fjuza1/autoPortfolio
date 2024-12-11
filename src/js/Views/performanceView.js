@@ -52,7 +52,6 @@ class PerformanceView {
         performanceObserver.observe({
             entryTypes: this._observeArray
         });
-        console.log("PerformanceObserver initialized:", performanceObserver);
     }
     _calcTimePerformace() {
         return

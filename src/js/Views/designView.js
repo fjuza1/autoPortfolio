@@ -1,7 +1,7 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
 import {capitalizeWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
-import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE} from '../config.js';
+import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, REV_TRESH} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_rightMenu = document.querySelector(".dropdown-menu-right");
@@ -69,7 +69,7 @@ class Design extends View {
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,
-			threshold: 0.12,
+			threshold: REV_TRESH,
 			rootMargin: `-${this._navbarHeight}px`
 		});
 		const resizeNavObserver = new ResizeObserver(this.stickyNav.bind(this))

@@ -50,7 +50,6 @@ export const isJSON = (json) => {
  * @param {String} url
  * @returns {FileString}
  */
-export const newURL = (url) => new URL(url, import.meta.url).toString();
 
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const wait = (callback, time) => {
