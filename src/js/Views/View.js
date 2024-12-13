@@ -3,15 +3,32 @@ export default class View {
     constructor() {
         this._addHandlerSubmit.bind(this);
     }
+    /**
+     * Description placeholder
+     *
+     * @param {Array<Object>} data
+     * @returns {String}
+     */
     _generateMarkup(data) {
         return data.join('');
     }
+    /**
+     * Getting inputs/textareas/selects from form
+     *
+     * @returns {Array} from forms
+     */
     _getFields() {
         return Object.values(this._form)
     }
+    /** Unsets parentElement to empty string */
     _cleanup() {
         this._parentElement.innerHTML = '';
     }
+    /**
+     * Rendering from Array into view.
+     *
+     * @param {Array} _data
+     */
     _render(_data) {
         if (Array.isArray(_data) && _data.length === 0) return this._renderError();
         this._cleanup();
@@ -19,6 +36,11 @@ export default class View {
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //rendering msessage 
+    /**
+     * Remoive errors from forms
+     *
+     * @param {Array<Object>} data
+     */
     _removeError(data) {
         const errorField = document.getElementById(data)
         const li = document.querySelector(`[data-ul = "${data}"]`)
@@ -27,6 +49,11 @@ export default class View {
         if (ul && ul.children.length === 0) ul.remove();
         errorField.classList.remove('outlineField')
     }
+    /**
+     * Rendering error into view based on object
+     *
+     * @param {Object} options
+     */
     _renderError(options) {
         let messageMarkup;
         const exclamationError = `
@@ -47,6 +74,11 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
     }
+    /**
+     * Rendering success message into view based on object
+     *
+     * @param {Object} options
+     */
     _renderSuccessMessage(options) {
         const checkIcon = `
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
@@ -69,6 +101,11 @@ export default class View {
     }
     //end
     //error handling
+    /**
+     * Renderts error list
+     *
+     * @param {Array<Object>} errors
+     */
     _renderErrorList(errors) {
         this._cleanup()
         const lis = [];
@@ -101,6 +138,11 @@ export default class View {
             })
         })
     }
+    /**
+     * sub ev
+     *
+     * @param {Object} e
+     */
     _submitEvent(e) {
         e.preventDefault();
         const formEntries = [...new FormData(this._form)];

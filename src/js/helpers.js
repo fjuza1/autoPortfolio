@@ -1,6 +1,55 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, ME_NAME ,UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
-export const newURL = (url) => new URL(url, import.meta.url).toString();
+/**
+ * Checks if is xml text
+ *
+ * @param {String} xml;
+ * @return {boolean}
+ */
+export const isXML = async (xml) => {
+    return new Promise((resolve) => {
+        xml2js.parseString(xml, (err, result) => {
+            if (err) {
+                resolve(false);
+            }
+            resolve(true);
+        });
+    });
+}
+/**
+ * Checks if is CSV text
+ *
+ * @param {String} csv;
+ * @return {boolean}
+ */
+export const isCSV = (csv) => {
+    return new Promise((resolve) => {
+        Papa.parse(csv, {
+            complete: () => resolve(true),
+            error: () => resolve(false)
+            })
+        });
+};
+/**
+ * Checks if is JSON object
+ *
+ * @param {Object<Array>} json;
+ * @return {boolean}
+ */
+export const isJSON = (json) => {
+    try {
+        JSON.parse(json);
+        return true;
+    } catch (e) {
+        return false;
+    }
+};
+/**
+ * Description placeholder
+ *
+ * @param {String} url
+ * @returns {FileString}
+ */
 
 export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
 export const wait = (callback, time) => {
@@ -9,6 +58,11 @@ export const wait = (callback, time) => {
     }, time);
     return expire;
 };
+/**
+ * Description placeholder
+ *
+ * @returns {Promise<TIME>}
+ */
 export const timeoutAPI = () => {
     return new Promise((_, reject) => {
         setTimeout(() => {
@@ -16,6 +70,14 @@ export const timeoutAPI = () => {
         }, API_TIMEOUT_SEC * 1000);
     });
 }
+/**
+ * AJAX call
+ *
+ * @async
+ * @param {*} url
+ * @param {*} [body=undefined]
+ * @returns {Promise<data>}
+ */
 export const AJAX = async (url, body = undefined) => {
     try {
         const fetchPro = body ?
@@ -36,7 +98,21 @@ export const AJAX = async (url, body = undefined) => {
         throw error;
     }
 };
+/**
+ * Description placeholder
+ *
+ * @param {*} array
+ * @param {*} keys
+ * @param {*} values
+ * @returns {Array<string>}
+ */
 export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+/**
+ * Converts JSON into xml using xml2js npm pacjkage
+ *
+ * @param {*} array
+ * @returns {xml}
+ */
 export const toXml = (array) => {
     const obj = {
         root: {
@@ -49,8 +125,28 @@ export const toXml = (array) => {
     const xml = builder.buildObject(obj);
     return xml
 }
+/**
+ * Description placeholder
+ *
+ * @param {*} array
+ * @param {*} config
+ * @returns {CSV}
+ */
 export const toCsv = (array, config) =>  Papa.unparse(array, config);
+/**
+ * Description placeholder
+ *
+ * @param {*} array
+ * @returns {JSONArray}
+ */
 export const toJSON = (array) => JSON.stringify(array, null, '\t')
+/**
+ * Description placeholder
+ *
+ * @async
+ * @param {Object} options
+ * @returns {email}
+ */
 export const sendMail = async (options) => {
     try {
         const {name, email, subject, message} = options;
@@ -72,6 +168,13 @@ export const sendMail = async (options) => {
         if(err instanceof EmailJSResponseStatus) throw err;
     }
 }
+/**
+ * Handling file generation states
+ *
+ * @async
+ * @param {String} blob
+ * @returns {Error || String}
+ */
 export const handleFileGeneration = async (blob) => {
     try {
         return new TextDecoder().decode(await blob.arrayBuffer())
@@ -79,6 +182,12 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
+/**
+ * Description placeholder
+ *
+ * @param {String} word
+ * @returns {String}
+ */
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)
 export const gotoSegment = (domElement, nav) => {
     const targetSection = domElement.getBoundingClientRect();
@@ -96,10 +205,23 @@ export const gotoTop = () => window.scrollTo(0,0)
 export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)
 }
+/**
+ * Description placeholder
+ *
+ * @param {String} email
+ * @returns {boolean}
+ */
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
+/**
+ * Slowing execution of js functions
+ *
+ * @param {*} fn
+ * @param {*} wait
+ * @returns {(...args: {}) => void}
+ */
 export const debounce = function(fn, wait) {
     let timeoutId;
     return (...args) => {

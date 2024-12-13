@@ -11,6 +11,11 @@ class ContactView extends View {
         super();
         this._errorRemoveEvent()
     }
+    /**
+     * Returns fileds that value is not existent
+     *
+     * @returns {Boolean || Array<Object>}
+     */
     _getRequiredFields() {
         const emptyReqFields = [...this._getFields()]
             .filter(reqField => {
@@ -24,6 +29,11 @@ class ContactView extends View {
             id: field.id
         }))
     }
+    /**
+     * Flags in view if input val is email
+     *
+     * @returns {Boolean || Array<Object>}
+     */
     _getValidityEmailField() {
         const invalidEmailFields = [...this._getFields()]
             .filter(emailField => {
@@ -41,6 +51,13 @@ class ContactView extends View {
             id: mail.id
         }));
     }
+    /**
+     * Fct for sending mail using npm package
+     *
+     * @async
+     * @param {*} fields
+     * @returns {*}
+     */
     async _sendMail(fields) {
         const errors = [...this._getValidityEmailField(), ...this._getRequiredFields()]
         const { name, email, subject, message } = fields

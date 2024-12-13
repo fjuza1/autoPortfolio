@@ -2,7 +2,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
 } from './config.js';
-import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, newURL} from './helpers.js';
+import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
     fileState: {
@@ -147,7 +147,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[7],
             types: [FE_TYPE],
             url: URL_CY_DEMO,
-            imgPath: newURL(IMG_CY_DEMO)
+            imgPath: IMG_CY_DEMO
         },
         {
             name: PROJECT_NAME[6],
@@ -155,11 +155,18 @@ export const state = {
             description: PROJECT_DESCRIPTOR[6],
             types: [DEV_TYPE, FE_TYPE],
             url: URL_PORTFOLIO_DEMO,
-            imgPath: newURL(IMG_PORTFOLIO_DEMO)
+            imgPath: IMG_PORTFOLIO_DEMO
         }
     ],
     projectDemos: ''
 }
+/**
+ * Saves states of gfile generation
+ *
+ * @async
+ * @param {String} file
+ * @returns {Promise<Object>}
+ */
 export const readFileState = async (file) => {
     try {
         return new Promise((resolve, reject) => {
@@ -183,6 +190,13 @@ export const readFileState = async (file) => {
         throw err;
     }
 };
+/**
+ * Returns fileCOntents if successfull
+ *
+ * @async
+ * @param { Object } options
+ * @returns {Array || String}
+ */
 export const toFile = async (options) => {
     try {
         const array = options.array
@@ -201,18 +215,24 @@ export const toFile = async (options) => {
         switch (options.fileType) {
             case EXPORT_WHITELIST[0]:
                 content = toXml(array)
+                const contentXML = isXML(content);
+                if(contentXML === false) return;
                 textType = {
                     type: `${XML_TYPE}; ${DEFAULT_ENCODING}`
                 }
                 break;
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
+                const contentJSON = isJSON(content);
+                if(contentJSON === false) return;
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
                 }
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
+                const contentCSV = await isCSV(content);
+                if(contentCSV === false) return;
                 textType = {
                     type: `${CSV_TYPE}; ${DEFAULT_ENCODING}`
                 }
@@ -232,6 +252,12 @@ export const toFile = async (options) => {
         throw err;
     }
 }
+/**
+ * Filter function for skills based on param,va;ue Object properties.
+ *
+ * @param {Object} options
+ * @returns {Array<Object>}
+ */
 export const filterSkills = function(options) {
     let value;
     const {array, keys, values} = options;
@@ -244,6 +270,12 @@ export const filterSkills = function(options) {
 
     return filteredData;
 }
+/**
+ * Sorting function for skills based on options.
+ *
+ * @param { Object } options
+ * @returns {Array<Object>}
+ */
 export const sortingSkills = function(options) {
     let { array, sortBy, order } = options;
     const skills = state.skills
@@ -255,6 +287,11 @@ export const sortingSkills = function(options) {
     };
     return [...array].sort(sortFunctions[sortBy]);
 }
+/**
+ * Return state.Project where url and img String are specified
+ *
+ * @param {{}} [array=state.projects]
+ */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
         if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
@@ -263,6 +300,14 @@ export const getProjectDemos = (array = state.projects) => {
     }, [])
     state.projectDemos = demos
 }
+/**
+ * Description placeholder
+ *
+ * @param {Array} array
+ * @param {number} [currentPage=state.curPage]
+ * @param {number} [itemsPerPage=state.perPage]
+ * @returns {{ currentPage: number; data: Array; pages: number; perPage: number; }}
+ */
 export const loadMore = function(array, currentPage = state.curPage, itemsPerPage = state.perPage) {
     const start = 0;
     const end = currentPage * itemsPerPage;
