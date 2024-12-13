@@ -1,4 +1,5 @@
 import { wait, debounce} from '../helpers.js';
+import {REV_TRESH} from '../config.js';
 class SlidesView {
     constructor() {
         this._parentElement = document.querySelector('#carouselProjects')
@@ -142,7 +143,21 @@ class SlidesView {
             this._animateSlides();
         }, interval);
     }
-
+    #watchAnimation(entries){
+        const [entry] = entries;
+        if (!entry.isIntersecting) {
+            this._isAnimating = false;
+            return;
+        }
+            else this._isAnimating = true;
+    }
+    #handleAnimationObserver() {
+        const animationObserver = new IntersectionObserver(this.#watchAnimation.bind(this), {
+            root: null,
+            threshold: REV_TRESH,
+        });
+        animationObserver.observe(this._slidesContainer);
+    }
     handleSlides() {
         this.#handleTouchSlides();
         window.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
@@ -150,6 +165,7 @@ class SlidesView {
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this), 400));
         this._slidesContainer.addEventListener('animationiteration', () => {
+            this.#handleAnimationObserver();
             requestAnimationFrame(() => this._animateSlides());
         })
     }
