@@ -2,7 +2,7 @@ import { wait, debounce} from '../helpers.js';
 import {REV_TRESH} from '../config.js';
 class SlidesView {
     constructor() {
-        this._parentElement = document.querySelector('#carouselProjects')
+        this._parentElement = document.querySelector('#Projects')
         this._slides = null;
         this._prevBtn = null;
         this._nextBtn = null;
