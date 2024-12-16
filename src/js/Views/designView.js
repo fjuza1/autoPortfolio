@@ -29,12 +29,18 @@ class Design extends View {
 	scrollIntoSection(e) {
 		const target = e.target;
 		if(e.type === KEYDOWN_TYPE) {
+			const home = this._firstSection
 			const about = this._sections[0];
 			const skills = this._sections[1];
 			const projects = this._sections[2];
 			const contact = this._sections[3];
 			if(e.shiftKey) {
 				switch (e.key.toLowerCase()) {
+					case 'h':
+						removeClass(home, SECTION_HIDDEN_CLASS);
+                        gotoSegment(home, this._nav)
+                        removeHash();
+                        break;
 					case 'a':
 						removeClass(about, SECTION_HIDDEN_CLASS);
 						gotoSegment(about, this._nav)
