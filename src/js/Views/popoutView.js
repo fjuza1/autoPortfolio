@@ -1,3 +1,4 @@
+import { KEYDOWN_TYPE} from '../config.js';
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
@@ -94,7 +95,7 @@ class PopupView {
         this._modal.innerHTML = '';
     }
     _closeModal(e) {
-        if (e.type === 'keydown') {
+        if (e.type === KEYDOWN_TYPE) {
             if (e.key === 'Escape') this.#unshowModal()
         }
         if (e.type === 'click') {
@@ -124,7 +125,7 @@ class PopupView {
     }
     _addHandleCloseModal() {
         this._modal.addEventListener('click', this._closeModal.bind(this))
-        document.addEventListener('keydown', this._closeModal.bind(this));
+        document.addEventListener(KEYDOWN_TYPE, this._closeModal.bind(this));
     }
     //section evs
     _addHandlerShowSection() {

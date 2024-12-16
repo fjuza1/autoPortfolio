@@ -1,5 +1,5 @@
 import { wait, debounce} from '../helpers.js';
-import {REV_TRESH} from '../config.js';
+import {REV_TRESH, KEYDOWN_TYPE} from '../config.js';
 class SlidesView {
     constructor() {
         this._parentElement = document.querySelector('#Projects')
@@ -160,7 +160,7 @@ class SlidesView {
     }
     handleSlides() {
         this.#handleTouchSlides();
-        window.addEventListener('keydown', debounce(this.#keyboardNavigation.bind(this), 400));
+        window.addEventListener(KEYDOWN_TYPE, debounce(this.#keyboardNavigation.bind(this), 400));
         this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this), 400));
