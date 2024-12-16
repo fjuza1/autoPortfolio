@@ -70,6 +70,8 @@ export const timeoutAPI = () => {
         }, API_TIMEOUT_SEC * 1000);
     });
 }
+export const changeHash = (element) => window.location.hash = element.id.toLowerCase();
+export const removeHash = () => window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
 /**
  * AJAX call
  *
