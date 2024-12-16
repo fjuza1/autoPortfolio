@@ -1,7 +1,7 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
-import {capitalizeWord, gotoSegment, gotoTop, removeClass} from '../helpers.js';
-import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, REV_TRESH} from '../config.js';
+import {capitalizeWord, gotoSegment, gotoTop, removeClass, changeHash, removeHash} from '../helpers.js';
+import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,REV_TRESH} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_rightMenu = document.querySelector(".dropdown-menu-right");
@@ -10,6 +10,7 @@ class Design extends View {
 	_nav = document.querySelector('.nav')
 	_sections = document.querySelectorAll('.section');
 	_firstSection = document.querySelector("#Home");
+	_goupBtn = document.querySelector('[data-btn="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
 	handleHover(e) {
@@ -26,6 +27,45 @@ class Design extends View {
 		!entry.isIntersecting ? this._navBar.classList.add(STICKY_TOP_CLASS) : removeClass(this._navBar, STICKY_TOP_CLASS);
 	}
 	scrollIntoSection(e) {
+		const target = e.target;
+		if(e.type === KEYDOWN_TYPE) {
+			const home = this._firstSection
+			const about = this._sections[0];
+			const skills = this._sections[1];
+			const projects = this._sections[2];
+			const contact = this._sections[3];
+			if(e.shiftKey) {
+				switch (e.key.toLowerCase()) {
+					case 'h':
+						removeClass(home, SECTION_HIDDEN_CLASS);
+                        gotoSegment(home, this._nav)
+                        removeHash();
+                        break;
+					case 'a':
+						removeClass(about, SECTION_HIDDEN_CLASS);
+						gotoSegment(about, this._nav)
+						changeHash(about);
+						break;
+					case 's':
+						removeClass(skills, SECTION_HIDDEN_CLASS);
+						gotoSegment(skills, this._nav)
+						changeHash(skills);
+						break;
+					case 'p' :
+						removeClass(projects, SECTION_HIDDEN_CLASS);
+						gotoSegment(projects, this._nav);
+						changeHash(projects);
+						break;
+					case 'c':
+						removeClass(contact, SECTION_HIDDEN_CLASS);
+						gotoSegment(contact, this._nav);
+						changeHash(contact);
+						break;
+					default:
+						break;
+				}
+			}
+		}
 		const hash = window.location.hash;	
 		if (hash.length === 0 && e.type === LOAD_TYPE) {
 			setTimeout(() => { gotoTop() }, 200);
@@ -40,31 +80,31 @@ class Design extends View {
 			});
 
 		}
-		const target = e.target.dataset;
-		if(!target) return
-		const section = target.navlink
+		if(e.type === 'click') {
+			const goup = target.closest('button');
+			if(goup && goup.dataset.btn === 'goup') {
+				gotoTop();
+				removeHash();
+                return;
+			}
+		}
+		const sectionNav = target.dataset;
+		if(!sectionNav) return
+		const section = sectionNav.navlink
 		const domElement = document.getElementById(section);
 		if(!domElement) return;
-		
 		if (domElement.classList.contains(SECTION_HIDDEN_CLASS)) {
 			removeClass(domElement, SECTION_HIDDEN_CLASS);
 			requestAnimationFrame(() => {
-				gotoSegment(domElement, document.querySelector('.nav'));
+				gotoSegment(domElement, this._nav);
 			});
 			return;
 		}
-	
-		gotoSegment(domElement, document.querySelector('.nav'));
+		gotoSegment(domElement, this._nav);
 	}
 	addHandleClickIntoSection(){
-		this._rightMenu.addEventListener('click', this.scrollIntoSection);
-		this._pcMenu.addEventListener('click', this.scrollIntoSection);
-	}
-	observeAnimationFrame(){
-
-	}
-	addHandlerAnimationFrameObserver(){
-
+		[this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn=>btn.addEventListener('click',this.scrollIntoSection.bind(this)))
+		document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));
 	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
