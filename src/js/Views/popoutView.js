@@ -59,10 +59,10 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
-    showMobileNav(e) {
+    _showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
     }
-    hideMobileNav(e) {
+    _hideMobileNav(e) {
         const targetDropdownMenu = e.target;
         if (targetDropdownMenu.classList.contains('dropdown-item')) {
             targetDropdownMenu.classList.remove('show');
@@ -71,11 +71,11 @@ class PopupView {
         }
     }
     addHandlerShowMobileNav() {
-        this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
+        this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));
     }
     _addHandlerHideDropdownNav() {
         [this._main, this._dropdownNav].forEach((listener) => {
-            listener.addEventListener('mouseup', this.hideMobileNav.bind(this))
+            listener.addEventListener('mouseup', this._hideMobileNav.bind(this))
         })
     }
     _addHandleAccordion() {
