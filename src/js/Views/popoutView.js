@@ -6,6 +6,7 @@ class PopupView {
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
+    _dropdownNavs = Array.from(document.querySelectorAll('.dropdown-menu'))
     _body = document.body;
     _main = document.querySelector('main');
     _nav = document.getElementById('navbarsExample03');
@@ -30,6 +31,11 @@ class PopupView {
      *
      * @param {Event} e
      */
+    #hideDropDownMenus () {
+        this._dropdownNavs.forEach((dropdown) =>{
+            if(dropdown.classList.contains('show')) dropdown.classList.remove('show')
+        })
+    }
     _toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
@@ -62,11 +68,25 @@ class PopupView {
         }
     }
     #togglePrimaryMenu(e) {
-        const closest = e.target.closest('.nav-item.dropdown')
-        if(!closest) return;
-        const targetMenu = closest.dataset.bsTarget.slice(1);
-        const expandedMenu = document.getElementById(targetMenu);
-        expandedMenu.classList.contains('show') ? expandedMenu.classList.remove('show') : expandedMenu.classList.add('show')
+        const target = e.target;
+        const closest = target.closest('.nav-item.dropdown');
+        const isDropdownToggle = target.classList.contains('dropdown-toggle');
+    
+        if (closest) {
+            const targetMenuId = closest.dataset.bsTarget?.slice(1);
+            const expandedMenu = document.getElementById(targetMenuId);
+    
+            if (expandedMenu) {
+                const isCurrentlyOpen = expandedMenu.classList.contains('show');
+                this.#hideDropDownMenus();
+
+                if (!isCurrentlyOpen) {
+                    expandedMenu.classList.add('show');
+                }
+            }
+        } else if (!isDropdownToggle) {
+            this.#hideDropDownMenus();
+        }
     }
     _showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
@@ -80,7 +100,7 @@ class PopupView {
         }
     }
     handleTogglingMenu() {
-        ['click'].forEach(ev=>this._nav.addEventListener(ev,this.#togglePrimaryMenu.bind(this)))
+        document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
     }
     addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));

@@ -31,9 +31,10 @@ class Design extends View {
 		if(e.type === KEYDOWN_TYPE) {
 			const home = this._firstSection
 			const about = this._sections[0];
-			const skills = this._sections[1];
-			const projects = this._sections[2];
-			const contact = this._sections[3];
+			const journey = this._sections[1]
+			const skills = this._sections[2];
+			const projects = this._sections[3];
+			const contact = this._sections[4];
 			if(e.shiftKey) {
 				switch (e.key.toLowerCase()) {
 					case 'h':
@@ -46,6 +47,11 @@ class Design extends View {
 						gotoSegment(about, this._nav)
 						changeHash(about);
 						break;
+					case 'j':
+					    removeClass(journey, SECTION_HIDDEN_CLASS);
+						gotoSegment(journey, this._nav);
+						changeHash(journey);
+						break
 					case 's':
 						removeClass(skills, SECTION_HIDDEN_CLASS);
 						gotoSegment(skills, this._nav)
