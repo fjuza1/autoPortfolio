@@ -7,7 +7,8 @@ class PopupView {
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
     _body = document.body;
-    _main = document.querySelector('main')
+    _main = document.querySelector('main');
+    _nav = document.getElementById('navbarsExample03');
     _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
     _projectsModalToggle = document.querySelector('[title="Get demos"]')
     _modal = document.getElementById('modalCenter');
@@ -22,6 +23,7 @@ class PopupView {
         this._addHandleOpenModal();
         this._addHandleCloseModal();
         this._addHandleAccordion();
+        this.handleTogglingMenu();
     }
     /**
      * Description placeholder
@@ -59,6 +61,13 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
+    #togglePrimaryMenu(e) {
+        const closest = e.target.closest('.nav-item.dropdown')
+        if(!closest) return;
+        const targetMenu = closest.dataset.bsTarget.slice(1);
+        const expandedMenu = document.getElementById(targetMenu);
+        expandedMenu.classList.contains('show') ? expandedMenu.classList.remove('show') : expandedMenu.classList.add('show')
+    }
     _showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
     }
@@ -69,6 +78,9 @@ class PopupView {
         } else if (targetDropdownMenu !== this._mobileNav) {
             this._mobileDropdownMenu.classList.remove('show');
         }
+    }
+    handleTogglingMenu() {
+        ['click'].forEach(ev=>this._nav.addEventListener(ev,this.#togglePrimaryMenu.bind(this)))
     }
     addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));
