@@ -18,7 +18,7 @@
       <div class="container-fluid">
         <a class="navbar-brand" href="/">Filip Juza - Portfolio</a>
         <div class="dropdown" id="secondary-navigation">
-          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExample03" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileDropdownMenu" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon" id="mobileNav"></span>
           </button>
           <div class="dropdown-menu dropdown-menu-right px-5" id="mobileDropdownMenu">
@@ -30,8 +30,16 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#about" data-navLink="About" accesskey="a">About</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" data-bs-target="#personal" aria-expanded="false"> Personal </a>
+              <ul class="dropdown-menu" id="personal">
+                <li>
+                  <a class="dropdown-item" href="#about" data-navLink="About" accesskey="a"> About </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#journey" data-navLink="Journey" accesskey="j"> My journey </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" aria-current="page" href="#skills" data-navLink="Skills" accesskey="s">Skills</a>
@@ -90,6 +98,53 @@
             </div>
           </div>
         </div>
+      </section>
+      <section id="Journey" class="section section--hidden">
+        <div class="container">                      
+          <div class="row text-center justify-content-center mb-5">
+              <div class="col-xl-6 col-lg-8">
+                  <h2 class="font-weight-bold">Personal Evolution</h2>
+                  <p class="text-muted">Below you will find my presonal journey displayed in a timeline</p>
+              </div>
+          </div>
+          <div class="row">
+              <div class="col">
+                  <div class="timeline-steps aos-init aos-animate" data-aos="fade-up">
+                      <div class="timeline-step">
+                          <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2003">
+                              <div class="inner-circle"></div>
+                              <p class="h6 mt-3 mb-1">2021</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Started working as QA Tester.</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Started learning JavaScript.</p>
+                          </div>
+                      </div>
+                      <div class="timeline-step">
+                          <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2004">
+                              <div class="inner-circle"></div>
+                              <p class="h6 mt-3 mb-1">2022</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Started automating BE test in Postman.</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Started learning to FE automate tests, started with .</p>
+                          </div>
+                      </div>
+                      <div class="timeline-step">
+                          <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2005">
+                              <div class="inner-circle"></div>
+                              <p class="h6 mt-3 mb-1">2023</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Ended online course in JavaScript.</p>
+                          </div>
+                      </div>
+                      <div class="timeline-step">
+                          <div class="timeline-content" data-toggle="popover" data-trigger="hover" data-placement="top" title="" data-content="And here's some amazing content. It's very engaging. Right?" data-original-title="2010">
+                              <div class="inner-circle"></div>
+                              <p class="h6 mt-3 mb-1">2024</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Learned automating E2E tests using Cypress in January.</p>
+                              <p class="h6 text-muted mb-0 mb-lg-0">Started using Cypress for automating FE E2E tests in March.</p>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
       </section>
       <section class="section section--hidden" id="Skills">
         <div class="container">
@@ -295,7 +350,7 @@
       </button>
     </main>
     <footer class="py-3 my-4">
-    <div class="container">
+      <div class="container">
         <ul class="nav justify-content-center border-bottom pb-3 mb-3">
           <li class="nav-item">
             <a href="public/Filip_Juza_en_CV.pdf" class="nav-link px-2 text-body-secondary" download>Download CV</a>
@@ -307,7 +362,7 @@
             <a href="https://github.com/fjuza1" class="nav-link px-2">GitHub</a>
           </li>
         </ul>
-      </footer>
+    </footer>
     </div>
   </body>
 </html>

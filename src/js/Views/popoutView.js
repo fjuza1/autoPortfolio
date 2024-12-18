@@ -6,8 +6,10 @@ class PopupView {
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
+    _dropdownNavs = Array.from(document.querySelectorAll('.dropdown-menu'))
     _body = document.body;
-    _main = document.querySelector('main')
+    _main = document.querySelector('main');
+    _nav = document.getElementById('navbarsExample03');
     _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
     _projectsModalToggle = document.querySelector('[title="Get demos"]')
     _modal = document.getElementById('modalCenter');
@@ -17,17 +19,21 @@ class PopupView {
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
-        this.addHandlerShowMobileNav();
-        this._addHandlerHideDropdownNav();
         this._addHandleOpenModal();
         this._addHandleCloseModal();
         this._addHandleAccordion();
+        this.handleTogglingMenu();
     }
     /**
      * Description placeholder
      *
      * @param {Event} e
      */
+    #hideDropDownMenus () {
+        this._dropdownNavs.forEach((dropdown) =>{
+            if(dropdown.classList.contains('show')) dropdown.classList.remove('show')
+        })
+    }
     _toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
@@ -44,7 +50,6 @@ class PopupView {
     }
     _toggleAccordion(e) {
         const target = e.target
-        // console.log(e.target.closest('.accordion'));
         const openButton = target.closest('button')
         if (!openButton) return
         const sibling = openButton.dataset.bsTarget
@@ -59,24 +64,32 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
-    showMobileNav(e) {
-        this._mobileDropdownMenu.classList.toggle('show');
-    }
-    hideMobileNav(e) {
-        const targetDropdownMenu = e.target;
-        if (targetDropdownMenu.classList.contains('dropdown-item')) {
-            targetDropdownMenu.classList.remove('show');
-        } else if (targetDropdownMenu !== this._mobileNav) {
-            this._mobileDropdownMenu.classList.remove('show');
+    #togglePrimaryMenu(e) {
+        const target = e.target;
+        const isDropdownItem = target.classList.contains('dropdown-item')
+        const closest = target.closest('button') || target.closest('a');
+        const isDropdownToggle = target.classList.contains('dropdown-toggle') && target.classList.contains('dropdown-item');
+        if(isDropdownItem) {
+            this.#hideDropDownMenus();
+        }
+        if (closest) {
+            const targetMenuId = closest.dataset.bsTarget?.slice(1);
+            const expandedMenu = document.getElementById(targetMenuId);
+    
+            if (expandedMenu) {
+                const isCurrentlyOpen = expandedMenu.classList.contains('show');
+                this.#hideDropDownMenus();
+
+                if (!isCurrentlyOpen) {
+                    expandedMenu.classList.add('show');
+                }
+            }
+        } else if (!isDropdownToggle) {
+            this.#hideDropDownMenus();
         }
     }
-    addHandlerShowMobileNav() {
-        this._mobileNav.addEventListener('click', this.showMobileNav.bind(this));
-    }
-    _addHandlerHideDropdownNav() {
-        [this._main, this._dropdownNav].forEach((listener) => {
-            listener.addEventListener('mouseup', this.hideMobileNav.bind(this))
-        })
+    handleTogglingMenu() {
+        document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
     }
     _addHandleAccordion() {
         [this._modal].forEach(dom => dom.addEventListener('click', this._toggleAccordion.bind(this)))
