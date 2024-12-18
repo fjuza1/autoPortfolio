@@ -19,8 +19,6 @@ class PopupView {
     constructor() {
         this._addHandlerHideSection();
         this._addHandlerShowSection();
-        this.addHandlerShowMobileNav();
-        this._addHandlerHideDropdownNav();
         this._addHandleOpenModal();
         this._addHandleCloseModal();
         this._addHandleAccordion();
@@ -52,7 +50,6 @@ class PopupView {
     }
     _toggleAccordion(e) {
         const target = e.target
-        // console.log(e.target.closest('.accordion'));
         const openButton = target.closest('button')
         if (!openButton) return
         const sibling = openButton.dataset.bsTarget
@@ -69,9 +66,12 @@ class PopupView {
     }
     #togglePrimaryMenu(e) {
         const target = e.target;
-        const closest = target.closest('.nav-item.dropdown');
-        const isDropdownToggle = target.classList.contains('dropdown-toggle');
-    
+        const isDropdownItem = target.classList.contains('dropdown-item')
+        const closest = target.closest('button') || target.closest('a');
+        const isDropdownToggle = target.classList.contains('dropdown-toggle') && target.classList.contains('dropdown-item');
+        if(isDropdownItem) {
+            this.#hideDropDownMenus();
+        }
         if (closest) {
             const targetMenuId = closest.dataset.bsTarget?.slice(1);
             const expandedMenu = document.getElementById(targetMenuId);
@@ -88,27 +88,8 @@ class PopupView {
             this.#hideDropDownMenus();
         }
     }
-    _showMobileNav(e) {
-        this._mobileDropdownMenu.classList.toggle('show');
-    }
-    _hideMobileNav(e) {
-        const targetDropdownMenu = e.target;
-        if (targetDropdownMenu.classList.contains('dropdown-item')) {
-            targetDropdownMenu.classList.remove('show');
-        } else if (targetDropdownMenu !== this._mobileNav) {
-            this._mobileDropdownMenu.classList.remove('show');
-        }
-    }
     handleTogglingMenu() {
         document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
-    }
-    addHandlerShowMobileNav() {
-        this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));
-    }
-    _addHandlerHideDropdownNav() {
-        [this._main, this._dropdownNav].forEach((listener) => {
-            listener.addEventListener('mouseup', this._hideMobileNav.bind(this))
-        })
     }
     _addHandleAccordion() {
         [this._modal].forEach(dom => dom.addEventListener('click', this._toggleAccordion.bind(this)))
