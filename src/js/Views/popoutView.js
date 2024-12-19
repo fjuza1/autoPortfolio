@@ -67,13 +67,15 @@ class PopupView {
     #togglePrimaryMenu(e) {
         const target = e.target;
         const isDropdownItem = target.classList.contains('dropdown-item')
-        const closest = target.closest('button') || target.closest('a');
+        const closest = (target.closest('button') && !target.classList.contains('accordion')) || target.closest('a');
         const isDropdownToggle = target.classList.contains('dropdown-toggle') && target.classList.contains('dropdown-item');
         if(isDropdownItem) {
             this.#hideDropDownMenus();
         }
         if (closest) {
-            const targetMenuId = closest.dataset.bsTarget?.slice(1);
+            const menu = closest.dataset
+            if(!menu) return
+            const targetMenuId = menu.bsTarget?.slice(1) ?? null;
             const expandedMenu = document.getElementById(targetMenuId);
     
             if (expandedMenu) {
