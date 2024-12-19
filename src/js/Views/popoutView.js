@@ -23,6 +23,7 @@ class PopupView {
         this._addHandleCloseModal();
         this._addHandleAccordion();
         this.handleTogglingMenu();
+        this.addHandlerShowMobileNav()
     }
     /**
      * Description placeholder
@@ -90,6 +91,20 @@ class PopupView {
         } else if (!isDropdownToggle) {
             this.#hideDropDownMenus();
         }
+    }
+    _showMobileNav(e) {
+        this._mobileDropdownMenu.classList.toggle('show');
+    }
+    _hideMobileNav(e) {
+        const targetDropdownMenu = e.target;
+        if (targetDropdownMenu.classList.contains('dropdown-item')) {
+            targetDropdownMenu.classList.remove('show');
+        } else if (targetDropdownMenu !== this._mobileNav) {
+            this._mobileDropdownMenu.classList.remove('show');
+        }
+    }
+    addHandlerShowMobileNav() {
+        this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));
     }
     handleTogglingMenu() {
         document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
