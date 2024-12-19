@@ -25,16 +25,16 @@ class SlidesView {
     #findActive(element) {
         return [...element].findIndex(el => el.classList.contains('active'))
     }
+    #deactivateActiveElement(elements) {
+        const activeIndex = this.#findActive(elements);
+        if (activeIndex === -1) return;
+        elements[activeIndex].classList.remove('active');
+    }
     #deactivateActiveSlide() {
-        const activeI = this.#findActive(this._slides);
-        if (activeI === -1) return;
-        this._slides[activeI].classList.remove('active')
+        this.#deactivateActiveElement(this._slides);
     }
     #deactivateActiveIndicator() {
-        const activeI = this.#findActive(this._slideIndicators)
-        if (activeI === -1) return;
-        const activeSlideIndicator = this._slideIndicators[activeI]
-        activeSlideIndicator.classList.remove('active')
+        this.#deactivateActiveElement(this._slideIndicators);
     }
     #goto(index) {
         this.#deactivateActiveSlide();
@@ -161,7 +161,7 @@ class SlidesView {
     handleSlides() {
         this.#handleTouchSlides();
         window.addEventListener(KEYDOWN_TYPE, debounce(this.#keyboardNavigation.bind(this), 400));
-        this._slideIndicatorsContainer.addEventListener('click', this.#goToSlide.bind(this));
+        this._slideIndicatorsContainer.addEventListener('click', debounce(this.#goToSlide.bind(this), 400));
         this._nextBtn.addEventListener('click', debounce(this.#showNextSlide.bind(this), 400));
         this._prevBtn.addEventListener('click', debounce(this.#showPreviousSlide.bind(this), 400));
         this._slidesContainer.addEventListener('animationiteration', () => {

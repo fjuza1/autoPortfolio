@@ -35,19 +35,16 @@ class ContactView extends View {
      * @returns {Boolean || Array<Object>}
      */
     _getValidityEmailField() {
-        const invalidEmailFields = [...this._getFields()]
-            .filter(emailField => {
-                if (!emailField) return false;
-                if (!emailField.classList.contains('email')) return false;
-                if (emailField.value.trim().length > 0) {
-                    return !validateEmail(emailField.value);
-                }
-
-                return false;
-            });
+        const invalidEmailFields = [...document.querySelectorAll('input')].filter(emailField => {
+            if (!emailField.classList.contains('email')) return false;
+            if (emailField.value.trim().length > 0) {
+                return !validateEmail(emailField.value);
+            }
+            return false;
+        });
         return invalidEmailFields.map(mail => ({
             name: 'Please enter valid email',
-            type: 'email ',
+            type: 'email',
             id: mail.id
         }));
     }
@@ -59,27 +56,25 @@ class ContactView extends View {
      * @returns {*}
      */
     async _sendMail(fields) {
-        const errors = [...this._getValidityEmailField(), ...this._getRequiredFields()]
-        const { name, email, subject, message } = fields
+        const errors = [...this._getValidityEmailField(), ...this._getRequiredFields()];
         if (Array.isArray(errors) && (!errors || errors.length > 0)) {
-            this._renderErrorList(errors)
-            gotoSegment(this._parentElement, this._nav)
+            this._handleErrors(errors);
         } else if (errors.length === 0) {
-            const mailSendState = await sendMail({
-                name,
-                email,
-                subject,
-                message
-            })
-            if (!mailSendState) this._renderError({
-                close: true
-            })
-            else this._renderSuccessMessage({
-                close: true,
-                disposeTime: 3000
-            })
-            this._closeAlert();
+            const mailSendState = await sendMail(fields);
+            this._handleMailSendState(mailSendState);
         }
+    }
+    _handleErrors(errors) {
+        this._renderErrorList(errors);
+        gotoSegment(this._parentElement, this._nav);
+    }
+    _handleMailSendState(mailSendState) {
+        if (!mailSendState) {
+            this._renderError({ close: true });
+        } else {
+            this._renderSuccessMessage({ close: true, disposeTime: 3000 });
+        }
+        this._closeAlert();
     }
 }
 export default new ContactView();

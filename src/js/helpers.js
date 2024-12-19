@@ -27,8 +27,8 @@ export const isCSV = (csv) => {
         Papa.parse(csv, {
             complete: () => resolve(true),
             error: () => resolve(false)
-            })
-        });
+        })
+    });
 };
 /**
  * Checks if is JSON object
@@ -50,27 +50,20 @@ export const isJSON = (json) => {
  * @param {String} url
  * @returns {FileString}
  */
+const setCustomTimeout = (callback, time) => setTimeout(callback, time);
+export const timeout = (callback) => setCustomTimeout(callback, ANIMATIONTIME * 1000);
 
-export const timeout = (callback) => setTimeout(callback, ANIMATIONTIME * 1000);
-export const wait = (callback, time) => {
-    const expire = setTimeout(() => {
-        callback();
-    }, time);
-    return expire;
-};
-/**
- * Description placeholder
- *
- * @returns {Promise<TIME>}
- */
+export const wait = (callback, time) => setCustomTimeout(callback, time);
+
 export const timeoutAPI = () => {
     return new Promise((_, reject) => {
-        setTimeout(() => {
+        setCustomTimeout(() => {
             reject(new Error(`API request timed out after ${API_TIMEOUT_SEC} seconds.`));
         }, API_TIMEOUT_SEC * 1000);
     });
-}
+};
 export const changeHash = (element) => window.location.hash = element.id.toLowerCase();
+
 export const removeHash = () => window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
 /**
  * AJAX call
@@ -91,13 +84,12 @@ export const AJAX = async (url, body = undefined) => {
                 body: JSON.stringify(body)
             }) :
             fetch(url);
-        const res = await Promise.race([fetchPro, timeoutAPI()])
-        if (!res.ok) {
-            throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return await res.json();
-    } catch (error) {
-        throw error;
+        const res = await fetchPro;
+        const data = await res.json();
+        if (!res.ok) throw new Error(`${data.message} (${res.status})`);
+        return data;
+    } catch (err) {
+        throw err;
     }
 };
 /**
@@ -108,7 +100,7 @@ export const AJAX = async (url, body = undefined) => {
  * @param {*} values
  * @returns {Array<string>}
  */
-export const filterByKeys = (array,keys,values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
 /**
  * Converts JSON into xml using xml2js npm pacjkage
  *
@@ -134,7 +126,7 @@ export const toXml = (array) => {
  * @param {*} config
  * @returns {CSV}
  */
-export const toCsv = (array, config) =>  Papa.unparse(array, config);
+export const toCsv = (array, config) => Papa.unparse(array, config);
 /**
  * Description placeholder
  *
@@ -151,13 +143,18 @@ export const toJSON = (array) => JSON.stringify(array, null, '\t')
  */
 export const sendMail = async (options) => {
     try {
-        const {name, email, subject, message} = options;
+        const {
+            name,
+            email,
+            subject,
+            message
+        } = options;
         const template = {
             to_name: name,
             subject: subject,
             message: message,
             reply_to: email,
-            to_email: SENDTO,  
+            to_email: SENDTO,
         }
         const result = await emailjs.send(
             process.env.EMAIL_SERVICE_ID,
@@ -167,7 +164,7 @@ export const sendMail = async (options) => {
         )
         return result;
     } catch (err) {
-        if(err instanceof EmailJSResponseStatus) throw err;
+        if (err instanceof EmailJSResponseStatus) throw err;
     }
 }
 /**
@@ -190,7 +187,7 @@ export const handleFileGeneration = async (blob) => {
  * @param {String} word
  * @returns {String}
  */
-export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1,word.length)
+export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
 export const gotoSegment = (domElement, nav) => {
     const targetSection = domElement.getBoundingClientRect();
     const navHeight = nav.offsetHeight;
@@ -202,7 +199,7 @@ export const gotoSegment = (domElement, nav) => {
         behavior: 'smooth',
     })
 }
-export const gotoTop = () => window.scrollTo(0,0)
+export const gotoTop = () => window.scrollTo(0, 0)
 
 export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)

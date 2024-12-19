@@ -17,13 +17,13 @@ class PopupView {
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     constructor() {
-        this._addHandlerHideSection();
-        this._addHandlerShowSection();
+        this.#addHandlerHideSection();
+        this.#addHandlerShowSection();
         this._addHandleOpenModal();
-        this._addHandleCloseModal();
-        this._addHandleAccordion();
-        this.handleTogglingMenu();
-        this.addHandlerShowMobileNav()
+        this.#addHandleCloseModal();
+        this.#addHandleAccordion();
+        this.#handleTogglingMenu();
+        this.#addHandlerShowMobileNav()
     }
     /**
      * Description placeholder
@@ -35,21 +35,21 @@ class PopupView {
             if(dropdown.classList.contains('show')) dropdown.classList.remove('show')
         })
     }
-    _toggleSection(e) {
+    #toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
         const isAlreadyShown = colapseSection.classList.contains('show');
         this._multiCollapse.forEach(section => section.classList.remove('show'));
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
-    _hideSection(e) {
+    #hideSection(e) {
         if (this._modal.classList.contains('show') && this._modal.style.display === 'block') return
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
         this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
     }
-    _toggleAccordion(e) {
+    #toggleAccordion(e) {
         const target = e.target
         const openButton = target.closest('button')
         if (!openButton) return
@@ -92,25 +92,22 @@ class PopupView {
             this.#hideDropDownMenus();
         }
     }
-    _showMobileNav(e) {
+    #showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
     }
-    _hideMobileNav(e) {
-        const targetDropdownMenu = e.target;
-        if (targetDropdownMenu.classList.contains('dropdown-item')) {
-            targetDropdownMenu.classList.remove('show');
-        } else if (targetDropdownMenu !== this._mobileNav) {
-            this._mobileDropdownMenu.classList.remove('show');
-        }
+    #hideMobileNav() {
+        if(this._mobileDropdownMenu.classList.contains('show')) this._mobileDropdownMenu.classList.remove('show');
     }
-    addHandlerShowMobileNav() {
-        this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));
+    #addHandlerShowMobileNav() {
+        this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
+        window.addEventListener('resize', this.#hideMobileNav.bind(this));
+        document.addEventListener('scroll', this.#hideMobileNav.bind(this));
     }
-    handleTogglingMenu() {
+    #handleTogglingMenu() {
         document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
     }
-    _addHandleAccordion() {
-        [this._modal].forEach(dom => dom.addEventListener('click', this._toggleAccordion.bind(this)))
+    #addHandleAccordion() {
+        [this._modal].forEach(dom => dom.addEventListener('click', this.#toggleAccordion.bind(this)))
     }
     _openModal(open) {
         if (open === true) {
@@ -125,7 +122,7 @@ class PopupView {
         this._body.style.overflow = 'auto';
         this._modal.innerHTML = '';
     }
-    _closeModal(e) {
+    #closeModal(e) {
         if (e.type === KEYDOWN_TYPE) {
             if (e.key === 'Escape') this.#unshowModal()
         }
@@ -154,16 +151,16 @@ class PopupView {
             });
         });
     }
-    _addHandleCloseModal() {
-        this._modal.addEventListener('click', this._closeModal.bind(this))
-        document.addEventListener(KEYDOWN_TYPE, this._closeModal.bind(this));
+    #addHandleCloseModal() {
+        this._modal.addEventListener('click', this.#closeModal.bind(this))
+        document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
     //section evs
-    _addHandlerShowSection() {
-        this._skillBtnGroup.addEventListener('click', this._toggleSection.bind(this));
+    #addHandlerShowSection() {
+        this._skillBtnGroup.addEventListener('click', this.#toggleSection.bind(this));
     }
-    _addHandlerHideSection() {
-        this._skills.addEventListener('mouseup', this._hideSection.bind(this));
+    #addHandlerHideSection() {
+        this._skills.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }
 export default new PopupView();
