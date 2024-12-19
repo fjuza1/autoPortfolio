@@ -95,16 +95,12 @@ class PopupView {
     _showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
     }
-    _hideMobileNav(e) {
-        const targetDropdownMenu = e.target;
-        if (targetDropdownMenu.classList.contains('dropdown-item')) {
-            targetDropdownMenu.classList.remove('show');
-        } else if (targetDropdownMenu !== this._mobileNav) {
-            this._mobileDropdownMenu.classList.remove('show');
-        }
+    _hideMobileNav() {
+        if(this._mobileDropdownMenu.classList.contains('show')) this._mobileDropdownMenu.classList.remove('show');
     }
     addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this._showMobileNav.bind(this));
+        window.addEventListener('resize', this._hideMobileNav.bind(this));
     }
     handleTogglingMenu() {
         document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
