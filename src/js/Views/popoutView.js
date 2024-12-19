@@ -17,13 +17,13 @@ class PopupView {
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     constructor() {
-        this._addHandlerHideSection();
-        this._addHandlerShowSection();
+        this.#addHandlerHideSection();
+        this.#addHandlerShowSection();
         this._addHandleOpenModal();
-        this._addHandleCloseModal();
-        this._addHandleAccordion();
-        this._handleTogglingMenu();
-        this._addHandlerShowMobileNav()
+        this.#addHandleCloseModal();
+        this.#addHandleAccordion();
+        this.#handleTogglingMenu();
+        this.#addHandlerShowMobileNav()
     }
     /**
      * Description placeholder
@@ -98,15 +98,15 @@ class PopupView {
     #hideMobileNav() {
         if(this._mobileDropdownMenu.classList.contains('show')) this._mobileDropdownMenu.classList.remove('show');
     }
-    _addHandlerShowMobileNav() {
+    #addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
         window.addEventListener('resize', this.#hideMobileNav.bind(this));
         document.addEventListener('scroll', this.#hideMobileNav.bind(this));
     }
-    _handleTogglingMenu() {
+    #handleTogglingMenu() {
         document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
     }
-    _addHandleAccordion() {
+    #addHandleAccordion() {
         [this._modal].forEach(dom => dom.addEventListener('click', this.#toggleAccordion.bind(this)))
     }
     _openModal(open) {
@@ -151,15 +151,15 @@ class PopupView {
             });
         });
     }
-    _addHandleCloseModal() {
+    #addHandleCloseModal() {
         this._modal.addEventListener('click', this.#closeModal.bind(this))
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
     //section evs
-    _addHandlerShowSection() {
+    #addHandlerShowSection() {
         this._skillBtnGroup.addEventListener('click', this.#toggleSection.bind(this));
     }
-    _addHandlerHideSection() {
+    #addHandlerHideSection() {
         this._skills.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }
