@@ -1,4 +1,4 @@
-import { KEYDOWN_TYPE} from '../config.js';
+import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
@@ -101,7 +101,8 @@ class PopupView {
     #addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
         window.addEventListener('resize', this.#hideMobileNav.bind(this));
-        document.addEventListener('scroll', this.#hideMobileNav.bind(this));
+        document.addEventListener(SCROLL_TYPE , this.#hideMobileNav.bind(this));
+        document.addEventListener(SCROLL_TYPE , this.#hideDropDownMenus.bind(this));
     }
     #handleTogglingMenu() {
         document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
