@@ -6,6 +6,7 @@ import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
+import journeyView from './Views/journeyView.js';
 import skillsView from './Views/skillsView.js';
 import skillsExportView from './Views/skillsExportView.js';
 import projectsView from './Views/projectsView.js';
