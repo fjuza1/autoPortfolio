@@ -48,3 +48,4 @@ export const ME_NAME = 'Filip Jůza'
 export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
 export const EMAIL_FAILURE_MESSAGE = 'The email was not sent! Please try again or contact us directly through your email service provider.'
 export const REV_TRESH = 0.12;
+export const SCROLL_TYPE = 'scroll';

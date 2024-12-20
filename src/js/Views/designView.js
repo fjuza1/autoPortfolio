@@ -35,7 +35,7 @@ class Design extends View {
 			const skills = this._sections[2];
 			const projects = this._sections[3];
 			const contact = this._sections[4];
-			if(e.shiftKey) {
+			if(e.altKey) {
 				switch (e.key.toLowerCase()) {
 					case 'h':
 						removeClass(home, SECTION_HIDDEN_CLASS);
@@ -66,8 +66,6 @@ class Design extends View {
 						removeClass(contact, SECTION_HIDDEN_CLASS);
 						gotoSegment(contact, this._nav);
 						changeHash(contact);
-						break;
-					default:
 						break;
 				}
 			}
