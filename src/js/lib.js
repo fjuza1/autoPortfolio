@@ -1,5 +1,6 @@
 import Papa from "papaparse";
 import xml2js from 'xml2js';
 import { saveAs } from 'file-saver';
+import {Timeline} from 'vis-timeline/standalone';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
-export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus}
+export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline}
