@@ -31,7 +31,8 @@ const loadAndRenderContent = () => {
 	// projects
 	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: true}))
 	slidesView._initializeElement();
-	slidesView.handleSlides()
+	slidesView.handleSlides();
+	controllJourney();
 }
 
 // pagination basic
@@ -46,7 +47,12 @@ const handlePagination = (dataSource, callback) => {
 		callback(updated.data)
 	})
 }
+// controlling Personal sections
 
+// controling journey
+const controllJourney = () =>{
+	journeyView._setTimeline(model.state.journey);
+}
 
 // skillsData manipulation part
 const controllSortedSkills = () => {

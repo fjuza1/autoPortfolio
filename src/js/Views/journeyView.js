@@ -1,39 +1,31 @@
 import {Timeline} from '../lib.js';
-import View from './View.js';
-class JourneyView extends View {
-    _parentElement = document.getElementById('Journey');
-    #setYear(_data) {
+import {MIN_YEAR, MAX_YEAR} from '../config.js';
+export default new class JourneyView {
+    _parentElement = document.querySelector('.timeline-steps');
+
+    _setTimeline(_data) {
         this._data = _data;
-        return new Date().getFullYear(this._data.year)
-    }
-    _setTimeline(_data){
-        this._data = _data;
-        const yearData = this.#setYear()
-        new Timeline(this._parentElement, this._data, {
-            width: '100%',
-            height: '90dvh',
+        new Timeline(this._parentElement, this.#setItemDataset(), {
+            height: '60vh',
+            stack:true,
+            orientation: 'top',
             margin: { item: 10 },
-            align: 'center',
+            align: 'start',
             autoResize: true,
-            format: {
-              minorLabels: () => {return { date: yearData, scale:yearData }}
-            },
-            groupOrder:this._data.name
-          });
+            groupOrder: 'id',
+            min: new Date(MIN_YEAR, 0, 1),
+            max: new Date(MAX_YEAR, 11, 31),
+            timeAxis: { scale: 'year', step: 1 }
+        });
     }
-    #setItemDataset(_data) {
-        this._data = _data;
-        const yearData = this.#setYear();
-        return this._data.map((data, i)=>{
-            return {
-                id: i,
-                content: data.content,
-                start: yearData,
-                end: yearData,
-                type: data.type,
-                group: data.group,
-            }
-        })
+
+    #setItemDataset() {
+        return this._data.map((entry, i) => ({
+            id: i + 1,
+            content: entry.content,
+            group:entry.year,
+            start: new Date(entry.year, 0, 1),
+            end: new Date(entry.year, 11, 31)
+        }));
     }
 }
-export default new JourneyView();

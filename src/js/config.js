@@ -49,3 +49,5 @@ export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
 export const EMAIL_FAILURE_MESSAGE = 'The email was not sent! Please try again or contact us directly through your email service provider.'
 export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
+export const MIN_YEAR = 2021
+export const MAX_YEAR = 2024
