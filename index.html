@@ -30,28 +30,39 @@
         </div>
         <div class="collapse navbar-collapse" id="navbarsExample03">
           <ul class="navbar-nav ms-auto mb-2 mb-sm-0">
+            <!-- Personal Dropdown -->
             <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" data-bs-target="#personal" aria-expanded="false"> Personal </a>
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-target="#personal">Personal</a>
               <ul class="dropdown-menu" id="personal">
                 <li>
-                  <a class="dropdown-item" href="#about" data-navLink="About" accesskey="a"> About </a>
+                  <a class="dropdown-item" href="#about" data-navLink="About" accesskey="a">About</a>
                 </li>
                 <li>
-                  <a class="dropdown-item" href="#journey" data-navLink="Journey" accesskey="j"> My journey </a>
+                  <a class="dropdown-item" href="#journey" data-navLink="Journey" accesskey="j">My journey</a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="#skills" data-navLink="Skills" accesskey="s">Skills</a>
                 </li>
               </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" aria-current="page" href="#skills" data-navLink="Skills" accesskey="s">Skills</a>
+        
+            <!-- Work Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" data-bs-target="#work">Work</a>
+              <ul class="dropdown-menu dropdown-menu-end" id="work">
+                <li>
+                  <a class="dropdown-item" href="#projects" data-navLink="Projects" accesskey="p">Projects</a>
+                </li>
+              </ul>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#projects" data-navLink="Projects" accesskey="p">Projects</a>
-            </li>
+        
+            <!-- Contact Link -->
             <li class="nav-item">
               <a class="nav-link" href="#contact" data-navLink="Contact" accesskey="c">Contact</a>
             </li>
           </ul>
         </div>
+        
       </div>
     </nav>
     <main id="main">
