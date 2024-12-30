@@ -95,7 +95,11 @@ section {
 #mobileDropdownMenu a:hover{
   background-color: rgb(206, 203, 203)
 }
-#work.dropdown-menu {
+.align-left{
+  left: 0 !important;
+  right: auto !important;
+}
+.align-right{
   right: 0 !important;
   left: auto !important;
 }
