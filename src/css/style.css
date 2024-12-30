@@ -35,10 +35,6 @@ section {
 #skillBtnGroup {
   margin-left: -20px;
 }
-.dropdown-menu-right {
-  right: 0; /* Forces the dropdown to align with the right edge of the parent */
-  left: auto; /* Ensures it does not extend beyond the left side */
-}
 .close{
   position: absolute; top: 5px; 
   right: 10px; 
@@ -89,13 +85,23 @@ section {
 .outlineField {
   border: 2px solid red !important;
 }
-#mobileDropdownMenu{
-  font-size: 1.1em;
+#mobileDropdownMenu {
+  font-size: 1em; /* Default font size for links */
 }
+
+#mobileDropdownMenu .dropdown-header {
+  font-size: 1.05em; /* Slightly larger than the links but not too big */
+  font-weight: bold; /* Optional: to make the header stand out */
+}
+
 #mobileDropdownMenu a:hover{
   background-color: rgb(206, 203, 203)
 }
-#work.dropdown-menu {
+.align-left{
+  left: 0 !important;
+  right: auto !important;
+}
+.align-right{
   right: 0 !important;
   left: auto !important;
 }
