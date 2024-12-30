@@ -4,7 +4,7 @@ import {capitalizeWord, gotoSegment, gotoTop, removeClass, changeHash, removeHas
 import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,REV_TRESH} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
-	_rightMenu = document.querySelector(".dropdown-menu-right");
+	_rightMenu = document.querySelector("#mobileDropdownMenu");
 	_pcMenu = document.getElementById('navbarsExample03')
 	_navbarHeight = this._navBar.getBoundingClientRect().height;
 	_nav = document.querySelector('.nav')
