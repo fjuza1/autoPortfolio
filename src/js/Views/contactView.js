@@ -57,7 +57,7 @@ class ContactView extends View {
      */
     async _sendMail(fields) {
         const errors = [...this._getValidityEmailField(), ...this._getRequiredFields()];
-        if (Array.isArray(errors) && (!errors || errors.length > 0)) {
+        if (errors.length > 0) {
             this._handleErrors(errors);
         } else if (errors.length === 0) {
             const mailSendState = await sendMail(fields);
