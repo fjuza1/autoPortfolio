@@ -127,7 +127,7 @@ class SlidesView {
         this._slideIndex = active;
 
         const curSlide = this._slides[active];
-        const interval = +curSlide.dataset.bsInterval ?? 0;
+        const interval = isNaN(+curSlide.dataset.bsInterval) ? 0 : +curSlide.dataset.bsInterval;
         if (!interval) return;
 
         if (this._interval) {

@@ -1,7 +1,7 @@
 import { wait } from '../helpers';
 export default class View {
     constructor() {
-        this._addHandlerSubmit.bind(this);
+        this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
     }
     /**
      * Description placeholder

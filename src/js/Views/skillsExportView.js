@@ -1,6 +1,4 @@
 import View from './View.js';
-import { toFile }  from '../model.js';
-import {UNGENERATED_FILE_MESSAGE} from  '../config.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
     _parentElement = document.querySelector('exportModal')
