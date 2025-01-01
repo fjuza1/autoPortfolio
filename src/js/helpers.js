@@ -1,4 +1,4 @@
-import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, ME_NAME ,UNGENERATED_FILE_MESSAGE} from './config.js';
+import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
 import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
 /**
  * Checks if is xml text

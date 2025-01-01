@@ -2,7 +2,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
 } from './config.js';
-import {fetchData, toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
     fileState: {
@@ -222,15 +222,15 @@ export const toFile = async (options) => {
         switch (options.fileType) {
             case EXPORT_WHITELIST[0]:
                 content = toXml(array)
-                const contentXML = isXML(content);
-                if(contentXML === false) return;
+                const contentXML = await isXML(content);
+                if(!contentXML) return;
                 textType = {
                     type: `${XML_TYPE}; ${DEFAULT_ENCODING}`
                 }
                 break;
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
-                const contentJSON = isJSON(content);
+                const contentJSON = await isJSON(content);
                 if(contentJSON === false) return;
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
@@ -250,7 +250,7 @@ export const toFile = async (options) => {
         let generatedMessage;
         if (checkValsEmpty) {
             const blob = new Blob([String(content)], textType);
-            const read = await readFileState(blob)
+            await readFileState(blob)
             generatedMessage = await handleFileGeneration(blob);
             errors.length > 0 || generatedMessage.includes(UNGENERATED_FILE_MESSAGE) ? false : saveAs(blob, options.fileName);
         }
@@ -272,8 +272,7 @@ export const filterSkills = function(options) {
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-    state.skills.filteredSkills = filteredData
-    const froze = Object.freeze(state.skills.filteredSkills)
+    state.skills.filteredSkills = filteredData;
 
     return filteredData;
 }
@@ -286,7 +285,7 @@ export const filterSkills = function(options) {
 export const sortingSkills = function(options) {
     let { array, sortBy, order } = options;
     const skills = state.skills
-    const value = state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
+    state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
     const sortFunctions = {
         expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
         name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
