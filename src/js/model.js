@@ -230,11 +230,12 @@ export const toFile = async (options) => {
                 break;
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
-                const contentJSON = isJSON(content);
-                if(contentJSON === false) return;
+                const contentJSON = await isJSON(content);
+                if(contentJSON) {
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
                 }
+            }
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
