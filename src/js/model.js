@@ -231,10 +231,11 @@ export const toFile = async (options) => {
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
                 const contentJSON = await isJSON(content);
-                if(contentJSON === false) return;
+                if(contentJSON) {
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
                 }
+            }
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
@@ -285,7 +286,7 @@ export const filterSkills = function(options) {
 export const sortingSkills = function(options) {
     let { array, sortBy, order } = options;
     const skills = state.skills
-    state.skills.filteredSkills ? array = state.skills.filteredSkills : skills;
+   skills.filteredSkills ? array = skills.filteredSkills : skills;
     const sortFunctions = {
         expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
         name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
