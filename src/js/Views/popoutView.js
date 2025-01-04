@@ -11,7 +11,7 @@ class PopupView {
     _main = document.querySelector('main');
     _nav = document.getElementById('navbarsExample03');
     _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
-    _projectsModalToggle = document.querySelector('[title="Get demos"]')
+    _projectsModalToggle = document.querySelector("#Projects > div > div > div > div.d-flex.align-items-center.justify-content-start.mb-4 > button > svg")
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');

@@ -105,3 +105,40 @@ section {
   right: 0 !important;
   left: auto !important;
 }
+[data-bs-toggle="tooltip"]{
+  cursor: pointer;
+  transition: opacity 0.3s ease;
+  position:relative;
+}
+[data-bs-toggle="tooltip"]:before{
+  content: attr(data-tooltip-text);
+  position:absolute;
+  
+  /* vertically center */
+  top:50%;
+  transform:translateY(-50%);
+  
+  /* move to right */
+  left:100%;
+  margin-left:15px; 
+  
+  /* basic styles */
+  width:200px;
+  padding:10px;
+  border-radius:10px;
+  background:#000;
+  color: #fff;
+  text-align:center;
+
+  display:none;
+}
+[data-bs-toggle="tooltip"]:hover:before{
+  display: block;
+}
+[data-bs-placement="bottom"]:before{
+  top:initial;
+  margin:initial;
+  top:100%;
+  margin-top: 15px;
+  transform: translateX(-50%);
+}
