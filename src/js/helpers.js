@@ -37,12 +37,14 @@ export const isCSV = (csv) => {
  * @return {boolean}
  */
 export const isJSON = (json) => {
-    try {
+    return new Promise((resolve, reject) => {
+        try {
         JSON.parse(json);
-        return true;
-    } catch (e) {
-        return false;
-    }
+        resolve(true)
+        } catch (err) {
+            reject(false)
+        }
+    });
 };
 /**
  * Description placeholder
