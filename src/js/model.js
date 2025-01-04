@@ -231,7 +231,7 @@ export const toFile = async (options) => {
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
                 const contentJSON = isJSON(content);
-                if(!contentJSON) return;
+                if(contentJSON === false) return;
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
                 }
