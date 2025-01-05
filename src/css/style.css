@@ -106,7 +106,11 @@ section {
   left: auto !important;
 }
 .vis-item-content > span {
-  word-wrap: break-word; /* Ensures text wraps within boundaries */
-  word-break: break-word; /* For older browsers */
-  word-break: break-all; /* Breaks long strings of text */
+  display: inline-block; /* Ensure span behaves properly in layout */
+  white-space: normal; /* Allow text wrapping */
+  word-wrap: break-word; /* Enable wrapping for long words */
+  word-break: break-word; /* Fallback for older browsers */
+  overflow-wrap: break-word; /* Modern standard for breaking words */
+  max-width: 100%; /* Prevent content from exceeding parent width */
 }
+
