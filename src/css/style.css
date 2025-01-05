@@ -105,3 +105,8 @@ section {
   right: 0 !important;
   left: auto !important;
 }
+.vis-item-content > span {
+  word-wrap: break-word; /* Ensures text wraps within boundaries */
+  word-break: break-word; /* For older browsers */
+  word-break: break-all; /* Breaks long strings of text */
+}
