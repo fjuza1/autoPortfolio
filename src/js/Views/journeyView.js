@@ -5,19 +5,39 @@ export default new class JourneyView {
     _setTimeline(_data) {
         this._data = _data;
         const timeline = new Timeline(this._parentElement, this.#setItemDataset(), {
-            ...TIMELINE_LAYOUT_SETTINGS,...TIMELINE_FUNCTIONALITY_SETTINGS,...TIMELINE_TIME_SETTINGS, ...TIMELINE_GROUP_SETTINGS,
+            ...TIMELINE_LAYOUT_SETTINGS,
+            ...TIMELINE_FUNCTIONALITY_SETTINGS,
+            ...TIMELINE_TIME_SETTINGS,
+            ...TIMELINE_GROUP_SETTINGS,
         });
-        timeline.on('select',()=>{
+    
+        timeline.on('select', () => {
+            // Zoom out if a selection is made.
             this.#zoomOut(timeline);
-        })
-        timeline.on('doubleClick',()=>{
-            this.#zoomOut(timeline);
-        })
+        });
+
+        timeline.on('click', () => {
+            // Zoom in on click if an item is selected.
+            this.#zoomIn(timeline);
+        });
+    }
+    #visWinSet(timeline,start,end){
+        timeline.setWindow(start, end, { animation: true, animationDuration: 500 });
+    }
+    #zoomIn(timeline) {
+        const [selectedItem] = timeline.getSelection();
+        if (!selectedItem) return;
+    
+        const selectedGroup = timeline.itemsData.get(selectedItem);
+        if (!selectedGroup || !selectedGroup.start || !selectedGroup.end) return;
+    
+        const { start, end } = selectedGroup;    
+        this.#visWinSet(timeline,start, end);
     }
     #zoomOut(timeline) {
-        const start = TIMELINE_TIME_SETTINGS.min
-        const end = TIMELINE_TIME_SETTINGS.max
-        timeline.setWindow(start, end, { animation: true });
+        const start = TIMELINE_TIME_SETTINGS.min.valueOf();
+        const end = TIMELINE_TIME_SETTINGS.max.valueOf();
+        this.#visWinSet(timeline,start, end);
     }
     #setItemDataset() {
         return this._data.map((entry, i) => ({
