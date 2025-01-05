@@ -1,24 +1,23 @@
 import {Timeline} from '../lib.js';
-import {MIN_YEAR, MAX_YEAR} from '../config.js';
+import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS} from '../config.js';
 export default new class JourneyView {
     _parentElement = document.querySelector('.timeline-steps');
-
     _setTimeline(_data) {
         this._data = _data;
-        new Timeline(this._parentElement, this.#setItemDataset(), {
-            height: '60vh',
-            stack:true,
-            moveable:true,
-            zoomable:true,
-            orientation: 'top',
-            margin: { item: 10 },
-            align: 'start',
-            autoResize: true,
-            groupOrder: 'id',
-            min: new Date(MIN_YEAR, 0, 1),
-            max: new Date(MAX_YEAR, 11, 31),
-            timeAxis: { scale: 'year', step: 1 }
+        const timeline = new Timeline(this._parentElement, this.#setItemDataset(), {
+            ...TIMELINE_LAYOUT_SETTINGS,...TIMELINE_FUNCTIONALITY_SETTINGS,...TIMELINE_TIME_SETTINGS, ...TIMELINE_GROUP_SETTINGS,
         });
+        timeline.on('doubleTap',()=>{
+            this.#zoomOut(timeline);
+        })
+        timeline.on('doubleClick',()=>{
+            this.#zoomOut(timeline);
+        })
+    }
+    #zoomOut(timeline) {
+        const start = TIMELINE_TIME_SETTINGS.min
+        const end = TIMELINE_TIME_SETTINGS.max
+        timeline.setWindow(start, end, { animation: true });
     }
     #setItemDataset() {
         return this._data.map((entry, i) => ({

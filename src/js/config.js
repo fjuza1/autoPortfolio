@@ -49,5 +49,25 @@ export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
 export const EMAIL_FAILURE_MESSAGE = 'The email was not sent! Please try again or contact us directly through your email service provider.'
 export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
-export const MIN_YEAR = 2021
-export const MAX_YEAR = 2024
+const MIN_YEAR = 2021
+const MAX_YEAR = 2024;
+export const TIMELINE_LAYOUT_SETTINGS = {
+    height: '60vh',
+    orientation: 'top',
+    align: 'start',
+    margin: { item: 10 },
+    autoResize: true,
+}
+export const TIMELINE_FUNCTIONALITY_SETTINGS = {
+    stack: true,
+    moveable: true,
+    zoomable: true,
+}
+export const TIMELINE_TIME_SETTINGS = {
+    min: new Date(MIN_YEAR, 0, 1),
+    max: new Date(MAX_YEAR, 11, 31),
+    timeAxis: { scale: 'year', step: 1 },
+}
+export const TIMELINE_GROUP_SETTINGS = {
+    groupOrder: 'id',
+}
