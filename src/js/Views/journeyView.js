@@ -1,5 +1,5 @@
 import {Timeline} from '../lib.js';
-import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS} from '../config.js';
+import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS, TIMELINE_CLASS_NAME_TEXT} from '../config.js';
 export default new class JourneyView {
     _parentElement = document.querySelector('.timeline-steps');
     _setTimeline(_data) {
@@ -8,9 +8,9 @@ export default new class JourneyView {
             ...TIMELINE_LAYOUT_SETTINGS,
             ...TIMELINE_FUNCTIONALITY_SETTINGS,
             ...TIMELINE_TIME_SETTINGS,
-            ...TIMELINE_GROUP_SETTINGS,
+            ...TIMELINE_GROUP_SETTINGS
         });
-    
+        console.log("🚀 ~ JourneyView ~ timeline ~ timeline:", timeline)
         timeline.on('select', () => {
             // Zoom out if a selection is made.
             this.#zoomOut(timeline);
@@ -45,7 +45,8 @@ export default new class JourneyView {
             content: entry.content,
             group:entry.year,
             start: new Date(entry.year, 0, 1),
-            end: new Date(entry.year, 11, 31)
+            end: new Date(entry.year, 11, 31),
+            className: TIMELINE_CLASS_NAME_TEXT.className
         }));
     }
 }
