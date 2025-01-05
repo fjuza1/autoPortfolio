@@ -1,7 +1,8 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, TIMELINE_CLASS_NAME_TEXT
 } from './config.js';
+	console.log("🚀 ~ TIMELINE_CLASS_NAME_TEXT:", TIMELINE_CLASS_NAME_TEXT)
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
@@ -94,11 +95,11 @@ export const state = {
         category: CATEGORIES[3]
     }],
     journey:[
-        {year:'2021', content:'Started working as QA Tester. Started learning JavaScript.'},
-        {year:'2022', content:'Started automating BE test in Postman.'},
-        {year:'2023', content:'Ended online course in JavaScript.'},
-        {year:'2024', content:'Learned automating E2E tests using Cypress in January.'},
-        {year:'2024', content:'Started using Cypress for automating FE E2E tests in March.'}
+        {year:'2021', content:'Started working as QA Tester. Started learning JavaScript.',...TIMELINE_CLASS_NAME_TEXT},
+        {year:'2022', content:'Started automating BE test in Postman.',...TIMELINE_CLASS_NAME_TEXT},
+        {year:'2023', content:'Ended online course in JavaScript.',...TIMELINE_CLASS_NAME_TEXT},
+        {year:'2024', content:'Learned automating E2E tests using Cypress in January.',...TIMELINE_CLASS_NAME_TEXT},
+        {year:'2024', content:'Started using Cypress for automating FE E2E tests in March.',...TIMELINE_CLASS_NAME_TEXT}
     ],
     projects: [{
             name: PROJECT_NAME[0],

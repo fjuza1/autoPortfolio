@@ -51,6 +51,7 @@ export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
 export const MIN_YEAR = 2021
 export const MAX_YEAR = 2024;
+export const TIMELINE_CLASS_NAME_TEXT = {className:'text-break'}
 export const TIMELINE_LAYOUT_SETTINGS = {
     height: '60vh',
     orientation: 'top',
