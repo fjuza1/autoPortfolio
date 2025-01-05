@@ -10,7 +10,6 @@ export default new class JourneyView {
             ...TIMELINE_TIME_SETTINGS,
             ...TIMELINE_GROUP_SETTINGS
         });
-        console.log("🚀 ~ JourneyView ~ timeline ~ timeline:", timeline)
         timeline.on('select', () => {
             // Zoom out if a selection is made.
             this.#zoomOut(timeline);
@@ -44,7 +43,7 @@ export default new class JourneyView {
             id: i + 1,
             content: `<span>${entry.content}</span>`,
             group:entry.year,
-            start: new Date(entry.year, 0, 1),
+            start: new Date(entry.year, 1, 1),
             end: new Date(entry.year, 11, 31),
         }));
     }

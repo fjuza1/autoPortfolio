@@ -105,12 +105,9 @@ section {
   right: 0 !important;
   left: auto !important;
 }
-.vis-item-content > span {
-  display: inline-block; /* Ensure span behaves properly in layout */
-  white-space: normal; /* Allow text wrapping */
-  word-wrap: break-word; /* Enable wrapping for long words */
-  word-break: break-word; /* Fallback for older browsers */
-  overflow-wrap: break-word; /* Modern standard for breaking words */
-  max-width: 100%; /* Prevent content from exceeding parent width */
+.vis-item-content span {
+  white-space: normal; /* Allow wrapping */
+  word-wrap: break-word; /* Wrap long words */
+  overflow-wrap: break-word; /* Standardized word wrapping */
+  text-align: center; /* Center-align the text */
 }
-

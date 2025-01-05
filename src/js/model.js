@@ -94,11 +94,12 @@ export const state = {
         category: CATEGORIES[3]
     }],
     journey:[
-        {year:'2021', content:'Started working as QA Tester. Started learning JavaScript.'},
+        {year:'2021', content:'Started working as QA Tester.'},
+        {year:'2021', content:'Started learning JavaScript.'},
         {year:'2022', content:'Started automating BE test in Postman.'},
         {year:'2023', content:'Ended online course in JavaScript.'},
-        {year:'2024', content:'Learned automating E2E tests using Cypress in January.'},
-        {year:'2024', content:'Started using Cypress for automating FE E2E tests in March.'}
+        {year:'2024', content:'Learned automating E2E tests using Cypress.'},
+        {year:'2024', content:'Started using Cypress for automating E2E tests.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
