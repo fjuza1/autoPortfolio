@@ -8,6 +8,8 @@ export default new class JourneyView {
         new Timeline(this._parentElement, this.#setItemDataset(), {
             height: '60vh',
             stack:true,
+            moveable:true,
+            zoomable:true,
             orientation: 'top',
             margin: { item: 10 },
             align: 'start',
@@ -18,7 +20,6 @@ export default new class JourneyView {
             timeAxis: { scale: 'year', step: 1 }
         });
     }
-
     #setItemDataset() {
         return this._data.map((entry, i) => ({
             id: i + 1,
