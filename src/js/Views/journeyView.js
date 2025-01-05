@@ -7,7 +7,7 @@ export default new class JourneyView {
         const timeline = new Timeline(this._parentElement, this.#setItemDataset(), {
             ...TIMELINE_LAYOUT_SETTINGS,...TIMELINE_FUNCTIONALITY_SETTINGS,...TIMELINE_TIME_SETTINGS, ...TIMELINE_GROUP_SETTINGS,
         });
-        timeline.on('doubleTap',()=>{
+        timeline.on('select',()=>{
             this.#zoomOut(timeline);
         })
         timeline.on('doubleClick',()=>{
