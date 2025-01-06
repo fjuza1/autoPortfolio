@@ -16,6 +16,15 @@ export default new class JourneyView {
         timeline.on('click', () => {
             this.#handleEventOnTimeline(timeline);
         });
+        timeline.on('rangechanged', () => {
+            const prev = this.#getSelectedItem(timeline);
+            const visibleItems = timeline.getVisibleItems();
+            if (visibleItems.length > 0) {
+                timeline.setSelection([]);
+                if (prev) timeline.setSelection([prev.id]);
+            }
+        });
+        
     }
     #getSelectedItem(timeline) {
         const [selectedItem] = timeline.getSelection();
