@@ -95,9 +95,17 @@ export const state = {
     }],
     journey:[
         {year:'2021', content:'Started working as QA Tester.'},
+        {year:'2021', content:'Started learning to read UML diagrams.'},
+        {year:'2021', content:'Finished Udemy online course on UML.'},
+        {year:'2021', content:'Started youtube online course on Postman.'},
+        {year:'2021', content:'Started using Postman for testing.'},
+        {year:'2021', content:'Finished Udemy course on Soap UI.'},
+        {year:'2021', content:'Started Udemy course on Soap UI.'},
+        {year:'2021', content:'Was taught to work with TFS.'},
+        {year:'2021', content:'Started writing testcases in TFS.'},
         {year:'2021', content:'Started learning JavaScript.'},
         {year:'2022', content:'Started automating BE test in Postman.'},
-        {year:'2023', content:'Ended online course in JavaScript.'},
+        {year:'2023', content:'Ended Udemy online course in JavaScript.'},
         {year:'2024', content:'Learned automating E2E tests using Cypress.'},
         {year:'2024', content:'Started using Cypress for automating E2E tests.'}
     ],

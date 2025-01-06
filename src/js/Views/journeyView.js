@@ -11,38 +11,48 @@ export default new class JourneyView {
             ...TIMELINE_GROUP_SETTINGS
         });
         timeline.on('select', () => {
-            // Zoom out if a selection is made.
-            this.#zoomOut(timeline);
+            this.#handleEventOnTimeline(timeline);
         });
-
         timeline.on('click', () => {
-            // Zoom in on click if an item is selected.
-            this.#zoomIn(timeline);
+            this.#handleEventOnTimeline(timeline);
         });
     }
-    #visWinSet(timeline,start,end){
-        timeline.setWindow(start, end, { animation: true, animationDuration: 500 });
+    #getSelectedItem(timeline) {
+        const [selectedItem] = timeline.getSelection();
+        if (!selectedItem) return
+        return timeline.itemsData.get(selectedItem);
+    }
+    #handleEventOnTimeline(timeline) {
+        const selectedGroup = this.#getSelectedItem(timeline);
+        if (!selectedGroup)
+            this.#zoomOut(timeline)
+        else this.#zoomIn(timeline)
+    }
+    #visWinSet(timeline, start, end) {
+        timeline.setWindow(start, end, {
+            animation: true,
+            animationDuration: 500
+        });
     }
     #zoomIn(timeline) {
-        const [selectedItem] = timeline.getSelection();
-        if (!selectedItem) return;
-    
-        const selectedGroup = timeline.itemsData.get(selectedItem);
-        if (!selectedGroup || !selectedGroup.start || !selectedGroup.end) return;
-    
-        const { start, end } = selectedGroup;    
-        this.#visWinSet(timeline,start, end);
+        const selectedGroup = this.#getSelectedItem(timeline);
+        if (!selectedGroup) return
+        const {
+            start,
+            end
+        } = selectedGroup;
+        this.#visWinSet(timeline, start, end);
     }
     #zoomOut(timeline) {
         const start = TIMELINE_TIME_SETTINGS.min.valueOf();
         const end = TIMELINE_TIME_SETTINGS.max.valueOf();
-        this.#visWinSet(timeline,start, end);
+        this.#visWinSet(timeline, start, end);
     }
     #setItemDataset() {
         return this._data.map((entry, i) => ({
             id: i + 1,
             content: `<span>${entry.content}</span>`,
-            group:entry.year,
+            group: entry.year,
             start: new Date(entry.year, 1, 1),
             end: new Date(entry.year, 11, 31),
         }));
