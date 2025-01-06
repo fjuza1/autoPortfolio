@@ -56,7 +56,7 @@ export const TIMELINE_LAYOUT_SETTINGS = {
     orientation: 'top',
     align: 'center',
     margin: {item:{horizontal:30,vertical:50},axis:20},
-    autoResize: true,
+    autoResize: false,
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
     stack: true,
