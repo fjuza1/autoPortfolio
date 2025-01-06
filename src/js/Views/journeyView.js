@@ -31,9 +31,10 @@ export default new class JourneyView {
     }
     #handleEventOnTimeline(timeline) {
         const selectedGroup = this.#getSelectedItem(timeline);
-        if (!selectedGroup)
-            this.#zoomOut(timeline)
-        else this.#zoomIn(timeline)
+        console.log("🚀 ~ JourneyView ~ #handleEventOnTimeline ~ selectedGroup:", selectedGroup)
+        if (selectedGroup)
+            this.#zoomIn(timeline)
+        else this.#zoomOut(timeline)
     }
     #visWinSet(timeline, start, end) {
         timeline.setWindow(start, end, {
