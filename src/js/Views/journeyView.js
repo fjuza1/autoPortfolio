@@ -31,7 +31,6 @@ export default new class JourneyView {
     }
     #handleEventOnTimeline(timeline) {
         const selectedGroup = this.#getSelectedItem(timeline);
-        console.log("🚀 ~ JourneyView ~ #handleEventOnTimeline ~ selectedGroup:", selectedGroup)
         if (selectedGroup)
             this.#zoomIn(timeline)
         else this.#zoomOut(timeline)
