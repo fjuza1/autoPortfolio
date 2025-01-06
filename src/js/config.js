@@ -54,7 +54,7 @@ export const MAX_YEAR = 2024;
 export const TIMELINE_LAYOUT_SETTINGS = {
     height: '65dvh',
     orientation: 'top',
-    align: 'center',
+    align: 'start',
     margin: {item:{horizontal:30,vertical:50},axis:20},
     autoResize: false,
 }
