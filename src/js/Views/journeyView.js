@@ -15,16 +15,14 @@ export default new class JourneyView {
         });
         timeline.on('click', () => {
             this.#handleEventOnTimeline(timeline);
-        });
-        timeline.on('rangechanged', () => {
-            const prev = this.#getSelectedItem(timeline);
-            const visibleItems = timeline.getVisibleItems();
-            if (visibleItems.length > 0) {
+        });  
+        timeline.on('rangechange', (properties) => {
+            // Detect if the event is a user drag
+            const event = properties.event;
+            if (event && (event.pointerType === 'mouse' || event.pointerType === 'touch')) {
                 timeline.setSelection([]);
-                if (prev) timeline.setSelection([prev.id]);
             }
         });
-        
     }
     #getSelectedItem(timeline) {
         const [selectedItem] = timeline.getSelection();
