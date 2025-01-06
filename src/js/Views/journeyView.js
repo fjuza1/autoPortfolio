@@ -15,6 +15,13 @@ export default new class JourneyView {
         });
         timeline.on('click', () => {
             this.#handleEventOnTimeline(timeline);
+        });  
+        timeline.on('rangechange', (properties) => {
+            // Detect if the event is a user drag
+            const event = properties.event;
+            if (event && (event.pointerType === 'mouse' || event.pointerType === 'touch')) {
+                timeline.setSelection([]);
+            }
         });
     }
     #getSelectedItem(timeline) {
@@ -24,9 +31,10 @@ export default new class JourneyView {
     }
     #handleEventOnTimeline(timeline) {
         const selectedGroup = this.#getSelectedItem(timeline);
-        if (!selectedGroup)
-            this.#zoomOut(timeline)
-        else this.#zoomIn(timeline)
+        console.log("🚀 ~ JourneyView ~ #handleEventOnTimeline ~ selectedGroup:", selectedGroup)
+        if (selectedGroup)
+            this.#zoomIn(timeline)
+        else this.#zoomOut(timeline)
     }
     #visWinSet(timeline, start, end) {
         timeline.setWindow(start, end, {
