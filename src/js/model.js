@@ -287,7 +287,7 @@ export const filterSkills = function(options) {
 export const sortingSkills = function(options) {
     let { array, sortBy, order } = options;
     const skills = state.skills
-   skills.filteredSkills ? array = skills.filteredSkills : skills;
+   skills.filteredSkills ? array = skills.filteredSkills : array = skills;
     const sortFunctions = {
         expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
         name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
