@@ -52,10 +52,10 @@ export const SCROLL_TYPE = 'scroll';
 export const MIN_YEAR = 2021
 export const MAX_YEAR = 2024;
 export const TIMELINE_LAYOUT_SETTINGS = {
-    height: '100dvh',
+    height: '65dvh',
     orientation: 'top',
-    align: 'auto',
-    margin: {item:{horizontal:50,vertical:70}},
+    align: 'center',
+    margin: {item:{horizontal:30,vertical:50},axis:20},
     autoResize: true,
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
