@@ -285,7 +285,8 @@ export const filterSkills = function(options) {
  * @returns {Array<Object>}
  */
 export const sortingSkills = function(options) {
-    let { array, sortBy, order } = options;
+    let {sortBy, order } = options;
+    let array
     const skills = state.skills
    skills.filteredSkills ? array = skills.filteredSkills : array = skills;
     const sortFunctions = {
