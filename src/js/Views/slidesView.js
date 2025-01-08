@@ -22,9 +22,18 @@ class SlidesView {
         this._slidesContainer = document.querySelector('.carousel-inner')
         this._slideIndicators = [...this._slideIndicatorsContainer.children]
     }
+    /**
+     * Finds the index of the active element within a given HTML collection.
+     *
+     * @param {HTMLCollection} element - The HTML collection to search for the active element.
+     * @returns {number} The index of the active element. If no active element is found, returns -1.
+     *
+     * @private
+     */
     #findActive(element) {
-        return [...element].findIndex(el => el.classList.contains('active'))
+        return [...element].findIndex(el => el.classList.contains('active'));
     }
+
     #deactivateActiveElement(elements) {
         const activeIndex = this.#findActive(elements);
         if (activeIndex === -1) return;
@@ -36,6 +45,14 @@ class SlidesView {
     #deactivateActiveIndicator() {
         this.#deactivateActiveElement(this._slideIndicators);
     }
+    /**
+     * Sets index for this._slideIndex
+     *
+     * @param {number} index - The index of the slide to set.
+     * @returns {void}
+     *
+     * @private
+     */
     #goto(index) {
         this.#deactivateActiveSlide();
         this.#deactivateActiveIndicator();
@@ -46,6 +63,7 @@ class SlidesView {
         this._slideIndicators[index].classList.add('active');
         this._slideIndex = index;
     }
+
     #goToSlide(e) {
         const target = e.target.closest('button');
         if (!target) return;
@@ -89,6 +107,7 @@ class SlidesView {
     #touchStart(e) {
         this._startX = e.touches[0].clientX;
     }
+
     #touchMove(e) {
         const swipeTresh = 30
         if (this._startX === null || this._isAnimating) return;
@@ -143,14 +162,39 @@ class SlidesView {
             this._animateSlides();
         }, interval);
     }
-    #watchAnimation(entries){
+    /**
+     * Handles the Intersection Observer for the carousel slides.
+     * This observer watches for changes in the visibility of the slides container.
+     * When the slides container becomes visible, it starts the animation of the slides.
+     *
+     * @private
+     * @memberof SlidesView
+     *
+     * @param {IntersectionObserverEntry[]} entries - The array of IntersectionObserverEntry objects.
+     * Each entry represents a target element and its intersection with the root element or its ancestor.
+     *
+     * @returns {void}
+     */
+    #watchAnimation(entries) {
         const [entry] = entries;
         if (!entry.isIntersecting) {
             this._isAnimating = false;
             return;
+        } else {
+            this._isAnimating = true;
         }
-            else this._isAnimating = true;
     }
+
+    /**
+     * Handles the Intersection Observer for the carousel slides.
+     * This observer watches for changes in the visibility of the slides container.
+     * When the slides container becomes visible, it starts the animation of the slides.
+     *
+     * @private
+     * @memberof SlidesView
+     *
+     * @returns {void}
+     */
     #handleAnimationObserver() {
         const animationObserver = new IntersectionObserver(this.#watchAnimation.bind(this), {
             root: null,
@@ -158,6 +202,7 @@ class SlidesView {
         });
         animationObserver.observe(this._slidesContainer);
     }
+
     handleSlides() {
         this.#handleTouchSlides();
         window.addEventListener(KEYDOWN_TYPE, debounce(this.#keyboardNavigation.bind(this), 400));

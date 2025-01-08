@@ -12,9 +12,13 @@ class ContactView extends View {
         this._errorRemoveEvent()
     }
     /**
-     * Returns fileds that value is not existent
+     * Retrieves required fields from the form.
      *
-     * @returns {Boolean || Array<Object>}
+     * @returns {Array<Object>} An array of objects representing the required fields.
+     * Each object contains the field's name, type, and id.
+     * If no required fields are found, an empty array is returned.
+     *
+     * @private
      */
     _getRequiredFields() {
         const emptyReqFields = [...this._getFields()]
@@ -29,6 +33,7 @@ class ContactView extends View {
             id: field.id
         }))
     }
+
     /**
      * Flags in view if input val is email
      *

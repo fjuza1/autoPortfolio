@@ -183,6 +183,13 @@ export const state = {
  * @param {String} file
  * @returns {Promise<Object>}
  */
+/**
+ * Reads the content of a file and updates the file state.
+ *
+ * @param {File} file - The file to be read.
+ * @returns {Promise<string>} A promise that resolves with the file content as a string.
+ * @throws Will throw an error if the file reading fails.
+ */
 export const readFileState = async (file) => {
     try {
         return new Promise((resolve, reject) => {
@@ -212,6 +219,16 @@ export const readFileState = async (file) => {
  * @async
  * @param { Object } options
  * @returns {Array || String}
+ */
+/**
+ * Asynchronously generates a file from an array of data based on the provided options.
+ *
+ * @param {Object} options - The options for file generation.
+ * @param {Array} options.array - The array of data to be converted into a file.
+ * @param {string} options.fileName - The name of the file to be generated.
+ * @param {string} options.fileType - The type of the file to be generated (must be in EXPORT_WHITELIST).
+ * @returns {Promise<Array>} A promise that resolves to an array containing any errors and a generated message.
+ * @throws {Error} Throws an error if the array is missing or if an unexpected error occurs.
  */
 export const toFile = async (options) => {
     try {
@@ -287,10 +304,12 @@ export const filterSkills = function(options) {
     return filteredData;
 }
 /**
- * Sorting function for skills based on options.
+ * Sorts the skills based on the provided options.
  *
- * @param { Object } options
- * @returns {Array<Object>}
+ * @param {Object} options - The sorting options.
+ * @param {string} options.sortBy - The property to sort by. Can be 'expertise', 'name', or 'category'.
+ * @param {string} options.order - The order of sorting. Can be 'asc' for ascending or 'desc' for descending.
+ * @returns {Array} The sorted array of skills.
  */
 export const sortingSkills = function(options) {
     let {sortBy, order } = options;
@@ -309,6 +328,14 @@ export const sortingSkills = function(options) {
  *
  * @param {{}} [array=state.projects]
  */
+/**
+ * Retrieves project demos from the provided array or the default state.projects array.
+ * Filters projects that have non-empty imgPath and url properties.
+ * Updates the state.projectDemos with the filtered demos.
+ *
+ * @param {Array} [array=state.projects] - The array of projects to filter.
+ * @returns {void}
+ */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
         if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
@@ -324,6 +351,18 @@ export const getProjectDemos = (array = state.projects) => {
  * @param {number} [currentPage=state.curPage]
  * @param {number} [itemsPerPage=state.perPage]
  * @returns {{ currentPage: number; data: Array; pages: number; perPage: number; }}
+ */
+/**
+ * Loads more items from the given array based on the current page and items per page.
+ *
+ * @param {Array} array - The array of items to paginate.
+ * @param {number} [currentPage=state.curPage] - The current page number.
+ * @param {number} [itemsPerPage=state.perPage] - The number of items per page.
+ * @returns {Object} An object containing the current page, the sliced data, the total number of pages, and the items per page.
+ * @property {number} currentPage - The current page number.
+ * @property {Array} data - The sliced array of items for the current page.
+ * @property {number} pages - The total number of pages.
+ * @property {number} perPage - The number of items per page.
  */
 export const loadMore = function(array, currentPage = state.curPage, itemsPerPage = state.perPage) {
     const start = 0;

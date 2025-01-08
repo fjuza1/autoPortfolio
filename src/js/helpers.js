@@ -53,10 +53,26 @@ export const isJSON = (json) => {
  * @returns {FileString}
  */
 const setCustomTimeout = (callback, time) => setTimeout(callback, time);
+/**
+ * Executes a callback function after a custom timeout period.
+ *
+ * @param {Function} callback - The function to be executed after the timeout.
+ */
 export const timeout = (callback) => setCustomTimeout(callback, ANIMATIONTIME * 1000);
 
+/**
+ * Waits for a specified amount of time before executing a callback function.
+ *
+ * @param {Function} callback - The function to be executed after the wait time.
+ * @param {number} time - The amount of time to wait before executing the callback, in milliseconds.
+ */
 export const wait = (callback, time) => setCustomTimeout(callback, time);
 
+/**
+ * Creates a promise that rejects after a specified timeout.
+ *
+ * @returns {Promise<never>} A promise that rejects with an error message after the specified timeout.
+ */
 export const timeoutAPI = () => {
     return new Promise((_, reject) => {
         setCustomTimeout(() => {
@@ -64,16 +80,27 @@ export const timeoutAPI = () => {
         }, API_TIMEOUT_SEC * 1000);
     });
 };
+/**
+ * Changes the URL hash to the lowercase ID of the given element.
+ *
+ * @param {HTMLElement} element - The DOM element whose ID will be used to set the hash.
+ */
 export const changeHash = (element) => window.location.hash = element.id.toLowerCase();
 
-export const removeHash = () => window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
 /**
- * AJAX call
+ * Removes the hash from the URL without reloading the page.
+ * This function uses the History API to replace the current state
+ * with a new state that has the same URL minus the hash.
+ */
+export const removeHash = () => window.history.replaceState(null, document.title, window.location.pathname + window.location.search);
+
+/**
+ * Makes an AJAX request to the specified URL.
  *
- * @async
- * @param {*} url
- * @param {*} [body=undefined]
- * @returns {Promise<data>}
+ * @param {string} url - The URL to which the request is sent.
+ * @param {Object} [body] - The body of the request, if any. If provided, a POST request is made; otherwise, a GET request is made.
+ * @returns {Promise<Object>} The response data as a JSON object.
+ * @throws {Error} Throws an error if the response is not ok.
  */
 export const AJAX = async (url, body = undefined) => {
     try {
@@ -95,19 +122,19 @@ export const AJAX = async (url, body = undefined) => {
     }
 };
 /**
- * Description placeholder
+ * Filters an array of objects based on specified keys and values.
  *
- * @param {*} array
- * @param {*} keys
- * @param {*} values
- * @returns {Array<string>}
+ * @param {Array<Object>} array - The array of objects to filter.
+ * @param {Array<string>} keys - The keys to filter by.
+ * @param {Array<string>} values - The values to filter by.
+ * @returns {Array<Object>} The filtered array of objects.
  */
 export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
 /**
- * Converts JSON into xml using xml2js npm pacjkage
+ * Converts an array of skills into an XML string.
  *
- * @param {*} array
- * @returns {xml}
+ * @param {Array} array - The array of skills to be converted to XML.
+ * @returns {string} The XML string representation of the skills.
  */
 export const toXml = (array) => {
     const obj = {
@@ -122,26 +149,30 @@ export const toXml = (array) => {
     return xml
 }
 /**
- * Description placeholder
+ * Converts an array of objects into a CSV string using the PapaParse library.
  *
- * @param {*} array
- * @param {*} config
- * @returns {CSV}
+ * @param {Array} array - The array of objects to be converted to CSV.
+ * @param {Object} [config] - Optional configuration object for PapaParse.
+ * @returns {string} The CSV string representation of the input array.
  */
 export const toCsv = (array, config) => Papa.unparse(array, config);
 /**
- * Description placeholder
+ * Converts an array to a JSON string with tab indentation.
  *
- * @param {*} array
- * @returns {JSONArray}
+ * @param {Array} array - The array to be converted to JSON.
+ * @returns {string} The JSON string representation of the array.
  */
 export const toJSON = (array) => JSON.stringify(array, null, '\t')
 /**
- * Description placeholder
- *
- * @async
- * @param {Object} options
- * @returns {email}
+ * Sends an email using the provided options.
+ * 
+ * @param {Object} options - The options for sending the email.
+ * @param {string} options.name - The name of the recipient.
+ * @param {string} options.email - The email address of the sender.
+ * @param {string} options.subject - The subject of the email.
+ * @param {string} options.message - The message content of the email.
+ * @returns {Promise<Object>} The result of the email sending operation.
+ * @throws {EmailJSResponseStatus} If there is an error in the email sending process.
  */
 export const sendMail = async (options) => {
     try {
@@ -170,11 +201,11 @@ export const sendMail = async (options) => {
     }
 }
 /**
- * Handling file generation states
- *
- * @async
- * @param {String} blob
- * @returns {Error || String}
+ * Handles the generation of a file from a Blob object.
+ * 
+ * @param {Blob} blob - The Blob object to be processed.
+ * @returns {Promise<string>} - A promise that resolves to the decoded text content of the Blob.
+ * @returns {Error} - Throws an error if the Blob cannot be processed.
  */
 export const handleFileGeneration = async (blob) => {
     try {
@@ -184,12 +215,18 @@ export const handleFileGeneration = async (blob) => {
     }
 }
 /**
- * Description placeholder
+ * Capitalizes the first letter of a given word.
  *
- * @param {String} word
- * @returns {String}
+ * @function capitalizeWord
+ * @param {string} word - The word to capitalize.
+ * @returns {string} - The capitalized word.
+ *
+ * @example
+ * capitalizeWord('hello') // returns 'Hello'
+ * capitalizeWord('world') // returns 'World'
  */
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
+
 export const gotoSegment = (domElement, nav) => {
     const targetSection = domElement.getBoundingClientRect();
     const navHeight = nav.offsetHeight;
@@ -207,10 +244,10 @@ export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)
 }
 /**
- * Description placeholder
+ * Validates if the given email is in a proper format.
  *
- * @param {String} email
- * @returns {boolean}
+ * @param {string} email - The email address to validate.
+ * @returns {boolean} - Returns true if the email is valid, otherwise false.
  */
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -222,6 +259,13 @@ export const validateEmail = (email) => {
  * @param {*} fn
  * @param {*} wait
  * @returns {(...args: {}) => void}
+ */
+/**
+ * Creates a debounced function that delays invoking the provided function until after the specified wait time has elapsed since the last time the debounced function was invoked.
+ *
+ * @param {Function} fn - The function to debounce.
+ * @param {number} wait - The number of milliseconds to delay.
+ * @returns {Function} - Returns the new debounced function.
  */
 export const debounce = function(fn, wait) {
     let timeoutId;
