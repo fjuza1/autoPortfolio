@@ -15,7 +15,6 @@ export const PROJECT_DESCRIPTOR = ['Document Management System that is part of C
     'Automating SOVA project in powerapps environment.',
     'Automated current website during development.',
     'Automated web app that is used for booking Flights,Hotels,Cars etc.'];
-export const SLIDES_BACKGROUND = '/public/pics/white_background.jpeg';
 export const JSON_TYPE = 'application/json';
 export const XML_TYPE = 'application/xml';
 export const CSV_TYPE = 'text/csv';

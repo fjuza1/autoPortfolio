@@ -1,6 +1,15 @@
 import View from './View.js';
 class PaginationView extends View {
     _parentElement = document.querySelector('.pagination');
+    /**
+     * Adds a click event listener to the pagination element to handle page navigation.
+     *
+     * @param {Function} handler - A callback function that will be called when a page is clicked.
+     * The function should accept a single parameter:
+     * @param {number} next - The next page number to navigate to.
+     *
+     * @returns {void}
+     */
     addHandlerPagination(handler) {
         this._parentElement.removeEventListener('click', this._paginationClickHandler);
         this._paginationClickHandler = (e) => {
@@ -11,6 +20,7 @@ class PaginationView extends View {
         };
         this._parentElement.addEventListener('click', this._paginationClickHandler);
     }
+
     /**
      * Generate pagination markup into VIEW
      *

@@ -21,14 +21,65 @@ class ProjectsView extends View {
  `
       return [indicators, carrouselInner, [endBtns]].flat()
   }
+  /**
+   * Generates the indicators for the carousel.
+   *
+   * @param {Array} data - An array of data objects to create indicators for.
+   * @returns {Array} - An array containing the HTML markup for the carousel indicators.
+   *
+   * @example
+   * const data = [
+   *   { name: 'Project 1', description: 'Description of Project 1', types: ['Type 1', 'Type 2'] },
+   *   { name: 'Project 2', description: 'Description of Project 2', types: ['Type 3', 'Type 4'] },
+   * ];
+   * const indicators = projectsView.#indicators(data);
+   * console.log(indicators);
+   * // Output:
+   * // [
+   * //   '<div class="carousel-indicators">',
+   * //   '<button type="button" class="active" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" aria-label="Slide 0"></button>',
+   * //   '<button type="button" class="" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 1"></button>',
+   * //   '</div>'
+   * // ]
+   */
   #indicators(data) {
       const indicatorsStart = '<div class="carousel-indicators">'
       const buttonIndicatorsMarkup = data.map((data, i) => {
           return `<button type="button" class=" ${i === 0 ? 'active' : ''}" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" aria-label="Slide ${i}"></button>`;
       })
       return [indicatorsStart, ...buttonIndicatorsMarkup, this._end];
-
   }
+
+  /**
+   * Generates the HTML markup for the carousel inner content.
+   *
+   * @param {Array} array - An array of data objects to create carousel items for.
+   * @param {number|boolean} interval - The interval at which the carousel should automatically slide.
+   * If `true`, the interval is set to the default value from the `DEFAULT_INTERVAL` constant.
+   * If `false` or not provided, the carousel does not automatically slide.
+   *
+   * @returns {Array} - An array containing the HTML markup for the carousel inner content.
+   *
+   * @example
+   * const data = [
+   *   { name: 'Project 1', description: 'Description of Project 1', types: ['Type 1', 'Type 2'] },
+   *   { name: 'Project 2', description: 'Description of Project 2', types: ['Type 3', 'Type 4'] },
+   * ];
+   * const interval = 5000; // 5 seconds
+   * const carrouselInner = projectsView.#carrouselInner(data, interval);
+   * console.log(carrouselInner);
+   * // Output:
+   * // [
+   * //   '<div class="carousel-inner" role="listbox">',
+   * //   '<div class="carousel-item active" data-bs-interval="5000">',
+   * //   '  ...',
+   * //   '</div>',
+   * //   '<div class="carousel-item" data-bs-interval="5000">',
+   * //   '  ...',
+   * //   '</div>',
+   * //   '</div>'
+   * // ]
+   */
   #carrouselInner(array, interval) {
       if ((typeof interval !== 'number') && (typeof interval !== 'boolean' || interval === false)) return;
       if (interval === true) interval = DEFAULT_INTERVAL * 1000;
@@ -47,10 +98,28 @@ class ProjectsView extends View {
               </p>
              </div>
            </div>
- `
+   `
       })
       return [carouselInnerStart, ...carrouselItem, this._end];
   }
+
+  /**
+   * Renders the project modal with demo instructions and project details.
+   *
+   * @param {Array} _data - An array of objects containing demo information.
+   * Each object should have the following properties:
+   * - imgPath: The path to the demo image.
+   * - url: The URL of the demo.
+   *
+   * @returns {void}
+   *
+   * @example
+   * const demos = [
+   *   { imgPath: 'path/to/demo1.jpg', url: 'https://demo1.com' },
+   *   { imgPath: 'path/to/demo2.jpg', url: 'https://demo2.com' },
+   * ];
+   * projectsView._renderProjectModal(demos);
+   */
   _renderProjectModal(_data) {
       this._data = _data;
 
@@ -78,6 +147,7 @@ class ProjectsView extends View {
       this._modal.innerHTML = '';
       this._modal.insertAdjacentHTML('afterbegin', modalMarkup);
   }
+
   #demoInfo() {
       // Render demo info here
       return `
@@ -94,24 +164,48 @@ class ProjectsView extends View {
    </div>
    `
   }
+  /**
+   * Generates the HTML markup for the project modal content.
+   *
+   * @private
+   * @returns {string} - The HTML markup for the project modal content.
+   *
+   * @example
+   * const projectsView = new ProjectsView();
+   * const cardContent = projectsView.#contentProjectModal();
+   * console.log(cardContent);
+   * // Output:
+   * // '<div class="col-12">
+   * //     <div class="card mb-3 w-100">
+   * //         <img loading="lazy" class="card-img-top img-fluid img-thumbnail" src="path/to/demo1.jpg" alt="Card image cap">
+   * //         <div class="card-body">
+   * //             <p class="card-text">
+   * //                 <u><a href="https://demo1.com" target="_blank">https://demo1.com</a></u>
+   * //             </p>
+   * //         </div>
+   * //     </div>
+   * //     ...
+   * // </div>'
+   */
   #contentProjectModal() {
       const cardContent = `
-     <div class="col-12">
-         ${this._data
-             .map(demo => `
-                 <div class="card mb-3 w-100">
-                     <img loading="lazy" class="card-img-top img-fluid img-thumbnail" src="${demo.imgPath}" alt="Card image cap">
-                     <div class="card-body">
-                         <p class="card-text">
-                             <u><a href="${demo.url}" target="_blank">${demo.url}</a></u>
-                         </p>
-                     </div>
-                 </div>
-             `)
-             .join('')}
-     </div>
- `;
+      <div class="col-12">
+          ${this._data
+              .map(demo => `
+                  <div class="card mb-3 w-100">
+                      <img loading="lazy" class="card-img-top img-fluid img-thumbnail" src="${demo.imgPath}" alt="Card image cap">
+                      <div class="card-body">
+                          <p class="card-text">
+                              <u><a href="${demo.url}" target="_blank">${demo.url}</a></u>
+                          </p>
+                      </div>
+                  </div>
+              `)
+              .join('')}
+      </div>
+  `;
       return cardContent;
   }
+
 }
 export default new ProjectsView();
