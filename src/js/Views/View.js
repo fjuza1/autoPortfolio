@@ -1,4 +1,4 @@
-import { wait } from '../helpers';
+import { escapeHTML, sanitizeHtml, wait } from '../helpers';
 export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
@@ -32,7 +32,7 @@ export default class View {
     _render(_data) {
         if (Array.isArray(_data) && _data.length === 0) return this._renderError();
         this._cleanup();
-        const markup = this._generateMarkup(_data);
+        const markup = sanitizeHtml(this._generateMarkup(_data));
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //rendering msessage 

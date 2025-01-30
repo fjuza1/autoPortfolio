@@ -136,8 +136,19 @@ export const filterByKeys = (array, keys, values) => array.filter(item => keys.e
  * @param {Array} array - The array of skills to be converted to XML.
  * @returns {string} The XML string representation of the skills.
  */
+/**
+ * Sanitizes the given XML string to prevent XML-related vulnerabilities.
+ *
+ * @param {string} xml - The XML string to be sanitized.
+ * @returns {string} - The sanitized XML string.
+ */
 export const sanitizeXml = (xml) => xmlSanitizer(xml);
-export const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+/**
+ * Escapes HTML special characters in a string to their corresponding HTML entities.
+ *
+ * @param {string} str - The string to escape.
+ * @returns {string} The escaped string with HTML entities.
+ */
 export const toXml = (array) => {
     const obj = {
         root: {
@@ -150,7 +161,13 @@ export const toXml = (array) => {
     const xml = builder.buildObject(obj);
     return sanitizeXml(xml)
 }
-export const sanitizeHtml = (html) => DOMPurify.sanitize(html);
+/**
+ * Sanitizes the given HTML string to prevent XSS attacks.
+ *
+ * @param {string} html - The HTML string to sanitize.
+ * @returns {string} - The sanitized HTML string.
+ */
+export const sanitizeHtml = (html = escapeHTML(html)) => DOMPurify.sanitize(html);
 /**
  * Converts an array of objects into a CSV string using the PapaParse library.
  *
