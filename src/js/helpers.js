@@ -1,5 +1,5 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa, emailjs, EmailJSResponseStatus} from './lib.js';
+import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify} from './lib.js';
 /**
  * Checks if is xml text
  *
@@ -136,6 +136,8 @@ export const filterByKeys = (array, keys, values) => array.filter(item => keys.e
  * @param {Array} array - The array of skills to be converted to XML.
  * @returns {string} The XML string representation of the skills.
  */
+export const sanitizeXml = (xml) => xmlSanitizer(xml);
+export const escapeHTML = (str) => str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#039;');
 export const toXml = (array) => {
     const obj = {
         root: {
@@ -146,8 +148,9 @@ export const toXml = (array) => {
     };
     const builder = new xml2js.Builder();
     const xml = builder.buildObject(obj);
-    return xml
+    return sanitizeXml(xml)
 }
+export const sanitizeHtml = (html) => DOMPurify.sanitize(html);
 /**
  * Converts an array of objects into a CSV string using the PapaParse library.
  *
