@@ -3,4 +3,6 @@ import xml2js from 'xml2js';
 import { saveAs } from 'file-saver';
 import {Timeline} from 'vis-timeline/standalone';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
-export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline}
+import xmlSanitizer from "xml-sanitizer";
+import DOMPurify from 'dompurify';
+export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline, xmlSanitizer, DOMPurify};

@@ -1,4 +1,4 @@
-import { wait } from '../helpers';
+import { escapeHTML, sanitizeHtml, wait } from '../helpers';
 export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
@@ -32,7 +32,7 @@ export default class View {
     _render(_data) {
         if (Array.isArray(_data) && _data.length === 0) return this._renderError();
         this._cleanup();
-        const markup = this._generateMarkup(_data);
+        const markup = sanitizeHtml(this._generateMarkup(_data));
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //rendering msessage 
@@ -54,6 +54,15 @@ export default class View {
      *
      * @param {Object} options
      */
+    /**
+     * Renders an error message into the view based on the provided options.
+     *
+     * @param {Object} options - Additional options for rendering the error message.
+     * @param {boolean} [options.close=false] - If true, the error message will be dismissible.
+     * @param {number} [options.disposeTime] - Time in milliseconds after which the error message will be disposed.
+     *
+     * @returns {void}
+     */
     _renderError(options) {
         let messageMarkup;
         const exclamationError = `
@@ -64,7 +73,7 @@ export default class View {
         messageMarkup = `<div class="alert alert-danger" role="alert">${exclamationError}  ${this._err}</div>`;
         if (options) {
             if (options.close === true) messageMarkup = `<div class="alert alert-dismissible alert-danger" role="alert"> ${exclamationError} ${this._err}
-           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
             if (options.disposeTime) {
                 wait(() => {
                     this._cleanup();
@@ -72,33 +81,42 @@ export default class View {
             }
         }
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup)
+        this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup);
     }
     /**
-     * Rendering success message into view based on object
+     * Renders a success message into the view based on the provided options.
      *
-     * @param {Object} options
+     * @param {Object} options - Additional options for rendering the success message.
+     * @param {boolean} [options.close=false] - If true, the success message will be dismissible.
+     * @param {number} [options.disposeTime] - Time in milliseconds after which the success message will be disposed.
+     *
+     * @returns {void}
      */
     _renderSuccessMessage(options) {
         const checkIcon = `
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check" viewBox="0 0 16 16">
             <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425z"/>
             </svg>
-        `
-        let sucessMessageMarkup;
-        sucessMessageMarkup = `<div class="alert alert-success" role="alert">checkIcon ${checkIcon} ${this._msg}</div>`;
+        `;
+        let successMessageMarkup;
+        successMessageMarkup = `<div class="alert alert-success" role="alert">${checkIcon} ${this._msg}</div>`;
         if (options) {
-            if (options.close === true) sucessMessageMarkup = `<div class="alert alert-dismissible alert-success" role="alert"> ${this._msg}
-           <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`
+            if (options.close === true) {
+                successMessageMarkup = `<div class="alert alert-dismissible alert-success" role="alert"> ${this._msg}
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>`;
+            }
             if (options.disposeTime) {
                 wait(() => {
                     this._cleanup();
-                }, options.disposeTime)
+                }, options.disposeTime);
             }
         }
+
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', sucessMessageMarkup);
+        this._parentElement.insertAdjacentHTML('afterbegin', successMessageMarkup);
     }
+
+
     //end
     //error handling
     /**
@@ -120,6 +138,12 @@ export default class View {
     }
     //end
     //spinner
+    /**
+     * Renders a loading spinner into the view.
+     *
+     * @private
+     * @returns {void}
+     */
     _renderSpinner() {
         const markup = `
         <div class="d-flex align-items-center">
@@ -127,7 +151,7 @@ export default class View {
             <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
         </div>`;
         this._cleanup();
-        this._parentElement.insertAdjacentHTML('afterbegin', markup)
+        this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
     //end
     //form
@@ -139,9 +163,12 @@ export default class View {
         })
     }
     /**
-     * sub ev
+     * Handles the form submission event.
      *
-     * @param {Object} e
+     * @param {Event} e - The form submission event.
+     *
+     * @private
+     * @returns {void}
      */
     _submitEvent(e) {
         e.preventDefault();
@@ -149,6 +176,7 @@ export default class View {
         const data = Object.fromEntries(formEntries);
         this._formData = data;
     }
+
     //end
     addHandlerLoad(handler) {
         window.addEventListener('load', handler);
@@ -164,9 +192,19 @@ export default class View {
         this._form.addEventListener('reset', handler)
     }
     // alert evs
+    /**
+     * Handles the closing of alert messages in the view.
+     *
+     * @private
+     * @returns {void}
+     */
     _closeAlert() {
         this._parentElement.addEventListener('click', (e) => {
             const alert = e.target;
+            /**
+             * Check if the clicked element is a button and if it is a child of an alert element.
+             * If both conditions are met, the alert is cleaned up.
+             */
             if (alert && alert.type === 'button' && alert.closest('.alert').classList.contains('alert')) this._cleanup();
         });
     }
