@@ -66,7 +66,9 @@ section {
 #Projects .carousel-item {
   height: 100%;
 }
-
+.bi.bi-zoom-out.float-start{
+  cursor: pointer;
+}
 #Projects .carousel img {
   max-height: 100%;
   width: auto; 
