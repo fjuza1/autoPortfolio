@@ -15,7 +15,10 @@ export default new class JourneyView {
         });
         timeline.on('click', () => {
             this.#handleEventOnTimeline(timeline);
-        });  
+        });
+        // timeline.on('doubleClick',()=>{
+        //     this.#zoomOut(timeline)
+        // })
         timeline.on('rangechange', (properties) => {
             // Detect if the event is a user drag
             const event = properties.event;
@@ -33,7 +36,6 @@ export default new class JourneyView {
         const selectedGroup = this.#getSelectedItem(timeline);
         if (selectedGroup)
             this.#zoomIn(timeline)
-        else this.#zoomOut(timeline)
     }
     #visWinSet(timeline, start, end) {
         timeline.setWindow(start, end, {
