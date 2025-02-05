@@ -2,6 +2,7 @@ import {Timeline} from '../lib.js';
 import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS} from '../config.js';
 export default new class JourneyView {
     _parentElement = document.querySelector('.timeline-steps');
+    _zoomoutBtn = document.querySelector('.bi.bi-zoom-out');
     _setTimeline(_data) {
         this._data = _data;
         const timeline = new Timeline(this._parentElement, this.#setItemDataset(), {
@@ -15,14 +16,21 @@ export default new class JourneyView {
         });
         timeline.on('click', () => {
             this.#handleEventOnTimeline(timeline);
-        });  
+        });
         timeline.on('rangechange', (properties) => {
             // Detect if the event is a user drag
             const event = properties.event;
             if (event && (event.pointerType === 'mouse' || event.pointerType === 'touch')) {
-                timeline.setSelection([]);
+                this.#resetSelected(timeline);
             }
         });
+        this._zoomoutBtn.addEventListener('click', () => {
+            this.#zoomOut(timeline);
+            this.#resetSelected(timeline);
+        });
+    }
+    #resetSelected(timeline) {
+        timeline.setSelection([]);
     }
     #getSelectedItem(timeline) {
         const [selectedItem] = timeline.getSelection();
@@ -33,7 +41,6 @@ export default new class JourneyView {
         const selectedGroup = this.#getSelectedItem(timeline);
         if (selectedGroup)
             this.#zoomIn(timeline)
-        else this.#zoomOut(timeline)
     }
     #visWinSet(timeline, start, end) {
         timeline.setWindow(start, end, {
