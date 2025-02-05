@@ -63,12 +63,20 @@ export default new class JourneyView {
         this.#visWinSet(timeline, start, end);
     }
     #setItemDataset() {
-        return this._data.map((entry, i) => ({
-            id: i + 1,
-            content: `<span>${entry.content}</span>`,
-            group: entry.year,
-            start: new Date(entry.year, 1, 1),
-            end: new Date(entry.year, 11, 31),
-        }));
+        if (!this._itemMap) {
+            this._itemMap = new Map();
+        }
+        this._data.forEach((entry, i) => {
+            if (!this._itemMap.has(entry.year)) {
+                this._itemMap.set(entry.year, {
+                    id: i + 1,
+                    content: `<span>${entry.content}</span>`,
+                    group: entry.year,
+                    start: new Date(entry.year, 1, 1),
+                    end: new Date(entry.year, 11, 31),
+                });
+            }
+        });
+        return Array.from(this._itemMap.values());
     }
 }
