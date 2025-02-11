@@ -113,3 +113,6 @@ section {
   overflow-wrap: break-word; /* Standardized word wrapping */
   text-align: center; /* Center-align the text */
 }
+.bi-info-circle-fill{
+  cursor: pointer;
+}
