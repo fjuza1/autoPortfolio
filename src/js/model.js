@@ -92,7 +92,26 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3]
-    }],
+    },
+    {
+        name: 'PowerApps',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0]
+    },
+    {
+        name: 'PowerAutomate',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[3]
+    },
+    {
+        name: 'SharePoint',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0]
+    }
+],
     journey:[
         {year:'2021', content:'Started working as QA Tester.'},
         {year:'2021', content:'Started learning to read UML diagrams.'},
