@@ -250,8 +250,8 @@ export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(
 export const gotoSegment = (domElement, nav) => {
     const targetSection = domElement.getBoundingClientRect();
     const navHeight = nav.offsetHeight;
-    const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
-    const sectionPositionLeft = targetSection.left + window.pageXOffset;
+    const sectionPositionTop = (targetSection.top + window.scrollY) - navHeight;
+    const sectionPositionLeft = targetSection.left + window.scrollX;
     window.scrollTo({
         left: sectionPositionLeft,
         top: sectionPositionTop,
