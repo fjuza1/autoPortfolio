@@ -174,6 +174,12 @@ export const state = {
             types: [DEV_TYPE, FE_TYPE],
             url: URL_PORTFOLIO_DEMO,
             imgPath: IMG_PORTFOLIO_DEMO
+        },
+        {
+            name: PROJECT_NAME[8],
+            levelNumber: PROJECT_ORDER_NUM[8],
+            description: PROJECT_DESCRIPTOR[8],
+            types: [DEV_TYPE],
         }
     ],
     projectDemos: ''
