@@ -1,4 +1,5 @@
 import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
+import {removeClass} from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
@@ -30,16 +31,20 @@ class PopupView {
      *
      * @param {Event} e
      */
+    #hoverReveal (fct = this) {
+        const target = e.target;
+        const section = target.closest('section');
+    }
     #hideDropDownMenus () {
         this._dropdownNavs.forEach((dropdown) =>{
-            if(dropdown.classList.contains('show')) dropdown.classList.remove('show')
+            if(dropdown.classList.contains('show')) removeClass(dropdown, 'show')
         })
     }
     #toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
         const isAlreadyShown = colapseSection.classList.contains('show');
-        this._multiCollapse.forEach(section => section.classList.remove('show'));
+        this._multiCollapse.forEach(section => removeClass(section,  'show'));
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
     #hideSection(e) {
@@ -47,7 +52,7 @@ class PopupView {
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
-        this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
+        this._multiCollapse.forEach(el => !multi && !button ? removeClass(el,'show') : '');
     }
     /**
      * Handles the toggling of accordion sections in the popout view.
@@ -144,7 +149,7 @@ class PopupView {
         this._mobileDropdownMenu.classList.toggle('show');
     }
     #hideMobileNav() {
-        if(this._mobileDropdownMenu.classList.contains('show')) this._mobileDropdownMenu.classList.remove('show');
+        if(this._mobileDropdownMenu.classList.contains('show')) removeClass(this._mobileDropdownMenu, 'show');
     }
     #addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
@@ -196,7 +201,7 @@ class PopupView {
      */
     #unshowModal() {
         this._modal.style.display = 'none';
-        this._modal.classList.remove('show');
+        removeClass(this._modal,'show');
         this._body.style.overflow = 'auto';
         this._modal.innerHTML = '';
     }
