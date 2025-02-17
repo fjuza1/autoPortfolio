@@ -49,13 +49,14 @@ export const EMAIL_FAILURE_MESSAGE = 'The email was not sent! Please try again o
 export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
 export const MIN_YEAR = 2021
-export const MAX_YEAR = 2024;
+export const MAX_YEAR = 2025;
 export const TIMELINE_LAYOUT_SETTINGS = {
     height: '65dvh',
     orientation: 'top',
     align: 'start',
     margin: {item:{horizontal:30,vertical:50},axis:20},
     autoResize: false,
+    showCurrentTime: false,
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
     stack: true,
