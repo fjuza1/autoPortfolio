@@ -92,7 +92,26 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3]
-    }],
+    },
+    {
+        name: 'PowerApps',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0]
+    },
+    {
+        name: 'PowerAutomate',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[3]
+    },
+    {
+        name: 'SharePoint',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0]
+    }
+],
     journey:[
         {year:'2021', content:'Started working as QA Tester.'},
         {year:'2021', content:'Started learning to read UML diagrams.'},
@@ -107,7 +126,9 @@ export const state = {
         {year:'2022', content:'Started automating BE test in Postman.'},
         {year:'2023', content:'Ended Udemy online course in JavaScript.'},
         {year:'2024', content:'Learned automating E2E tests using Cypress.'},
-        {year:'2024', content:'Started using Cypress for automating E2E tests.'}
+        {year:'2024', content:'Started using Cypress for automating E2E tests.'},
+        {year:'2025', content:'Started studying for ISTQB Foundation Level 4.0 certification.'},
+        {year:'2025', content:'Gained ISTQB Foundation Level 4.0 certification on 14.2.2025.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
@@ -172,6 +193,12 @@ export const state = {
             types: [DEV_TYPE, FE_TYPE],
             url: URL_PORTFOLIO_DEMO,
             imgPath: IMG_PORTFOLIO_DEMO
+        },
+        {
+            name: PROJECT_NAME[8],
+            levelNumber: PROJECT_ORDER_NUM[8],
+            description: PROJECT_DESCRIPTOR[8],
+            types: [DEV_TYPE],
         }
     ],
     projectDemos: ''
