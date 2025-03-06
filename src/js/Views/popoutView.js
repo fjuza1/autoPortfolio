@@ -24,17 +24,21 @@ class PopupView {
         this.#addHandleCloseModal();
         this.#addHandleAccordion();
         this.#handleTogglingMenu();
-        this.#addHandlerShowMobileNav()
+        this.#addHandlerShowMobileNav();
+        this.#addHandlerRevealHover();
     }
     /**
      * Description placeholder
      *
      * @param {Event} e
      */
-    #hoverReveal (fct = this) {
+    #hoverReveal (e) {
         const target = e.target;
-        const section = target.closest('section');
+        console.log(target.closest('.bi.bi-info-circle-fill')?? '')
     }
+    #addHandlerRevealHover(){
+        document.getElementById('Home').addEventListener('mouseover', this.#hoverReveal.bind(this))
+    };
     #hideDropDownMenus () {
         this._dropdownNavs.forEach((dropdown) =>{
             if(dropdown.classList.contains('show')) removeClass(dropdown, 'show')
