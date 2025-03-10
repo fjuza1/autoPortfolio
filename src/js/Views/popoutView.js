@@ -17,6 +17,7 @@ class PopupView {
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
+    _infoNav = document.querySelector("[data-info='infoNav']");
     constructor() {
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();
@@ -32,12 +33,17 @@ class PopupView {
      *
      * @param {Event} e
      */
-    #hoverReveal (e) {
+    #hoverRevealInfo (e) {
         const target = e.target;
-        console.log(target.closest('.bi.bi-info-circle-fill')?? '')
+        const infoNavI = target.closest('.bi.bi-info-circle-fill');
+		const infoNav = infoNavI?.dataset.info;
+        if(!infoNav) return;
+        const infoCard = document.getElementById(infoNav);
+        infoCard.classList.toggle('d-none');
     }
     #addHandlerRevealHover(){
-        document.getElementById('Home').addEventListener('mouseover', this.#hoverReveal.bind(this))
+        this._infoNav.addEventListener('mouseover', this.#hoverRevealInfo.bind(this));
+        this._infoNav.addEventListener('mouseout', this.#hoverRevealInfo.bind(this));
     };
     #hideDropDownMenus () {
         this._dropdownNavs.forEach((dropdown) =>{
