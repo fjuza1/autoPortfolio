@@ -9,10 +9,10 @@ import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify} f
 export const isXML = async (xml) => {
     return new Promise((resolve) => {
         xml2js.parseString(xml, (err, result) => {
-            if (err) {
-                resolve(false);
+            if (err || !result) reject(false)
+                else {
+                resolve(true);
             }
-            resolve(true);
         });
     });
 }
