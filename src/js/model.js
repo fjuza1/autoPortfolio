@@ -199,6 +199,7 @@ export const state = {
             levelNumber: PROJECT_ORDER_NUM[8],
             description: PROJECT_DESCRIPTOR[8],
             types: [DEV_TYPE],
+            imgPath: ''
         }
     ],
     projectDemos: ''
