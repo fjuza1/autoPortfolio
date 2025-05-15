@@ -13,6 +13,7 @@ class Design extends View {
 	_goupBtn = document.querySelector('[data-btn="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
+    _html = document.querySelector('html');
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -133,6 +134,11 @@ class Design extends View {
      }
      gotoSegment(domElement, this._nav);
  }
+ _updateTheme() {
+    const colorMode = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    this._html.setAttribute("data-bs-theme", colorMode);
+
+ };
 	addHandleClickIntoSection(){
 		[this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn=>btn.addEventListener('click',this.scrollIntoSection.bind(this)))
 		document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));
