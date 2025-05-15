@@ -46,7 +46,6 @@ const loadAndRenderContent = () => {
 	slidesView._initializeElement();
 	slidesView.handleSlides();
 	controllJourney();
-	designView._updateTheme();
 }
 
 // pagination basic
@@ -143,7 +142,8 @@ const controllContacting = () =>{
 const init = () => {
 	controllNavBar();
 	controlSections();
-	designView.addHandleClickIntoSection()
+	designView.addHandleClickIntoSection();
+	designView.addHandleClickTheme();
 	skillsView.addHandlerLoad(loadAndRenderContent)
 	designView.addHandlerLoad(designView.scrollIntoSection)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
