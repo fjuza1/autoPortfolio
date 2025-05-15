@@ -13,6 +13,8 @@ class Design extends View {
 	_goupBtn = document.querySelector('[data-btn="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
+    _html = document.querySelector('html');
+    _themeToggle = document.getElementById('theme-mode');
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -133,10 +135,22 @@ class Design extends View {
      }
      gotoSegment(domElement, this._nav);
  }
-	addHandleClickIntoSection(){
-		[this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn=>btn.addEventListener('click',this.scrollIntoSection.bind(this)))
-		document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));
-	}
+_updateTheme() {
+    const currentTheme = this._html.getAttribute("data-bs-theme");
+    const newTheme = currentTheme === "dark" ? "light" : "dark";
+    this._html.setAttribute("data-bs-theme", newTheme);
+    this._themeToggle.children[0].classList.toggle("-fill");
+}
+
+addHandleClickIntoSection() {
+    [this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn => btn.addEventListener('click', this.scrollIntoSection.bind(this)));
+    document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));
+}
+
+addHandleClickTheme() {
+    this._themeToggle.addEventListener('click', this._updateTheme.bind(this));
+    //window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this._updateTheme.bind(this));
+}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
 			root: null,

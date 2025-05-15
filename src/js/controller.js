@@ -22,6 +22,19 @@ const controllNavBar = () => {
 const controlSections = () => {
 	designView.addRevealSectionObserver()
 }
+/**
+ * Loads and renders the main content of the application.
+ * 
+ * This function performs the following actions:
+ * 1. Displays a loading spinner for the skills section.
+ * 2. Handles pagination for the skills data and renders the skill bars.
+ * 3. Renders the projects section with slides and initializes slide functionality.
+ * 4. Controls the journey section.
+ * 5. Updates the application's theme.
+ *
+ * @function
+ * @returns {void}
+ */
 const loadAndRenderContent = () => {
 	skillsView._renderSpinner();
 	// handle generation
@@ -129,7 +142,8 @@ const controllContacting = () =>{
 const init = () => {
 	controllNavBar();
 	controlSections();
-	designView.addHandleClickIntoSection()
+	designView.addHandleClickIntoSection();
+	designView.addHandleClickTheme();
 	skillsView.addHandlerLoad(loadAndRenderContent)
 	designView.addHandlerLoad(designView.scrollIntoSection)
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
