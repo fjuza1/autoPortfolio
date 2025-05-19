@@ -331,6 +331,10 @@ export const filterSkills = function(options) {
 
     return filteredData;
 }
+export const filterTools = function() {
+    const allTools = state.skills.filter(el => el.category === CATEGORIES[0]);
+    return allTools.sort((a, b) => a.name.localeCompare(b.name));
+}
 /**
  * Sorts the skills based on the provided options.
  *
