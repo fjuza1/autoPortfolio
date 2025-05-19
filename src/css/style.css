@@ -116,3 +116,11 @@ section {
 .bi-info-circle-fill{
   cursor: pointer;
 }
+[data-bs-theme="dark"] section button.btn {
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
+}
+[data-bs-theme="dark"] section{
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
+}
