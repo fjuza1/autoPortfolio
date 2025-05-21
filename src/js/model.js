@@ -1,6 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -17,7 +17,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: POSTMAN
     }, {
         name: 'JavaScript',
         level: EXPERT_LEVEL[4],
@@ -47,18 +47,19 @@ export const state = {
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: CYPRESS_lOGO
     }, {
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: SOAPUI
     }, {
         name: 'Azure DevOps Server',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+         imgPath: AZURE_lOGO
     }, {
         name: 'TFS',
         level: EXPERT_LEVEL[3],
@@ -70,13 +71,13 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: MS_VISUAL_LOGO
     }, {
         name: 'Microsoft SQL Servers Studio',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: MSSQL_IDE_LOGO
     }, {
         name: 'UML - Unified Modeling Language',
         level: EXPERT_LEVEL[2],
@@ -100,7 +101,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: ECLIPSE_IDE_LOGO
     }, {
         name: 'CI/CD pipeline',
         level: EXPERT_LEVEL[1],
@@ -338,6 +339,7 @@ export const toFile = async (options) => {
  * @param {Object} options
  * @returns {Array<Object>}
  */
+//Filtering fctions
 export const filterSkills = function(options) {
     let value;
     const {array, keys, values} = options;
@@ -349,11 +351,20 @@ export const filterSkills = function(options) {
 
     return filteredData;
 }
-export const filterTools = function() {
-    const allTools = state.skills.filter(el => el.category === CATEGORIES[0]);
+export const filterTools = function(excludeOptions = {}) {
+    const {name,values} = excludeOptions;
+    if(name && typeof name !== 'boolean') throw new Error('Invalid parameter type. Expected boolean.');
+    if(values && !Array.isArray(values)) throw new Error('Invalid parameter type. Expected array.')
+    const allTools = state.skills.filter(el => {
+        let excluded
+        if (name && values && values.length > 0) {
+            return el.category === CATEGORIES[0] && !values.some(value => el.name === value);
+        }
+        return el.category === CATEGORIES[0]
+    });
     return allTools.sort((a, b) => a.name.localeCompare(b.name));
 }
-console.log(filterTools());
+//console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
  * Sorts the skills based on the provided options.
  *
