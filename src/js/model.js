@@ -16,37 +16,44 @@ export const state = {
         name: 'Postman',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'JavaScript',
         level: EXPERT_LEVEL[4],
         levelNumber: EXPERT_NUM[4],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: ''
     }, {
         name: 'HTML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: ''
     }, {
         name: 'XML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: ''
     }, {
         name: 'SQL',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: ''
     }, {
         name: 'Cypress',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'Azure DevOps Server',
         level: EXPERT_LEVEL[3],
@@ -56,60 +63,71 @@ export const state = {
         name: 'TFS',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'Microsoft Visual Studio Code',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'Microsoft SQL Servers Studio',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'UML - Unified Modeling Language',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: ''
     }, {
         name: 'Enterprise Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'Select Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'Eclipse IDE for Java Developers',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }, {
         name: 'CI/CD pipeline',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[3]
+        category: CATEGORIES[3],
+        imgPath: ''
     },
     {
         name: 'PowerApps',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     },
     {
         name: 'PowerAutomate',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[3]
+        category: CATEGORIES[3],
+        imgPath: ''
     },
     {
         name: 'SharePoint',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ''
     }
 ],
     journey:[
@@ -335,6 +353,7 @@ export const filterTools = function() {
     const allTools = state.skills.filter(el => el.category === CATEGORIES[0]);
     return allTools.sort((a, b) => a.name.localeCompare(b.name));
 }
+console.log(filterTools());
 /**
  * Sorts the skills based on the provided options.
  *
