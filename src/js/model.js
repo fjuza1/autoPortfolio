@@ -351,6 +351,16 @@ export const filterSkills = function(options) {
 
     return filteredData;
 }
+/**
+ * Filters and sorts tools from the state based on the provided exclusion options.
+ *
+ * @param {Object} [excludeOptions={}] - Options to exclude certain tools.
+ * @param {boolean} [excludeOptions.name] - Whether to exclude tools by name.
+ * @param {string[]} [excludeOptions.values] - Array of tool names to exclude.
+ * @returns {Object[]} Sorted array of filtered tools.
+ * @throws {Error} If `name` is provided and is not a boolean.
+ * @throws {Error} If `values` is provided and is not an array.
+ */
 export const filterTools = function(excludeOptions = {}) {
     const {name,values} = excludeOptions;
     if(name && typeof name !== 'boolean') throw new Error('Invalid parameter type. Expected boolean.');
