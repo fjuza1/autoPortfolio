@@ -23,25 +23,25 @@ export const state = {
         level: EXPERT_LEVEL[4],
         levelNumber: EXPERT_NUM[4],
         category: CATEGORIES[2],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'HTML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'XML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'SQL',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'Cypress',
         level: EXPERT_LEVEL[2],
@@ -65,7 +65,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'Microsoft Visual Studio Code',
         level: EXPERT_LEVEL[3],
@@ -83,19 +83,19 @@ export const state = {
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[2],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'Enterprise Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'Select Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: null
     }, {
         name: 'Eclipse IDE for Java Developers',
         level: EXPERT_LEVEL[3],
@@ -107,28 +107,28 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3],
-        imgPath: ''
+        imgPath: null
     },
     {
         name: 'PowerApps',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: null
     },
     {
         name: 'PowerAutomate',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3],
-        imgPath: ''
+        imgPath: null
     },
     {
         name: 'SharePoint',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: ''
+        imgPath: null
     }
 ],
     journey:[
@@ -154,48 +154,48 @@ export const state = {
             levelNumber: PROJECT_ORDER_NUM[0],
             description: PROJECT_DESCRIPTOR[0],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: null
         },
         {
             name: PROJECT_NAME[1],
             levelNumber: PROJECT_ORDER_NUM[1],
             description: PROJECT_DESCRIPTOR[1],
             types: [MN_TYPE, BE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: null
         },
         {
             name: PROJECT_NAME[2],
             levelNumber: PROJECT_ORDER_NUM[2],
             description: PROJECT_DESCRIPTOR[2],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: null
         },
         {
             name: PROJECT_NAME[3],
             levelNumber: PROJECT_ORDER_NUM[3],
             description: PROJECT_DESCRIPTOR[3],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: null
         },
         {
             name: PROJECT_NAME[4],
             levelNumber: PROJECT_ORDER_NUM[4],
             description: PROJECT_DESCRIPTOR[4],
             types: [MN_TYPE, BE_TYPE, FE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: null
         },
         {
             name: PROJECT_NAME[5],
             levelNumber: PROJECT_ORDER_NUM[5],
             description: PROJECT_DESCRIPTOR[5],
             types: [MN_TYPE, FE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: null
         },
         {
             name: PROJECT_NAME[7],
@@ -218,10 +218,10 @@ export const state = {
             levelNumber: PROJECT_ORDER_NUM[8],
             description: PROJECT_DESCRIPTOR[8],
             types: [DEV_TYPE],
-            imgPath: ''
+            imgPath: null
         }
     ],
-    projectDemos: ''
+    projectDemos: null
 }
 /**
  * Saves states of gfile generation
@@ -409,7 +409,7 @@ export const sortingSkills = function(options) {
  */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
-        if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+        if (cur.imgPath && cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
             acc[acc.length] = cur
         return acc;
     }, [])

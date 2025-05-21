@@ -13,6 +13,8 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
+import toolboxView from './Views/toolboxView.js';
+console.log("TCL: toolboxView", toolboxView)
 performanceView._perfObserver()
 // design part
 const controllNavBar = () => {
