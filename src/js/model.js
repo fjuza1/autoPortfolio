@@ -366,7 +366,6 @@ export const filterTools = function(excludeOptions = {}) {
     if(name && typeof name !== 'boolean') throw new Error('Invalid parameter type. Expected boolean.');
     if(values && !Array.isArray(values)) throw new Error('Invalid parameter type. Expected array.')
     const allTools = state.skills.filter(el => {
-        let excluded
         if (name && values && values.length > 0) {
             return el.category === CATEGORIES[0] && !values.some(value => el.name === value);
         }
