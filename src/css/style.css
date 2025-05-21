@@ -11,7 +11,7 @@ footer {
   margin-top: 20px; 
 }
 
-#About, #Skills, #Projects, #Contact, #Journey {
+#About, #Skills, #Projects, #Contact, #Journey, #MyQAtoolbox {
   background-attachment: fixed;
   min-height: 100vh;
   display: flex;
