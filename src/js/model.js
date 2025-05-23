@@ -53,7 +53,7 @@ export const state = {
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[0],
         imgPath: CYPRESS_lOGO,
-        description: 'Cypress is a JavaScript-based end-to-end testing framework that allows developers to write and run tests for web applications. It provides a fast and reliable way to test the functionality of web applications by simulating user interactions and verifying expected behavior.'
+        description: 'Cypress is a popular end-to-end testing framework for modern web applications.'
     }, {
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],
