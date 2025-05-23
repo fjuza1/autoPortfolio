@@ -17,118 +17,137 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: POSTMAN
+        imgPath: POSTMAN,
+        description: 'Postman is a popular API testing tool that allows developers to send requests to APIs and receive responses. It provides a user-friendly interface for creating and managing API requests, making it easier to test and debug APIs during development.'
     }, {
         name: 'JavaScript',
         level: EXPERT_LEVEL[4],
         levelNumber: EXPERT_NUM[4],
         category: CATEGORIES[2],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'HTML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'XML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'SQL',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'Cypress',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[0],
-        imgPath: CYPRESS_lOGO
+        imgPath: CYPRESS_lOGO,
+        description: 'Cypress is a JavaScript-based end-to-end testing framework that allows developers to write and run tests for web applications. It provides a fast and reliable way to test the functionality of web applications by simulating user interactions and verifying expected behavior.'
     }, {
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: SOAPUI
+        imgPath: SOAPUI,
+        description: 'SoapUI is an open-source API testing tool that allows developers to test SOAP and RESTful web services. It provides a user-friendly interface for creating and executing test cases, making it easier to validate the functionality and performance of APIs.'
     }, {
         name: 'Azure DevOps Server',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-         imgPath: AZURE_lOGO
+        imgPath: AZURE_lOGO,
+        description: 'Azure DevOps Server is a set of development tools and services provided by Microsoft for software development teams. It includes features for version control, project management, continuous integration, and deployment, making it easier to collaborate and deliver software projects.'
     }, {
         name: 'TFS',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: null
+        imgPath: null,
+        description: 'TFS (Team Foundation Server) is a Microsoft product that provides source control, bug control, project management, and build automation for software development teams. It helps teams collaborate on code development and manage the entire software development lifecycle.'
     }, {
         name: 'Microsoft Visual Studio Code',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: MS_VISUAL_LOGO
+        imgPath: MS_VISUAL_LOGO,
+        description: 'Microsoft Visual Studio Code is a lightweight and powerful code editor that supports multiple programming languages. It provides features like syntax highlighting, debugging, and extensions, making it a popular choice for developers.'
     }, {
         name: 'Microsoft SQL Servers Studio',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[0],
-        imgPath: MSSQL_IDE_LOGO
+        imgPath: MSSQL_IDE_LOGO,
+        description: 'Microsoft SQL Servers Studio is a powerful tool for managing and developing SQL Server databases. It provides features like query execution, database management, and object modeling, making it a popular choice for developers.'
     }, {
         name: 'UML - Unified Modeling Language',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[2],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'Enterprise Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'Select Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: null
+        imgPath: null,
+        description:null
     }, {
         name: 'Eclipse IDE for Java Developers',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: ECLIPSE_IDE_LOGO
+        imgPath: ECLIPSE_IDE_LOGO,
+        description: 'Eclipse IDE for Java Developers is a popular open-source Java IDE that supports Java development. It provides features like syntax highlighting, debugging, and code completion, making it a popular choice for developers.'
     }, {
         name: 'CI/CD pipeline',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3],
-        imgPath: null
+        imgPath: null,
+        description:null
     },
     {
         name: 'PowerApps',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: null
+        imgPath: null,
+        description:null
     },
     {
         name: 'PowerAutomate',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3],
-        imgPath: null
+        imgPath: null,
+        description:null
     },
     {
         name: 'SharePoint',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: null
+        imgPath: null,
+        description:null
     }
 ],
     journey:[
