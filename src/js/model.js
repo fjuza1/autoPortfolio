@@ -1,6 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS,BLANKPIC
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -16,100 +16,138 @@ export const state = {
         name: 'Postman',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: POSTMAN,
+        description: 'Postman is a popular API testing tool that allows developers to send requests to APIs and receive responses. It provides a user-friendly interface for creating and managing API requests, making it easier to test and debug APIs during development.'
     }, {
         name: 'JavaScript',
         level: EXPERT_LEVEL[4],
         levelNumber: EXPERT_NUM[4],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: BLANKPIC,
+        description:null
     }, {
         name: 'HTML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: BLANKPIC,
+        description:null
     }, {
         name: 'XML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: BLANKPIC,
+        description:null
     }, {
         name: 'SQL',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: BLANKPIC,
+        description:null
     }, {
         name: 'Cypress',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: CYPRESS_lOGO,
+        description: 'Cypress is a popular end-to-end testing framework for modern web applications.'
     }, {
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: SOAPUI,
+        description: 'SoapUI is an open-source API testing tool that allows developers to test SOAP and RESTful web services. It provides a user-friendly interface for creating and executing test cases, making it easier to validate the functionality and performance of APIs.'
     }, {
         name: 'Azure DevOps Server',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: AZURE_lOGO,
+        description: 'Azure DevOps Server is a set of development tools and services provided by Microsoft for software development teams. It includes features for version control, project management, continuous integration, and deployment, making it easier to collaborate and deliver software projects.'
     }, {
         name: 'TFS',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: BLANKPIC,
+        description: 'TFS (Team Foundation Server) is a Microsoft product that provides source control, bug control, project management, and build automation for software development teams. It helps teams collaborate on code development and manage the entire software development lifecycle.'
     }, {
         name: 'Microsoft Visual Studio Code',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: MS_VISUAL_LOGO,
+        description: 'Microsoft Visual Studio Code is a lightweight and powerful code editor that supports multiple programming languages. It provides features like syntax highlighting, debugging, and extensions, making it a popular choice for developers.'
     }, {
         name: 'Microsoft SQL Servers Studio',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: MSSQL_IDE_LOGO,
+        description: 'Microsoft SQL Servers Studio is a powerful tool for managing and developing SQL Server databases. It provides features like query execution, database management, and object modeling, making it a popular choice for developers.'
     }, {
         name: 'UML - Unified Modeling Language',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[2]
+        category: CATEGORIES[2],
+        imgPath: BLANKPIC,
+        description:null
     }, {
         name: 'Enterprise Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: BLANKPIC,
+        description:"Enterprise Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
     }, {
         name: 'Select Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: BLANKPIC,
+        description:"Select Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
     }, {
         name: 'Eclipse IDE for Java Developers',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: ECLIPSE_IDE_LOGO,
+        description: 'Eclipse IDE for Java Developers is a popular open-source Java IDE that supports Java development. It provides features like syntax highlighting, debugging, and code completion, making it a popular choice for developers.'
     }, {
         name: 'CI/CD pipeline',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[3]
+        category: CATEGORIES[3],
+        imgPath: BLANKPIC,
+        description:null
     },
     {
         name: 'PowerApps',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: BLANKPIC,
+        description:null
     },
     {
         name: 'PowerAutomate',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[3]
+        category: CATEGORIES[3],
+        imgPath: BLANKPIC,
+        description:null
     },
     {
         name: 'SharePoint',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: BLANKPIC,
+        description:null
     }
 ],
     journey:[
@@ -135,48 +173,48 @@ export const state = {
             levelNumber: PROJECT_ORDER_NUM[0],
             description: PROJECT_DESCRIPTOR[0],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[1],
             levelNumber: PROJECT_ORDER_NUM[1],
             description: PROJECT_DESCRIPTOR[1],
             types: [MN_TYPE, BE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[2],
             levelNumber: PROJECT_ORDER_NUM[2],
             description: PROJECT_DESCRIPTOR[2],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[3],
             levelNumber: PROJECT_ORDER_NUM[3],
             description: PROJECT_DESCRIPTOR[3],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[4],
             levelNumber: PROJECT_ORDER_NUM[4],
             description: PROJECT_DESCRIPTOR[4],
             types: [MN_TYPE, BE_TYPE, FE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[5],
             levelNumber: PROJECT_ORDER_NUM[5],
             description: PROJECT_DESCRIPTOR[5],
             types: [MN_TYPE, FE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[7],
@@ -199,10 +237,10 @@ export const state = {
             levelNumber: PROJECT_ORDER_NUM[8],
             description: PROJECT_DESCRIPTOR[8],
             types: [DEV_TYPE],
-            imgPath: ''
+            imgPath: BLANKPIC
         }
     ],
-    projectDemos: ''
+    projectDemos: null
 }
 /**
  * Saves states of gfile generation
@@ -320,6 +358,7 @@ export const toFile = async (options) => {
  * @param {Object} options
  * @returns {Array<Object>}
  */
+//Filtering fctions
 export const filterSkills = function(options) {
     let value;
     const {array, keys, values} = options;
@@ -331,10 +370,29 @@ export const filterSkills = function(options) {
 
     return filteredData;
 }
-export const filterTools = function() {
-    const allTools = state.skills.filter(el => el.category === CATEGORIES[0]);
+/**
+ * Filters and sorts tools from the state based on the provided exclusion options.
+ *
+ * @param {Object} [excludeOptions={}] - Options to exclude certain tools.
+ * @param {boolean} [excludeOptions.name] - Whether to exclude tools by name.
+ * @param {string[]} [excludeOptions.values] - Array of tool names to exclude.
+ * @returns {Object[]} Sorted array of filtered tools.
+ * @throws {Error} If `name` is provided and is not a boolean.
+ * @throws {Error} If `values` is provided and is not an array.
+ */
+export const filterTools = function(excludeOptions = {}) {
+    const {name,values} = excludeOptions;
+    if(name && typeof name !== 'boolean') throw new Error('Invalid parameter type. Expected boolean.');
+    if(values && !Array.isArray(values)) throw new Error('Invalid parameter type. Expected array.')
+    const allTools = state.skills.filter(el => {
+        if (name && values && values.length > 0) {
+            return el.category === CATEGORIES[0] && !values.some(value => el.name === value);
+        }
+        return el.category === CATEGORIES[0]
+    });
     return allTools.sort((a, b) => a.name.localeCompare(b.name));
 }
+//console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
  * Sorts the skills based on the provided options.
  *
@@ -370,7 +428,7 @@ export const sortingSkills = function(options) {
  */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
-        if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+        if (cur.imgPath && cur.imgPath.trim().length > 0 && (cur.url && cur.url.trim().length > 0))
             acc[acc.length] = cur
         return acc;
     }, [])
