@@ -428,7 +428,7 @@ export const sortingSkills = function(options) {
  */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
-        if (cur.imgPath && cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+        if (cur.imgPath && cur.imgPath.trim().length > 0 && (cur.url && cur.url.trim().length > 0))
             acc[acc.length] = cur
         return acc;
     }, [])
