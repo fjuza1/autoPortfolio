@@ -1,6 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS,BLANKPIC
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -24,28 +24,28 @@ export const state = {
         level: EXPERT_LEVEL[4],
         levelNumber: EXPERT_NUM[4],
         category: CATEGORIES[2],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     }, {
         name: 'HTML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     }, {
         name: 'XML',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     }, {
         name: 'SQL',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[2],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     }, {
         name: 'Cypress',
@@ -73,7 +73,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description: 'TFS (Team Foundation Server) is a Microsoft product that provides source control, bug control, project management, and build automation for software development teams. It helps teams collaborate on code development and manage the entire software development lifecycle.'
     }, {
         name: 'Microsoft Visual Studio Code',
@@ -94,22 +94,22 @@ export const state = {
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
         category: CATEGORIES[2],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     }, {
         name: 'Enterprise Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: null,
-        description:null
+        imgPath: BLANKPIC,
+        description:"Enterprise Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
     }, {
         name: 'Select Architect',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: null,
-        description:null
+        imgPath: BLANKPIC,
+        description:"Select Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
     }, {
         name: 'Eclipse IDE for Java Developers',
         level: EXPERT_LEVEL[3],
@@ -122,7 +122,7 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     },
     {
@@ -130,7 +130,7 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     },
     {
@@ -138,7 +138,7 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[3],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     },
     {
@@ -146,7 +146,7 @@ export const state = {
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
         category: CATEGORIES[0],
-        imgPath: null,
+        imgPath: BLANKPIC,
         description:null
     }
 ],
@@ -174,7 +174,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[0],
             types: [MN_TYPE],
             url: null,
-            imgPath: null
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[1],
@@ -182,7 +182,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[1],
             types: [MN_TYPE, BE_TYPE],
             url: null,
-            imgPath: null
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[2],
@@ -190,7 +190,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[2],
             types: [MN_TYPE],
             url: null,
-            imgPath: null
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[3],
@@ -198,7 +198,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[3],
             types: [MN_TYPE],
             url: null,
-            imgPath: null
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[4],
@@ -206,7 +206,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[4],
             types: [MN_TYPE, BE_TYPE, FE_TYPE],
             url: null,
-            imgPath: null
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[5],
@@ -214,7 +214,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[5],
             types: [MN_TYPE, FE_TYPE],
             url: null,
-            imgPath: null
+            imgPath: BLANKPIC
         },
         {
             name: PROJECT_NAME[7],
@@ -237,7 +237,7 @@ export const state = {
             levelNumber: PROJECT_ORDER_NUM[8],
             description: PROJECT_DESCRIPTOR[8],
             types: [DEV_TYPE],
-            imgPath: null
+            imgPath: BLANKPIC
         }
     ],
     projectDemos: null

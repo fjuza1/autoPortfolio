@@ -51,6 +51,7 @@ export const MSSQL_IDE_LOGO = new URL('../img/Microsoft SQL Server.png', import.
 export const MS_VISUAL_LOGO = new URL('../img/Microsoft Visual Studio.png', import.meta.url).toString();
 export const POSTMAN = new URL('../img/Postman API Platform.png', import.meta.url).toString();
 export const SOAPUI = new URL('../img/Smartbear Horizontal.png', import.meta.url).toString();
+export const BLANKPIC = new URL('../img/Blank pic.svg', import.meta.url).toString();
 export const NONQATOOLS = ['PowerApps','SharePoint','Eclipse IDE for Java Developers'];
 export const ME_NAME = 'Filip Jůza'
 export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
