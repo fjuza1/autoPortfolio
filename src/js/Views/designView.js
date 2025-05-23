@@ -132,7 +132,9 @@ class Design extends View {
      const sectionNav = target.dataset;
      if(!sectionNav) return
      const section = sectionNav.navlink
+     console.log("TCL: Design -> scrollIntoSection -> section", section)
      const domElement = document.getElementById(section);
+     console.log("TCL: Design -> scrollIntoSection -> domElement", domElement)
      if(!domElement) return;
      if (domElement.classList.contains(SECTION_HIDDEN_CLASS)) {
          removeClass(domElement, SECTION_HIDDEN_CLASS);
