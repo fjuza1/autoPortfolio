@@ -2,6 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
+import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
@@ -15,6 +16,8 @@ import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
 import toolboxView from './Views/toolboxView.js';
 //console.log("TCL: toolboxView", toolboxView)
+// filterTools({name: true, values: NONQATOOLS})
+// _generateQAToolboxMarkup
 performanceView._perfObserver()
 // design part
 const controllNavBar = () => {
@@ -48,6 +51,7 @@ const loadAndRenderContent = () => {
 	slidesView._initializeElement();
 	slidesView.handleSlides();
 	controllJourney();
+	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.filterTools({name: true, values: NONQATOOLS})))
 }
 
 // pagination basic
