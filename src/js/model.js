@@ -263,6 +263,22 @@ export const state = {
             date_obtained: '2021-08-24',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-a7110719-34e3-4b36-b258-1910e596fc95.pdf',
             length: '4 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'ISTQB Foundation Level preparation course+1000quiz examples',
+            instructor: ' Mark Shrike, Victoria N',
+            date_obtained: '2024-10-19',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
+            length: '14.5 hours'
+        },
+        {
+            platform: 'ISTQB',
+            title: 'ISTQB Foundation Level 4.0',
+            instructor: 'ISTQB - CASQB',
+            date_obtained: '2025-02-14',
+            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
+            length: '1 hour 15 minutes'
         }
     ]
 }
