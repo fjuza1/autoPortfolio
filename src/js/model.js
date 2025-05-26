@@ -240,7 +240,31 @@ export const state = {
             imgPath: BLANKPIC
         }
     ],
-    projectDemos: null
+    certifications: [{
+            platform: 'Udemy',
+            title: 'The Complete JavaScript Course 2024: From Zero to Expert!',
+            instructor: 'Jonas Schmedtmann',
+            date_obtained: '2024-04-24',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-bcd5477c-43d2-43fd-83b8-6503badfde16.pdf',
+            length: '68.5 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'POSTMAN API Testing - Step - by Step for Beginners',
+            instructor: 'Raghav Pal',
+            date_obtained: '2022-01-20',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-c4445c82-aee0-4c01-a6b9-f8fe28b90ea7.pdf',
+            length: '2.5 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'Microsoft SQL for Beginners',
+            instructor: 'Brewster Knowlton',
+            date_obtained: '2021-08-24',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-a7110719-34e3-4b36-b258-1910e596fc95.pdf',
+            length: '4 hours'
+        }
+    ]
 }
 /**
  * Saves states of gfile generation
