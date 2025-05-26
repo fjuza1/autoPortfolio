@@ -4,6 +4,7 @@ import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
 import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
+//console.log("TCL: model", model.state)
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';

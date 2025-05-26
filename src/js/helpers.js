@@ -1,5 +1,5 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify} from './lib.js';
+import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify, moment} from './lib.js';
 /**
  * Checks if is xml text
  *
@@ -80,6 +80,9 @@ export const timeoutAPI = () => {
         }, API_TIMEOUT_SEC * 1000);
     });
 };
+
+// hash manip
+
 /**
  * Changes the URL hash to the lowercase ID of the given element.
  *
@@ -142,6 +145,7 @@ export const filterByKeys = (array, keys, values) => array.filter(item => keys.e
  * @param {string} xml - The XML string to be sanitized.
  * @returns {string} - The sanitized XML string.
  */
+// sanitising
 export const sanitizeXml = (xml) => xmlSanitizer(xml);
 /**
  * Escapes HTML special characters in a string to their corresponding HTML entities.
@@ -149,6 +153,15 @@ export const sanitizeXml = (xml) => xmlSanitizer(xml);
  * @param {string} str - The string to escape.
  * @returns {string} The escaped string with HTML entities.
  */
+/**
+ * Sanitizes the given HTML string to prevent XSS attacks.
+ *
+ * @param {string} html - The HTML string to sanitize.
+ * @returns {string} - The sanitized HTML string.
+ */
+export const sanitizeHtml = (html = escapeHTML(html)) => DOMPurify.sanitize(html);
+
+// To files fctions
 export const toXml = (array) => {
     const obj = {
         root: {
@@ -161,13 +174,6 @@ export const toXml = (array) => {
     const xml = builder.buildObject(obj);
     return sanitizeXml(xml)
 }
-/**
- * Sanitizes the given HTML string to prevent XSS attacks.
- *
- * @param {string} html - The HTML string to sanitize.
- * @returns {string} - The sanitized HTML string.
- */
-export const sanitizeHtml = (html = escapeHTML(html)) => DOMPurify.sanitize(html);
 /**
  * Converts an array of objects into a CSV string using the PapaParse library.
  *

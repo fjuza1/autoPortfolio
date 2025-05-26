@@ -5,4 +5,5 @@ import {Timeline} from 'vis-timeline/standalone';
 import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import xmlSanitizer from "xml-sanitizer";
 import DOMPurify from 'dompurify';
-export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline, xmlSanitizer, DOMPurify};
+import moment from 'moment';
+export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline, xmlSanitizer, DOMPurify, moment};
