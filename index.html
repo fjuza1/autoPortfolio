@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" viewport-fit="cover">
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' ;connect-src 'self' https://api.emailjs.com ;'unsafe-inline'; style-src 'self' 'unsafe-inline'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data:;">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.emailjs.com; style-src 'self' 'unsafe-inline'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data:;">
     <meta name="robots" content="index, follow">
     <title>QA Automation Portfolio - Filip Juza</title>
     <link rel="stylesheet" href="./src/css/style.css">
@@ -387,11 +387,14 @@
           <path fill-rule="evenodd" d="M8 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L7.5 2.707V14.5a.5.5 0 0 0 .5.5"></path>
         </svg>
       </button>
-      <button type="button" id ="theme-mode"; class="btn btn-link position-fixed top-0 end-0 mt-5 me-2">
+      <button type="button" class="btn btn-link position-fixed top-0 end-0 mt-5 me-2" tabindex="0" data-toggle="tooltip" title="Filter &amp; Sort" data-btn="prefs-mode">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sun" viewBox="0 0 16 16">
             <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0m9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708"></path>
           </svg>
         </button>
+        <div class="multi-collapse collapse" id="prefs-mode">
+            <div class="sm-light p-4 border rounded shadow-sm"></div>
+        </div>
     </main>
     <footer class="py-3 my-4">
       <div class="container">
