@@ -1,3 +1,0 @@
-[build.environment]
-  SECRETS_SCAN_OMIT_KEYS = "EMAIL_SERVICE_ID,EMAIL_PUBLIC_KEY,EMAIL_TEMPLATE_ID"
-  SECRETS_SCAN_OMIT_PATHS = ".parcel-cache/, dist/"
