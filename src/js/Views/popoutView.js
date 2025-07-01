@@ -3,7 +3,6 @@ import {removeClass} from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
-    _skills = document.querySelector('#Skills')
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
@@ -18,6 +17,8 @@ class PopupView {
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     _infoNav = document.querySelector("[data-info='infoNav']");
+    _prefBTN = document.getElementById('theme-mode');
+    _prefs = document.querySelector('#Preferences')
     constructor() {
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();
@@ -290,10 +291,10 @@ class PopupView {
     }
     //section evs
     #addHandlerShowSection() {
-        this._skillBtnGroup.addEventListener('click', this.#toggleSection.bind(this));
+        [this._skillBtnGroup,this._prefBTN].forEach(btn=>btn.addEventListener('click', this.#toggleSection.bind(this)));
     }
     #addHandlerHideSection() {
-        this._skills.addEventListener('mouseup', this.#hideSection.bind(this));
+        document.body.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }
 export default new PopupView();
