@@ -124,7 +124,3 @@ section {
   background-color: #121212 !important;
   color: #f0f0f0 !important;
 }
-.alert{
-  transition: all 0.4s ease-in-out;
-  opacity: 1;
-}

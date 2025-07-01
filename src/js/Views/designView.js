@@ -98,7 +98,7 @@ class Design extends View {
                      gotoSegment(contact, this._nav);
                      changeHash(contact);
                      break;
-                case 't' :
+                case 'q' :
                      removeClass(QAToolbox, SECTION_HIDDEN_CLASS);
                      gotoSegment(QAToolbox, this._nav);
                      changeHash(QAToolbox);
