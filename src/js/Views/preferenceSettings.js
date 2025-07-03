@@ -1,7 +1,7 @@
 import View from './View.js';
 class PreferrencesView extends View {
   _parentElement = document.getElementById('Preferences');
-  _renderSettingstModal() {
+  _renderSettingsModal() {
       const modalMarkup = `
         <div class="container-fluid">
                     <strong class="mb-0 mt-5">Page settings</strong>

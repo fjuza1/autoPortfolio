@@ -136,11 +136,10 @@ const controllSkillsExport =  async () => {
 	}
 }
 // project part
-const controllModals = () => {
+const controllProjects = () => {
 	model.getProjectDemos(); 
 	// demo data model.state.projectDemo
 	projectsView._renderProjectModal(model.state.projectDemos);
-	preferrencesView._renderSettingstModal()
 }
 
 //contaction
@@ -160,7 +159,8 @@ const init = () => {
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	popoutView._addHandleOpenModal(controllModals);
+	popoutView._addHandleOpenModal(controllProjects);
+	popoutView._addHandleOpenModal(preferrencesView._renderSettingsModal());
 }
 init()
 // performance optimization

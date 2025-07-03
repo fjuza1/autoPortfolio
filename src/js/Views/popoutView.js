@@ -266,7 +266,7 @@ class PopupView {
      * });
      */
     _addHandleOpenModal(handler) {
-        [this._projectsModalToggle].forEach(btn => {
+        [this._projectsModalToggle, this._prefBTN].forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const dataModal = e.target.closest('button');
                 const modalDataset = dataModal.dataset;
@@ -291,7 +291,7 @@ class PopupView {
     }
     //section evs
     #addHandlerShowSection() {
-        [this._skillBtnGroup,this._prefBTN].forEach(btn=>btn.addEventListener('click', this.#toggleSection.bind(this)));
+        this._skillBtnGroup.addEventListener('click', this.#toggleSection.bind(this));
     }
     #addHandlerHideSection() {
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
