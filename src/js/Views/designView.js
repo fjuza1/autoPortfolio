@@ -155,6 +155,7 @@ addHandleClickIntoSection() {
 }
 
 addHandleClickTheme() {
+    if (!this._themeToggle) return;
     this._themeToggle.addEventListener('click', this._updateTheme.bind(this));
     //window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this._updateTheme.bind(this));
 }

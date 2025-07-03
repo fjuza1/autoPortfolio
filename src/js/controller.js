@@ -15,6 +15,7 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
+import preferrencesView from './Views/preferenceSettings.js';
 import toolboxView from './Views/toolboxView.js';
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
@@ -138,7 +139,8 @@ const controllSkillsExport =  async () => {
 const controllModals = () => {
 	model.getProjectDemos(); 
 	// demo data model.state.projectDemo
-	projectsView._renderProjectModal(model.state.projectDemos)
+	projectsView._renderProjectModal(model.state.projectDemos);
+	preferrencesView._renderSettingstModal()
 }
 
 //contaction
