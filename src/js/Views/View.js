@@ -3,7 +3,6 @@ export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
     }
-    _modal = document.getElementById('modalCenter');
     /**
      * Description placeholder
      *
