@@ -148,6 +148,14 @@ export const state = {
         category: CATEGORIES[0],
         imgPath: BLANKPIC,
         description:null
+    },
+    {
+        name: 'Typescript',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[2],
+        imgPath: BLANKPIC,
+        description:null
     }
 ],
     journey:[
@@ -166,7 +174,8 @@ export const state = {
         {year:'2024', content:'Learned automating E2E tests using Cypress.'},
         {year:'2024', content:'Started using Cypress for automating E2E tests.'},
         {year:'2025', content:'Started studying for ISTQB Foundation Level 4.0 certification.'},
-        {year:'2025', content:'Gained ISTQB Foundation Level 4.0 certification on 14.2.2025.'}
+        {year:'2025', content:'Gained ISTQB Foundation Level 4.0 certification on 14.2.2025.'},
+        {year:'2025', content:'Started learning Typescript in July.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
