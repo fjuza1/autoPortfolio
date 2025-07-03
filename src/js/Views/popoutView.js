@@ -17,7 +17,7 @@ class PopupView {
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     _infoNav = document.querySelector("[data-info='infoNav']");
-    _prefBTN = document.getElementById('theme-mode');
+    _prefBTN = document.getElementById('prefBTN');
     _prefs = document.querySelector('#Preferences')
     constructor() {
         this.#addHandlerHideSection();

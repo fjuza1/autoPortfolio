@@ -135,7 +135,7 @@ const controllSkillsExport =  async () => {
 	}
 }
 // project part
-const controllProjects = () => {
+const controllModals = () => {
 	model.getProjectDemos(); 
 	// demo data model.state.projectDemo
 	projectsView._renderProjectModal(model.state.projectDemos)
@@ -158,7 +158,7 @@ const init = () => {
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	popoutView._addHandleOpenModal(controllProjects);
+	popoutView._addHandleOpenModal(controllModals);
 }
 init()
 // performance optimization

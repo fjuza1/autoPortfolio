@@ -14,7 +14,7 @@ class Design extends View {
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
     _html = document.querySelector('html');
-    _themeToggle = document.getElementById('theme-mode');
+    _themeToggle = document.getElementById('darkModeSwitch');
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -147,7 +147,6 @@ _updateTheme() {
     const currentTheme = this._html.getAttribute("data-bs-theme");
     const newTheme = currentTheme === "dark" ? "light" : "dark";
     this._html.setAttribute("data-bs-theme", newTheme);
-    this._themeToggle.children[0].classList.toggle("-fill");
 }
 
 addHandleClickIntoSection() {
