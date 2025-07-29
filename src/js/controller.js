@@ -16,6 +16,7 @@ import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import performanceView from './Views/performanceView.js';
 import toolboxView from './Views/toolboxView.js';
+import settingsView from './Views/settings.js';
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
 // _generateQAToolboxMarkup
@@ -159,6 +160,7 @@ const init = () => {
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
 	popoutView._addHandleOpenModal(controllModals);
+	settingsView._addHandleSettings()
 }
 init()
 // performance optimization
