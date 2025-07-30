@@ -188,6 +188,15 @@ export default class View {
             handler(this._formData);
         })
     }
+    _addHandlerSubmitChange(handler) {
+        this._form.querySelectorAll('input, textarea, select')
+            .forEach(input => {
+            input.addEventListener('change', (e) => {
+                this._submitEvent(e)
+                handler(this._formData);
+            })
+        })
+    }
     _addHandlerFormReset(handler) {
         this._form.addEventListener('reset', handler)
     }

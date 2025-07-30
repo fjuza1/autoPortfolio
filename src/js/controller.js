@@ -147,18 +147,24 @@ const controllContacting = () =>{
 	const email = contactView._formData
 	contactView._sendMail(email)
 }
+const controllSettings = () =>{
+	settingsView._savePreferences()
+}
 const init = () => {
 	controllNavBar();
 	controlSections();
 	designView.addHandleClickIntoSection();
 	designView.addHandleClickTheme();
 	skillsView.addHandlerLoad(loadAndRenderContent)
-	designView.addHandlerLoad(designView.scrollIntoSection)
+	settingsView.addHandlerLoad(settingsView._getPreferences());
+	designView.addHandlerLoad(designView.scrollIntoSection);
+	designView.addHandlerLoad(designView._updateTheme.bind(designView));
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
+	settingsView._addHandlerSubmitChange(controllSettings);
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()

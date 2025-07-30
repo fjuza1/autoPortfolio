@@ -72,6 +72,7 @@
         <div class="container">
           <div class="d-flex justify-content-center align-items-center">
             <div class="multi-collapse collapse w-100 w-md-75 w-lg-50 w-xl-25" id="Preferences">
+              <form class="form" id="settingsForm">
               <div class="bg-light p-4 border rounded shadow-sm mb-3">
                 <strong class="mb-0 mt-3">Page settings</strong>
                 <hr class="my-3">
@@ -80,7 +81,7 @@
                 <div class="list-group shadow-sm">
                   <div class="list-group-item">
                     <div class="form-check form-switch w-100">
-                      <input class="form-check-input" type="checkbox" id="darkModeSwitch">
+                      <input class="form-check-input" type="checkbox" id="darkModeSwitch" name="darkMode">
                       <label class="form-check-label" for="darkModeSwitch">
                         Enable/Disable dark mode
                       </label>
@@ -88,7 +89,8 @@
                   </div>
                 </div>
               </div>
-            </div>
+            </form>
+          </div>
           </div>
           <div class="d-flex flex-column align-items-center justify-content-center text-center">
             <img class="masthead-avatar mb-5 img-fluid" src="./src/img/cropped.jpg" alt="Avatar">

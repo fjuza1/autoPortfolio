@@ -144,19 +144,24 @@ class Design extends View {
      gotoSegment(domElement, this._nav);
  }
 _updateTheme() {
-    const currentTheme = this._html.getAttribute("data-bs-theme");
-    const newTheme = currentTheme === "dark" ? "light" : "dark";
-    this._html.setAttribute("data-bs-theme", newTheme);
+    const settings = JSON.parse(localStorage.getItem('settings') || '{}');
+    const darkMode = settings.darkMode === "on";
+    this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
+}
+
+addHandleClickTheme() {
+    this._themeToggle.addEventListener('click', () => {
+        let settings = JSON.parse(localStorage.getItem('settings') || '{}');
+        const currentMode = settings.darkMode === "on";
+        settings.darkMode = currentMode ? "off" : "on";
+        localStorage.setItem('settings', JSON.stringify(settings));
+        this._updateTheme();
+    });
 }
 
 addHandleClickIntoSection() {
     [this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn => btn.addEventListener('click', this.scrollIntoSection.bind(this)));
     document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));
-}
-
-addHandleClickTheme() {
-    this._themeToggle.addEventListener('click', this._updateTheme.bind(this));
-    //window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this._updateTheme.bind(this));
 }
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
