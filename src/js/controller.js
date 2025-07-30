@@ -160,7 +160,6 @@ const init = () => {
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
 	popoutView._addHandleOpenModal(controllModals);
-	settingsView._addHandleSettings()
 }
 init()
 // performance optimization
