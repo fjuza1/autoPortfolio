@@ -165,6 +165,7 @@ const init = () => {
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(settingsView._updateTheme.bind(settingsView));
 	settingsView.addHandleClickTheme();
+	settingsView.addHandlerNavigateByKey();
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()

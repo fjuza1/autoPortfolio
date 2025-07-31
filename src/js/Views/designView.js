@@ -1,6 +1,6 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
-import {capitalizeWord, gotoSegment, gotoTop, removeClass, changeHash, removeHash} from '../helpers.js';
+import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash} from '../helpers.js';
 import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,REV_TRESH} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
@@ -56,56 +56,56 @@ class Design extends View {
   */
  scrollIntoSection(e) {
      const target = e.target;
-     if(e.type === KEYDOWN_TYPE) {
-         const home = this._firstSection
-         const about = this._sections[0];
-         const journey = this._sections[1]
-         const skills = this._sections[2];
-         const projects = this._sections[3];
-         const QAToolbox = this._sections[4];
-         const contact = this._sections[5];
-         if(e.altKey) {
-             switch (e.key.toLowerCase()) {
-                 case 'h':
-                     removeClass(home, SECTION_HIDDEN_CLASS);
-                     gotoSegment(home, this._nav)
-                     removeHash();
-                     break;
-                 case 'a':
-                     removeClass(about, SECTION_HIDDEN_CLASS);
-                     gotoSegment(about, this._nav)
-                     changeHash(about);
-                     break;
-                 case 'j':
-                     removeClass(journey, SECTION_HIDDEN_CLASS);
-                     gotoSegment(journey, this._nav);
-                     changeHash(journey);
-                     break
-                 case 's':
-                     removeClass(skills, SECTION_HIDDEN_CLASS);
-                     gotoSegment(skills, this._nav)
-                     changeHash(skills);
-                     break;
-                 case 'p' :
-                     removeClass(projects, SECTION_HIDDEN_CLASS);
-                     gotoSegment(projects, this._nav);
-                     changeHash(projects);
-                     break;
-                 case 'c':
-                     removeClass(contact, SECTION_HIDDEN_CLASS);
-                     gotoSegment(contact, this._nav);
-                     changeHash(contact);
-                     break;
-                case 'q' :
-                     removeClass(QAToolbox, SECTION_HIDDEN_CLASS);
-                     gotoSegment(QAToolbox, this._nav);
-                     changeHash(QAToolbox);
-                     break;
-                 default:
-                     break;
-             }
-         }
-     }
+    //  if(e.type === KEYDOWN_TYPE) {
+    //      const home = this._firstSection
+    //      const about = this._sections[0];
+    //      const journey = this._sections[1]
+    //      const skills = this._sections[2];
+    //      const projects = this._sections[3];
+    //      const QAToolbox = this._sections[4];
+    //      const contact = this._sections[5];
+    //      if(e.altKey) {
+    //          switch (e.key.toLowerCase()) {
+    //              case 'h':
+    //                  removeClass(home, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(home, this._nav)
+    //                  removeHash();
+    //                  break;
+    //              case 'a':
+    //                  removeClass(about, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(about, this._nav)
+    //                  changeHash(about);
+    //                  break;
+    //              case 'j':
+    //                  removeClass(journey, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(journey, this._nav);
+    //                  changeHash(journey);
+    //                  break
+    //              case 's':
+    //                  removeClass(skills, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(skills, this._nav)
+    //                  changeHash(skills);
+    //                  break;
+    //              case 'p' :
+    //                  removeClass(projects, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(projects, this._nav);
+    //                  changeHash(projects);
+    //                  break;
+    //              case 'c':
+    //                  removeClass(contact, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(contact, this._nav);
+    //                  changeHash(contact);
+    //                  break;
+    //             case 'q' :
+    //                  removeClass(QAToolbox, SECTION_HIDDEN_CLASS);
+    //                  gotoSegment(QAToolbox, this._nav);
+    //                  changeHash(QAToolbox);
+    //                  break;
+    //              default:
+    //                  break;
+    //          }
+    //      }
+    //  }
      const hash = window.location.hash;	
      if (hash.length === 0 && e.type === LOAD_TYPE) {
          setTimeout(() => { gotoTop() }, 200);
@@ -143,7 +143,6 @@ class Design extends View {
  }
 addHandleClickIntoSection() {
     [this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn => btn.addEventListener('click', this.scrollIntoSection.bind(this)));
-    document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));
 }
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {
