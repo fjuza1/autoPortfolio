@@ -148,7 +148,8 @@ const controllContacting = () =>{
 	contactView._sendMail(email)
 }
 const controllSettings = () =>{
-	settingsView._savePreferences()
+	settingsView._savePreferences();
+	settingsView._updateTheme();
 }
 const init = () => {
 	controllNavBar();
@@ -163,7 +164,7 @@ const init = () => {
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
 	settingsView._addHandlerSubmitChange(controllSettings);
-	settingsView.addHandlerLoad(settingsView._updateTheme.bind(settingsView));
+	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
 	settingsView.addHandlerNavigateByKey();
 	popoutView._addHandleOpenModal(controllModals);
