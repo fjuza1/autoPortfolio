@@ -13,8 +13,6 @@ class Design extends View {
 	_goupBtn = document.querySelector('[data-btn="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
-    _html = document.querySelector('html');
-    _themeToggle = document.getElementById('darkModeSwitch');
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -143,22 +141,6 @@ class Design extends View {
      }
      gotoSegment(domElement, this._nav);
  }
-_updateTheme() {
-    const settings = JSON.parse(localStorage.getItem('settings') || '{}');
-    const darkMode = settings.darkMode === "on";
-    this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
-}
-
-addHandleClickTheme() {
-    this._themeToggle.addEventListener('click', () => {
-        let settings = JSON.parse(localStorage.getItem('settings') || '{}');
-        const currentMode = settings.darkMode === "on";
-        settings.darkMode = currentMode ? "off" : "on";
-        localStorage.setItem('settings', JSON.stringify(settings));
-        this._updateTheme();
-    });
-}
-
 addHandleClickIntoSection() {
     [this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn => btn.addEventListener('click', this.scrollIntoSection.bind(this)));
     document.addEventListener(KEYDOWN_TYPE, this.scrollIntoSection.bind(this));

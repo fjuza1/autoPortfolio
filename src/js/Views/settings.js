@@ -1,6 +1,12 @@
 import View from './View.js';
 class SettingsView extends View {
     _form =  document.getElementById('settingsForm');
+    _themeToggle = document.getElementById('darkModeSwitch');
+    _html = document.querySelector('html');
+    #getSettings = () => {
+        const settings = localStorage.getItem('settings');
+        return settings ? JSON.parse(settings) : {};
+    }
     _savePreferences() {
         localStorage.setItem('settings', JSON.stringify(this._formData));
     }
@@ -19,6 +25,20 @@ class SettingsView extends View {
         } else {
             this._formData = {};
         }
+    }
+    _updateTheme() {
+        const settings = this.#getSettings();
+        const darkMode = settings.darkMode === "on";
+        this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
+    }
+    addHandleClickTheme() {
+        this._themeToggle.addEventListener('click', () => {
+            let settings = this.#getSettings();
+            const darkMode = settings.darkMode === "on";
+            settings.darkMode = darkMode ? "off" : "on";
+            localStorage.setItem('settings', JSON.stringify(settings));
+            this._updateTheme();
+        });
     }
 }
 export default new SettingsView();

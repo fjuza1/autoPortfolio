@@ -154,17 +154,17 @@ const init = () => {
 	controllNavBar();
 	controlSections();
 	designView.addHandleClickIntoSection();
-	designView.addHandleClickTheme();
 	skillsView.addHandlerLoad(loadAndRenderContent)
 	settingsView.addHandlerLoad(settingsView._getPreferences());
 	designView.addHandlerLoad(designView.scrollIntoSection);
-	designView.addHandlerLoad(designView._updateTheme.bind(designView));
 	skillsView._addHandlerFormReset(controllSortedResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
 	settingsView._addHandlerSubmitChange(controllSettings);
+	settingsView.addHandlerLoad(settingsView._updateTheme.bind(settingsView));
+	settingsView.addHandleClickTheme();
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()
