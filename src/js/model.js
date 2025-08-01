@@ -1,6 +1,6 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS,BLANKPIC
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS,BLANKPIC, IMG_KATALON_STUDIO
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -54,7 +54,16 @@ export const state = {
         category: CATEGORIES[0],
         imgPath: CYPRESS_lOGO,
         description: 'Cypress is a popular end-to-end testing framework for modern web applications.'
-    }, {
+    },
+    {
+        name:"Katalon Studio",
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0],
+        imgPath: IMG_KATALON_STUDIO,
+        description: 'Katalon Studio is an all-in-one test automation solution for web, API, mobile, and desktop applications. It provides a user-friendly interface and supports both manual and automated testing, making it suitable for teams of all sizes.'
+    },
+    {
         name: 'SoapUI',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
@@ -175,7 +184,9 @@ export const state = {
         {year:'2024', content:'Started using Cypress for automating E2E tests.'},
         {year:'2025', content:'Started studying for ISTQB Foundation Level 4.0 certification.'},
         {year:'2025', content:'Gained ISTQB Foundation Level 4.0 certification on 14.2.2025.'},
-        {year:'2025', content:'Started learning Typescript in July.'}
+        {year:'2025', content:'Started learning Typescript in July.'},
+        {year:'2025', content:'Finished learning Typescript in July.'},
+        {year:'2025', content:'Started learning for pl-900 in mid July.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
