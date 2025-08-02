@@ -99,10 +99,11 @@ const controllSortedResetSkills = () => {
 
 const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
-	const filtered = model.filterSkills(options);
+	model.filterSkills(options)
     skillsView._renderSpinner();
+	console.log(model.state.search.results)
     timeout(() => {
-		handlePagination(filtered,(data)=>{
+		handlePagination(model.state.search.results,(data)=>{
             skillsView._render(skillsView._skillBarDisplay(data))
         })
     });

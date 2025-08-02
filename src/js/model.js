@@ -5,6 +5,9 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
+    search:{
+        results:[]
+    },
     fileState: {
         empty: false,
         loading: false,
@@ -426,7 +429,7 @@ export const filterSkills = function(options) {
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-    state.skills.filteredSkills = filteredData;
+    state.search.results = filteredData;
 
     return filteredData;
 }

@@ -27,8 +27,6 @@ class SettingsView extends View {
                     input.value = parsedSettings[input.name] || '';
                 }
             });
-        } else {
-            this._formData = {};
         }
     }
     _updateTheme() {

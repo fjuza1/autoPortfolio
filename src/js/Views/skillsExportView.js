@@ -11,7 +11,7 @@ class SkillsExportView extends View {
     constructor() {
         super();
         this._revealNameEvent();
-        this._errorRemoveEvent();
+        this.#errorRemoveEvent();
     }
     _cleanupModal() {
         this._modal.innerHTML = '';
@@ -37,7 +37,7 @@ class SkillsExportView extends View {
             }
         }
     }
-    _setOutline(elementId, message) {
+    #setOutline(elementId, message) {
         const formErrorElement = document.querySelector(`div[data-formerror="${elementId}"]`);
         if (formErrorElement) {
             formErrorElement.textContent = message;
@@ -55,7 +55,7 @@ class SkillsExportView extends View {
             }
         }
     }
-    _removeOutlineError() {
+    #removeOutlineError() {
         const allFormErrors = document.querySelectorAll(`div[data-formerror]`);
         allFormErrors.forEach(dom => {
             dom.textContent = '';
@@ -67,12 +67,12 @@ class SkillsExportView extends View {
             type,
             message
         } = options;
-        this._setOutline(type, message);
+        this.#setOutline(type, message);
     }
-    _errorRemoveEvent() {
+    #errorRemoveEvent() {
         ['input', 'change', 'submit'].forEach(ev => {
             this._form.addEventListener(ev, () => {
-                this._removeOutlineError();
+                this.#removeOutlineError();
             });
         });
     }
@@ -146,7 +146,7 @@ class SkillsExportView extends View {
                                 </h2>
                                 <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
                                     <div class="accordion-body">
-                                        <pre id="exportContent">${data.startsWith("<?xml") ? this.escapeXml(data) : data}</pre>
+                                        <pre id="exportContent">${data.startsWith("<?xml") ? this.#escapeXml(data) : data}</pre>
                                     </div>
                                 </div>
                             </div>
@@ -160,7 +160,7 @@ class SkillsExportView extends View {
         `;
         this._modal.insertAdjacentHTML('afterbegin', markup);
     }
-    escapeXml(unsafe) {
+    #escapeXml(unsafe) {
         return unsafe.replace(/[<>&'"]/g, function(c) {
             switch (c) {
                 case '<':

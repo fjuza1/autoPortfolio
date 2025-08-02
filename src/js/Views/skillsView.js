@@ -2,7 +2,7 @@ import View from './View.js';
 import { ALLOWED_FILTER_SKILLS, SKILLSVIEW_EMPTY_MESSAGE } from "../config.js";
 class SkillsView extends View {
     _parentElement = document.querySelector('#skillsContainer');
-    _form = document.querySelector('form')
+    _form = document.querySelector('.filterActivities')
     _formBtn = document.querySelector('button[type="submit"]');
     _err = SKILLSVIEW_EMPTY_MESSAGE;
     /**
