@@ -8,14 +8,21 @@ class SkillsExportView extends View {
     _fileName = document.querySelector('input[name="fileName"]')
     _modal = document.querySelector('#modalCenter')
     _generatingfileState = null;
+    _selectedBTN = ""
     constructor() {
         super();
         this._revealNameEvent();
         this.#errorRemoveEvent();
+        this.#handlerSelectedBTN();
     }
     _cleanupModal() {
         this._modal.innerHTML = '';
     }
+    #handlerSelectedBTN (){
+        this._form.addEventListener('click',(e)=>{
+           this._selectedBTN = e.target.classList.contains('btn-primary')
+        })
+    };
     _changeType() {
         const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
         document.getElementById('tp').innerText = `.${selectedVariable}`

@@ -110,8 +110,12 @@ const controllFilterSkills = () =>{
 }
 const controllSkillsExport =  async () => {
 	try {
-		const array = {array:model.state.skills}
+		console.log(skillsExportView._selectedBTN)
+		const array = {array:skillsExportView._selectedBTN
+			? model.state.skills
+			: model.state.search.results}
 		const options = {...array, ... skillsExportView._formData};
+		console.log(array )
 		const data = await model.toFile(options);
 		const done = model.state.fileState.done === true
         const [fileErrors]= data
