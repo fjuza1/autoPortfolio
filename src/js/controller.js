@@ -53,7 +53,8 @@ const loadAndRenderContent = () => {
 	slidesView._initializeElement();
 	slidesView.handleSlides();
 	controllJourney();
-	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.filterTools({name: true, values: NONQATOOLS})))
+	model.filterTools({name: true, values: NONQATOOLS})
+	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.skills))
 }
 
 // pagination basic
@@ -77,12 +78,12 @@ const controllJourney = () =>{
 
 // skillsData manipulation part
 const controllSortedSkills = () => {
-	const array = {array: model.state.skills}
+	model.sortingSkills(model.state.skills)
+	const array = {array: model.state.search.results}
 	const options = Object.assign(array, skillsView._formData)
 	skillsView._renderSpinner();
-	const skills = model.sortingSkills(options)
 	timeout(() => {
-		handlePagination(skills,(data)=>{
+		handlePagination(model.state.search.results,(data)=>{
 			skillsView._render(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -91,6 +92,7 @@ const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	original.filteredSkills = '';
     model.state.curPage = 1;
+	model.state.search.results = ''
 
     handlePagination(original, (data) => {
         skillsView._render(skillsView._skillBarDisplay(data));
