@@ -8,7 +8,7 @@ class SkillsExportView extends View {
     _fileName = document.querySelector('input[name="fileName"]')
     _modal = document.querySelector('#modalCenter')
     _generatingfileState = null;
-    _selectedBTN = document.querySelector('.exportActivities button[type="submit"]');
+    _selectedBTN = document.querySelector("#export > div > form > div.d-flex.justify-content-end.mt-3 > button.btn.btn-secondary.me-2");
     _isPrimaryBTN = false;
     constructor() {
         super();
