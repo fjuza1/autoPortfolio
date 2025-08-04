@@ -20,7 +20,7 @@ import settingsView from './Views/settings.js';
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
 // _generateQAToolboxMarkup
-performanceView._perfObserver()
+//performanceView._perfObserver()
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)
@@ -179,4 +179,4 @@ const init = () => {
 }
 init()
 // performance optimization
-console.log(performanceView._getMemoryStats());
+//console.log(performanceView._getMemoryStats());
