@@ -9,6 +9,7 @@ class SkillsExportView extends View {
     _modal = document.querySelector('#modalCenter')
     _generatingfileState = null;
     _selectedBTN = document.querySelector('.exportActivities button[type="submit"]');
+    _isPrimaryBTN = false;
     constructor() {
         super();
         this._revealNameEvent();
@@ -25,7 +26,7 @@ class SkillsExportView extends View {
     }
     #handlerSelectedBTN (){
         this._form.addEventListener('click',(e)=>{
-           this._selectedBTN = e.target;
+           this._isPrimaryBTN = e.target.classList.contains('btn-primary');
         })
     };
     _changeType() {
