@@ -75,13 +75,12 @@ const handlePagination = (dataSource, callback) => {
 const controllJourney = () =>{
 	journeyView._setTimeline(model.state.journey);
 }
-
 // skillsData manipulation part
 const controllSortedSkills = () => {
 	const array = {array: model.state.search.results}
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
-	console.log(model.state.search.results)
+	model.state.search.isFiltered = true;
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.results,(data)=>{
@@ -93,7 +92,8 @@ const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	original.filteredSkills = '';
     model.state.curPage = 1;
-	model.state.search.results = ''
+	model.state.search.results = '';
+	model.state.search.isFiltered = false;
 
     handlePagination(original, (data) => {
         skillsView._render(skillsView._skillBarDisplay(data));
@@ -103,8 +103,8 @@ const controllSortedResetSkills = () => {
 const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	model.filterSkills(options)
+	model.state.search.isFiltered = true;
     skillsView._renderSpinner();
-	console.log(model.state.search.results)
     timeout(() => {
 		handlePagination(model.state.search.results,(data)=>{
             skillsView._render(skillsView._skillBarDisplay(data))
@@ -113,12 +113,10 @@ const controllFilterSkills = () =>{
 }
 const controllSkillsExport =  async () => {
 	try {
-		console.log(skillsExportView._selectedBTN)
 		const array = {array:skillsExportView._selectedBTN
 			? model.state.skills
 			: model.state.search.results}
 		const options = {...array, ... skillsExportView._formData};
-		console.log(array )
 		const data = await model.toFile(options);
 		const done = model.state.fileState.done === true
         const [fileErrors]= data
@@ -171,6 +169,7 @@ const init = () => {
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
+	skillsExportView.addHandlerLoad(skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered))
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();

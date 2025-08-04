@@ -6,7 +6,8 @@ import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, 
 import {saveAs} from './lib.js';
 export const state = {
     search:{
-        results:[]
+        results:[],
+        isFiltered: false,
     },
     fileState: {
         empty: false,

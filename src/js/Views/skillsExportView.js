@@ -8,7 +8,7 @@ class SkillsExportView extends View {
     _fileName = document.querySelector('input[name="fileName"]')
     _modal = document.querySelector('#modalCenter')
     _generatingfileState = null;
-    _selectedBTN = ""
+    _selectedBTN = document.querySelector('.exportActivities button[type="submit"]');
     constructor() {
         super();
         this._revealNameEvent();
@@ -18,9 +18,14 @@ class SkillsExportView extends View {
     _cleanupModal() {
         this._modal.innerHTML = '';
     }
+    _disableFilteredExportBTN(_data) {
+        this._data = _data;
+        if(this._data === false) this._selectedBTN.classList.add('disabled');
+        else this._selectedBTN.classList.remove('disabled');
+    }
     #handlerSelectedBTN (){
         this._form.addEventListener('click',(e)=>{
-           this._selectedBTN = e.target.classList.contains('btn-primary')
+           this._selectedBTN = e.target;
         })
     };
     _changeType() {
