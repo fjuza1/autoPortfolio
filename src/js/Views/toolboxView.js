@@ -9,7 +9,7 @@ class ToolboxView extends View {
                         <img src="${qaTool.imgPath}" class="card-img-top" alt="${qaTool.name}">
                         <div class="card-body">
                           <h5 class="card-title">${qaTool.name}</h5>
-                          <p class="card-text">${qaTool.description}</p>
+                          <p class="card-text">${qaTool.description ? qaTool.description : ""}</p>
                     </div>
                   </div>
               </div>`
