@@ -78,9 +78,10 @@ const controllJourney = () =>{
 
 // skillsData manipulation part
 const controllSortedSkills = () => {
-	model.sortingSkills(model.state.skills)
 	const array = {array: model.state.search.results}
 	const options = Object.assign(array, skillsView._formData)
+	model.sortingSkills(options);
+	console.log(model.state.search.results)
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.results,(data)=>{
