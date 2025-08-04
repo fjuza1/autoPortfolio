@@ -475,8 +475,6 @@ export const sortingSkills = function(options) {
         name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
         category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
     };
-    const sortedSkills = [...array].sort(sortFunctions[sortBy])
-    console.log("🚀 ~ sortingSkills ~ sortedSkills:", sortedSkills)
     state.search.results =  [...array].sort(sortFunctions[sortBy]);
 }
 /**

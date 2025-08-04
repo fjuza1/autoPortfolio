@@ -81,6 +81,7 @@ const controllSortedSkills = () => {
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
 	model.state.search.isFiltered = true;
+	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.results,(data)=>{
@@ -94,7 +95,7 @@ const controllSortedResetSkills = () => {
     model.state.curPage = 1;
 	model.state.search.results = '';
 	model.state.search.isFiltered = false;
-
+skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
     handlePagination(original, (data) => {
         skillsView._render(skillsView._skillBarDisplay(data));
     });
@@ -104,6 +105,7 @@ const controllFilterSkills = () =>{
 	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
 	model.filterSkills(options)
 	model.state.search.isFiltered = true;
+	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
     skillsView._renderSpinner();
     timeout(() => {
 		handlePagination(model.state.search.results,(data)=>{
