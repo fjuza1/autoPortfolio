@@ -17,7 +17,7 @@ class SettingsView extends View {
     }
     _getPreferences() {
         const settings = localStorage.getItem('settings');
-        if (settings !== 'undefined') {
+        if (settings !== undefined && settings !== null) {
             const parsedSettings = JSON.parse(settings);
             this._formData = parsedSettings;
             this._form.querySelectorAll('input, textarea, select').forEach(input => {
@@ -27,10 +27,9 @@ class SettingsView extends View {
                     input.value = parsedSettings[input.name] || '';
                 }
             });
+        } else {
+            this._formData = {};
         }
-    else {
-        this._formData = {};
-    }
     }
     _updateTheme() {
         const settings = this.#getSettings();
