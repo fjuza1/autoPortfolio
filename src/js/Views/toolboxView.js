@@ -1,6 +1,6 @@
 import View from './View.js';
 class ToolboxView extends View {
-  _parentElement = document.getElementById('my qa toolbox');
+  _parentElement = document.getElementById('myQA');
       _generateQAToolboxMarkup = (_data) => {
             this._data = _data;
             return this._data.map((qaTool) => {

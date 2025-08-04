@@ -54,7 +54,10 @@ const loadAndRenderContent = () => {
 	slidesView.handleSlides();
 	controllJourney();
 	model.filterTools({name: true, values: NONQATOOLS})
-	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.skills))
+	// paginate tools
+	handlePagination(model.state.skills,(data) => {
+		toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
+	})
 }
 
 // pagination basic
