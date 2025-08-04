@@ -77,6 +77,7 @@ const controllJourney = () =>{
 }
 // skillsData manipulation part
 const controllSortedSkills = () => {
+	model.state.search.isFiltered = true;
 	const array = {array: model.state.search.results}
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
@@ -115,7 +116,7 @@ const controllFilterSkills = () =>{
 }
 const controllSkillsExport =  async () => {
 	try {
-		const array = {array:skillsExportView._selectedBTN
+		const array = {array:!model.state.search.isFiltered
 			? model.state.skills
 			: model.state.search.results}
 		const options = {...array, ... skillsExportView._formData};
