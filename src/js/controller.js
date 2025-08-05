@@ -53,11 +53,12 @@ const loadAndRenderContent = () => {
 	slidesView._initializeElement();
 	slidesView.handleSlides();
 	controllJourney();
-	model.filterTools({name: true, values: NONQATOOLS})
-	// paginate tools
-	handlePagination(model.state.skills,(data) => {
-		toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
-	})
+	model.filterTools({name: true, values: NONQATOOLS});
+	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
+	// // paginate tools
+	// handlePagination(model.state.skills,(data) => {
+	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
+	// })
 }
 
 // pagination basic
@@ -80,13 +81,13 @@ const controllJourney = () =>{
 }
 // skillsData manipulation part
 const controllSortedSkills = () => {
-	const array = {array: model.state.search.results}
+	const array = {array: model.state.search.skills}
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
 	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
 	skillsView._renderSpinner();
 	timeout(() => {
-		handlePagination(model.state.search.results,(data)=>{
+		handlePagination(model.state.search.skills,(data)=>{
 			skillsView._render(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -95,7 +96,7 @@ const controllSortedResetSkills = () => {
 	const original = model.state.skills
 	original.filteredSkills = '';
     model.state.curPage = 1;
-	model.state.search.results = '';
+	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
 skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
     handlePagination(original, (data) => {
@@ -110,7 +111,7 @@ const controllFilterSkills = () =>{
 	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
     skillsView._renderSpinner();
     timeout(() => {
-		handlePagination(model.state.search.results,(data)=>{
+		handlePagination(model.state.search.skills,(data)=>{
             skillsView._render(skillsView._skillBarDisplay(data))
         })
     });
@@ -119,7 +120,7 @@ const controllSkillsExport =  async () => {
 	try {
 		const array = {array:skillsExportView._isPrimaryBTN
 			? model.state.skills
-			: model.state.search.results}
+			: model.state.search.skills}
 		const options = {...array, ... skillsExportView._formData};
 		const data = await model.toFile(options);
 		const done = model.state.fileState.done === true

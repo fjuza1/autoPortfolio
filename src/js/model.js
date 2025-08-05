@@ -6,7 +6,8 @@ import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, 
 import {saveAs} from './lib.js';
 export const state = {
     search:{
-        results:[],
+        skills:[],
+        tools:[],
         isFiltered: false,
     },
     fileState: {
@@ -430,7 +431,7 @@ export const filterSkills = function(options) {
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-    state.search.results = filteredData;
+    state.search.skills = filteredData;
 
     return filteredData;
 }
@@ -454,7 +455,7 @@ export const filterTools = function(excludeOptions = {}) {
         }
         return el.category === CATEGORIES[0]
     });
-    state.search.results = allTools.sort((a, b) => a.name.localeCompare(b.name));
+    state.search.tools = allTools.sort((a, b) => a.name.localeCompare(b.name));
 }
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
@@ -469,13 +470,13 @@ export const sortingSkills = function(options) {
     let {sortBy, order } = options;
     let array
     const skills = state.skills
-    Array.isArray(state.search.results) && state.search.results.length < state.skills.length? array = state.search.results : array = skills;
+    Array.isArray(state.search.skills) && state.search.skills.length < state.skills.length? array = state.search.skills : array = skills;
     const sortFunctions = {
         expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
         name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
         category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
     };
-    state.search.results =  [...array].sort(sortFunctions[sortBy]);
+    state.search.skills =  [...array].sort(sortFunctions[sortBy]);
 }
 /**
  * Return state.Project where url and img String are specified
