@@ -1,6 +1,7 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS,BLANKPIC, IMG_KATALON_STUDIO
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO, AZURE_lOGO,CYPRESS_lOGO,ECLIPSE_IDE_LOGO,MSSQL_IDE_LOGO,MS_VISUAL_LOGO,POSTMAN,SOAPUI, NONQATOOLS,BLANKPIC, IMG_KATALON_STUDIO,
+    TFS
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
 import {saveAs} from './lib.js';
@@ -87,7 +88,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: BLANKPIC,
+        imgPath: TFS,
         description: 'TFS (Team Foundation Server) is a Microsoft product that provides source control, bug control, project management, and build automation for software development teams. It helps teams collaborate on code development and manage the entire software development lifecycle.'
     }, {
         name: 'Microsoft Visual Studio Code',
