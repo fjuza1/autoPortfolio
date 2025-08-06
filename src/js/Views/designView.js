@@ -154,16 +154,16 @@ addHandleClickIntoSection() {
 		resizeNavObserver.observe(this._firstSection)
 		sectionObserverNav.observe(this._firstSection);
 	}
+	_showSectionByHash(hash = location.hash.slice(1)){
+		if(!hash) return;
+		const id = capitalizeWord(hash);
+		removeClass(document.getElementById(id), SECTION_HIDDEN_CLASS)
+	}
 	revealSection(entries, observer) {
 		const [entry] = entries;
 		if (!entry.isIntersecting) return;
 		removeClass(entry.target, SECTION_HIDDEN_CLASS)
 		observer.unobserve(entry.target);
-	}
-	_showSectionByHash(hash = location.hash.slice(1)){
-		if(!hash) return;
-		const id = capitalizeWord(hash);
-		removeClass(document.getElementById(id), SECTION_HIDDEN_CLASS)
 	}
 	addRevealSectionObserver() {
 		const options = {root: null,threshold: SECTION_REVEAL_TRESHOLD / 100}
