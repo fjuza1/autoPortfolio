@@ -5,6 +5,8 @@ class ToolboxView extends View {
         this.addHandlerHideShowDescription();
     }
     _parentElement = document.getElementById('myQA');
+    #showAllBTN = document.querySelector("#myQAtoolboxs > div.row.text-center.justify-content-center.mb-4 > div > div.col.text-end > button");
+    #cardDescriptions = this._parentElement.getElementsByTagName('p');
     _generateQAToolboxMarkup = (_data) => {
         //d-block d-md-none
         this._data = _data;
@@ -27,18 +29,41 @@ class ToolboxView extends View {
             `
         })
     }
-    _hideShowDescription = (e) => {
-        const target = e.target.closest('button');
-        if (!target) return
-        if (!target.classList.contains('btn-link')) return
-        const btnID = target.id;
-        const showDescriptionElement = document.querySelector(`[data-btn="${btnID}"]`);
-        if (!showDescriptionElement) return
-        showDescriptionElement.classList.toggle('d-none');
-        target.textContent = showDescriptionElement.classList.contains('d-none') ? 'Show description' : 'Hide description';
+    #toggleCard = (desc, hide) => {
+        desc.classList.toggle('d-none', hide);
+        const btnId = desc.dataset.btn;
+        const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
+        if (btn) {
+            const isHidden = hide ?? desc.classList.contains('d-none');
+            btn.textContent = isHidden ? 'Show description' : 'Hide description';
+            btn.setAttribute('aria-expanded', String(!isHidden));
+        }
     }
+    #toggleDescription = (e) => {
+        const target = e.target.closest('button.btn-link');
+        if (!target) return;
+
+        const isAllBtn = target.dataset.btn === 'allTool';
+        if (isAllBtn) {
+            const descriptions = Array.from(this.#cardDescriptions);
+            const hideAll = descriptions.some(el => !el.classList.contains('d-none'));
+            descriptions.forEach(desc => this.#toggleCard(desc, hideAll));
+
+            target.textContent = hideAll ? 'Show descriptions' : 'Hide descriptions';
+            target.setAttribute('aria-expanded', String(!hideAll));
+            return;
+        }
+        // Single-card toggle
+        const btnID = target.id;
+        if (!btnID) return;
+        const desc = this._parentElement.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
+        if (!desc) return;
+
+        this.#toggleCard(desc);
+    };
     addHandlerHideShowDescription() {
-        this._parentElement.addEventListener('click', this._hideShowDescription.bind(this));
+        this._parentElement.addEventListener('click', this.#toggleDescription.bind(this));
+        this.#showAllBTN.addEventListener('click', this.#toggleDescription.bind(this));
     }
 }
 export default new ToolboxView();
