@@ -32,7 +32,7 @@ class ToolboxView extends View {
       showDescriptionElement.classList.toggle('d-none');
       target.textContent = showDescriptionElement.classList.contains('d-none') ? 'Show description' : 'Hide description';
     }
-    addHandlerHideShowDescription(handler) {
+    addHandlerHideShowDescription() {
       this._parentElement.addEventListener('click', this._hideShowDescription.bind(this));
 }
 }
