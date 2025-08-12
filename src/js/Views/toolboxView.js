@@ -6,15 +6,16 @@ class ToolboxView extends View {
   }
   _parentElement = document.getElementById('myQA');
       _generateQAToolboxMarkup = (_data) => {
+        //d-block d-md-none
             this._data = _data;
             return this._data.map((qaTool) => {
             return `
               <div class="col-6 col-md-3 col-lg-2 mb-3">
                 <div class="card h-100 shadow-sm">
                   <img src="${qaTool.imgPath}" class="card-img-top p-2" alt="${qaTool.name}" style="height: 120px; object-fit: contain;">
-                  <button type="button card-button" class="btn btn-link d-block d-md-none" id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">Show description</button>
                   <div class="card-body p-2">
-                    <h6 class="card-title mb-1">${qaTool.name}</h6>
+                    <h6 class="card-title mb-1 text-center"><strong>${qaTool.name}</strong></h6>
+                  <button type="button card-button" class="btn btn-link" id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">Show description</button>
                     ${qaTool.description ? `<p class="card-text small mb-0 d-none" data-btn=${qaTool.name.toLowerCase().replaceAll(" ", "-")}>${qaTool.description}</p>` : ''}
                   </div>
                 </div>
