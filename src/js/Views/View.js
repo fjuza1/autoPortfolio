@@ -64,16 +64,16 @@ export default class View {
      *
      * @returns {void}
      */
-    _renderToast(msg, callback) {
+    _renderToast(msg, position) {
         const toast = document.createElement('div');
         toast.classList.add('toast', 'show', 'position-absolute');
         toast.innerHTML = `
-            <div class="toast show position-absolute" style="${calcToastPosition(callback)}">
+            <div class="toast show position-absolute" style="${calcToastPosition(position)}">
                 <div class="toast-header">  
                     <strong class="me-auto">Notification</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
-                <div class="toast-body
+                <div class="toast-body">
                     ${msg}
                 </div>
             </div>

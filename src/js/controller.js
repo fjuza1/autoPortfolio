@@ -1,7 +1,7 @@
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
-import {timeout, wait, calcToastPosition} from './helpers.js';
+import {timeout, wait} from './helpers.js';
 import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
 //console.log("TCL: model", model.state)
@@ -182,6 +182,6 @@ const init = () => {
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()
-//toolboxView._renderToast(`Welcome to the Non-QA Tools Toolbox!`, calcToastPosition('top-middle'));
+toolboxView._renderToast(`Welcome to the Non-QA Tools Toolbox!`, 'top-middle');
 // performance optimization
 //console.log(performanceView._getMemoryStats());
