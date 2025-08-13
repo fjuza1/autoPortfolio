@@ -32,6 +32,7 @@ export const RES_PER_PAGE_TRESHOLD = 5;
 export const SECTION_REVEAL_TRESHOLD = 50;
 export const TOAST_DURATION = 15000;
 export const CURRENT_PAGE = 1;
+export const WELCOME_MESSAGE = 'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!';
 export const DEV_TYPE = 'Development';
 export const FE_TYPE = 'Frontend tests automation';
 export const BE_TYPE = 'REST API tests automation';

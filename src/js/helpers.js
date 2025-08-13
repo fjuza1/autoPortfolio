@@ -301,7 +301,11 @@ export const debounce = function(fn, wait) {
         timeoutId = setTimeout(() => fn.apply(this, args), wait);
     };
 }
-export const resetTimeout = ({timeoutId,callback,duration}) => {
+export const resetTimeout = ({
+    timeoutId,
+    callback,
+    duration
+}) => {
     if (timeoutId) {
         clearTimeout(timeoutId);
     }
@@ -316,15 +320,15 @@ export const calcToastPosition = (position) => {
     switch (position) {
         case 'top-center':
             screenCoords = {
-                position:'fixed',
-                top: Math.abs(rectWindow.top) ,
+                position: 'fixed',
+                top: Math.abs(rectWindow.top),
                 left: '50%',
                 transform: 'translateX(-50%)'
             };
             break;
         case 'bottom-center':
             screenCoords = {
-                position:'fixed',
+                position: 'fixed',
                 bottom: rectWindow.bottom,
                 left: '50%',
                 transform: 'translateX(-50%)'
@@ -332,31 +336,55 @@ export const calcToastPosition = (position) => {
             break;
         case 'top-start':
             screenCoords = {
-                position:'fixed',
-                top: Math.abs(rectWindow.top) ,
+                position: 'fixed',
+                top: Math.abs(rectWindow.top),
                 left: '0'
             };
             break;
         case 'bottom-start':
             screenCoords = {
-                position:'fixed',
+                position: 'fixed',
                 bottom: rectWindow.bottom,
                 left: '0'
             };
             break;
         case 'top-end':
             screenCoords = {
-                position:'fixed',
-                top: Math.abs(rectWindow.top) ,
+                position: 'fixed',
+                top: Math.abs(rectWindow.top),
                 right: '0'
             };
             break;
         case 'bottom-end':
             screenCoords = {
-                position:'fixed',
+                position: 'fixed',
                 bottom: rectWindow.bottom,
                 right: '0'
             }
+            break;
+        case 'middle-center':
+            screenCoords = {
+                position: 'fixed',
+                top: '50%',
+                left: '50%',
+                transform: 'translate(-50%, -50%)'
+            };
+            break;
+        case 'middle-start':
+            screenCoords = {
+                position: 'fixed',
+                top: '50%',
+                left: '0',
+                transform: 'translateY(-50%)'
+            };
+            break;
+        case 'middle-end':
+            screenCoords = {
+                position: 'fixed',
+                top: '50%',
+                right: '0',
+                transform: 'translateY(-50%)'
+            };
             break;
         default:
             throw new Error('Invalid position');

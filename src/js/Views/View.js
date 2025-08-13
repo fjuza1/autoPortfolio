@@ -68,13 +68,14 @@ export default class View {
     _closeToast(toast) {
         toast.remove();
     }
-    _renderToast(msg, position) {
+    _renderToast(options) {
+        const {title ,msg, position} = options;
         const toast = document.createElement('div');
         toast.classList.add('toast', 'show', 'position-fixed');
         toast.innerHTML = `
             <div class="toast show position-fixed" style="${objectToCSS(calcToastPosition(position))}">
                 <div class="toast-header">  
-                    <strong class="me-auto">Notification</strong>
+                    <strong class="me-auto">${title}</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
                 </div>
                 <div class="toast-body">
