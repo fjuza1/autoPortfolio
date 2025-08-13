@@ -314,7 +314,7 @@ export const calcToastPosition = (position) => {
     const rectWindow = document.documentElement.getBoundingClientRect();;
     let screenCoords
     switch (position) {
-        case 'top-middle':
+        case 'top-center':
             screenCoords = {
                 position:'fixed',
                 top: Math.abs(rectWindow.top) ,
@@ -322,7 +322,7 @@ export const calcToastPosition = (position) => {
                 transform: 'translateX(-50%)'
             };
             break;
-        case 'bottom-middle':
+        case 'bottom-center':
             screenCoords = {
                 position:'fixed',
                 bottom: rectWindow.bottom,
@@ -361,6 +361,5 @@ export const calcToastPosition = (position) => {
         default:
             throw new Error('Invalid position');
     }
-    console.log(screenCoords)
     return screenCoords;
 }
