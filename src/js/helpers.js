@@ -308,12 +308,12 @@ export const resetTimeout = ({timeoutId,callback,duration}) => {
     return setTimeout(callback, duration * 1000); // Reset to the same timeout duration
 }
 export const calcToastPosition = (position) => {
-    const rectWindow = window.getBoundingClientRect();
+    const rectWindow = document.body.getBoundingClientRect();
     let screenCoords
     switch (position) {
         case 'top-middle':
             screenCoords = {
-                top: rectWindow.top,
+                top: Math.abs(rectWindow.top),
                 left: '50%',
                 transform: 'translateX(-50%)'
             };
@@ -327,7 +327,7 @@ export const calcToastPosition = (position) => {
             break;
         case 'top-left':
             screenCoords = {
-                top: rectWindow.top,
+                top: Math.abs(rectWindow.top),
                 left: '0'
             };
             break;
@@ -339,12 +339,13 @@ export const calcToastPosition = (position) => {
             break;
         case 'top-right':
             screenCoords = {
-                top: rectWindow.top,
+                top: Math.abs(rectWindow.top),
                 right: '0'
             };
             break;
         default:
             throw new Error('Invalid position');
     }
+    console.log(screenCoords)
     return screenCoords;
 }

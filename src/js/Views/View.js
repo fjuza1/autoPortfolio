@@ -30,6 +30,7 @@ export default class View {
      * @param {Array} _data
      */
     _render(_data) {
+        this._renderSpinner();
         if (Array.isArray(_data) && _data.length === 0) return this._renderError();
         this._cleanup();
         const markup = sanitizeHtml(this._generateMarkup(_data));
@@ -63,6 +64,23 @@ export default class View {
      *
      * @returns {void}
      */
+    _renderToast(msg, callback) {
+        const toast = document.createElement('div');
+        toast.classList.add('toast', 'show', 'position-absolute');
+        toast.innerHTML = `
+            <div class="toast show position-absolute" style="${calcToastPosition(callback)}">
+                <div class="toast-header">  
+                    <strong class="me-auto">Notification</strong>
+                    <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                </div>
+                <div class="toast-body
+                    ${msg}
+                </div>
+            </div>
+        `;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 200000)
+    }
     _renderError(options) {
         let messageMarkup;
         const exclamationError = `
@@ -115,8 +133,6 @@ export default class View {
         this._cleanup();
         this._parentElement.insertAdjacentHTML('afterbegin', successMessageMarkup);
     }
-
-
     //end
     //error handling
     /**
@@ -180,6 +196,14 @@ export default class View {
     //end
     addHandlerLoad(handler) {
         window.addEventListener('load', handler);
+        window.addEventListener('unhandledrejection', (err) => {
+            this._renderToast(`Error: ${err.reason}`, calcToastPosition('bottom-middle'));
+            return false
+        });
+        window.addEventListener('error', (err) => {
+            this._renderToast(`Error: ${err.message}`, calcToastPosition('bottom-middle'));
+            return false
+        });
     }
     //form
     _addHandlerSubmit(handler) {
