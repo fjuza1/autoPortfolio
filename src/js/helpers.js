@@ -356,7 +356,8 @@ export const calcToastPosition = (position) => {
                 position:'fixed',
                 bottom: rectWindow.bottom,
                 right: '0'
-            };
+            }
+            break;
         default:
             throw new Error('Invalid position');
     }

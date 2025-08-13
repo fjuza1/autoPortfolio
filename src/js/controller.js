@@ -55,7 +55,7 @@ const loadAndRenderContent = () => {
 	controllJourney();
 	model.filterTools({name: true, values: NONQATOOLS});
 	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
-	toolboxView._renderToast(`Welcome to Filip Juza - Portfolio website! This is my portfolio`, 'top-end');
+	toolboxView._renderToast(`Welcome to Filip Juza - Portfolio website! This is my portfolio`, 'bottom-end');
 	// // paginate tools
 	// handlePagination(model.state.skills,(data) => {
 	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
