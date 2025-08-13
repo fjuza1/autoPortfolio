@@ -29,38 +29,49 @@ class ToolboxView extends View {
             `
         })
     }
-    #toggleCard = (desc, hide) => {
-        desc.classList.toggle('d-none', hide);
-        const btnId = desc.dataset.btn;
-        const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
-        if (btn) {
-            const isHidden = hide ?? desc.classList.contains('d-none');
-            btn.textContent = isHidden ? 'Show description' : 'Hide description';
-            btn.setAttribute('aria-expanded', String(!isHidden));
-        }
-    }
-    #toggleDescription = (e) => {
-        const target = e.target.closest('button.btn-link');
-        if (!target) return;
+#toggleCard = (desc, hide) => {
+  // Proper toggle: if 'hide' is boolean, force it; else truly toggle
+  if (typeof hide === 'boolean') {
+    desc.classList.toggle('d-none', hide);
+  } else {
+    desc.classList.toggle('d-none');
+  }
 
-        const isAllBtn = target.dataset.btn === 'allTool';
-        if (isAllBtn) {
-            const descriptions = Array.from(this.#cardDescriptions);
-            const hideAll = descriptions.some(el => !el.classList.contains('d-none'));
-            descriptions.forEach(desc => this.#toggleCard(desc, hideAll));
+  const btnId = desc.dataset.btn;
+  const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
+  if (btn) {
+    const isHidden = desc.classList.contains('d-none');
+    btn.textContent = isHidden ? 'Show description' : 'Hide description';
+    btn.setAttribute('aria-expanded', String(!isHidden));
+  }
+};
+#toggleDescription = (e) => {
+  const target = e.target.closest('button.btn-link');
+  if (!target) return;
 
-            target.textContent = hideAll ? 'Show descriptions' : 'Hide descriptions';
-            target.setAttribute('aria-expanded', String(!hideAll));
-            return;
-        }
-        // Single-card toggle
-        const btnID = target.id;
-        if (!btnID) return;
-        const desc = this._parentElement.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
-        if (!desc) return;
+  const isAllBtn = target.dataset.btn === 'allTool';
+  if (isAllBtn) {
+    const descriptions = Array.from(this.#cardDescriptions);
+    if (!descriptions.length) return;
 
-        this.#toggleCard(desc);
-    };
+    // Use the button's state/intent, not current mixed visibility
+    const wantShowAll = target.getAttribute('aria-expanded') !== 'true';
+    const hideAll = !wantShowAll;
+
+    descriptions.forEach(desc => this.#toggleCard(desc, hideAll));
+    target.textContent = hideAll ? 'Show descriptions' : 'Hide descriptions';
+    target.setAttribute('aria-expanded', String(!hideAll));
+    return;
+  }
+
+  // Single-card toggle
+  const btnID = target.id;
+  if (!btnID) return;
+  const desc = this._parentElement.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
+  if (!desc) return;
+
+  this.#toggleCard(desc); // true toggle now works
+};
     addHandlerHideShowDescription() {
         this._parentElement.addEventListener('click', this.#toggleDescription.bind(this));
         this.#showAllBTN.addEventListener('click', this.#toggleDescription.bind(this));
