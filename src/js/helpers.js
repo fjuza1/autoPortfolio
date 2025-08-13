@@ -316,36 +316,47 @@ export const calcToastPosition = (position) => {
     switch (position) {
         case 'top-middle':
             screenCoords = {
-                top: Math.abs(rectWindow.top),
+                position:'fixed',
+                top: Math.abs(rectWindow.top) ,
                 left: '50%',
                 transform: 'translateX(-50%)'
             };
             break;
         case 'bottom-middle':
             screenCoords = {
+                position:'fixed',
                 bottom: rectWindow.bottom,
                 left: '50%',
                 transform: 'translateX(-50%)'
             };
             break;
-        case 'top-left':
+        case 'top-start':
             screenCoords = {
-                top: Math.abs(rectWindow.top),
+                position:'fixed',
+                top: Math.abs(rectWindow.top) ,
                 left: '0'
             };
             break;
-        case 'bottom-left':
+        case 'bottom-start':
             screenCoords = {
+                position:'fixed',
                 bottom: rectWindow.bottom,
                 left: '0'
             };
             break;
-        case 'top-right':
+        case 'top-end':
             screenCoords = {
-                top: Math.abs(rectWindow.top),
+                position:'fixed',
+                top: Math.abs(rectWindow.top) ,
                 right: '0'
             };
             break;
+        case 'bottom-end':
+            screenCoords = {
+                position:'fixed',
+                bottom: rectWindow.bottom,
+                right: '0'
+            };
         default:
             throw new Error('Invalid position');
     }

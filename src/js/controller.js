@@ -55,6 +55,7 @@ const loadAndRenderContent = () => {
 	controllJourney();
 	model.filterTools({name: true, values: NONQATOOLS});
 	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
+	toolboxView._renderToast(`Welcome to Filip Juza - Portfolio website! This is my portfolio`, 'top-end');
 	// // paginate tools
 	// handlePagination(model.state.skills,(data) => {
 	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
@@ -182,6 +183,5 @@ const init = () => {
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()
-toolboxView._renderToast(`Welcome to the Non-QA Tools Toolbox!`, 'top-middle');
 // performance optimization
 //console.log(performanceView._getMemoryStats());

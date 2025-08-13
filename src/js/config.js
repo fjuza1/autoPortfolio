@@ -30,6 +30,7 @@ export const UNGENERATED_FILE_MESSAGE = 'There was a problem generating! Please 
 export const SKILLSVIEW_EMPTY_MESSAGE = 'No skills found. Please adjust your filter criteria.';
 export const RES_PER_PAGE_TRESHOLD = 5;
 export const SECTION_REVEAL_TRESHOLD = 50;
+export const TOAST_DURATION = 15000;
 export const CURRENT_PAGE = 1;
 export const DEV_TYPE = 'Development';
 export const FE_TYPE = 'Frontend tests automation';

@@ -1,4 +1,5 @@
 import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSS } from '../helpers';
+import {TOAST_DURATION} from '../config.js'
 export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
@@ -69,9 +70,9 @@ export default class View {
     }
     _renderToast(msg, position) {
         const toast = document.createElement('div');
-        toast.classList.add('toast', 'show', 'position-absolute');
+        toast.classList.add('toast', 'show', 'position-fixed');
         toast.innerHTML = `
-            <div class="toast show position-absolute" style="${objectToCSS(calcToastPosition(position))}">
+            <div class="toast show position-fixed" style="${objectToCSS(calcToastPosition(position))}">
                 <div class="toast-header">  
                     <strong class="me-auto">Notification</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -82,7 +83,7 @@ export default class View {
             </div>
         `;
         document.body.appendChild(toast);
-        setTimeout(() => this._closeToast(toast), 8000)
+        setTimeout(() => this._closeToast(toast), TOAST_DURATION);
     }
     _renderError(options) {
         let messageMarkup;
