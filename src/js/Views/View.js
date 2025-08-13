@@ -1,4 +1,4 @@
-import { sanitizeHtml, wait, resetTimeout, calcToastPosition } from '../helpers';
+import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSS } from '../helpers';
 export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
@@ -64,11 +64,14 @@ export default class View {
      *
      * @returns {void}
      */
+    _closeToast(toast) {
+        toast.remove();
+    }
     _renderToast(msg, position) {
         const toast = document.createElement('div');
         toast.classList.add('toast', 'show', 'position-absolute');
         toast.innerHTML = `
-            <div class="toast show position-absolute" style="${calcToastPosition(position)}">
+            <div class="toast show position-absolute" style="${objectToCSS(calcToastPosition(position))}">
                 <div class="toast-header">  
                     <strong class="me-auto">Notification</strong>
                     <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
@@ -79,7 +82,7 @@ export default class View {
             </div>
         `;
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 200000)
+        setTimeout(() => this._closeToast(toast), 8000)
     }
     _renderError(options) {
         let messageMarkup;

@@ -307,8 +307,11 @@ export const resetTimeout = ({timeoutId,callback,duration}) => {
     }
     return setTimeout(callback, duration * 1000); // Reset to the same timeout duration
 }
+export const objectToCSS = (obj) => {
+    return Object.entries(obj).map(([key, value]) => `${key}: ${value}`).join('; ');
+}
 export const calcToastPosition = (position) => {
-    const rectWindow = document.body.getBoundingClientRect();
+    const rectWindow = document.documentElement.getBoundingClientRect();;
     let screenCoords
     switch (position) {
         case 'top-middle':
