@@ -84,7 +84,7 @@ export default class View {
             </div>
         `;
         document.body.appendChild(toast);
-        setTimeout(() => this._closeToast(toast), TOAST_DURATION);
+        setTimeout(() => this._closeToast(toast), TOAST_DURATION * 1000);
     }
     _renderError(options) {
         let messageMarkup;

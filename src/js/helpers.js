@@ -314,8 +314,8 @@ export const resetTimeout = ({
 export const objectToCSS = (obj) => {
     return Object.entries(obj).map(([key, value]) => `${key}: ${value}`).join('; ');
 }
-export const calcToastPosition = (position) => {
-    const rectWindow = document.documentElement.getBoundingClientRect();;
+export const calcToastPosition = (position, HTMLElement) => {
+    const rectWindow = !HTMLElement ? document.documentElement.getBoundingClientRect() : HTMLElement.getBoundingClientRect();;
     let screenCoords
     switch (position) {
         case 'top-center':
