@@ -10,7 +10,7 @@ export const isXML = async (xml) => {
     return new Promise((resolve) => {
         xml2js.parseString(xml, (err, result) => {
             if (err || !result) reject(false)
-                else {
+            else {
                 resolve(true);
             }
         });
@@ -39,8 +39,8 @@ export const isCSV = (csv) => {
 export const isJSON = (json) => {
     return new Promise((resolve, reject) => {
         try {
-        JSON.parse(json);
-        resolve(true)
+            JSON.parse(json);
+            resolve(true)
         } catch (err) {
             reject(false)
         }
@@ -293,10 +293,58 @@ export const validateEmail = (email) => {
  * @param {number} wait - The number of milliseconds to delay.
  * @returns {Function} - Returns the new debounced function.
  */
+// timeouts
 export const debounce = function(fn, wait) {
     let timeoutId;
     return (...args) => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => fn.apply(this, args), wait);
     };
+}
+export const resetTimeout = ({timeoutId,callback,duration}) => {
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+    return setTimeout(callback, duration * 1000); // Reset to the same timeout duration
+}
+export const calcToastPosition = (position) => {
+    const rectWindow = window.getBoundingClientRect();
+    let screenCoords
+    switch (position) {
+        case 'top-middle':
+            screenCoords = {
+                top: rectWindow.top,
+                left: '50%',
+                transform: 'translateX(-50%)'
+            };
+            break;
+        case 'bottom-middle':
+            screenCoords = {
+                bottom: rectWindow.bottom,
+                left: '50%',
+                transform: 'translateX(-50%)'
+            };
+            break;
+        case 'top-left':
+            screenCoords = {
+                top: rectWindow.top,
+                left: '0'
+            };
+            break;
+        case 'bottom-left':
+            screenCoords = {
+                bottom: rectWindow.bottom,
+                left: '0'
+            };
+            break;
+        case 'top-right':
+            screenCoords = {
+                top: rectWindow.top,
+                right: '0'
+            };
+            break;
+        default:
+            throw new Error('Invalid position');
+    }
+    return screenCoords;
 }
