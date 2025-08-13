@@ -1,4 +1,4 @@
-import { escapeHTML, sanitizeHtml, wait } from '../helpers';
+import { sanitizeHtml, wait, resetTimeout, calcToastPosition } from '../helpers';
 export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
