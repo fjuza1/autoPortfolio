@@ -1,5 +1,5 @@
 import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses } from '../helpers';
-import {TOAST_DURATION} from '../config.js'
+import {TOAST_DURATION, CREATE_TIME} from '../config.js'
 export default class View {
     _toast_container = document.querySelector('.toast-container')
     constructor() {
@@ -84,7 +84,7 @@ export default class View {
                         </div>
                     </div>
                 `;
-        this._toast_container.insertAdjacentHTML('afterbegin', toast)
+        setTimeout(() => { this._toast_container.insertAdjacentHTML('afterbegin', toast)}, CREATE_TIME * 1000);
         setTimeout(() => this._closeToast(this._toast_container.lastElementChild), TOAST_DURATION * 1000);
     }
     _renderError(options) {
