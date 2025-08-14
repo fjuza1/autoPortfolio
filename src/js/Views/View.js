@@ -71,13 +71,13 @@ export default class View {
     }
     _renderToast(options) {
         // style="${objectToCSSClasses(calcToastPosition(position))}"
-        const {title ,msg, position} = options;
+        const {title ,msg, position, autohide, delay} = options;
         this._toast_container.classList.add(...objectToCSSClasses(calcToastPosition(position)))
         const toast = `
                     <div class="toast fade show">
                         <div class="toast-header">  
                             <strong class="me-auto">${title}</strong>
-                            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                            <button type="button" class="btn-close ${autohide ? 'd-none' : 'd-block'}" data-bs-dismiss="toast" aria-label="Close"></button>
                         </div>
                         <div class="toast-body">
                             ${msg}
@@ -85,7 +85,9 @@ export default class View {
                     </div>
                 `;
         setTimeout(() => { this._toast_container.insertAdjacentHTML('afterbegin', toast)}, CREATE_TIME * 1000);
-        setTimeout(() => this._closeToast(this._toast_container.lastElementChild), TOAST_DURATION * 1000);
+        if(autohide) {
+        setTimeout(() => this._closeToast(this._toast_container.lastElementChild), delay && typeof(delay) === 'number' ? delay : TOAST_DURATION * 1000)
+        }
     }
     _renderError(options) {
         let messageMarkup;
