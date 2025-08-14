@@ -57,7 +57,7 @@ const loadAndRenderContent = () => {
 	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
 	toolboxView._renderToast(
 		{msg:'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
-		 position: 'top-start',
+		 position: 'bottom-center',
 		 title: 'Welcome to my portfolio!'
 		});
 	// // paginate tools
