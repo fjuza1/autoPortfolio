@@ -1,4 +1,4 @@
-import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, uniqueID, escapeCSS } from '../helpers';
+import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, uniqueID, escapeCSS, debounce} from '../helpers';
 import {TOAST_DURATION, CREATE_TIME} from '../config.js'
 export default class View {
     _toast_container = document.querySelector('.toast-container')
@@ -71,46 +71,53 @@ export default class View {
         if(!toast) return;
         toast.remove();
     }
-    #addHandlerCloseToast() {
-        this._toast_container.addEventListener('click', (e) => {
-        const target = e.target;
-        const btn = target.closest('.btn-close');
-        if(!btn) return
-        const toast = document.querySelector(`[data-bs-timeout="${escapeCSS(btn.dataset.bsDismiss)}"]`)
-        this._closeToast(toast)
-        });
+#addHandlerCloseToast() {
+  this._toast_container.addEventListener('click', (e) => {
+    const btn = e.target.closest('.btn-close');
+    if (!btn) return;
+    const toast = btn.closest('.toast');        // <— grab the toast element directly
+    if (toast) this._closeToast(toast);
+  });
+}
+
+    _hideToast(autohide, delayMs) {
+    if (!autohide) return;
+    const el = this._toast_container.firstElementChild; // you just inserted at 'afterbegin'
+    if (!el) return;
+
+    const hideIn = (typeof delayMs === 'number') ? delayMs : TOAST_DURATION * 1000;
+    const debouncedHide = debounce(() => {
+        // element might be gone or moved; double-check
+        if (el && el.isConnected) this._closeToast(el);
+    }, hideIn);
+
+    debouncedHide();
     }
     _renderToast(options) {
-    const id = uniqueID();
-    const { title, msg, position, autohide , delay } = options;
+  const id = uniqueID();
+  const { title, msg, position, autohide, delay } = options;
 
-    // 1) Position the container via classes only (reset first to avoid buildup)
-    this._toast_container.classList.add(...objectToCSSClasses(calcToastPosition(position)));
+  // position container
+  this._toast_container.classList.add(
+    ...objectToCSSClasses(calcToastPosition(position))
+  );
 
-    // 2) Build toast markup (no positioning classes on the toast itself)
-    const closeBtnClass = autohide ? 'd-none' : 'd-block'; 
-    const toast = `
-        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-timeout="${id}">
-        <div class="toast-header">
-            <strong class="me-auto">${title}</strong>
-            <button type="button"; class="btn-close ${closeBtnClass}"; data-bs-dismiss=${id} aria-label="Close"></button>
-        </div>
-        <div class="toast-body">
-            ${msg}
-        </div>
-        </div>
-    `; // <-- all tags closed
+  // build markup (fix attrs)
+  const closeBtnClass = autohide ? 'd-none' : 'd-block';
+  const toast = `
+    <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-timeout-id="${id}">
+      <div class="toast-header">
+        <strong class="me-auto">${title}</strong>
+        <button type="button" class="btn-close ${closeBtnClass}" aria-label="Close"></button>
+      </div>
+      <div class="toast-body">${msg}</div>
+    </div>
+  `;
 
-    // 3) Insert, then handle auto-hide
-    setTimeout(() => {
-        this._toast_container.insertAdjacentHTML('afterbegin', sanitizeHtml(toast));
-        if (autohide) {
-        const el = this._toast_container.firstElementChild;
-        const hideIn = (typeof delay === 'number' ? delay : TOAST_DURATION * 1000);
-        setTimeout(() => this._closeToast(el), hideIn);
-        }
-    }, CREATE_TIME * 1000);
-    }
+  // insert, then use your _hideToast
+  this._toast_container.insertAdjacentHTML('afterbegin', sanitizeHtml(toast));
+  this._hideToast(autohide, delay);
+}
     _renderError(options) {
         let messageMarkup;
         const exclamationError = `
