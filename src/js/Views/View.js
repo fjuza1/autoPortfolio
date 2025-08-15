@@ -5,7 +5,7 @@ export default class View {
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerLoadError();
-        this.#addHandlerCloseToast()
+        this.#addHandlerCloseToast();
     }
     /**
      * Description placeholder
@@ -80,26 +80,34 @@ export default class View {
         });
     }
     _renderToast(options) {
-        // style="${objectToCSSClasses(calcToastPosition(position))}"
-        const {title ,msg, position, autohide, delay} = options;
-        this._toast_container.classList.add(...objectToCSSClasses(calcToastPosition(position)))
-        const toast = `
-                    <div class="toast fade show">
-                        <div class="toast-header">  
-                            <strong class="me-auto">${title}</strong>
-                            <button type="button" class="btn-close ${autohide ? 'd-none' : 'd-block'}" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                        <div class="toast-body">
-                            ${msg}
-                        </div>
-                    </div>
-                `;
-        setTimeout(() => {
-            this._toast_container.insertAdjacentHTML('afterbegin', toast)
-            if (autohide) {
-                setTimeout(() => this._closeToast(this._toast_container.firstElementChild), delay && typeof(delay) === 'number' ? delay : TOAST_DURATION * 1000)
-            }
-        }, CREATE_TIME * 1000);
+    const { title, msg, position, autohide , delay } = options;
+
+    // 1) Position the container via classes only (reset first to avoid buildup)
+    this._toast_container.classList.add(...objectToCSSClasses(calcToastPosition(position)));
+
+    // 2) Build toast markup (no positioning classes on the toast itself)
+    const closeBtnClass = autohide ? 'd-none' : 'd-block'; 
+    const toast = `
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast-header">
+            <strong class="me-auto">${title}</strong>
+            <button type="button" class="btn-close ${closeBtnClass}" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            ${msg}
+        </div>
+        </div>
+    `; // <-- all tags closed
+
+    // 3) Insert, then handle auto-hide
+    setTimeout(() => {
+        this._toast_container.insertAdjacentHTML('afterbegin', toast);
+        if (autohide) {
+        const el = this._toast_container.firstElementChild;
+        const hideIn = (typeof delay === 'number' ? delay : TOAST_DURATION * 1000);
+        setTimeout(() => this._closeToast(el), hideIn);
+        }
+    }, CREATE_TIME * 1000);
     }
     _renderError(options) {
         let messageMarkup;
