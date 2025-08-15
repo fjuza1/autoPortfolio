@@ -240,6 +240,7 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
+// String manipulation functions
 /**
  * Capitalizes the first letter of a given word.
  *
@@ -252,7 +253,8 @@ export const handleFileGeneration = async (blob) => {
  * capitalizeWord('world') // returns 'World'
  */
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
-
+export const uniqueID = () =>`${Date.now().toString(36).padEnd(8, '0')}-${Math.random().toString(16).slice(2, 6)}-4${Math.random().toString(16).slice(3, 6)}-${(8 + Math.random()*4 | 0).toString(16)}${Math.random().toString(16).slice(3, 6)}-${Math.random().toString(16).slice(2, 14)}`;
+export const escapeCSS = (str) => CSS.escape(str);
 export const gotoSegment = (domElement, nav) => {
     const targetSection = domElement.getBoundingClientRect();
     const navHeight = nav.offsetHeight;
@@ -264,8 +266,10 @@ export const gotoSegment = (domElement, nav) => {
         behavior: 'smooth',
     })
 }
+// Scroll functions
 export const gotoTop = () => window.scrollTo(0, 0)
 
+// Class manipulation functions
 export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)
 }
@@ -275,6 +279,7 @@ export const removeClass = (element, className) => {
  * @param {string} email - The email address to validate.
  * @returns {boolean} - Returns true if the email is valid, otherwise false.
  */
+// Validation function
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);

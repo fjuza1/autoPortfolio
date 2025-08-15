@@ -1,4 +1,4 @@
-import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses } from '../helpers';
+import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, uniqueID, escapeCSS } from '../helpers';
 import {TOAST_DURATION, CREATE_TIME} from '../config.js'
 export default class View {
     _toast_container = document.querySelector('.toast-container')
@@ -69,17 +69,19 @@ export default class View {
      * @returns {void}
      */
     _closeToast(toast) {
+        if(!toast) return;
         toast.remove();
     }
     #addHandlerCloseToast() {
         this._toast_container.addEventListener('click', (e) => {
         const target = e.target;
         const btn = target.closest('.btn-close');
-        const toast = target.closest('.toast');
+        const toast = this._toast_container.querySelector(`[data-bs-timeout="${escapeCSS(btn.dataset.bsDismiss)}"]`)
         if (btn) this._closeToast(toast);
         });
     }
     _renderToast(options) {
+    const id = uniqueID();
     const { title, msg, position, autohide , delay } = options;
 
     // 1) Position the container via classes only (reset first to avoid buildup)
@@ -88,10 +90,10 @@ export default class View {
     // 2) Build toast markup (no positioning classes on the toast itself)
     const closeBtnClass = autohide ? 'd-none' : 'd-block'; 
     const toast = `
-        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-bs-timeout="${id}">
         <div class="toast-header">
             <strong class="me-auto">${title}</strong>
-            <button type="button" class="btn-close ${closeBtnClass}" data-bs-dismiss="toast" aria-label="Close"></button>
+            <button type="button"; class="btn-close ${closeBtnClass}"; data-bs-dismiss=${id} aria-label="Close"></button>
         </div>
         <div class="toast-body">
             ${msg}
