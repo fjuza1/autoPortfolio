@@ -101,7 +101,7 @@ export default class View {
 
     // 3) Insert, then handle auto-hide
     setTimeout(() => {
-        this._toast_container.insertAdjacentHTML('afterbegin', toast);
+        this._toast_container.insertAdjacentHTML('afterbegin', sanitizeHtml(toast));
         if (autohide) {
         const el = this._toast_container.firstElementChild;
         const hideIn = (typeof delay === 'number' ? delay : TOAST_DURATION * 1000);
@@ -227,17 +227,17 @@ export default class View {
                 msg: `Error: ${err.message}`,
                 position: 'bottom-center',
                 autohide: true,
-                delay: 5000
+                delay: TOAST_DURATION * 1000
             });
             return true;
         });
         window.addEventListener('unhandledrejection', (err) => {
             this._renderToast({
                 title: 'Error',
-                msg: `Error: ${err.reason}`,
+                msg: `Error: ${err.reason.message}`,
                 position: 'bottom-center',
                 autohide: true,
-                delay: 5000
+                delay: TOAST_DURATION * 1000
             });
             return true;
         });
