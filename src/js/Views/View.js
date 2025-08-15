@@ -4,6 +4,7 @@ export default class View {
     _toast_container = document.querySelector('.toast-container')
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
+        this._addHandlerLoadError();
     }
     /**
      * Description placeholder
@@ -84,10 +85,12 @@ export default class View {
                         </div>
                     </div>
                 `;
-        setTimeout(() => { this._toast_container.insertAdjacentHTML('afterbegin', toast)}, CREATE_TIME * 1000);
-        if(autohide) {
-        setTimeout(() => this._closeToast(this._toast_container.lastElementChild), delay && typeof(delay) === 'number' ? delay : TOAST_DURATION * 1000)
-        }
+        setTimeout(() => {
+            this._toast_container.insertAdjacentHTML('afterbegin', toast)
+            if (autohide) {
+                setTimeout(() => this._closeToast(this._toast_container.firstElementChild), delay && typeof(delay) === 'number' ? delay : TOAST_DURATION * 1000)
+            }
+        }, CREATE_TIME * 1000);
     }
     _renderError(options) {
         let messageMarkup;
@@ -200,7 +203,28 @@ export default class View {
         const data = Object.fromEntries(formEntries);
         this._formData = data;
     }
-
+    _addHandlerLoadError() {
+        window.addEventListener('error', (err) => {
+            this._renderToast({
+                title: 'Error',
+                msg: `Error: ${err.message}`,
+                position: 'bottom-center',
+                autohide: true,
+                delay: 5000
+            });
+            return true;
+        });
+        window.addEventListener('unhandledrejection', (err) => {
+            this._renderToast({
+                title: 'Error',
+                msg: `Error: ${err.reason}`,
+                position: 'bottom-center',
+                autohide: true,
+                delay: 5000
+            });
+            return true;
+        });
+    }
     //end
     addHandlerLoad(handler) {
         window.addEventListener('load', handler);
