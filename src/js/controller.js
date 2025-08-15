@@ -14,13 +14,15 @@ import skillsExportView from './Views/skillsExportView.js';
 import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
-import performanceView from './Views/performanceView.js';
 import toolboxView from './Views/toolboxView.js';
 import settingsView from './Views/settings.js';
+import performanceView from './Views/performanceView.js';
+import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
 // _generateQAToolboxMarkup
-//performanceView._perfObserver()
+//performanceView._perfObserve
+// r()
 // design part
 const controllNavBar = () => {
 	designView.addHandlerHover(designView.handleHover)

@@ -4,7 +4,6 @@ export default class View {
     _toast_container = document.querySelector('.toast-container')
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
-        this.#addHandlerLoadError();
         this.#addHandlerCloseToast();
     }
     /**
@@ -222,28 +221,6 @@ export default class View {
         const formEntries = [...new FormData(this._form)];
         const data = Object.fromEntries(formEntries);
         this._formData = data;
-    }
-    #addHandlerLoadError() {
-        window.addEventListener('error', (err) => {
-            this._renderToast({
-                title: 'Error',
-                msg: `Error: ${err.message}`,
-                position: 'bottom-center',
-                autohide: true,
-                delay: TOAST_DURATION * 1000
-            });
-            return true;
-        });
-        window.addEventListener('unhandledrejection', (err) => {
-            this._renderToast({
-                title: 'Error',
-                msg: `Error: ${err.reason.message}`,
-                position: 'bottom-center',
-                autohide: true,
-                delay: TOAST_DURATION * 1000
-            });
-            return true;
-        });
     }
     //end
     addHandlerLoad(handler) {
