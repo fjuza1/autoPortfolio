@@ -76,8 +76,9 @@ export default class View {
         this._toast_container.addEventListener('click', (e) => {
         const target = e.target;
         const btn = target.closest('.btn-close');
-        const toast = this._toast_container.querySelector(`[data-bs-timeout="${escapeCSS(btn.dataset.bsDismiss)}"]`)
-        if (btn) this._closeToast(toast);
+        if(!btn) return
+        const toast = document.querySelector(`[data-bs-timeout="${escapeCSS(btn.dataset.bsDismiss)}"]`)
+        this._closeToast(toast)
         });
     }
     _renderToast(options) {
@@ -247,14 +248,6 @@ export default class View {
     //end
     addHandlerLoad(handler) {
         window.addEventListener('load', handler);
-        window.addEventListener('unhandledrejection', (err) => {
-            this._renderToast(`Error: ${err.reason}`, calcToastPosition('bottom-middle'));
-            return false
-        });
-        window.addEventListener('error', (err) => {
-            this._renderToast(`Error: ${err.message}`, calcToastPosition('bottom-middle'));
-            return false
-        });
     }
     //form
     _addHandlerSubmit(handler) {
