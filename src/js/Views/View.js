@@ -4,7 +4,8 @@ export default class View {
     _toast_container = document.querySelector('.toast-container')
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
-        this._addHandlerLoadError();
+        this.#addHandlerLoadError();
+        this.#addHandlerCloseToast()
     }
     /**
      * Description placeholder
@@ -69,6 +70,14 @@ export default class View {
      */
     _closeToast(toast) {
         toast.remove();
+    }
+    #addHandlerCloseToast() {
+        this._toast_container.addEventListener('click', (e) => {
+        const target = e.target;
+        const btn = target.closest('.btn-close');
+        const toast = target.closest('.toast');
+        if (btn) this._closeToast(toast);
+        });
     }
     _renderToast(options) {
         // style="${objectToCSSClasses(calcToastPosition(position))}"
@@ -203,7 +212,7 @@ export default class View {
         const data = Object.fromEntries(formEntries);
         this._formData = data;
     }
-    _addHandlerLoadError() {
+    #addHandlerLoadError() {
         window.addEventListener('error', (err) => {
             this._renderToast({
                 title: 'Error',
