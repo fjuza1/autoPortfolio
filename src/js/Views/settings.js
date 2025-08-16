@@ -15,7 +15,7 @@ class SettingsView extends View {
     _savePreferences() {
         localStorage.setItem('settings', JSON.stringify(this._formData));
     }
-    _getPreferences() {
+    _getPreferences(e) {
         const settings = localStorage.getItem('settings');
         if (settings !== undefined && settings !== null) {
             const parsedSettings = JSON.parse(settings);

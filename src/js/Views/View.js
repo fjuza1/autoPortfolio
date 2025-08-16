@@ -1,4 +1,4 @@
-import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, uniqueID, escapeCSS, debounce} from '../helpers';
+import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, escapeCSS, debounce} from '../helpers';
 import {TOAST_DURATION, CREATE_TIME} from '../config.js'
 export default class View {
     _toast_container = document.querySelector('.toast-container')
@@ -79,7 +79,6 @@ export default class View {
     if (toast) this._closeToast(toast);
   });
 }
-
     _hideToast(autohide, delayMs) {
     if (!autohide) return;
     const el = this._toast_container.firstElementChild; // you just inserted at 'afterbegin'
@@ -94,21 +93,36 @@ export default class View {
     debouncedHide();
     }
     _renderToast(options) {
-  const id = uniqueID();
-  const { title, msg, position, autohide, delay } = options;
-
+  const { title, msg, position, autohide, delay, type } = options;
+    let toastType
+    switch(type){
+        case 'error':
+            toastType = 'toast-error';
+        break;
+        case 'info':
+            toastType = 'toast-info';
+        break;
+        case 'warning':
+            toastType = 'toast-warning';
+        break;
+        case 'success':
+            toastType = 'toast-success';
+        break;
+        default :
+            toastType = ''
+    }
   // position container
   this._toast_container.classList.add(
     ...objectToCSSClasses(calcToastPosition(position))
   );
-
   // build markup (fix attrs)
-  const closeBtnClass = autohide ? 'd-none' : 'd-block';
+  //const closeBtnClass = autohide ? 'd-none' : 'd-block';
+  // ${closeBtnClass}
   const toast = `
-    <div class="toast fade show" role="alert" aria-live="assertive" aria-atomic="true" data-timeout-id="${id}">
-      <div class="toast-header">
+    <div class="toast fade show ${toastType}" role="alert" aria-live="assertive" aria-atomic="true"">
+      <div class="toast-header ${toastType}">
         <strong class="me-auto">${title}</strong>
-        <button type="button" class="btn-close ${closeBtnClass}" aria-label="Close"></button>
+        <button type="button" class="btn-close btn-toast" aria-label="Close"></button>
       </div>
       <div class="toast-body">${msg}</div>
     </div>

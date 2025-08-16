@@ -10,7 +10,6 @@ footer {
   overflow: hidden; 
   margin-top: 20px; 
 }
-
 #About, #Skills, #Projects, #Contact, #Journey, #Myqatoolbox {
   background-attachment: fixed;
   min-height: 100vh;
@@ -23,7 +22,26 @@ footer {
   transform: translateY(-20px);
   transition: opacity 1s ease, transform 1s ease;
 }
-
+.toast-error {
+  background-color: #f8d7da; 
+  color: #842029;
+  border: 1px solid #f5c2c7; /* matches .alert-danger */
+}
+.toast-info {
+  background-color: #cff4fc;
+  color: #055160;
+  border: 1px solid #b6effb; /* matches .alert-info */
+}
+.toast-warning {
+  background-color: #fff3cd; 
+  color: #664d03;
+  border: 1px solid #ffecb5; /* matches .alert-warning */
+}
+.toast-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc; /* matches .alert-success */
+}
 section {
   opacity: 1;
   padding: 60px 0;
@@ -120,7 +138,8 @@ section {
   background-color: #121212 !important;
   color: #f0f0f0 !important;
 }
-[data-bs-theme="dark"] section{
-  background-color: #121212 !important;
-  color: #f0f0f0 !important;
+.btn-toast.btn-close {
+  --bs-btn-close-color: currentColor;
+  color: inherit;
+  filter: none;
 }

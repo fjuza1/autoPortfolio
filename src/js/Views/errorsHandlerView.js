@@ -16,10 +16,9 @@ class BrowserErrorsView extends View{
         msg: `Error: ${msg}\n${at}`, // <-- change to stackOut for full
         position: 'bottom-center',
         autohide: true,
-        delay: TOAST_DURATION * 1000
+        type: 'error'
         });
     });
-
     window.addEventListener('unhandledrejection', (ev) => {
         const r = ev?.reason;
         let msg   = '';
@@ -41,7 +40,7 @@ class BrowserErrorsView extends View{
         msg: `Error: ${msg}\n${firstAtLine}`,
         position: 'bottom-center',
         autohide: true,
-        delay: TOAST_DURATION * 1000
+        type: 'error'
         });
     });
     }

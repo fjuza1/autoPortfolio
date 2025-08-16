@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
-import {NONQATOOLS} from './config.js';
+import {NONQATOOLS, LOAD_TYPE, RESET_TYPE} from './config.js';
 import * as model from './model.js';
 //console.log("TCL: model", model.state)
 import paginationView from './Views/paginationView.js';
@@ -60,14 +60,14 @@ const loadAndRenderContent = () => {
 	designView._renderToast(
 		{msg:'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
 		 position: 'bottom-center',
-		 title: 'Welcome to my portfolio!'
+		 title: 'Welcome to my portfolio!',
+		 type: 'info'
 		});
 	// // paginate tools
 	// handlePagination(model.state.skills,(data) => {
 	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
 	// })
 }
-
 // pagination basic
 const handlePagination = (dataSource, callback) => {
 	const paged = model.loadMore(dataSource)
@@ -99,13 +99,13 @@ const controllSortedSkills = () => {
 		})
 	});
 }
-const controllSortedResetSkills = () => {
+const controllResetSkills = () => {
 	const original = model.state.skills
 	original.filteredSkills = '';
     model.state.curPage = 1;
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
-skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
+	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
     handlePagination(original, (data) => {
         skillsView._render(skillsView._skillBarDisplay(data));
     });
@@ -165,10 +165,48 @@ const controllContacting = () =>{
 	const email = contactView._formData
 	contactView._sendMail(email)
 }
-const controllSettings = () =>{
+// settings
+const controllSettings = (e) =>{
+	const type = e.type;
+	console.log("🚀 ~ controllSettings ~ type:", type)
+	if(type === LOAD_TYPE) {
+        // render toast with success
+        settingsView._renderToast({
+        title: 'Preferences',
+        msg: 'Preferences loaded.', // <-- change to stackOut for full
+        position: 'top-center',
+        autohide: true,
+        type: 'success',
+		delay:2000
+        });
+	} else if (type === RESET_TYPE) {
+		// render toast with info
+        settingsView._renderToast({
+        title: 'Preferences',
+        msg: 'Preferences reseted.', // <-- change to stackOut for full
+        position: 'top-center',
+        autohide: true,
+        type: 'info',
+		delay:2000
+        });
+	}
+	else {
+        // render toast with info
+        settingsView._renderToast({
+        title: 'Preferences',
+        msg: 'Preferences saved.', // <-- change to stackOut for full
+        position: 'top-center',
+        autohide: true,
+        type: 'info',
+		delay:2000
+        });
+	}
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 }
+const controllResetSettings = () =>{
+
+};
 const init = () => {
 	controllNavBar();
 	controlSections();
@@ -176,7 +214,7 @@ const init = () => {
 	skillsView.addHandlerLoad(loadAndRenderContent)
 	settingsView.addHandlerLoad(settingsView._getPreferences());
 	designView.addHandlerLoad(designView.scrollIntoSection);
-	skillsView._addHandlerFormReset(controllSortedResetSkills);
+	skillsView._addHandlerFormReset(controllResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
@@ -186,6 +224,7 @@ const init = () => {
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
 	settingsView.addHandlerNavigateByKey();
+	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()
