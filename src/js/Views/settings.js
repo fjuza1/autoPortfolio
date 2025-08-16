@@ -10,15 +10,16 @@ class SettingsView extends View {
     _firstSection = document.querySelector("#Home");
     #getSettings = () => {
         const settings = localStorage.getItem('settings');
+        if(!settings) return;
         return settings ? JSON.parse(settings) : {};
     }
     _savePreferences() {
         localStorage.setItem('settings', JSON.stringify(this._formData));
     }
     _getPreferences(e) {
-        const settings = localStorage.getItem('settings');
+        const settings = this.#getSettings();
         if (settings !== undefined && settings !== null) {
-            const parsedSettings = JSON.parse(settings);
+            const parsedSettings = JSON.parse(JSON.stringify(settings));
             this._formData = parsedSettings;
             this._form.querySelectorAll('input, textarea, select').forEach(input => {
                 if (input.type === 'checkbox') {

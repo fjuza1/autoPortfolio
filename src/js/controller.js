@@ -57,12 +57,6 @@ const loadAndRenderContent = () => {
 	controllJourney();
 	model.filterTools({name: true, values: NONQATOOLS});
 	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
-	designView._renderToast(
-		{msg:'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
-		 position: 'bottom-center',
-		 title: 'Welcome to my portfolio!',
-		 type: 'info'
-		});
 	// // paginate tools
 	// handlePagination(model.state.skills,(data) => {
 	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
@@ -168,12 +162,11 @@ const controllContacting = () =>{
 // settings
 const controllSettings = (e) =>{
 	const type = e.type;
-	console.log("🚀 ~ controllSettings ~ type:", type)
 	if(type === LOAD_TYPE) {
-        // render toast with success
+        // render toast with success 
         settingsView._renderToast({
         title: 'Preferences',
-        msg: 'Preferences loaded.', // <-- change to stackOut for full
+        msg: `Preferences ${LOAD_TYPE}ed.`, // <-- change to stackOut for full
         position: 'top-center',
         autohide: true,
         type: 'success',
@@ -183,8 +176,8 @@ const controllSettings = (e) =>{
 		// render toast with info
         settingsView._renderToast({
         title: 'Preferences',
-        msg: 'Preferences reseted.', // <-- change to stackOut for full
-        position: 'top-center',
+        msg: `Preferences ${RESET_TYPE}ed.`, // <-- change to stackOut for full
+        position: 'top-start',
         autohide: true,
         type: 'info',
 		delay:2000
@@ -195,18 +188,15 @@ const controllSettings = (e) =>{
         settingsView._renderToast({
         title: 'Preferences',
         msg: 'Preferences saved.', // <-- change to stackOut for full
-        position: 'top-center',
+        position: 'top-start',
         autohide: true,
-        type: 'info',
+        type: 'success',
 		delay:2000
         });
 	}
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 }
-const controllResetSettings = () =>{
-
-};
 const init = () => {
 	controllNavBar();
 	controlSections();
