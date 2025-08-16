@@ -153,7 +153,6 @@ const controllModals = () => {
 	// demo data model.state.projectDemo
 	projectsView._renderProjectModal(model.state.projectDemos)
 }
-
 //contaction
 const controllContacting = () =>{
 	const email = contactView._formData
@@ -163,7 +162,13 @@ const controllContacting = () =>{
 const controllSettings = (e) =>{
 	const type = e.type;
 	if(type === LOAD_TYPE) {
-        // render toast with success 
+	designView._renderToast(
+		{msg:'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
+		 position: 'bottom-center',
+		 title: 'Welcome to my portfolio!',
+		 type: 'info'
+		});
+        // render toast with success
         settingsView._renderToast({
         title: 'Preferences',
         msg: `Preferences ${LOAD_TYPE}ed.`, // <-- change to stackOut for full
@@ -173,6 +178,9 @@ const controllSettings = (e) =>{
 		delay:2000
         });
 	} else if (type === RESET_TYPE) {
+		// reset settings 1st
+		settingsView._resetSettings();
+		settingsView._updateTheme();
 		// render toast with info
         settingsView._renderToast({
         title: 'Preferences',

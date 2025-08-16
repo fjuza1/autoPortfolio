@@ -8,16 +8,34 @@ class SettingsView extends View {
     _sections = document.querySelectorAll('.section');
     _nav = document.querySelector('.nav');
     _firstSection = document.querySelector("#Home");
+    _resetSettings () {
+        this._formData = {};
+        this._savePreferences(this._formData)
+    };
     #getSettings = () => {
         const settings = localStorage.getItem('settings');
-        if(!settings) return;
-        return settings ? JSON.parse(settings) : {};
+
+        // nothing stored → return empty object
+        if (!settings || settings === "undefined") {
+            return {};
+        }
+
+        try {
+            return JSON.parse(settings);
+        } catch (e) {
+            console.error("Invalid JSON in localStorage for 'settings':", settings, e);
+            return {};
+        }
     }
-    _savePreferences() {
-        localStorage.setItem('settings', JSON.stringify(this._formData));
+    _savePreferences(preferences = this._formData) {
+        if (!preferences || typeof preferences !== "object") {
+            preferences = {};
+        }
+        localStorage.setItem('settings', JSON.stringify(preferences));
     }
     _getPreferences(e) {
         const settings = this.#getSettings();
+        if(!settings) return {};
         if (settings !== undefined && settings !== null) {
             const parsedSettings = JSON.parse(JSON.stringify(settings));
             this._formData = parsedSettings;
@@ -34,6 +52,7 @@ class SettingsView extends View {
     }
     _updateTheme() {
         const settings = this.#getSettings();
+        if(!settings) return;
         const darkMode = settings.darkMode === "on";
         this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
     }
