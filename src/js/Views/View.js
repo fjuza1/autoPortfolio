@@ -92,26 +92,31 @@ export default class View {
 
     debouncedHide();
     }
+    #declareToastType(type){
+		let toastType
+		switch (type) {
+			case 'error':
+				toastType = 'toast-error';
+				break;
+			case 'info':
+				toastType = 'toast-info';
+				break;
+			case 'warning':
+				toastType = 'toast-warning';
+				break;
+			case 'success':
+				toastType = 'toast-success';
+				break;
+			default:
+				toastType = ''
+		}
+        return toastType
+    }
     _renderToast(options) {
   const { title, msg, position, autohide, delay, type } = options;
-    let toastType
-    switch(type){
-        case 'error':
-            toastType = 'toast-error';
-        break;
-        case 'info':
-            toastType = 'toast-info';
-        break;
-        case 'warning':
-            toastType = 'toast-warning';
-        break;
-        case 'success':
-            toastType = 'toast-success';
-        break;
-        default :
-            toastType = ''
-    }
+    const toastType = this.#declareToastType(type)
   // position container
+  this._toast_container.classList = 'toast-container p-3'
   this._toast_container.classList.add(
     ...objectToCSSClasses(calcToastPosition(position))
   );

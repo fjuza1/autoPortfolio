@@ -2,7 +2,7 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime';
 import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
-import {NONQATOOLS, LOAD_TYPE, RESET_TYPE} from './config.js';
+import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
 //console.log("TCL: model", model.state)
 import paginationView from './Views/paginationView.js';
@@ -47,16 +47,28 @@ const controlSections = () => {
 const loadAndRenderContent = () => {
 	skillsView._renderSpinner();
 	// handle generation
-	handlePagination(model.state.skills,(data) => {
+	handlePagination(model.state.skills, (data) => {
 		skillsView._render(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	projectsView._render(projectsView._renderSlidesMarkup({array: model.state.projects, interval: true}))
+	projectsView._render(projectsView._renderSlidesMarkup({
+		array: model.state.projects,
+		interval: true
+	}))
 	slidesView._initializeElement();
 	slidesView.handleSlides();
 	controllJourney();
-	model.filterTools({name: true, values: NONQATOOLS});
+	model.filterTools({
+		name: true,
+		values: NONQATOOLS
+	});
 	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
+	designView._renderToast({
+		msg: 'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
+		position: 'bottom-center',
+		title: 'Welcome to my portfolio!',
+		type: 'info'
+	});
 	// // paginate tools
 	// handlePagination(model.state.skills,(data) => {
 	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
@@ -68,8 +80,8 @@ const handlePagination = (dataSource, callback) => {
 	paginationView._render(paged)
 	callback(paged.data)
 
-	paginationView.addHandlerPagination((data)=>{
-		const updated = model.loadMore(dataSource,data)
+	paginationView.addHandlerPagination((data) => {
+		const updated = model.loadMore(dataSource, data)
 		paginationView._render(updated)
 		callback(updated.data)
 	})
@@ -77,18 +89,20 @@ const handlePagination = (dataSource, callback) => {
 // controlling Personal sections
 
 // controling journey
-const controllJourney = () =>{
+const controllJourney = () => {
 	journeyView._setTimeline(model.state.journey);
 }
 // skillsData manipulation part
 const controllSortedSkills = () => {
-	const array = {array: model.state.search.skills}
+	const array = {
+		array: model.state.search.skills
+	}
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
 	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
 	skillsView._renderSpinner();
 	timeout(() => {
-		handlePagination(model.state.search.skills,(data)=>{
+		handlePagination(model.state.search.skills, (data) => {
 			skillsView._render(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -96,112 +110,87 @@ const controllSortedSkills = () => {
 const controllResetSkills = () => {
 	const original = model.state.skills
 	original.filteredSkills = '';
-    model.state.curPage = 1;
+	model.state.curPage = 1;
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
 	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
-    handlePagination(original, (data) => {
-        skillsView._render(skillsView._skillBarDisplay(data));
-    });
+	handlePagination(original, (data) => {
+		skillsView._render(skillsView._skillBarDisplay(data));
+	});
 };
 
-const controllFilterSkills = () =>{
-	const options = {array: model.state.skills, keys:['name','levelNumber'],values:[skillsView._formData.name,+skillsView._formData.levelNumber]};
+const controllFilterSkills = () => {
+	const options = {
+		array: model.state.skills,
+		keys: ['name', 'levelNumber'],
+		values: [skillsView._formData.name, +skillsView._formData.levelNumber]
+	};
 	model.filterSkills(options)
-	model.state.search.isFiltered = true;
+	model.state.search.isFiltered = model.state.search.skills.length > 0;
 	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
-    skillsView._renderSpinner();
-    timeout(() => {
-		handlePagination(model.state.search.skills,(data)=>{
-            skillsView._render(skillsView._skillBarDisplay(data))
-        })
-    });
+	skillsView._renderSpinner();
+	timeout(() => {
+		handlePagination(model.state.search.skills, (data) => {
+			skillsView._render(skillsView._skillBarDisplay(data))
+		})
+	});
 }
-const controllSkillsExport =  async () => {
+const controllSkillsExport = async () => {
 	try {
-		const array = {array:skillsExportView._isPrimaryBTN
-			? model.state.skills
-			: model.state.search.skills}
-		const options = {...array, ... skillsExportView._formData};
+		const array = {
+			array: skillsExportView._isPrimaryBTN ?
+				model.state.skills :
+				model.state.search.skills
+		}
+		const options = {
+			...array,
+			...skillsExportView._formData
+		};
 		const data = await model.toFile(options);
 		const done = model.state.fileState.done === true
-        const [fileErrors]= data
-        const generatedData = data[1];
-        const fileType = fileErrors.find(err=>err.type === 'fileType');
-        const fileName = fileErrors.find(err=>err.type === 'fileName');
-		if(!fileName){
-			if(done === true) {
-				if(skillsExportView._generatingfileState === null) {
+		const [fileErrors] = data
+		const generatedData = data[1];
+		const fileType = fileErrors.find(err => err.type === 'fileType');
+		const fileName = fileErrors.find(err => err.type === 'fileName');
+		if (!fileName) {
+			if (done === true) {
+				if (skillsExportView._generatingfileState === null) {
 					popoutView._openModal(true)
-					wait(()=>{
+					wait(() => {
 						skillsExportView._exportModal(generatedData);
-					},800)
+					}, 800)
 					skillsExportView._animateState('Generating file')
 				}
 				return;
 			}
 		}
-		if(fileType) skillsExportView._outlineError({type: fileType.type,message:fileType.message})
-            else skillsExportView._outlineError({type: fileName.type,message:fileName.message})
+		if (fileType) skillsExportView._outlineError({
+			type: fileType.type,
+			message: fileType.message
+		})
+		else skillsExportView._outlineError({
+			type: fileName.type,
+			message: fileName.message
+		})
 	} catch (err) {
 		throw err;
 	}
 }
 // project part
 const controllModals = () => {
-	model.getProjectDemos(); 
+	model.getProjectDemos();
 	// demo data model.state.projectDemo
 	projectsView._renderProjectModal(model.state.projectDemos)
 }
 //contaction
-const controllContacting = () =>{
+const controllContacting = () => {
 	const email = contactView._formData
 	contactView._sendMail(email)
 }
 // settings
-const controllSettings = (e) =>{
+const controllSettings = (e) => {
 	const type = e.type;
-	if(type === LOAD_TYPE) {
-	designView._renderToast(
-		{msg:'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
-		 position: 'bottom-center',
-		 title: 'Welcome to my portfolio!',
-		 type: 'info'
-		});
-        // render toast with success
-        settingsView._renderToast({
-        title: 'Preferences',
-        msg: `Preferences ${LOAD_TYPE}ed.`, // <-- change to stackOut for full
-        position: 'top-center',
-        autohide: true,
-        type: 'success',
-		delay:2000
-        });
-	} else if (type === RESET_TYPE) {
-		// reset settings 1st
-		settingsView._resetSettings();
-		settingsView._updateTheme();
-		// render toast with info
-        settingsView._renderToast({
-        title: 'Preferences',
-        msg: `Preferences ${RESET_TYPE}ed.`, // <-- change to stackOut for full
-        position: 'top-start',
-        autohide: true,
-        type: 'info',
-		delay:2000
-        });
-	}
-	else {
-        // render toast with info
-        settingsView._renderToast({
-        title: 'Preferences',
-        msg: 'Preferences saved.', // <-- change to stackOut for full
-        position: 'top-start',
-        autohide: true,
-        type: 'success',
-		delay:2000
-        });
-	}
+	settingsView._renderManipulatedSettingsToast(type);
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 }
