@@ -1,7 +1,7 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
 import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash, escapeCSS} from '../helpers.js';
-import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,REV_TRESH} from '../config.js';
+import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,REV_TRESH, NAV_ITEM_TRESHOLD} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_rightMenu = document.querySelector("#mobileDropdownMenu");
@@ -163,30 +163,35 @@ class Design extends View {
 		const id = capitalizeWord(hash);
 		removeClass(document.getElementById(id), SECTION_HIDDEN_CLASS)
 	}
-	scrollByNav(entries, observer) {
-		entries.forEach(entry => {
-			if (!entry.isIntersecting) return;
+	scrollByNav(entries) {
+		// Pick the most visible intersecting section this tick
+		const visible = entries
+			.filter(e => e.isIntersecting)
+			.sort((a, b) => b.intersectionRatio - a.intersectionRatio);
 
-			this._prevSection = this._curSection;
-			this._curSection = entry.target.getAttribute('id');
+		if (!visible.length) return;
 
-			if (!this._prevSection) {
-				const curNavItem = document.querySelectorAll(
-					`[data-navlink="${escapeCSS(this._curSection)}"]`
-				);
-				curNavItem.forEach(item => item.classList.add('active'));
-				return;
-			}
+		const entry = visible[0];
+		const nextId = entry.target.getAttribute('id');
+		if (!nextId || this._curSection === nextId) return;
+
+		// Remember previous & update current
+		this._prevSection = this._curSection;
+		this._curSection = nextId;
+
+		// Deactivate previous
+		if (this._prevSection) {
 			const prevNavItems = document.querySelectorAll(
 				`[data-navlink="${escapeCSS(this._prevSection)}"]`
 			);
 			prevNavItems.forEach(item => removeClass(item, 'active'));
+		}
 
-			const curNavItems = document.querySelectorAll(
-				`[data-navlink="${escapeCSS(this._curSection)}"]`
-			);
-			curNavItems.forEach(item => item.classList.add('active'));
-		});
+		// Activate current
+		const curNavItems = document.querySelectorAll(
+			`[data-navlink="${escapeCSS(this._curSection)}"]`
+		);
+		curNavItems.forEach(item => item.classList.add('active'));
 	}
 	revealSection(entries, observer) {
 		//console.log("🚀 ~ Design ~ revealSection ~ observer:", observer)
@@ -198,16 +203,20 @@ class Design extends View {
 	addRevealSectionObserver() {
 		const options = {
 			root: null,
-			threshold: SECTION_REVEAL_TRESHOLD / 100
+			threshold: REV_TRESH / 100
 		}
+		const navItemOptions = {
+			root:null,
+			threshold: NAV_ITEM_TRESHOLD / 100
+		};
 		const sectionObserver = new IntersectionObserver(this.revealSection.bind(this), options);
 		const resizeSectionObserver = new ResizeObserver(this.revealSection.bind(this));
-		const scrollByObserver = new IntersectionObserver(this.scrollByNav.bind(this), options);
+		const navItemObserver = new IntersectionObserver(this.scrollByNav.bind(this), navItemOptions);
 		const allSections = [this._firstSection, ...this._sections];
 		allSections.forEach(section => {
 			sectionObserver.observe(section);
 			resizeSectionObserver.observe(section);
-			scrollByObserver.observe(section);
+			navItemObserver.observe(section);
 		});
 	}
 	addHandlerHover(handler) {
