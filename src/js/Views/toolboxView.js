@@ -12,21 +12,32 @@ class ToolboxView extends View {
 		this._data = _data;
 		return this._data.map((qaTool) => {
 			return `
-                  <div class="col-6 col-md-3 col-lg-2 mb-3">
-                    <div class="card h-100 shadow-sm">
-                      <img src="${qaTool.imgPath}" class="card-img-top p-2" alt="${qaTool.name}" style="height: 120px; object-fit: contain;">
-                      <div class="card-body p-2 d-flex flex-column">
-                        <h6 class="card-title mb-1 flex-shrink-0 text-center"><strong>${qaTool.name}</strong></h6>
-                        <button type="button" class="btn btn-link p-0 flex-shrink-0" id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
-                          Show description
-                        </button>
-                        <p class="card-text small mb-2 d-none overflow-auto flex-grow-1" data-btn="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
-                          ${qaTool.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-            `
+			<div class="col-6 col-md-3 col-lg-2 mb-3">
+				<div class="card h-100 shadow-sm">
+				<img 
+					src="${qaTool.imgPath}" 
+					class="card-img-top p-2 img-fluid" 
+					alt="${qaTool.name}" 
+					style="max-height: 80px; object-fit: contain;">
+				<div class="card-body p-2 d-flex flex-column align-items-center">
+					<h6 class="card-title mb-1 text-center">
+					<strong>${qaTool.name}</strong>
+					</h6>
+					<button 
+					type="button" 
+					class="btn btn-link p-0 small" 
+					id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
+					Show description
+					</button>
+					<p 
+					class="card-text small mb-0 d-none text-center" 
+					data-btn="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
+					${qaTool.description}
+					</p>
+				</div>
+				</div>
+			</div>
+			`
 		})
 	}
 	#toggleDescription = (e) => {
