@@ -29,8 +29,7 @@ export const FILE_TYPE_FILE = 'fileType';
 export const UNGENERATED_FILE_MESSAGE = 'There was a problem generating! Please try again.'
 export const SKILLSVIEW_EMPTY_MESSAGE = 'No skills found. Please adjust your filter criteria.';
 export const RES_PER_PAGE_TRESHOLD = 5;
-export const SECTION_REVEAL_TRESHOLD = 5;
-export const NAV_ITEM_TRESHOLD = 30;
+export const THRESHOLD_ARRAY = Array.from({ length: 101 }, (_, i) => i / 100);
 export const TOAST_DURATION = 5;
 export const CREATE_TIME = 1;
 export const CURRENT_PAGE = 1;

@@ -1,7 +1,7 @@
 import '../../css/bootstrap.min.css'
 import View from './View.js';
 import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash, escapeCSS} from '../helpers.js';
-import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,REV_TRESH, NAV_ITEM_TRESHOLD} from '../config.js';
+import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,THRESHOLD_ARRAY, REV_TRESH} from '../config.js';
 class Design extends View {
 	_navBar = document.querySelector("body > nav");
 	_rightMenu = document.querySelector("#mobileDropdownMenu");
@@ -210,11 +210,11 @@ class Design extends View {
 	addRevealSectionObserver() {
 		const options = {
 			root: null,
-			threshold: REV_TRESH / 100
+			threshold: THRESHOLD_ARRAY
 		}
 		const navItemOptions = {
 			root:null,
-			threshold: NAV_ITEM_TRESHOLD / 100
+			threshold: THRESHOLD_ARRAY
 		};
 		const sectionObserver = new IntersectionObserver(this.revealSection.bind(this), options);
 		const resizeSectionObserver = new ResizeObserver(this.revealSection.bind(this));
