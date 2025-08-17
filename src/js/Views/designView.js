@@ -15,6 +15,9 @@ class Design extends View {
 	_spyNavSegments = '';
 	_prevSection = null;
 	_curSection = null;
+	_showDescBTN = document.querySelector("[data-btn='allTool']")
+	_parentElement = document.getElementById('myQA');
+	_descriptions = this._parentElement.getElementsByTagName('p');
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;
@@ -172,6 +175,11 @@ class Design extends View {
 		if (!visible.length) return;
 
 		const entry = visible[0];
+		if(entry.isIntersecting) {
+			this. _hideDescriptions(true);
+			this._showDescBTN.innerHTML = 'Show descriptions'
+			this._showDescBTN.setAttribute('aria-expanded', String(false))
+		}
 		const nextId = entry.target.getAttribute('id');
 		if (!nextId || this._curSection === nextId) return;
 
@@ -186,7 +194,6 @@ class Design extends View {
 			);
 			prevNavItems.forEach(item => removeClass(item, 'active'));
 		}
-
 		// Activate current
 		const curNavItems = document.querySelectorAll(
 			`[data-navlink="${escapeCSS(this._curSection)}"]`

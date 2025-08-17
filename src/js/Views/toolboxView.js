@@ -1,17 +1,17 @@
 import View from './View.js';
 class ToolboxView extends View {
-    constructor() {
-        super();
-        this.addHandlerHideShowDescription();
-    }
-    _parentElement = document.getElementById('myQA');
-    #showAllBTN = document.querySelector("#myQAtoolboxs > div.row.text-center.justify-content-center.mb-4 > div > div.col.text-end > button");
-    #cardDescriptions = this._parentElement.getElementsByTagName('p');
-    _generateQAToolboxMarkup = (_data) => {
-        //d-block d-md-none
-        this._data = _data;
-        return this._data.map((qaTool) => {
-            return `
+	constructor() {
+		super();
+		this.addHandlerHideShowDescription();
+	}
+	_parentElement = document.getElementById('myQA');
+	#showAllBTN = document.querySelector("#myQAtoolboxs > div.row.text-center.justify-content-center.mb-4 > div > div.col.text-end > button");
+	_descriptions = this._parentElement.getElementsByTagName('p');
+	_generateQAToolboxMarkup = (_data) => {
+		//d-block d-md-none
+		this._data = _data;
+		return this._data.map((qaTool) => {
+			return `
                   <div class="col-6 col-md-3 col-lg-2 mb-3">
                     <div class="card h-100 shadow-sm">
                       <img src="${qaTool.imgPath}" class="card-img-top p-2" alt="${qaTool.name}" style="height: 120px; object-fit: contain;">
@@ -27,54 +27,35 @@ class ToolboxView extends View {
                     </div>
                   </div>
             `
-        })
-    }
-#toggleCard = (desc, hide) => {
-  // Proper toggle: if 'hide' is boolean, force it; else truly toggle
-  if (typeof hide === 'boolean') {
-    desc.classList.toggle('d-none', hide);
-  } else {
-    desc.classList.toggle('d-none');
-  }
+		})
+	}
+	#toggleDescription = (e) => {
+		const target = e.target.closest('button.btn-link');
+		if (!target) return;
 
-  const btnId = desc.dataset.btn;
-  const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
-  if (btn) {
-    const isHidden = desc.classList.contains('d-none');
-    btn.textContent = isHidden ? 'Show description' : 'Hide description';
-    btn.setAttribute('aria-expanded', String(!isHidden));
-  }
-};
-#toggleDescription = (e) => {
-  const target = e.target.closest('button.btn-link');
-  if (!target) return;
+		const isAllBtn = target.dataset.btn === 'allTool';
+		if (isAllBtn) {
+			// Use the button's state/intent, not current mixed visibility
+			const wantShowAll = target.getAttribute('aria-expanded') !== 'true';
+			const hideAll = !wantShowAll;
 
-  const isAllBtn = target.dataset.btn === 'allTool';
-  if (isAllBtn) {
-    const descriptions = Array.from(this.#cardDescriptions);
-    if (!descriptions.length) return;
+      this._hideDescriptions(hideAll)
+			target.textContent = hideAll ? 'Show descriptions' : 'Hide descriptions';
+			target.setAttribute('aria-expanded', String(!hideAll));
+			return;
+		}
 
-    // Use the button's state/intent, not current mixed visibility
-    const wantShowAll = target.getAttribute('aria-expanded') !== 'true';
-    const hideAll = !wantShowAll;
+		// Single-card toggle
+		const btnID = target.id;
+		if (!btnID) return;
+		const desc = this._parentElement.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
+		if (!desc) return;
 
-    descriptions.forEach(desc => this.#toggleCard(desc, hideAll));
-    target.textContent = hideAll ? 'Show descriptions' : 'Hide descriptions';
-    target.setAttribute('aria-expanded', String(!hideAll));
-    return;
-  }
-
-  // Single-card toggle
-  const btnID = target.id;
-  if (!btnID) return;
-  const desc = this._parentElement.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
-  if (!desc) return;
-
-  this.#toggleCard(desc); // true toggle now works
-};
-    addHandlerHideShowDescription() {
-        this._parentElement.addEventListener('click', this.#toggleDescription.bind(this));
-        this.#showAllBTN.addEventListener('click', this.#toggleDescription.bind(this));
-    }
+		this._toggleCard(desc); // true toggle now works
+	};
+	addHandlerHideShowDescription() {
+		this._parentElement.addEventListener('click', this.#toggleDescription.bind(this));
+		this.#showAllBTN.addEventListener('click', this.#toggleDescription.bind(this));
+	}
 }
 export default new ToolboxView();

@@ -1,7 +1,9 @@
 import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, escapeCSS, debounce} from '../helpers';
 import {TOAST_DURATION, CREATE_TIME} from '../config.js'
 export default class View {
-    _toast_container = document.querySelector('.toast-container')
+    _toast_container = document.querySelector('.toast-container');
+    _descriptions;
+    _showDescBTN
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerCloseToast();
@@ -288,4 +290,25 @@ export default class View {
             if (alert && alert.type === 'button' && alert.closest('.alert').classList.contains('alert')) this._cleanup();
         });
     }
+    _hideDescriptions (boolHide) {
+                const descriptions = Array.from(this._descriptions);
+                if (!descriptions.length) return;
+        descriptions.forEach(desc => this._toggleCard(desc, boolHide));
+    }
+    _toggleCard = (desc, hide) => {
+            // Proper toggle: if 'hide' is boolean, force it; else truly toggle
+            if (typeof hide === 'boolean') {
+                desc.classList.toggle('d-none', hide);
+            } else {
+                desc.classList.toggle('d-none');
+            }
+
+            const btnId = desc.dataset.btn;
+            const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
+            if (btn) {
+                const isHidden = desc.classList.contains('d-none');
+                btn.textContent = isHidden ? 'Show description' : 'Hide description';
+                btn.setAttribute('aria-expanded', String(!isHidden));
+            }
+    };
 }
