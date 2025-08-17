@@ -200,14 +200,15 @@ class Design extends View {
 			root: null,
 			threshold: SECTION_REVEAL_TRESHOLD / 100
 		}
-		const sectionObserver = new IntersectionObserver(this.revealSection, options)
-		const resizeSectionObserver = new ResizeObserver(this.revealSection, options);
-		const scrollByObserver = new IntersectionObserver(this.scrollByNav, options)
-		this._sections.forEach(function(section) {
+		const sectionObserver = new IntersectionObserver(this.revealSection.bind(this), options);
+		const resizeSectionObserver = new ResizeObserver(this.revealSection.bind(this));
+		const scrollByObserver = new IntersectionObserver(this.scrollByNav.bind(this), options);
+		const allSections = [this._firstSection, ...this._sections];
+		allSections.forEach(section => {
 			sectionObserver.observe(section);
 			resizeSectionObserver.observe(section);
-			scrollByObserver.observe(section)
-		})
+			scrollByObserver.observe(section);
+		});
 	}
 	addHandlerHover(handler) {
 		this._navBar.addEventListener('mouseover', handler.bind(0.5));
