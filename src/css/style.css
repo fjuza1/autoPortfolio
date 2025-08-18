@@ -10,18 +10,36 @@ footer {
   overflow: hidden; 
   margin-top: 20px; 
 }
-#About, #Skills, #Projects, #Contact, #Journey, #Myqatoolbox {
-  background-attachment: fixed;
-  min-height: 100vh;
-  display: flex;
-  padding: 20px;
-  margin-bottom: 20px;
+#About,
+#Skills,
+#Projects,
+#Contact,
+#Journey,
+#Myqatoolbox {
+  width: 98vw;                /* almost full width */
+  max-width: none;            /* remove Bootstrap container limits */
+  margin: 2rem auto;          /* center with spacing top/bottom */
+  padding: 2rem;
+
+  min-height: 95vh;           /* almost full screen height */
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(-20px);
-  transition: opacity 1s ease, transform 1s ease;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  transition: opacity .8s ease, transform .8s ease, box-shadow .3s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
+
+#About:hover,
+#Skills:hover,
+#Projects:hover,
+#Contact:hover,
+#Journey:hover,
+#Myqatoolbox:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+
 .toast-error {
   background-color: #f8d7da; 
   color: #842029;
