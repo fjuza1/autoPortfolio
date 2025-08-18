@@ -39,7 +39,9 @@ footer {
 #Myqatoolbox:hover {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
-
+.lazy-img {
+  filter: blur(20px);
+}
 .toast-error {
   background-color: #f8d7da; 
   color: #842029;
