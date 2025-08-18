@@ -1,5 +1,5 @@
 import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
-import {removeClass} from  '../helpers.js'
+import {removeClass, setCanvasOffOptions, notifyIncorrectData} from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
@@ -19,6 +19,7 @@ class PopupView {
     _infoNav = document.querySelector("[data-info='infoNav']");
     _prefBTN = document.getElementById('prefBTN');
     _prefs = document.querySelector('#Preferences')
+    _offcanvas = document.querySelector('.offcanvas')
     constructor() {
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();

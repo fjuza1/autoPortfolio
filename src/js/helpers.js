@@ -414,9 +414,10 @@ export const setCanvasOffOptions = (options = {}) => {
     const {position, backdrop, keyboard} = options;
     if (notifyIncorrectData(["top","bottom","start","end"] ,position)) throw new Error("Unknown position");
     if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean')
-    return {
+    const attributes = {
         position: `offcanvas-${position}`,
         backdrop: `data-bs-backdrop=${backdrop}`,
         keyboard: `data-bs-keyboard=${keyboard}`
     }
+    return Object.values(attributes).join(';')
 }
