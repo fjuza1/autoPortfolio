@@ -175,11 +175,6 @@ class Design extends View {
 		if (!visible.length) return;
 
 		const entry = visible[0];
-		if(entry.isIntersecting) {
-			this. _hideDescriptions(true);
-			this._showDescBTN.innerHTML = 'Show descriptions'
-			this._showDescBTN.setAttribute('aria-expanded', String(false))
-		}
 		const nextId = entry.target.getAttribute('id');
 		if (!nextId || this._curSection === nextId) return;
 
@@ -194,6 +189,7 @@ class Design extends View {
 			);
 			prevNavItems.forEach(item => removeClass(item, 'active'));
 		}
+
 		// Activate current
 		const curNavItems = document.querySelectorAll(
 			`[data-navlink="${escapeCSS(this._curSection)}"]`
@@ -201,7 +197,6 @@ class Design extends View {
 		curNavItems.forEach(item => item.classList.add('active'));
 	}
 	revealSection(entries, observer) {
-		//console.log("🚀 ~ Design ~ revealSection ~ observer:", observer)
 		const [entry] = entries;
 		if (!entry.isIntersecting) return;
 		removeClass(entry.target, SECTION_HIDDEN_CLASS)
