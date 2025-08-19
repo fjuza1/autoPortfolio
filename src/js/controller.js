@@ -99,7 +99,8 @@ const controllSortedSkills = () => {
 	}
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
-	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
+	skillsExportView._disableBTN(model.state.search.isFiltered)
+	console.log(model.state.search.isFiltered)
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
@@ -113,7 +114,7 @@ const controllResetSkills = () => {
 	model.state.curPage = 1;
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
-	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
+	skillsExportView._disableBTN(model.state.search.isFiltered)
 	handlePagination(original, (data) => {
 		skillsView._render(skillsView._skillBarDisplay(data));
 	});
@@ -127,7 +128,7 @@ const controllFilterSkills = () => {
 	};
 	model.filterSkills(options)
 	model.state.search.isFiltered = model.state.search.skills.length > 0;
-	skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered)
+	skillsExportView._disableBTN(model.state.search.isFiltered)
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
@@ -193,6 +194,8 @@ const controllSettings = (e) => {
 	settingsView._renderManipulatedSettingsToast(type);
 	settingsView._savePreferences();
 	settingsView._updateTheme();
+	const settingsLen = Object.values(settingsView._getSettings()).length !== 0
+	settingsView._disableBTN(settingsLen);
 }
 const init = () => {
 	controllNavBar();
@@ -206,7 +209,7 @@ const init = () => {
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	skillsExportView.addHandlerLoad(skillsExportView._disableFilteredExportBTN(model.state.search.isFiltered))
+	skillsExportView.addHandlerLoad(skillsExportView._disableBTN(model.state.search.isFiltered))
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();

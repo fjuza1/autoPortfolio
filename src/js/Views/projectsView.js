@@ -44,7 +44,7 @@ class ProjectsView extends View {
    */
   #indicators(data) {
       const indicatorsStart = '<div class="carousel-indicators">'
-      const buttonIndicatorsMarkup = data.map((data, i) => {
+      const buttonIndicatorsMarkup = data.map((_, i) => {
           return `<button type="button" class=" ${i === 0 ? 'active' : ''}" data-bs-target="#carouselExampleDark" data-bs-slide-to="${i}" aria-label="Slide ${i}"></button>`;
       })
       return [indicatorsStart, ...buttonIndicatorsMarkup, this._end];

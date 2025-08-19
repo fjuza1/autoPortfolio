@@ -4,6 +4,7 @@ export default class View {
     _toast_container = document.querySelector('.toast-container');
     _descriptions;
     _showDescBTN
+    _selectedBTN
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerCloseToast();
@@ -249,6 +250,11 @@ export default class View {
         const formEntries = [...new FormData(this._form)];
         const data = Object.fromEntries(formEntries);
         this._formData = data;
+    }
+    _disableBTN(_data) {
+        this._data = _data;
+        if(this._data === false) this._selectedBTN.classList.add('disabled');
+        else this._selectedBTN.classList.remove('disabled');
     }
     //end
     addHandlerLoad(handler) {

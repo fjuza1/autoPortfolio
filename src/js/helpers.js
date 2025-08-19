@@ -255,6 +255,7 @@ export const handleFileGeneration = async (blob) => {
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
 export const uniqueID = () =>`${Date.now().toString(36).padEnd(8, '0')}-${Math.random().toString(16).slice(2, 6)}-4${Math.random().toString(16).slice(3, 6)}-${(8 + Math.random()*4 | 0).toString(16)}${Math.random().toString(16).slice(3, 6)}-${Math.random().toString(16).slice(2, 14)}`;
 export const escapeCSS = (str) => CSS.escape(str);
+export const resolveAssetUrl = url => new URL(url,import.meta.url).toString()
 // Scroll functions
 export const gotoTop = () => window.scrollTo(0, 0)
 export const gotoSegment = (domElement, nav) => {
@@ -273,6 +274,18 @@ export const gotoSegment = (domElement, nav) => {
 export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)
 }
+// object manipulation
+export const omitKey = (options = {}) => {
+    if(Object.keys(options).length !== 2) throw new Error("Options accept only key one at time");
+    const {array, object, name} = options;
+    if(array) {
+        array.forEach(part => delete part[name]);
+        return array
+    } else if(object) {
+        delete object[name]
+        return object
+    }
+    }
 /**
  * Validates if the given email is in a proper format.
  *
@@ -395,4 +408,16 @@ export const calcToastPosition = (position) => {
             throw new Error('Invalid position');
     }
     return screenCoords;
+}
+export const notifyIncorrectData = (array, data) => !array.includes(data)
+export const setCanvasOffOptions = (options = {}) => {
+    const {position, backdrop, keyboard} = options;
+    if (notifyIncorrectData(["top","bottom","start","end"] ,position)) throw new Error("Unknown position");
+    if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean')
+    const attributes = {
+        position: `offcanvas-${position}`,
+        backdrop: `data-bs-backdrop=${backdrop}`,
+        keyboard: `data-bs-keyboard=${keyboard}`
+    }
+    return Object.values(attributes).join(';')
 }

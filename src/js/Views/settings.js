@@ -8,11 +8,12 @@ class SettingsView extends View {
 	_sections = document.querySelectorAll('.section');
 	_nav = document.querySelector('.nav');
 	_firstSection = document.querySelector("#Home");
+	_selectedBTN = this._firstSection.querySelector('button[type="reset"]');
 	#resetSettings() {
 		this._formData = {};
 		this._savePreferences(this._formData)
 	};
-	#getSettings = () => {
+	_getSettings = () => {
 		const settings = localStorage.getItem('settings');
 
 		// nothing stored → return empty object
@@ -59,7 +60,7 @@ class SettingsView extends View {
 		localStorage.setItem('settings', JSON.stringify(preferences));
 	}
 	_getPreferences(e) {
-		const settings = this.#getSettings();
+		const settings = this._getSettings();
 		if (!settings) return {};
 		if (settings !== undefined && settings !== null) {
 			const parsedSettings = JSON.parse(JSON.stringify(settings));
@@ -76,14 +77,14 @@ class SettingsView extends View {
 		}
 	}
 	_updateTheme() {
-		const settings = this.#getSettings();
+		const settings = this._getSettings();
 		if (!settings) return;
 		const darkMode = settings.darkMode === "on";
 		this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
 	}
 	addHandleClickTheme() {
 		this._themeToggle.addEventListener('click', () => {
-			let settings = this.#getSettings();
+			let settings = this._getSettings();
 			const darkMode = settings.darkMode === "on";
 			settings.darkMode = darkMode ? "off" : "on";
 			localStorage.setItem('settings', JSON.stringify(settings));
