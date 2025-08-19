@@ -6,9 +6,9 @@ class SkillsExportView extends View {
     _exportState = document.querySelector('div[data-formerror="fileName"]');
     _fileType = document.querySelector('.content.d-none');
     _fileName = document.querySelector('input[name="fileName"]')
-    _modal = document.querySelector('#modalCenter')
-    _generatingfileState = null;
+    _modal = document.querySelector('#modalCenter');
     _selectedBTN = document.querySelector("#export > div > form > div.d-flex.justify-content-end.mt-3 > button.btn.btn-secondary.me-2");
+    _generatingfileState = null;
     _isPrimaryBTN = false;
     constructor() {
         super();
@@ -18,11 +18,6 @@ class SkillsExportView extends View {
     }
     _cleanupModal() {
         this._modal.innerHTML = '';
-    }
-    _disableFilteredExportBTN(_data) {
-        this._data = _data;
-        if(this._data === false) this._selectedBTN.classList.add('disabled');
-        else this._selectedBTN.classList.remove('disabled');
     }
     #handlerSelectedBTN (){
         this._form.addEventListener('click',(e)=>{
