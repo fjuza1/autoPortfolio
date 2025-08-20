@@ -19,7 +19,8 @@ class PopupView {
     _infoNav = document.querySelector("[data-info='infoNav']");
     _prefBTN = document.getElementById('prefBTN');
     _prefs = document.querySelector('#Preferences')
-    _offcanvas = document.querySelector('.offcanvas')
+    _offcanvas = document.querySelector('.offcanvas');
+    _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
     constructor() {
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();
@@ -28,35 +29,23 @@ class PopupView {
         this.#addHandleAccordion();
         this.#handleTogglingMenu();
         this.#addHandlerShowMobileNav();
-        this.#addHandlerRevealHover();
+        this.#handleTogglingOffcanvas();
     }
     /**
      * Description placeholder
      *
      * @param {Event} e
      */
-    #hoverRevealInfo (e) {
-        const target = e.target;
-        const infoNavI = target.closest('.bi.bi-info-circle-fill');
-		const infoNav = infoNavI?.dataset.info;
-        if(!infoNav) return;
-        const infoCard = document.getElementById(infoNav);
-        infoCard.classList.toggle('d-none');
-    }
-    #addHandlerRevealHover(){
-        this._infoNav.addEventListener('mouseover', this.#hoverRevealInfo.bind(this));
-        this._infoNav.addEventListener('mouseout', this.#hoverRevealInfo.bind(this));
-    };
-    #hideDropDownMenus () {
-        this._dropdownNavs.forEach((dropdown) =>{
-            if(dropdown.classList.contains('show')) removeClass(dropdown, 'show')
+    #hideDropDownMenus() {
+        this._dropdownNavs.forEach((dropdown) => {
+            if (dropdown.classList.contains('show')) removeClass(dropdown, 'show')
         })
     }
     #toggleSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
         const isAlreadyShown = colapseSection.classList.contains('show');
-        this._multiCollapse.forEach(section => removeClass(section,  'show'));
+        this._multiCollapse.forEach(section => removeClass(section, 'show'));
         if (!isAlreadyShown) colapseSection.classList.add('show');
     }
     #hideSection(e) {
@@ -64,7 +53,7 @@ class PopupView {
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
-        this._multiCollapse.forEach(el => !multi && !button ? removeClass(el,'show') : '');
+        this._multiCollapse.forEach(el => !multi && !button ? removeClass(el, 'show') : '');
     }
     /**
      * Handles the toggling of accordion sections in the popout view.
@@ -118,7 +107,7 @@ class PopupView {
         const isDropdownToggle = target.classList.contains('dropdown-toggle') && target.classList.contains('dropdown-item');
 
         // If the target is a dropdown item, hide all dropdown menus
-        if(isDropdownItem) 
+        if (isDropdownItem)
             this.#hideDropDownMenus();
         // If the target has a 'navlink' dataset, hide all dropdown menus
         else if (target.dataset.navlink)
@@ -129,7 +118,7 @@ class PopupView {
             const menu = closest.dataset;
 
             // If the closest element does not have a dataset, return early
-            if(!menu) return;
+            if (!menu) return;
 
             // Extract the target menu ID from the 'bsTarget' dataset attribute
             const targetMenuId = menu.bsTarget?.slice(1) ?? null;
@@ -150,27 +139,54 @@ class PopupView {
                     expandedMenu.classList.add('show');
                 }
             }
-        } 
+        }
         // If the target is not a dropdown toggle, hide all dropdown menus
         else if (!isDropdownToggle) {
             this.#hideDropDownMenus();
         }
     }
-
+    #toggleOffcanvas(e) {
+        const offcanvas = this._offcanvas;
+        const target = e.target;
+        const targetoffcanvas = target.closest('.offcanvas');
+        if (!targetoffcanvas) offcanvas?.classList.remove('show')
+        // 1) If the close button (or anything inside it) was clicked, just close & exit
+        const closeBtn = target.closest('.btn-close');
+        if (closeBtn) {
+            offcanvas?.classList.remove('show');
+            return;
+        }
+        // 2) Find the toggle button (supports clicks on child elements inside the button)
+        const toggleBtn = target.closest('[data-bs-toggle="offcanvas"]');
+        if (!toggleBtn) return;
+        // 3) Resolve the controlled element id from aria-controls
+        const controlsId = toggleBtn.getAttribute('aria-controls');
+        if (!controlsId) return;
+        const popoutToggle = document.getElementById(controlsId);
+        // 4) Now perform UI state changes
+        offcanvas?.classList.add('show');
+        popoutToggle?.classList.remove('d-none');
+    };
+    #handleTogglingOffcanvas() {
+        document.addEventListener('mouseup', this.#toggleOffcanvas.bind(this))
+        this._offcanvasBTNS.forEach(btn => {
+            btn.addEventListener('click', this.#toggleOffcanvas.bind(this))
+        });
+    }
     #showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
     }
     #hideMobileNav() {
-        if(this._mobileDropdownMenu.classList.contains('show')) removeClass(this._mobileDropdownMenu, 'show');
+        if (this._mobileDropdownMenu.classList.contains('show')) removeClass(this._mobileDropdownMenu, 'show');
     }
     #addHandlerShowMobileNav() {
         this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
         window.addEventListener('resize', this.#hideMobileNav.bind(this));
-        document.addEventListener(SCROLL_TYPE , this.#hideMobileNav.bind(this));
-        document.addEventListener(SCROLL_TYPE , this.#hideDropDownMenus.bind(this));
+        document.addEventListener(SCROLL_TYPE, this.#hideMobileNav.bind(this));
+        document.addEventListener(SCROLL_TYPE, this.#hideDropDownMenus.bind(this));
     }
     #handleTogglingMenu() {
-        document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
+        document.addEventListener('click', this.#togglePrimaryMenu.bind(this))
     }
     #addHandleAccordion() {
         [this._modal].forEach(dom => dom.addEventListener('click', this.#toggleAccordion.bind(this)))
@@ -198,7 +214,6 @@ class PopupView {
             this._body.style.overflow = 'hidden'
         }
     }
-
     /**
      * Hides the modal window and resets its state.
      *
@@ -213,7 +228,7 @@ class PopupView {
      */
     #unshowModal() {
         this._modal.style.display = 'none';
-        removeClass(this._modal,'show');
+        removeClass(this._modal, 'show');
         this._body.style.overflow = 'auto';
         this._modal.innerHTML = '';
     }
@@ -285,14 +300,13 @@ class PopupView {
             });
         });
     }
-
     #addHandleCloseModal() {
         this._modal.addEventListener('click', this.#closeModal.bind(this))
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
     //section evs
     #addHandlerShowSection() {
-        [this._skillBtnGroup,this._prefBTN].forEach(btn=>btn.addEventListener('click', this.#toggleSection.bind(this)));
+        [this._skillBtnGroup, this._prefBTN].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
     }
     #addHandlerHideSection() {
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
