@@ -39,6 +39,10 @@ footer {
 #Myqatoolbox:hover {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
+.btn-primary-transparent {
+  background-color: transparent;
+  border:none
+}
 .lazy-img {
   filter: blur(20px);
 }
