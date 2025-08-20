@@ -11,33 +11,38 @@ class ToolboxView extends View {
 		//d-block d-md-none
 		this._data = _data;
 		return this._data.map((qaTool) => {
-			return `
-			<div class="col-6 col-md-4 col-lg-2 mb-3">
-				<div class="card h-100 shadow-sm">
-				<img 
-					src="${qaTool.imgPath}" 
-					class="card-img-top p-2 img-fluid" 
-					alt="${qaTool.name}" 
-					style="max-height: 80px; object-fit: contain;">
-				<div class="card-body p-2 d-flex flex-column align-items-center">
-					<h6 class="card-title mb-1 text-center">
-					<strong>${qaTool.name}</strong>
-					</h6>
-					<button 
-					type="button" 
-					class="btn btn-link p-0 small" 
-					id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
-					Show description
-					</button>
-					<p 
-					class="card-text small mb-0 d-none text-center" 
-					data-btn="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
-					${qaTool.description}
-					</p>
-				</div>
+		return `
+		<div class="col-12 col-md-6 col-xl-4 mb-3 d-flex">
+		<div class="p-4 rounded shadow bg-white border-0 w-100 h-100" style="border-bottom: .25rem solid var(--bs-primary);">
+			<div class="row align-items-center g-2">
+			<div class="col-auto">
+				<div class="bg-light rounded-circle d-flex align-items-center justify-content-center"
+					style="width:64px;height:64px;">
+				<img src="${qaTool.imgPath}" alt="${qaTool.name}"
+					class="img-fluid" style="max-width:32px; max-height:32px; object-fit:contain;">
 				</div>
 			</div>
-			`
+			<div class="col text-center">
+				<h5 class="text-uppercase fw-bold mb-1 text-break w-100">
+				${qaTool.name}
+				</h5>
+				<button 
+				type="button" 
+				class="btn btn-link p-0 small text-primary"
+				id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
+				Show description
+				</button>
+			</div>
+			</div>
+
+			<p class="small text-center mb-0 d-none mt-2"
+			data-btn="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
+			${qaTool.description}
+			</p>
+		</div>
+		</div>
+		`;
+		;
 		})
 	}
 	#toggleCard = (desc, hide) => {
