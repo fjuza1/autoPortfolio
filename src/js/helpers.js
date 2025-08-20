@@ -1,5 +1,5 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify, moment} from './lib.js';
+import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify, moment, IMG_BASE_PATH} from './lib.js';
 /**
  * Checks if is xml text
  *
@@ -255,7 +255,6 @@ export const handleFileGeneration = async (blob) => {
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
 export const uniqueID = () =>`${Date.now().toString(36).padEnd(8, '0')}-${Math.random().toString(16).slice(2, 6)}-4${Math.random().toString(16).slice(3, 6)}-${(8 + Math.random()*4 | 0).toString(16)}${Math.random().toString(16).slice(3, 6)}-${Math.random().toString(16).slice(2, 14)}`;
 export const escapeCSS = (str) => CSS.escape(str);
-export const resolveAssetUrl = url => new URL(url,import.meta.url).toString()
 // Scroll functions
 export const gotoTop = () => window.scrollTo(0, 0)
 export const gotoSegment = (domElement, nav) => {
