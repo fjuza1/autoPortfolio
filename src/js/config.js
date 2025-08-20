@@ -46,18 +46,21 @@ export const RESET_TYPE = 'reset';
 export const API_TIMEOUT_SEC = 4;
 export const URL_CY_DEMO = 'https://github.com/fjuza1/CypressDemo';
 export const URL_PORTFOLIO_DEMO = 'https://github.com/fjuza1/portfolioCypress';
-export const IMG_CY_DEMO = new URL('../img/CypressDemo.jpg', import.meta.url).toString();
-export const IMG_KATALON_STUDIO = new URL('../img/katalon-seeklogo.png', import.meta.url).toString();
-export const IMG_PORTFOLIO_DEMO = new URL('../img/autoPortfolio.jpg', import.meta.url).toString();
-export const AZURE_lOGO = new URL('../img/Azure Devops.png', import.meta.url).toString();
-export const CYPRESS_lOGO = new URL('../img/Cypress.png', import.meta.url).toString();
-export const ECLIPSE_IDE_LOGO = new URL('../img/Eclipse IDE Icon.png', import.meta.url).toString();
-export const MSSQL_IDE_LOGO = new URL('../img/Microsoft SQL Server.png', import.meta.url).toString();
-export const MS_VISUAL_LOGO = new URL('../img/Microsoft Visual Studio.png', import.meta.url).toString();
-export const POSTMAN = new URL('../img/Postman API Platform.png', import.meta.url).toString();
-export const TFS = new URL('../img/tfs.jpg', import.meta.url).toString();
-export const SOAPUI = new URL('../img/Smartbear Horizontal.png', import.meta.url).toString();
-export const BLANKPIC = new URL('../img/Blank pic.svg', import.meta.url).toString();
+export const IMGS = {
+  IMG_CY_DEMO: new URL('../img/CypressDemo.jpg', import.meta.url).toString(),
+  IMG_KATALON_STUDIO: new URL('../img/katalon-seeklogo.png', import.meta.url).toString(),
+  IMG_PORTFOLIO_DEMO: new URL('../img/autoPortfolio.jpg', import.meta.url).toString(),
+  AZURE_LOGO: new URL('../img/Azure Devops.png', import.meta.url).toString(),
+  CYPRESS_LOGO: new URL('../img/Cypress.png', import.meta.url).toString(),
+  ECLIPSE_IDE_LOGO: new URL('../img/Eclipse IDE Icon.png', import.meta.url).toString(),
+  MSSQL_IDE_LOGO: new URL('../img/Microsoft SQL Server.png', import.meta.url).toString(),
+  MS_VISUAL_LOGO: new URL('../img/Microsoft Visual Studio.png', import.meta.url).toString(),
+  POSTMAN: new URL('../img/Postman API Platform.png', import.meta.url).toString(),
+  TFS: new URL('../img/tfs.jpg', import.meta.url).toString(),
+  SOAPUI: new URL('../img/Smartbear Horizontal.png', import.meta.url).toString(),
+  BLANKPIC: new URL('../img/Blank pic.svg', import.meta.url).toString(),
+};
+
 export const NONQATOOLS = ['PowerApps','SharePoint','Eclipse IDE for Java Developers', "PowerAutomate"];
 export const ME_NAME = 'Filip Jůza'
 export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
