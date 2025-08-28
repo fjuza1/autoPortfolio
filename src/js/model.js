@@ -432,7 +432,7 @@ export const filterSkills = function(options) {
 
     const filteredData = filterByKeys(copiedArray, keys, value);
     state.search.skills = filteredData;
-
+    state.search.isFiltered = true;
     return filteredData;
 }
 /**
@@ -470,7 +470,7 @@ export const sortingSkills = function(options) {
     let {sortBy, order } = options;
     let array
     const skills = state.skills
-    Array.isArray(state.search.skills) && state.search.skills.length < state.skills.length? array = state.search.skills : array = skills;
+    Array.isArray(state.search.skills) && state.search.isFiltered? array = state.search.skills : array = skills;
     const sortFunctions = {
         expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
         name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
