@@ -5,7 +5,6 @@ export default class View {
     _descriptions;
     _showDescBTN
     _selectedBTN
-    _prevBTN
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerCloseToast();
@@ -260,7 +259,6 @@ export default class View {
         this._formData = data;
     }
     _disableBTN(options) {
-        let currentBTN;
         const {disabled, existingButton, specificButton} = options
         if (disabled) {
             if (existingButton) {this._selectedBTN.classList.add('disabled')}
