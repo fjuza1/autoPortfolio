@@ -76,10 +76,11 @@ export default class View {
     _setoffcancavasDisplay(){
         const {position, backdrop, keyboard, scroll,w} = setCanvasOffOptions(this._canvasOptions)
         if(position) this._offcanvas.classList.add(position);
-        if(backdrop) this._offcanvas.setAttribute('data-bs-backdrop', backdrop) 
+        if(backdrop || backdrop.toLowerCase() === 'static') this._offcanvas.setAttribute('data-bs-backdrop', backdrop) 
             else this._offcanvas.setAttribute('data-bs-backdrop', !backdrop);
         if(scroll) this._offcanvas.setAttribute('data-bs-scroll', scroll);
         if(keyboard) this._offcanvas.setAttribute('data-bs-keyboard', keyboard);
+            else this._offcanvas.setAttribute('data-bs-keyboard', false);
         if(w) this._offcanvas.classList.add(`w-${w.replace('%','')}`); // w-75
     }
     _closeToast(toast) {

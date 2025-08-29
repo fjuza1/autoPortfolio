@@ -21,9 +21,9 @@ class Design extends View {
     _offcanvas = document.querySelector('.offcanvas');
 	_canvasOptions = {
         position: 'start',
-        backdrop: true,
+        backdrop: 'static',
         keyboard:false,
-        scroll: false,
+        scroll: true,
 		w:"75%"
     };
 	handleHover(e) {
