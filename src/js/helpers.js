@@ -420,12 +420,14 @@ export const calcToastPosition = (position) => {
 }
 export const notifyIncorrectData = (array, data) => !array.includes(data)
 export const setCanvasOffOptions = (options = {}) => {
-    const {position, backdrop, keyboard} = options;
+    const {position, backdrop, keyboard, scroll} = options;
     if (notifyIncorrectData(["top","bottom","start","end"] ,position)) throw new Error("Unknown position");
-    if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean')
+    if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean');
+    if (notifyIncorrectData([true, false], scroll)) throw new Error ('Please pass param type boolean')
     return {
         position: `offcanvas-${position}`,
         backdrop: backdrop,
-        keyboard: keyboard
+        keyboard: keyboard,
+        scroll: scroll
     }
 }
