@@ -14,7 +14,7 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
-import settingsView from './Views/settings.js';
+import settingsView from './Views/settingsView.js';
 import performanceView from './Views/performanceView.js';
 import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
@@ -194,7 +194,7 @@ const controllSettings = (e) => {
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 	const settingsLen = Object.values(settingsView._getSettings()).length !== 0
-	settingsView._disableBTN({disabled: settingsLen, existingButton: true})
+	settingsView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const init = () => {
 	controllNavBar();
@@ -212,6 +212,7 @@ const init = () => {
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
+	designView._addHandlerClick(designView._setoffcancavasDisplay.bind(designView));
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);

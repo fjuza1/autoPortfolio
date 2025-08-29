@@ -9,6 +9,13 @@ class SettingsView extends View {
 	_nav = document.querySelector('.nav');
 	_firstSection = document.querySelector("#Home");
 	_selectedBTN = this._firstSection.querySelector('button[type="reset"]');
+    _offcanvas = document.querySelector('.offcanvas');
+	_canvasOptions = {
+        position: 'end',
+        backdrop: true,
+        keyboard:false,
+        scroll: false
+    };
 	#resetSettings() {
 		this._formData = {};
 		this._savePreferences(this._formData)

@@ -1,5 +1,5 @@
 import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
-import {removeClass, setCanvasOffOptions, notifyIncorrectData} from  '../helpers.js'
+import {removeClass, setCanvasOffOptions} from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');

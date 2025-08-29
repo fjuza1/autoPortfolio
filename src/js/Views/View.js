@@ -1,10 +1,13 @@
-import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, escapeCSS, debounce} from '../helpers';
+import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, escapeCSS, debounce, setCanvasOffOptions} from '../helpers';
 import {TOAST_DURATION, CREATE_TIME} from '../config.js'
+import { domainToASCII } from 'url';
 export default class View {
     _toast_container = document.querySelector('.toast-container');
     _descriptions;
     _showDescBTN
     _selectedBTN
+    _offcanvas
+    _canvasOptions
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerCloseToast();
@@ -70,6 +73,15 @@ export default class View {
      *
      * @returns {void}
      */
+    _setoffcancavasDisplay(){
+        const {position, backdrop, keyboard, scroll,w} = setCanvasOffOptions(this._canvasOptions)
+        if(position) this._offcanvas.classList.add(position);
+        if(backdrop) this._offcanvas.setAttribute('data-bs-backdrop', backdrop) 
+            else this._offcanvas.setAttribute('data-bs-backdrop', !backdrop);
+        if(scroll) this._offcanvas.setAttribute('data-bs-scroll', scroll);
+        if(keyboard) this._offcanvas.setAttribute('data-bs-keyboard', keyboard);
+        if(w) this._offcanvas.classList.add(`w-${w.replace('%','')}`); // w-75
+    }
     _closeToast(toast) {
         if (!toast) return;
         toast.remove();
@@ -301,6 +313,9 @@ export default class View {
      * @private
      * @returns {void}
      */
+    _addHandlerClick(handler) {
+        document.addEventListener('click', handler);
+    }
     _closeAlert() {
         this._parentElement.addEventListener('click', (e) => {
             const alert = e.target;

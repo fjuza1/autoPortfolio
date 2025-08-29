@@ -419,15 +419,28 @@ export const calcToastPosition = (position) => {
     return screenCoords;
 }
 export const notifyIncorrectData = (array, data) => !array.includes(data)
+/**
+ * Sets options for an off-canvas component.
+ *
+ * @param {Object} [options={}] - Configuration options.
+ * @param {"top"|"bottom"|"start"|"end"} [options.position] - Position of the off-canvas.
+ * @param {"static"|boolean} [options.backdrop] - Backdrop behavior; either "static" or a boolean.
+ * @param {boolean} [options.keyboard] - Whether keyboard interactions are enabled.
+ * @param {boolean} [options.scroll] - Whether scrolling is allowed.
+ * @returns {Object} Off-canvas options object.
+ * @throws {Error} If an invalid position, backdrop, or scroll value is provided.
+ */
 export const setCanvasOffOptions = (options = {}) => {
-    const {position, backdrop, keyboard, scroll} = options;
+    const {position, backdrop, keyboard, scroll,w} = options;
     if (notifyIncorrectData(["top","bottom","start","end"] ,position)) throw new Error("Unknown position");
     if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean');
-    if (notifyIncorrectData([true, false], scroll)) throw new Error ('Please pass param type boolean')
+    if (notifyIncorrectData([true, false], scroll)) throw new Error ('Please pass param type boolean');
+    if(notifyIncorrectData(["25%","50%","75%","100%"], w)) throw new Error('Width must be either "25%","50%","75%","100%"');
     return {
         position: `offcanvas-${position}`,
         backdrop: backdrop,
         keyboard: keyboard,
-        scroll: scroll
+        scroll: scroll,
+        w:w
     }
 }
