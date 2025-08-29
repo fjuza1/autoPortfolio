@@ -212,7 +212,7 @@ const init = () => {
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
-	designView._addHandlerClick(designView._setoffcancavasDisplay.bind(designView));
+	designView._addHandlerClick(designView._setOffcanvasDisplay);
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);

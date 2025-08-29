@@ -357,7 +357,7 @@ export default class View {
     * @returns {void}
     */
    _addHandlerClick(handler) {
-      document.addEventListener('click', handler);
+      document.addEventListener('click', handler.bind(this));
    }
    _closeAlert() {
       this._parentElement.addEventListener('click', (e) => {
