@@ -5,6 +5,7 @@ export default class View {
     _descriptions;
     _showDescBTN
     _selectedBTN
+    _prevBTN
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerCloseToast();
@@ -71,62 +72,69 @@ export default class View {
      * @returns {void}
      */
     _closeToast(toast) {
-        if(!toast) return;
+        if (!toast) return;
         toast.remove();
     }
-#addHandlerCloseToast() {
-  this._toast_container.addEventListener('click', (e) => {
-    const btn = e.target.closest('.btn-close');
-    if (!btn) return;
-    const toast = btn.closest('.toast');        // <— grab the toast element directly
-    if (toast) this._closeToast(toast);
-  });
-}
-    _hideToast(autohide, delayMs) {
-    if (!autohide) return;
-    const el = this._toast_container.firstElementChild; // you just inserted at 'afterbegin'
-    if (!el) return;
-
-    const hideIn = (typeof delayMs === 'number') ? delayMs : TOAST_DURATION * 1000;
-    const debouncedHide = debounce(() => {
-        // element might be gone or moved; double-check
-        if (el && el.isConnected) this._closeToast(el);
-    }, hideIn);
-
-    debouncedHide();
+    #addHandlerCloseToast() {
+        this._toast_container.addEventListener('click', (e) => {
+            const btn = e.target.closest('.btn-close');
+            if (!btn) return;
+            const toast = btn.closest('.toast'); // <— grab the toast element directly
+            if (toast) this._closeToast(toast);
+        });
     }
-    #declareToastType(type){
-		let toastType
-		switch (type) {
-			case 'error':
-				toastType = 'toast-error';
-				break;
-			case 'info':
-				toastType = 'toast-info';
-				break;
-			case 'warning':
-				toastType = 'toast-warning';
-				break;
-			case 'success':
-				toastType = 'toast-success';
-				break;
-			default:
-				toastType = ''
-		}
+    _hideToast(autohide, delayMs) {
+        if (!autohide) return;
+        const el = this._toast_container.firstElementChild; // you just inserted at 'afterbegin'
+        if (!el) return;
+
+        const hideIn = (typeof delayMs === 'number') ? delayMs : TOAST_DURATION * 1000;
+        const debouncedHide = debounce(() => {
+            // element might be gone or moved; double-check
+            if (el && el.isConnected) this._closeToast(el);
+        }, hideIn);
+
+        debouncedHide();
+    }
+    #declareToastType(type) {
+        let toastType
+        switch (type) {
+            case 'error':
+                toastType = 'toast-error';
+                break;
+            case 'info':
+                toastType = 'toast-info';
+                break;
+            case 'warning':
+                toastType = 'toast-warning';
+                break;
+            case 'success':
+                toastType = 'toast-success';
+                break;
+            default:
+                toastType = ''
+        }
         return toastType
     }
     _renderToast(options) {
-  const { title, msg, position, autohide, delay, type } = options;
-    const toastType = this.#declareToastType(type)
-  // position container
-  this._toast_container.classList = 'toast-container p-3'
-  this._toast_container.classList.add(
-    ...objectToCSSClasses(calcToastPosition(position))
-  );
-  // build markup (fix attrs)
-  //const closeBtnClass = autohide ? 'd-none' : 'd-block';
-  // ${closeBtnClass}
-  const toast = `
+        const {
+            title,
+            msg,
+            position,
+            autohide,
+            delay,
+            type
+        } = options;
+        const toastType = this.#declareToastType(type)
+        // position container
+        this._toast_container.classList = 'toast-container p-3'
+        this._toast_container.classList.add(
+            ...objectToCSSClasses(calcToastPosition(position))
+        );
+        // build markup (fix attrs)
+        //const closeBtnClass = autohide ? 'd-none' : 'd-block';
+        // ${closeBtnClass}
+        const toast = `
     <div class="toast fade show ${toastType}" role="alert" aria-live="assertive" aria-atomic="true"">
       <div class="toast-header ${toastType}">
         <strong class="me-auto">${title}</strong>
@@ -136,10 +144,10 @@ export default class View {
     </div>
   `;
 
-  // insert, then use your _hideToast
-  this._toast_container.insertAdjacentHTML('afterbegin', sanitizeHtml(toast));
-  this._hideToast(autohide, delay);
-}
+        // insert, then use your _hideToast
+        this._toast_container.insertAdjacentHTML('afterbegin', sanitizeHtml(toast));
+        this._hideToast(autohide, delay);
+    }
     _renderError(options) {
         let messageMarkup;
         const exclamationError = `
@@ -251,10 +259,19 @@ export default class View {
         const data = Object.fromEntries(formEntries);
         this._formData = data;
     }
-    _disableBTN(_data) {
-        this._data = _data;
-        if(this._data === false) this._selectedBTN.classList.add('disabled');
-        else this._selectedBTN.classList.remove('disabled');
+    _disableBTN(options) {
+        let currentBTN;
+        const {disabled, existingButton, specificButton} = options
+        if (disabled) {
+            if (existingButton) {this._selectedBTN.classList.add('disabled')}
+            else if (specificButton) {
+                 specificButton.classList.add('disabled')
+            }
+        }
+        else {
+            if (existingButton) this._selectedBTN.classList.remove('disabled')
+            else specificButton.classList.remove('disabled')
+        }
     }
     //end
     addHandlerLoad(handler) {
@@ -270,11 +287,11 @@ export default class View {
     _addHandlerSubmitChange(handler) {
         this._form.querySelectorAll('input, textarea, select')
             .forEach(input => {
-            input.addEventListener('change', (e) => {
-                this._submitEvent(e)
-                handler(this._formData);
+                input.addEventListener('change', (e) => {
+                    this._submitEvent(e)
+                    handler(this._formData);
+                })
             })
-        })
     }
     _addHandlerFormReset(handler) {
         this._form.addEventListener('reset', handler)
@@ -296,25 +313,25 @@ export default class View {
             if (alert && alert.type === 'button' && alert.closest('.alert').classList.contains('alert')) this._cleanup();
         });
     }
-    _hideDescriptions (boolHide) {
-                const descriptions = Array.from(this._descriptions);
-                if (!descriptions.length) return;
+    _hideDescriptions(boolHide) {
+        const descriptions = Array.from(this._descriptions);
+        if (!descriptions.length) return;
         descriptions.forEach(desc => this._toggleCard(desc, boolHide));
     }
     _toggleCard = (desc, hide) => {
-            // Proper toggle: if 'hide' is boolean, force it; else truly toggle
-            if (typeof hide === 'boolean') {
-                desc.classList.toggle('d-none', hide);
-            } else {
-                desc.classList.toggle('d-none');
-            }
+        // Proper toggle: if 'hide' is boolean, force it; else truly toggle
+        if (typeof hide === 'boolean') {
+            desc.classList.toggle('d-none', hide);
+        } else {
+            desc.classList.toggle('d-none');
+        }
 
-            const btnId = desc.dataset.btn;
-            const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
-            if (btn) {
-                const isHidden = desc.classList.contains('d-none');
-                btn.textContent = isHidden ? 'Show description' : 'Hide description';
-                btn.setAttribute('aria-expanded', String(!isHidden));
-            }
+        const btnId = desc.dataset.btn;
+        const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
+        if (btn) {
+            const isHidden = desc.classList.contains('d-none');
+            btn.textContent = isHidden ? 'Show description' : 'Hide description';
+            btn.setAttribute('aria-expanded', String(!isHidden));
+        }
     };
 }
