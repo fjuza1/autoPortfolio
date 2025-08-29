@@ -2,13 +2,15 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions} from './helpers.js';
 import {saveAs} from './lib.js';
 export const state = {
     search:{
         skills:[],
         tools:[],
+        certs:[],
         isFiltered: false,
+        isFilteredByTool:false
     },
     fileState: {
         empty: false,
@@ -457,6 +459,18 @@ export const filterTools = function(excludeOptions = {}) {
     });
     state.search.tools = allTools.sort((a, b) => a.name.localeCompare(b.name));
 }
+export const filterCerts = function(options) {
+    let value;
+    const {array, keys, values} = options;
+    const copiedArray = [...array];
+    if(values.toLowerCase() === 'all') {
+        state.search.isFilteredByTool = false;
+        state.search.certs = [];
+    } else {
+    const filteredData = filterByKeys(copiedArray, keys, value);
+    state.certifications = filteredData;
+    }
+}
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
  * Sorts the skills based on the provided options.
@@ -467,16 +481,10 @@ export const filterTools = function(excludeOptions = {}) {
  * @returns {Array} The sorted array of skills.
  */
 export const sortingSkills = function(options) {
-    let {sortBy, order } = options;
-    let array
+    let {sortBy, order, array } = options;
     const skills = state.skills
     Array.isArray(state.search.skills) && state.search.isFiltered? array = state.search.skills : array = skills;
-    const sortFunctions = {
-        expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
-        name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
-        category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
-    };
-    state.search.skills =  [...array].sort(sortFunctions[sortBy]);
+    state.search.skills = sortFunctions({sortBy, order, array });
 }
 /**
  * Return state.Project where url and img String are specified

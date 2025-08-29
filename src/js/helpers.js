@@ -132,7 +132,17 @@ export const AJAX = async (url, body = undefined) => {
  * @param {Array<string>} values - The values to filter by.
  * @returns {Array<Object>} The filtered array of objects.
  */
-export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())));
+export const sortFunctions = (options) =>{
+        let {sortBy, order, array } = options;
+        const sortFunctions = {
+                expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+                name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+                category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category),
+                date: (a, b) => order === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date),
+                };
+        return [...array].sort(sortFunctions[sortBy])
+}
 /**
  * Converts an array of skills into an XML string.
  *
