@@ -74,21 +74,28 @@ export default class View {
 	 * @returns {void}
 	 */
 	_setoffcancavasDisplay() {
-		const {position, backdrop, keyboard, scroll, w} = setCanvasOffOptions(this._canvasOptions)
+		const {position, backdrop, keyboard, scroll, w} = setCanvasOffOptions(this._canvasOptions);
+		const existingBackdrop = document.querySelector('.offcanvas-backdrop');
 		if (position) this._offcanvas.classList.add(position);
-		if (backdrop || backdrop.toLowerCase() === 'static') {
+		if (backdrop && backdrop?.toLowerCase() === 'static') {
             this._offcanvas.setAttribute('data-bs-backdrop', backdrop);
             document.body.style.overflow = 'hidden'; // Prevent body scroll when offcanvas is open
-        }
-		else {
-            this._offcanvas.setAttribute('data-bs-backdrop', !backdrop);
-        }
+			if(!existingBackdrop) {
+			// cretae div after lastChild
+			const div = document.createElement('div');
+			div.className = 'offcanvas-backdrop fade show';
+			this._offcanvas.after(div);
+			}
+			//
+		}
+		else this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? "true" : "false");
+		
 		if (scroll) this._offcanvas.setAttribute('data-bs-scroll', scroll);
 		if (keyboard) this._offcanvas.setAttribute('data-bs-keyboard', keyboard);
 		else this._offcanvas.setAttribute('data-bs-keyboard', false);
 		if (w) this._offcanvas.classList.add(`w-${w.replace('%','')}`); // w-75
-        console.log(!this._offcanvas.classList.contains('show'))
         if(!this._offcanvas.classList.contains('show')) {
+            if(!this._offcanvas.classList.contains('show')) existingBackdrop?.remove();
             document.body.removeAttribute('style')  // Restore body scroll when offcanvas is closed
         };
 	}
