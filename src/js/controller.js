@@ -4,7 +4,6 @@ import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
 import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
-//console.log("TCL: model", model.state)
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
@@ -15,7 +14,7 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
-import settingsView from './Views/settings.js';
+import settingsView from './Views/settingsView.js';
 import performanceView from './Views/performanceView.js';
 import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
@@ -114,7 +113,7 @@ const controllResetSkills = () => {
 	model.state.curPage = 1;
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
-	skillsExportView._disableBTN(model.state.search.isFiltered)
+	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	handlePagination(original, (data) => {
 		skillsView._render(skillsView._skillBarDisplay(data));
 	});
@@ -128,7 +127,7 @@ const controllFilterSkills = () => {
 	};
 	model.filterSkills(options)
 	model.state.search.isFiltered = model.state.search.skills.length > 0;
-	skillsExportView._disableBTN(model.state.search.isFiltered)
+	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
@@ -195,7 +194,7 @@ const controllSettings = (e) => {
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 	const settingsLen = Object.values(settingsView._getSettings()).length !== 0
-	settingsView._disableBTN(settingsLen);
+	settingsView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const init = () => {
 	controllNavBar();
@@ -209,10 +208,11 @@ const init = () => {
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	skillsExportView.addHandlerLoad(skillsExportView._disableBTN(model.state.search.isFiltered))
+	skillsExportView.addHandlerLoad(skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}))
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
+	designView._addHandlerClick(designView._setoffcancavasDisplay.bind(designView));
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);

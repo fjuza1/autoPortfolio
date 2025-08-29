@@ -18,6 +18,14 @@ class Design extends View {
 	_showDescBTN = document.querySelector("[data-btn='allTool']")
 	_parentElement = document.getElementById('myQA');
 	_descriptions = this._parentElement.getElementsByTagName('p');
+    _offcanvas = document.querySelector('.offcanvas');
+	_canvasOptions = {
+        position: 'start',
+        backdrop: 'static',
+        keyboard:false,
+        scroll: true,
+		w:"75%"
+    };
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
 			const link = e.target;

@@ -132,7 +132,17 @@ export const AJAX = async (url, body = undefined) => {
  * @param {Array<string>} values - The values to filter by.
  * @returns {Array<Object>} The filtered array of objects.
  */
-export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())));
+export const sortFunctions = (options) =>{
+        let {sortBy, order, array } = options;
+        const sortFunctions = {
+                expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+                name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+                category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category),
+                date: (a, b) => order === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date),
+                };
+        return [...array].sort(sortFunctions[sortBy])
+}
 /**
  * Converts an array of skills into an XML string.
  *
@@ -409,13 +419,28 @@ export const calcToastPosition = (position) => {
     return screenCoords;
 }
 export const notifyIncorrectData = (array, data) => !array.includes(data)
+/**
+ * Sets options for an off-canvas component.
+ *
+ * @param {Object} [options={}] - Configuration options.
+ * @param {"top"|"bottom"|"start"|"end"} [options.position] - Position of the off-canvas.
+ * @param {"static"|boolean} [options.backdrop] - Backdrop behavior; either "static" or a boolean.
+ * @param {boolean} [options.keyboard] - Whether keyboard interactions are enabled.
+ * @param {boolean} [options.scroll] - Whether scrolling is allowed.
+ * @returns {Object} Off-canvas options object.
+ * @throws {Error} If an invalid position, backdrop, or scroll value is provided.
+ */
 export const setCanvasOffOptions = (options = {}) => {
-    const {position, backdrop, keyboard} = options;
+    const {position, backdrop, keyboard, scroll,w} = options;
     if (notifyIncorrectData(["top","bottom","start","end"] ,position)) throw new Error("Unknown position");
-    if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean')
+    if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean');
+    if (notifyIncorrectData([true, false], scroll)) throw new Error ('Please pass param type boolean');
+    if(notifyIncorrectData(["25%","50%","75%","100%"], w)) throw new Error('Width must be either "25%","50%","75%","100%"');
     return {
         position: `offcanvas-${position}`,
         backdrop: backdrop,
-        keyboard: keyboard
+        keyboard: keyboard,
+        scroll: scroll,
+        w:w
     }
 }
