@@ -260,7 +260,7 @@ export default class View {
     }
     _disableBTN(options) {
         const {disabled, existingButton, specificButton} = options
-        if (disabled) {
+        if (!disabled) {
             if (existingButton) {this._selectedBTN.classList.add('disabled')}
             else if (specificButton) {
                  specificButton.classList.add('disabled')
