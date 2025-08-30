@@ -263,6 +263,7 @@ class PopupView {
         }
     }
     #toggleOffcanvas(e) {
+        if (e.type === 'mouseup' && e.button !== 0) return;
         const offcanvas = this._offcanvas;
         const target = e.target;
         const targetoffcanvas = target.closest('.offcanvas');
