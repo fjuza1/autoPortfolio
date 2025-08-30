@@ -41,46 +41,52 @@
                </ul>
             </div>
          </div>
-         <div class="d-flex justify-content-center align-items-center" id="Preferences">
-                  <div class="multi-collapse collapse w-100 w-md-75 w-lg-50 w-xl-25">
-                     <form class="form" id="settingsForm">
-                        <div class="bg-light p-4 border rounded shadow-sm mb-3">
-                           <strong class="mb-0 mt-3">Page settings</strong>
-                           <hr class="my-3">
-                           <strong class="mb-0 mt-4">Display settings</strong>
-                           <div class="alert alert-info" role="alert"> Controls displaying of webpage elements and their behavior. </div>
-                           <div class="list-group shadow-sm">
-                              <div class="list-group-item">
-                                 <div class="form-check form-switch w-100">
-                                    <input class="form-check-input" type="checkbox" id="darkModeSwitch" name="darkMode">
-                                    <label class="form-check-label" for="darkModeSwitch"> Enable/Disable dark mode </label>
-                                 </div>
-                                 <div class="form-check form-switch w-100">
-                                    <input class="form-check-input" type="checkbox" id="centeredLayoutSwitch" name="centeredLayout">
-                                    <label class="form-check-label" for="centeredLayoutSwitch"> Center content </label>
-                                 </div>
+         <div class="container d-none min-vh-100" id="Preferences">
+            <div class="offcanvas-header">
+               <h5 class="offcanvas-title">Settings</h5>
+               <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+               <div class="d-flex justify-content-center align-items-center">
+                  <form class="form" id="settingsForm">
+                     <div class="p-4 mb-3">
+                        <strong class="mb-0 mt-3">Page settings</strong>
+                        <hr class="my-3">
+                        <strong class="mb-0 mt-4">Display settings</strong>
+                        <div class="alert alert-info" role="alert"> Controls displaying of webpage elements and their behavior. </div>
+                        <div class="list-group shadow-sm">
+                           <div class="list-group-item">
+                              <div class="form-check form-switch w-100">
+                                 <input class="form-check-input" type="checkbox" id="darkModeSwitch" name="darkMode">
+                                 <label class="form-check-label" for="darkModeSwitch"> Enable/Disable dark mode </label>
                               </div>
-                           </div>
-                           <hr class="my-3">
-                           <strong class="mb-0 mt-3"> Privacy</strong>
-                           <div class="alert alert-info" role="alert"> Enable or disable performance tracking. </div>
-                           <div class="list-group shadow-sm">
-                              <div class="list-group-item">
-                                 <div class="form-check form-switch w-100">
-                                    <input class="form-check-input" type="checkbox" id="securitySwitch" name="tracking">
-                                    <label class="form-check-label" for="trackingSwitch">
-                                       Enable/Disable Tracking
-                                       <!-- d-none d-md-block -->
-                                    </label>
-                                 </div>
+                              <div class="form-check form-switch w-100">
+                                 <input class="form-check-input" type="checkbox" id="centeredLayoutSwitch" name="centeredLayout">
+                                 <label class="form-check-label" for="centeredLayoutSwitch"> Center content </label>
                               </div>
-                           </div>
-                           <div class="d-flex justify-content-end">
-                              <button type="reset" class="btn btn-primary my-2">Reset</button>
                            </div>
                         </div>
-                     </form>
-                  </div>
+                        <hr class="my-3">
+                        <strong class="mb-0 mt-3"> Privacy</strong>
+                        <div class="alert alert-info" role="alert"> Enable or disable performance tracking. </div>
+                        <div class="list-group shadow-sm">
+                           <div class="list-group-item">
+                              <div class="form-check form-switch w-100">
+                                 <input class="form-check-input" type="checkbox" id="securitySwitch" name="tracking">
+                                 <label class="form-check-label" for="trackingSwitch">
+                                    Enable/Disable Tracking
+                                    <!-- d-none d-md-block -->
+                                 </label>
+                              </div>
+                           </div>
+                        </div>
+                        <div class="d-flex justify-content-end">
+                           <button type="reset" class="btn btn-primary my-2">Reset</button>
+                        </div>
+                     </div>
+                  </form>
+               </div>
+            </div>
          </div>
       </div>
       <div class="toast-container p-3"></div>
@@ -145,10 +151,10 @@
             <div class="container">
                <div class="row row-cols-1 g-2 ms-2 align-items-start">
                   <div class="col-auto">
-                    <button class="btn-primary-transparent" data-bs-toggle="offcanvas" aria-controls="infoNav">
-                     <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill position-sticky top-0 start-0 ms-2 d-none d-md-block d-block mb-2 p-0 z-1" viewBox="0 0 16 16">
-                        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
-                     </svg>
+                     <button class="btn-primary-transparent" data-bs-toggle="offcanvas" aria-controls="infoNav">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill position-sticky top-0 start-0 ms-2 d-none d-md-block d-block mb-2 p-0 z-1" viewBox="0 0 16 16">
+                           <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2" />
+                        </svg>
                      </button>
                   </div>
                   <div class="justify-content-start align-items-start"></div>
@@ -256,7 +262,7 @@
                      </div>
                      <div class="container">
                         <div class="multi-collapse collapse w-100 w-md-75 w-lg-50 w-xl-25" id="filterSort">
-                           <div class="sm-light p-4 border rounded shadow-sm">
+                           <div class="p-4">
                               <form class="filterActivities mb-2">
                                  <h4 class="fw-bold text-primary">Filter Skills</h4>
                                  <div class="form-group mb-2" id="filterActivities">

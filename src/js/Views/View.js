@@ -32,7 +32,10 @@ export default class View {
     _cleanup() {
         this._parentElement.innerHTML = '';
     }
-    _cleanupOffcanvas() {
+    _cleanupOffcanvas(e) {
+        const canvasisSelected = e.target.closest('.offcanvas');
+        const closeBtn = e.target.closest('.btn-close');
+        if(canvasisSelected && !closeBtn) return;
         // Remove backdrop if it exists
         document.querySelector('.offcanvas-backdrop')?.remove();
         document.body.style.overflow = ''; // restore scroll

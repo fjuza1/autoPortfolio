@@ -15,7 +15,7 @@ class SettingsView extends View {
         backdrop: true,
         keyboard:false,
         scroll: false,
-		w:"50%"
+		w:"25%"
     };
 	#resetSettings() {
 		this._formData = {};

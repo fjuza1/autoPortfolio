@@ -208,7 +208,7 @@ const controllOffcanvas = (e) => {
 			designView._setOffcanvasDisplay(e);
 			break;
 		default:
-			designView._cleanupOffcanvas()
+			designView._cleanupOffcanvas(e)
 			break;
 	}
 };
