@@ -20,6 +20,7 @@ class PopupView {
     _prefs = document.querySelector('#Preferences')
     _offcanvas = document.querySelector('.offcanvas');
     _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
+    _isComingFromBTN = '';
     constructor() {
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();
@@ -87,7 +88,9 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
-
+    _getisComingFromBTN(e){
+        this._isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
+    }
     /**
      * Handles the toggling of the primary navigation menu in the popout view.
      *

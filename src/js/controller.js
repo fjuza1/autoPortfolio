@@ -197,8 +197,10 @@ const controllSettings = (e) => {
 	//settingsView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const controllOffcanvas = (e) => {
-	const isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
-	switch (isComingFromBTN) {
+	// get which button was clicked
+	popoutView._getisComingFromBTN(e)
+	// cleanup any existing offcanvas props
+	switch (popoutView._isComingFromBTN) {
 		case 'preferences':
 			settingsView._setOffcanvasDisplay(e);
 			break;
@@ -226,7 +228,6 @@ const init = () => {
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
-	settingsView._addHandlerClick(controllOffcanvas)
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);
