@@ -33,8 +33,15 @@ export default class View {
         this._parentElement.innerHTML = '';
     }
     _cleanupOffcanvas() {
+        // Remove backdrop if it exists
         document.querySelector('.offcanvas-backdrop')?.remove();
         document.body.style.overflow = ''; // restore scroll
+        this._offcanvas.className = 'offcanvas'; // reset classes
+
+        // reset attrs
+        this._offcanvas.removeAttribute('data-bs-backdrop');
+        this._offcanvas.removeAttribute('data-bs-scroll');
+        this._offcanvas.removeAttribute('data-bs-keyboard');
     }
     /**
      * Rendering from Array into view.
