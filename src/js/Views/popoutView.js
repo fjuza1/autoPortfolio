@@ -22,6 +22,7 @@ class PopupView {
     _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
     _isComingFromBTN = '';
     constructor() {
+        this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();
         this._addHandleOpenModal();
@@ -89,29 +90,10 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
-    #controllOffcanvas (e){
-            // get which button was clicked
-            this.#getisComingFromBTN(e)
-            // cleanup any existing offcanvas props
-            switch (this._isComingFromBTN) {
-                case 'preferences':
-                    this.#setOffcanvasDisplay(e, {position: 'end',backdrop: true,keyboard:false,scroll: false,w:"25%"});
-                    break;
-                case 'infonav':
-                    this.#setOffcanvasDisplay(e, {position: 'start',backdrop: 'static',keyboard:true,scroll: true,w:"75%"});
-                    break;
-                default:
-                    this.#cleanupOffcanvas(e)
-                    break;
-            }
-    };
-    #getisComingFromBTN(e){
-        this._isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
-    }
     #cleanupOffcanvas(e) {
         const canvasisSelected = e.target.closest('.offcanvas');
         const closeBtn = e.target.closest('.btn-close');
-        if(canvasisSelected && !closeBtn) return;
+        if (canvasisSelected && !closeBtn) return;
         // Remove backdrop if it exists
         document.querySelector('.offcanvas-backdrop')?.remove();
         document.body.style.overflow = ''; // restore scroll
@@ -121,6 +103,51 @@ class PopupView {
         this._offcanvas.removeAttribute('data-bs-backdrop');
         this._offcanvas.removeAttribute('data-bs-scroll');
         this._offcanvas.removeAttribute('data-bs-keyboard');
+    }
+    #controllOffcanvas(e) {
+        // get which button was clicked
+        this.#getisComingFromBTN(e)
+        // cleanup any existing offcanvas props
+        switch (this._isComingFromBTN) {
+            case 'preferences':
+                this.#setOffcanvasDisplay(e, {
+                    position: 'end',
+                    backdrop: true,
+                    keyboard: false,
+                    scroll: false,
+                    w: "25%"
+                });
+                break;
+            case 'infonav':
+                this.#setOffcanvasDisplay(e, {
+                    position: 'start',
+                    backdrop: 'static',
+                    keyboard: true,
+                    scroll: true,
+                    w: "75%"
+                });
+                break;
+            default:
+                this.#cleanupOffcanvas(e)
+                break;
+        }
+    };
+    #getisComingFromBTN(e) {
+        this._isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
+    }
+    #handleBackdropOffcanvas (backdrop) {
+            if (backdrop || backdrop?.toLowerCase() === 'static') {
+                this._offcanvas.setAttribute('data-bs-backdrop', 'static');
+                document.body.style.overflow = 'hidden';
+
+                if (!document.querySelector('.offcanvas-backdrop')) {
+                    const div = document.createElement('div');
+                    div.className = 'offcanvas-backdrop fade show';
+                    this._offcanvas.after(div);
+                }
+            } else {
+                this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
+            }
     }
     /**
      * Handles the toggling of the primary navigation menu in the popout view.
@@ -178,52 +205,61 @@ class PopupView {
             this.#hideDropDownMenus();
         }
     }
-    #setOffcanvasDisplay(e,options) {
-    const isOffCanvasButton =
-        e.target.closest('button[data-bs-toggle="offcanvas"]')?.dataset.bsToggle === 'offcanvas';
-    const { position, backdrop, keyboard, scroll, w } = setCanvasOffOptions(options);
-    if (isOffCanvasButton) {
-        // Position
-        if (position) {
-        this._offcanvas.classList.add(escapeCSS(position));
-        }
+    #hideOffcanvas(e) {
+        if (e.key && e.key !== 'Escape') return; // only react to Escape key
+        const openCanvas = document.querySelector("body > div.offcanvas.show");
+        if (!openCanvas) return; // nothing to close
 
-        // Backdrop handling
-        if ((backdrop || backdrop?.toLowerCase() === 'static') && keyboard === true) {
-        this._offcanvas.setAttribute('data-bs-backdrop', 'static');
-        document.body.style.overflow = 'hidden';
-
-        if (!document.querySelector('.offcanvas-backdrop')) {
-            const div = document.createElement('div');
-            div.className = 'offcanvas-backdrop fade show';
-            this._offcanvas.after(div);
-        }
-        } else {
-        this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
-        }
-
-        // Width
-        if (w) {
-        this._offcanvas.classList.add(escapeCSS(`w-${w.replace('%', '')}`));
-        }
-
-        // Scroll
-        if (scroll) {
-        this._offcanvas.setAttribute('data-bs-scroll', scroll);
-        }
-
-        // Keyboard for button
-        this._offcanvas.setAttribute('data-bs-keyboard', keyboard ?? false);
+        openCanvas.classList.remove('show');
+        this.#cleanupOffcanvas(e);
     }
-        if(keyboard && keyboard === true) {
-                console.log('was here');
-                document.addEventListener('keydown', (e) => {
-                            if (e.key === 'Escape' ) {
-                                console.log(document.querySelector("body > div.offcanvas.show"));
-                                document.querySelector("body > div.offcanvas.show")?.classList.remove('show');
-                                this.#cleanupOffcanvas(e);
-                            }
-                });
+    #setOffcanvasDisplay(e, options) {
+        const isOffCanvasButton =
+            e.target.closest('button[data-bs-toggle="offcanvas"]')?.dataset.bsToggle === 'offcanvas';
+        const {
+            position,
+            backdrop,
+            keyboard,
+            scroll,
+            w
+        } = setCanvasOffOptions(options);
+        if (isOffCanvasButton) {
+            // Position
+            if (position) {
+                this._offcanvas.classList.add(escapeCSS(position));
+            }
+
+            // Backdrop handling
+            this.#handleBackdropOffcanvas(backdrop)
+            // if (backdrop || backdrop?.toLowerCase() === 'static') {
+            //     this._offcanvas.setAttribute('data-bs-backdrop', 'static');
+            //     document.body.style.overflow = 'hidden';
+
+            //     if (!document.querySelector('.offcanvas-backdrop')) {
+            //         const div = document.createElement('div');
+            //         div.className = 'offcanvas-backdrop fade show';
+            //         this._offcanvas.after(div);
+            //     }
+            // } else {
+            //     this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
+            // }
+
+            // Width
+            if (w) {
+                this._offcanvas.classList.add(escapeCSS(`w-${w.replace('%', '')}`));
+            }
+
+            // Scroll
+            if (scroll) {
+                this._offcanvas.setAttribute('data-bs-scroll', scroll);
+            }
+            // Keyboard for button
+            document.removeEventListener('keydown', this._boundHideOffcanvas);
+
+            if (keyboard === true) {
+                document.addEventListener('keydown', this._boundHideOffcanvas);
+            }
+            this._offcanvas.setAttribute('data-bs-keyboard', keyboard ?? false);
         }
     }
     #toggleOffcanvas(e) {
@@ -313,7 +349,10 @@ class PopupView {
     #unshowModal() {
         this._modal.style.display = 'none';
         removeClass(this._modal, 'show');
-        this._body.style.overflow = 'auto';
+        // restore to auto if not has hidden
+        if (this._body.style.overflow !== 'hidden') {
+            this._body.style.overflow = 'auto';
+        }
         this._modal.innerHTML = '';
     }
 
