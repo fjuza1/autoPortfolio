@@ -17,7 +17,6 @@ class PopupView {
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     _infoNav = document.querySelector("[data-info='infoNav']");
-    _prefBTN = document.getElementById('prefBTN');
     _prefs = document.querySelector('#Preferences')
     _offcanvas = document.querySelector('.offcanvas');
     _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
@@ -306,7 +305,7 @@ class PopupView {
     }
     //section evs
     #addHandlerShowSection() {
-        [this._skillBtnGroup, this._prefBTN].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
+        [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
     }
     #addHandlerHideSection() {
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));

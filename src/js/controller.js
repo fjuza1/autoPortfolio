@@ -194,8 +194,22 @@ const controllSettings = (e) => {
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 	const settingsLen = Object.values(settingsView._getSettings()).length !== 0
-	settingsView._disableBTN({disabled: settingsLen, existingButton: true});
+	//settingsView._disableBTN({disabled: settingsLen, existingButton: true});
 }
+const controllOffcanvas = (e) => {
+	const isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
+	switch (isComingFromBTN) {
+		case 'preferences':
+			settingsView._setOffcanvasDisplay(e);
+			break;
+		case 'infonav':
+			designView._setOffcanvasDisplay(e);
+			break;
+		default:
+			designView._cleanupOffcanvas()
+			break;
+	}
+};
 const init = () => {
 	controllNavBar();
 	controlSections();
@@ -212,10 +226,11 @@ const init = () => {
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
 	settingsView.addHandleClickTheme();
-	designView._addHandlerClick(designView._setOffcanvasDisplay);
+	settingsView._addHandlerClick(controllOffcanvas)
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);
+	designView._addHandlerClick(controllOffcanvas);
 }
 init()
 // performance optimization
