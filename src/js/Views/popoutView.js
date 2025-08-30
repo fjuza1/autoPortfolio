@@ -246,9 +246,11 @@ class PopupView {
 
             // Width
             if (w) {
-                this._offcanvas.classList.add(escapeCSS(`w-${w.replace('%', '')}`));
+                let width
+                const screenWidth = window.innerWidth
+                screenWidth < 900 ? width = `w-75` : width = `w-${w.replace('%', '')}`
+                this._offcanvas.classList.add(escapeCSS(width));
             }
-
             // Scroll
             if (scroll) {
                 this._offcanvas.setAttribute('data-bs-scroll', scroll);
