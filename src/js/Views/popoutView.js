@@ -1,5 +1,5 @@
 import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
-import {removeClass, setCanvasOffOptions} from  '../helpers.js'
+import {removeClass, setCanvasOffOptions, escapeCSS } from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
@@ -17,11 +17,12 @@ class PopupView {
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
     _infoNav = document.querySelector("[data-info='infoNav']");
-    _prefBTN = document.getElementById('prefBTN');
     _prefs = document.querySelector('#Preferences')
     _offcanvas = document.querySelector('.offcanvas');
     _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
+    _isComingFromBTN = '';
     constructor() {
+        this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
         this.#addHandlerHideSection();
         this.#addHandlerShowSection();
         this._addHandleOpenModal();
@@ -30,6 +31,7 @@ class PopupView {
         this.#handleTogglingMenu();
         this.#addHandlerShowMobileNav();
         this.#handleTogglingOffcanvas();
+        this.#addHandlerClick(this.#controllOffcanvas);
     }
     /**
      * Description placeholder
@@ -88,7 +90,65 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
+    #cleanupOffcanvas(e) {
+        const canvasisSelected = e.target.closest('.offcanvas');
+        const closeBtn = e.target.closest('.btn-close');
+        if (canvasisSelected && !closeBtn) return;
+        // Remove backdrop if it exists
+        document.querySelector('.offcanvas-backdrop')?.remove();
+        document.body.style.overflow = ''; // restore scroll
+        this._offcanvas.className = 'offcanvas'; // reset classes
 
+        // reset attrs
+        this._offcanvas.removeAttribute('data-bs-backdrop');
+        this._offcanvas.removeAttribute('data-bs-scroll');
+        this._offcanvas.removeAttribute('data-bs-keyboard');
+    }
+    #controllOffcanvas(e) {
+        // get which button was clicked
+        this.#getisComingFromBTN(e)
+        // cleanup any existing offcanvas props
+        switch (this._isComingFromBTN) {
+            case 'preferences':
+                this.#setOffcanvasDisplay(e, {
+                    position: 'end',
+                    backdrop: true,
+                    keyboard: false,
+                    scroll: false,
+                    w: "25%"
+                });
+                break;
+            case 'infonav':
+                this.#setOffcanvasDisplay(e, {
+                    position: 'start',
+                    backdrop: 'static',
+                    keyboard: true,
+                    scroll: true,
+                    w: "75%"
+                });
+                break;
+            default:
+                this.#cleanupOffcanvas(e)
+                break;
+        }
+    };
+    #getisComingFromBTN(e) {
+        this._isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
+    }
+    #handleBackdropOffcanvas (backdrop) {
+            if (backdrop || backdrop?.toLowerCase() === 'static') {
+                this._offcanvas.setAttribute('data-bs-backdrop', 'static');
+                document.body.style.overflow = 'hidden';
+
+                if (!document.querySelector('.offcanvas-backdrop')) {
+                    const div = document.createElement('div');
+                    div.className = 'offcanvas-backdrop fade show';
+                    this._offcanvas.after(div);
+                }
+            } else {
+                this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
+            }
+    }
     /**
      * Handles the toggling of the primary navigation menu in the popout view.
      *
@@ -145,7 +205,65 @@ class PopupView {
             this.#hideDropDownMenus();
         }
     }
+    #hideOffcanvas(e) {
+        if (e.key && e.key !== 'Escape') return; // only react to Escape key
+        const openCanvas = document.querySelector("body > div.offcanvas.show");
+        if (!openCanvas) return; // nothing to close
+
+        openCanvas.classList.remove('show');
+        this.#cleanupOffcanvas(e);
+    }
+    #setOffcanvasDisplay(e, options) {
+        const isOffCanvasButton =
+            e.target.closest('button[data-bs-toggle="offcanvas"]')?.dataset.bsToggle === 'offcanvas';
+        const {
+            position,
+            backdrop,
+            keyboard,
+            scroll,
+            w
+        } = setCanvasOffOptions(options);
+        if (isOffCanvasButton) {
+            // Position
+            if (position) {
+                this._offcanvas.classList.add(escapeCSS(position));
+            }
+
+            // Backdrop handling
+            this.#handleBackdropOffcanvas(backdrop)
+            // if (backdrop || backdrop?.toLowerCase() === 'static') {
+            //     this._offcanvas.setAttribute('data-bs-backdrop', 'static');
+            //     document.body.style.overflow = 'hidden';
+
+            //     if (!document.querySelector('.offcanvas-backdrop')) {
+            //         const div = document.createElement('div');
+            //         div.className = 'offcanvas-backdrop fade show';
+            //         this._offcanvas.after(div);
+            //     }
+            // } else {
+            //     this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
+            // }
+
+            // Width
+            if (w) {
+                this._offcanvas.classList.add(escapeCSS(`w-${w.replace('%', '')}`));
+            }
+
+            // Scroll
+            if (scroll) {
+                this._offcanvas.setAttribute('data-bs-scroll', scroll);
+            }
+            // Keyboard for button
+            document.removeEventListener('keydown', this._boundHideOffcanvas);
+
+            if (keyboard === true) {
+                document.addEventListener('keydown', this._boundHideOffcanvas);
+            }
+            this._offcanvas.setAttribute('data-bs-keyboard', keyboard ?? false);
+        }
+    }
     #toggleOffcanvas(e) {
+        if (e.type === 'mouseup' && e.button !== 0) return;
         const offcanvas = this._offcanvas;
         const target = e.target;
         const targetoffcanvas = target.closest('.offcanvas');
@@ -167,6 +285,9 @@ class PopupView {
         offcanvas?.classList.add('show');
         popoutToggle?.classList.remove('d-none');
     };
+    #addHandlerClick(handler) {
+        document.addEventListener('click', handler.bind(this));
+    }
     #handleTogglingOffcanvas() {
         document.addEventListener('mouseup', this.#toggleOffcanvas.bind(this))
         this._offcanvasBTNS.forEach(btn => {
@@ -229,7 +350,10 @@ class PopupView {
     #unshowModal() {
         this._modal.style.display = 'none';
         removeClass(this._modal, 'show');
-        this._body.style.overflow = 'auto';
+        // restore to auto if not has hidden
+        if (this._body.style.overflow !== 'hidden') {
+            this._body.style.overflow = 'auto';
+        }
         this._modal.innerHTML = '';
     }
 
@@ -306,7 +430,7 @@ class PopupView {
     }
     //section evs
     #addHandlerShowSection() {
-        [this._skillBtnGroup, this._prefBTN].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
+        [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
     }
     #addHandlerHideSection() {
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));

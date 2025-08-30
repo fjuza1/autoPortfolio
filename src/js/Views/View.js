@@ -72,55 +72,6 @@ export default class View {
      *
      * @returns {void}
      */
-    _setOffcanvasDisplay(e) {
-        const {
-            position,
-            backdrop,
-            keyboard,
-            scroll,
-            w
-        } = setCanvasOffOptions(this._canvasOptions);
-        const existingBackdrop = document.querySelector('.offcanvas-backdrop');
-        const isoffCanvasButton = e.target.closest('button[data-bs-toggle="offcanvas"]')?.dataset.bsToggle === 'offcanvas';
-        // Position
-        if (position) {
-            this._offcanvas.classList.add(escapeCSS(position));
-        }
-        // Backdrop handling
-        if (isoffCanvasButton) {
-            if (backdrop || backdrop?.toLowerCase() === 'static') {
-                this._offcanvas.setAttribute('data-bs-backdrop', 'static');
-                document.body.style.overflow = 'hidden'; // lock scroll
-
-                if (!existingBackdrop) {
-                    const div = document.createElement('div');
-                    div.className = 'offcanvas-backdrop fade show';
-                    this._offcanvas.after(div);
-                }
-            } else {
-                this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
-            }
-        }
-
-        // Scroll
-        if (scroll) {
-            this._offcanvas.setAttribute('data-bs-scroll', scroll);
-        }
-
-        // Keyboard
-        this._offcanvas.setAttribute('data-bs-keyboard', keyboard ?? false);
-
-        // Width
-        if (w) {
-            this._offcanvas.classList.add(escapeCSS(`w-${w.replace('%', '')}`));
-        }
-
-        // Cleanup when hidden
-        if (!this._offcanvas.classList.contains('show')) {
-            existingBackdrop?.remove();
-            document.body.style.overflow = ''; // restore scroll
-        }
-    }
     _closeToast(toast) {
         if (!toast) return;
         toast.remove();
@@ -356,9 +307,6 @@ export default class View {
      * @private
      * @returns {void}
      */
-    _addHandlerClick(handler) {
-        document.addEventListener('click', handler.bind(this));
-    }
     _closeAlert() {
         this._parentElement.addEventListener('click', (e) => {
             const alert = e.target;

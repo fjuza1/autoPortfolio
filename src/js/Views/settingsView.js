@@ -8,14 +8,8 @@ class SettingsView extends View {
 	_sections = document.querySelectorAll('.section');
 	_nav = document.querySelector('.nav');
 	_firstSection = document.querySelector("#Home");
-	_selectedBTN = this._firstSection.querySelector('button[type="reset"]');
+	_selectedBTN = document.querySelector("#settingsForm > div > div.d-flex.justify-content-end > button");
     _offcanvas = document.querySelector('.offcanvas');
-	_canvasOptions = {
-        position: 'end',
-        backdrop: true,
-        keyboard:false,
-        scroll: false
-    };
 	#resetSettings() {
 		this._formData = {};
 		this._savePreferences(this._formData)
