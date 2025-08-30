@@ -32,20 +32,6 @@ export default class View {
     _cleanup() {
         this._parentElement.innerHTML = '';
     }
-    _cleanupOffcanvas(e) {
-        const canvasisSelected = e.target.closest('.offcanvas');
-        const closeBtn = e.target.closest('.btn-close');
-        if(canvasisSelected && !closeBtn) return;
-        // Remove backdrop if it exists
-        document.querySelector('.offcanvas-backdrop')?.remove();
-        document.body.style.overflow = ''; // restore scroll
-        this._offcanvas.className = 'offcanvas'; // reset classes
-
-        // reset attrs
-        this._offcanvas.removeAttribute('data-bs-backdrop');
-        this._offcanvas.removeAttribute('data-bs-scroll');
-        this._offcanvas.removeAttribute('data-bs-keyboard');
-    }
     /**
      * Rendering from Array into view.
      *
@@ -86,51 +72,6 @@ export default class View {
      *
      * @returns {void}
      */
-_setOffcanvasDisplay(e) {
-  const isOffCanvasButton =
-    e.target.closest('button[data-bs-toggle="offcanvas"]')?.dataset.bsToggle === 'offcanvas';
-    if(!isOffCanvasButton){
-
-    }
-  const { position, backdrop, keyboard, scroll, w } = setCanvasOffOptions(this._canvasOptions);
-
-  if (isOffCanvasButton) {
-    // Position
-    if (position) {
-      this._offcanvas.classList.add(escapeCSS(position));
-    }
-
-    // Backdrop handling
-    if (backdrop || backdrop?.toLowerCase() === 'static') {
-      this._offcanvas.setAttribute('data-bs-backdrop', 'static');
-      document.body.style.overflow = 'hidden';
-
-      if (!document.querySelector('.offcanvas-backdrop')) {
-        const div = document.createElement('div');
-        div.className = 'offcanvas-backdrop fade show';
-        this._offcanvas.after(div);
-      }
-    } else {
-      this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
-    }
-
-    // Width
-    if (w) {
-      this._offcanvas.classList.add(escapeCSS(`w-${w.replace('%', '')}`));
-    }
-
-    // Scroll
-    if (scroll) {
-      this._offcanvas.setAttribute('data-bs-scroll', scroll);
-    }
-
-    // Keyboard
-    this._offcanvas.setAttribute('data-bs-keyboard', keyboard ?? false);
-  }
-  if(!this._offcanvas.classList.contains('show')) {
-    console.log(true);
-  }
-}
     _closeToast(toast) {
         if (!toast) return;
         toast.remove();
@@ -366,9 +307,6 @@ _setOffcanvasDisplay(e) {
      * @private
      * @returns {void}
      */
-    _addHandlerClick(handler) {
-        document.addEventListener('click', handler.bind(this));
-    }
     _closeAlert() {
         this._parentElement.addEventListener('click', (e) => {
             const alert = e.target;

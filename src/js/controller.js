@@ -194,24 +194,8 @@ const controllSettings = (e) => {
 	settingsView._savePreferences();
 	settingsView._updateTheme();
 	const settingsLen = Object.values(settingsView._getSettings()).length !== 0
-	//settingsView._disableBTN({disabled: settingsLen, existingButton: true});
+	settingsView._disableBTN({disabled: settingsLen, existingButton: true});
 }
-const controllOffcanvas = (e) => {
-	// get which button was clicked
-	popoutView._getisComingFromBTN(e)
-	// cleanup any existing offcanvas props
-	switch (popoutView._isComingFromBTN) {
-		case 'preferences':
-			settingsView._setOffcanvasDisplay(e);
-			break;
-		case 'infonav':
-			designView._setOffcanvasDisplay(e);
-			break;
-		default:
-			designView._cleanupOffcanvas(e)
-			break;
-	}
-};
 const init = () => {
 	controllNavBar();
 	controlSections();
@@ -231,7 +215,6 @@ const init = () => {
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);
-	designView._addHandlerClick(controllOffcanvas);
 }
 init()
 // performance optimization
