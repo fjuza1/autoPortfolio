@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,6 +10,7 @@
     <link rel="stylesheet" href="./src/css/style.css">
     <script defer src="/src/js/controller.js" type="module" charset="utf-8"></script>
 </head>
+
 <body>
     <div id="modalCenter" class="modal fade" tabindex="1;" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display:none"></div>
     <div class="offcanvas" tabindex="1" aria-labelledby="offcanvasLabel">
@@ -158,10 +160,19 @@
         <section id="Home" style="min-height: 100vh; display: flex; align-items: center;">
             <div class="container">
                 <div class="row row-cols-1 g-2 ms-2 align-items-start">
-                    <div class="col-auto">
-                        <button class="btn-primary-transparent" data-bs-toggle="offcanvas" aria-controls="infoNav">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill position-sticky top-0 start-0 ms-2 d-none d-md-block d-block mb-2 p-0 z-1" viewBox="0 0 16 16">
+                    <div class="d-flex justify-content-between position-fixed top-0 start-0 w-100 mt-5 px-3">
+                        <!-- Info button (left) -->
+                        <button class="btn btn-link p-0 mt-5 px-3" data-bs-toggle="offcanvas" aria-controls="infoNav">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-info-circle-fill text-primary" viewBox="0 0 16 16">
                                 <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16m.93-9.412-1 4.705c-.07.34.029.533.304.533.194 0 .487-.07.686-.246l-.088.416c-.287.346-.92.598-1.465.598-.703 0-1.002-.422-.808-1.319l.738-3.468c.064-.293.006-.399-.287-.47l-.451-.081.082-.381 2.29-.287zM8 5.5a1 1 0 1 1 0-2 1 1 0 0 1 0 2"
+                                />
+                            </svg>
+                        </button>
+                        <!-- Settings button (right) -->
+                        <button class="btn btn-link p-0 mt-5 px-3" data-bs-toggle="offcanvas" aria-controls="Preferences">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-gear text-secondary" viewBox="0 0 16 16">
+                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
+                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52z"
                                 />
                             </svg>
                         </button>
@@ -184,13 +195,6 @@
                 </div>
             </div>
             </div>
-            <button type="button" ; class="btn btn-link position-fixed top-0 end-0 mt-5 me-2" aria-controls="Preferences" data-bs-toggle="offcanvas">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-gear" viewBox="0 0 16 16">
-                    <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492M5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0" />
-                    <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527 1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873 0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115z"
-                    />
-                </svg>
-            </button>
         </section>
         <section id="About" class="section section--hidden">
             <div class="container">
@@ -275,24 +279,24 @@
                         </div>
                         <div class="container">
                             <div class="multi-collapse collapse w-100 w-md-75 w-lg-50 w-xl-25" id="filterSort">
-                                <div class="p-4">
+                                <div class="p-4 border rounded shadow-sm bg-white">
                                     <form class="filterActivities mb-2">
-                                        <h4 class="fw-bold text-primary">Filter Skills</h4>
-                                        <div class="form-group mb-2" id="filterActivities">
-                                            <div class="input-group">
-                                                <label for="searchName" class="form-label text-muted">Name</label>
-                                                <div class="input-group">
-                                                    <input type="text" class="form-control" placeholder="Search by name" name="name" id="searchName">
-                                                    <span class="input-group-text md-white border-left-0">
-                                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
-                                                <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path>
-                                                <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
-                                             </svg>
-                                          </span>
-                                                </div>
+                                        <h4 class="fw-bold text-primary mb-3">Filter Skills</h4>
+                                        <div class="form-group mb-3" id="filterActivities">
+                                            <!-- Name -->
+                                            <label for="searchName" class="form-label fw-semibold text-muted">Name</label>
+                                            <div class="input-group mb-3">
+                                                <input type="text" class="form-control" placeholder="Search by name" name="name" id="searchName">
+                                                <span class="input-group-text bg-white border-start-0">
+          <!-- inline SVG kept -->
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-input-cursor-text" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M5 2a.5.5 0 0 1 .5-.5c.862 0 1.573.287 2.06.566.174.099.321.198.44.286.119-.088.266-.187.44-.286A4.17 4.17 0 0 1 10.5 1.5a.5.5 0 0 1 0 1c-.638 0-1.177.213-1.564.434a3.5 3.5 0 0 0-.436.294V7.5H9a.5.5 0 0 1 0 1h-.5v4.272c.1.08.248.187.436.294.387.221.926.434 1.564.434a.5.5 0 0 1 0 1 4.17 4.17 0 0 1-2.06-.566A5 5 0 0 1 8 13.65a5 5 0 0 1-.44.285 4.17 4.17 0 0 1-2.06.566.5.5 0 0 1 0-1c.638 0 1.177-.213 1.564-.434.188-.107.335-.214.436-.294V8.5H7a.5.5 0 0 1 0-1h.5V3.228a3.5 3.5 0 0 0-.436-.294A3.17 3.17 0 0 0 5.5 2.5.5.5 0 0 1 5 2"></path> <path d="M10 5h4a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-4v1h4a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-4zM6 5V4H2a2 2 0 0 0-2 2v4a2 2 0 0 0 2 2h4v-1H2a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1z"></path>
+          </svg>
                                             </div>
-                                            <label for="searchLevel" class="form-label text-muted">Expertise Level</label>
-                                            <select class="form-select mb-3" name="levelNumber">
+
+                                            <!-- Level -->
+                                            <label for="searchLevel" class="form-label fw-semibold text-muted">Expertise Level</label>
+                                            <select class="form-select mb-3" name="levelNumber" id="searchLevel">
                                                 <option selected hidden></option>
                                                 <option value="1">Beginner</option>
                                                 <option value="2">Basic</option>
@@ -301,11 +305,12 @@
                                                 <option value="5">Expert</option>
                                             </select>
                                         </div>
-                                        <hr class="my-2">
-                                        <h4 class="fw-bold text-primary">Sort Skills</h4>
+                                        <hr class="my-3">
+                                        <!-- Sort -->
+                                        <h4 class="fw-bold text-primary mb-3">Sort Skills</h4>
                                         <div class="form-group mb-2">
-                                            <p class="fw-semibold">Sort by:</p>
-                                            <div class="form-check mb-1">
+                                            <p class="fw-semibold mb-1">Sort by:</p>
+                                            <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="sortBy" id="Name" value="name" checked>
                                                 <label class="form-check-label" for="Name">Name</label>
                                             </div>
@@ -313,15 +318,17 @@
                                                 <input class="form-check-input" type="radio" name="sortBy" id="Level" value="expertise">
                                                 <label class="form-check-label" for="Level">Level</label>
                                             </div>
-                                            <p class="fw-semibold">Order:</p>
-                                            <div class="form-check mb-3">
+
+                                            <p class="fw-semibold mb-1 mt-3">Order:</p>
+                                            <div class="form-check">
                                                 <input class="form-check-input" type="radio" name="order" id="Ascending" value="asc" checked>
                                                 <label class="form-check-label" for="Ascending">Ascending</label>
                                             </div>
-                                            <div class="form-check mb-2">
+                                            <div class="form-check mb-3">
                                                 <input class="form-check-input" type="radio" name="order" id="Descending" value="desc">
                                                 <label class="form-check-label" for="Descending">Descending</label>
                                             </div>
+
                                             <div class="d-flex justify-content-end">
                                                 <button class="btn btn-outline-secondary me-2" type="reset">Reset</button>
                                                 <button class="btn btn-primary" type="submit">Sort</button>
@@ -329,6 +336,7 @@
                                         </div>
                                     </form>
                                 </div>
+
                             </div>
                             <div class="multi-collapse collapse w-100 w-md-75 w-lg-50 w-xl-25" id="export">
                                 <div class="col-sm-9 md-light p-4 border rounded shadow-sm">
@@ -502,4 +510,5 @@
     </footer>
     </div>
 </body>
+
 </html>
