@@ -62,24 +62,28 @@ class SkillsView extends View {
                     color = 'bg-success';
                     break;
             }
-            return `
-                <div class="progress-container mb-1">
-                    <div class="d-flex justify-content-between mb-1">
-                        <span class="skill-name fw-bold">${barArea.name}</span>
-                        <span class="skill-level badge "></span>
-                    </div>
-                    <div class="progress" style="height: 1.5rem;">
-                        <div class="progress-bar ${color} progress-bar" role="progressbar" style="width: ${width}%;" 
-                             aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100" 
-                             aria-labelledby="progress">
-                             ${barArea.level}
-                        </div>
+        return `
+            <div class="progress-container mb-3">
+                <div class="d-flex justify-content-between align-items-center mb-1">
+                    <span id="label-${barArea.name.replace(/\s+/g,'-').toLowerCase()}" class="skill-name fw-semibold">
+                        ${barArea.name}
+                    </span>
+                    <span class="skill-level badge bg-light text-dark border">
+                        ${barArea.level}
+                    </span>
+                </div>
+                <div class="progress" style="height: 1.5rem;">
+                    <div class="progress-bar ${color}" role="progressbar"
+                        style="width: ${width}%;" 
+                        aria-valuenow="${valNow}" aria-valuemin="0" aria-valuemax="100"
+                        aria-labelledby="label-${barArea.name.replace(/\s+/g,'-').toLowerCase()}">
+                        <span class="visually-hidden">${barArea.level} – ${valNow}%</span>
                     </div>
                 </div>
-            `;
+            </div>
+        `;
         });
     }
-
     /**
      * Adds event listeners to the form for filtering skills.
      * The function listens for 'change', 'input', and 'paste' events on the form.
