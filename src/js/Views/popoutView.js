@@ -267,12 +267,16 @@ class PopupView {
     #toggleOffcanvas(e) {
         if (e.type === 'mouseup' && e.button !== 0) return;
         const offcanvas = this._offcanvas;
+       const offcanvasContainers =  Array.from(offcanvas.children)
+        .filter(container => !container.classList.contains('d-none'))
         const target = e.target;
         const targetoffcanvas = target.closest('.offcanvas');
         if (!targetoffcanvas) offcanvas?.classList.remove('show')
         // 1) If the close button (or anything inside it) was clicked, just close & exit
         const closeBtn = target.closest('.btn-close');
         if (closeBtn) {
+            offcanvasContainers        
+            .forEach(containerClass => containerClass.classList.add('d-none'))
             offcanvas?.classList.remove('show');
             return;
         }
@@ -285,6 +289,8 @@ class PopupView {
         const popoutToggle = document.getElementById(controlsId);
         // 4) Now perform UI state changes
         offcanvas?.classList.add('show');
+        offcanvasContainers
+        .forEach(containerClass => containerClass.classList.add('d-none'))
         popoutToggle?.classList.remove('d-none');
     };
     #addHandlerClick(handler) {
