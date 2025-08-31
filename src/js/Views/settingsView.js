@@ -1,5 +1,5 @@
 import {KEYDOWN_TYPE, SECTION_HIDDEN_CLASS, LOAD_TYPE, RESET_TYPE} from '../config.js';
-import {removeClass, gotoSegment, removeClass, changeHash, removeHash} from '../helpers.js';
+import {removeClass, gotoSegment, removeClass, changeHash, removeHash,  objectToCSSClasses} from '../helpers.js';
 import View from './View.js';
 class SettingsView extends View {
 	_form = document.getElementById('settingsForm');
@@ -77,21 +77,39 @@ class SettingsView extends View {
 			this._formData = {};
 		}
 	}
+	// dom manipulation
+	_centerLayout() {
+		const settings = this._getSettings();
+		const notJourneys = [...this._sections].filter(section=> section.getAttribute('id') !== 'Journey')
+		notJourneys.forEach(container => {
+			const target = container.firstElementChild; // or container if that's where flex is
+			const classes = objectToCSSClasses({
+			align: 'align-items-center',
+			justify: 'justify-content-center'
+			});
+
+			if (settings.centeredLayout === 'on') {
+			target.classList.add(...classes);
+			} else {
+			target.classList.remove(...classes);
+			}
+		});
+	}
 	_updateTheme() {
 		const settings = this._getSettings();
 		if (!settings) return;
 		const darkMode = settings.darkMode === "on";
 		this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
 	}
-	addHandleClickTheme() {
-		this._themeToggle.addEventListener('click', () => {
-			let settings = this._getSettings();
-			const darkMode = settings.darkMode === "on";
-			settings.darkMode = darkMode ? "off" : "on";
-			localStorage.setItem('settings', JSON.stringify(settings));
-			this._updateTheme();
-		});
-	}
+	// addHandleClickTheme() {
+	// 	this._themeToggle.addEventListener('click', () => {
+	// 		let settings = this._getSettings();
+	// 		const darkMode = settings.darkMode === "on";
+	// 		settings.darkMode = darkMode ? "off" : "on";
+	// 		localStorage.setItem('settings', JSON.stringify(settings));
+	// 		this._updateTheme();
+	// 	});
+	// }
 	#navigateByKey(e) {
 		const target = e.target;
 		if (e.type === KEYDOWN_TYPE) {

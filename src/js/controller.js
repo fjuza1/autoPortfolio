@@ -193,6 +193,7 @@ const controllSettings = (e) => {
 	settingsView._renderManipulatedSettingsToast(type);
 	settingsView._savePreferences();
 	settingsView._updateTheme();
+	settingsView._centerLayout();
 	const settingsLen = Object.values(settingsView._getSettings()).length !== 0
 	settingsView._disableBTN({disabled: settingsLen, existingButton: true});
 }
@@ -211,7 +212,7 @@ const init = () => {
 	skillsExportView.addHandlerLoad(skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}))
 	settingsView._addHandlerSubmitChange(controllSettings);
 	settingsView.addHandlerLoad(controllSettings);
-	settingsView.addHandleClickTheme();
+	//settingsView.addHandleClickTheme();
 	settingsView.addHandlerNavigateByKey();
 	settingsView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);
