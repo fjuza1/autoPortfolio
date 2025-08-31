@@ -1,4 +1,5 @@
-class PerformanceView {
+import SettingsView from "./settingsView";
+class PerformanceView extends SettingsView{
     _observeArray = ['mark', 'measure', 'navigation', 'element', 'resource'];
     _eTypes = []
     /**
