@@ -210,8 +210,17 @@ class PopupView {
         const openCanvas = document.querySelector("body > div.offcanvas.show");
         if (!openCanvas) return; // nothing to close
 
+        // hide offcanvas
         openCanvas.classList.remove('show');
-        this.#cleanupOffcanvas(e);
+
+        // always cleanup (even if target is inside)
+        document.querySelector('.offcanvas-backdrop')?.remove();
+        document.body.style.overflow = ''; // restore scroll
+
+        this._offcanvas.className = 'offcanvas'; // reset classes
+        this._offcanvas.removeAttribute('data-bs-backdrop');
+        this._offcanvas.removeAttribute('data-bs-scroll');
+        this._offcanvas.removeAttribute('data-bs-keyboard');
     }
     #setOffcanvasDisplay(e, options) {
         const isOffCanvasButton =
