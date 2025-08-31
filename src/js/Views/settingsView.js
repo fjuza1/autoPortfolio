@@ -1,7 +1,7 @@
 import {KEYDOWN_TYPE, SECTION_HIDDEN_CLASS, LOAD_TYPE, RESET_TYPE} from '../config.js';
 import {removeClass, gotoSegment, removeClass, changeHash, removeHash,  objectToCSSClasses} from '../helpers.js';
 import View from './View.js';
-class SettingsView extends View {
+export default class SettingsView extends View {
 	_form = document.getElementById('settingsForm');
 	_themeToggle = document.getElementById('darkModeSwitch');
 	_html = document.querySelector('html');
@@ -10,7 +10,7 @@ class SettingsView extends View {
 	_firstSection = document.querySelector("#Home");
 	_selectedBTN = document.querySelector("#settingsForm > div > div.d-flex.justify-content-end > button");
     _offcanvas = document.querySelector('.offcanvas');
-	#resetSettings() {
+	_resetSettings() {
 		this._formData = {};
 		this._savePreferences(this._formData)
 	};
@@ -27,31 +27,6 @@ class SettingsView extends View {
 		} catch (e) {
 			console.error("Invalid JSON in localStorage for 'settings':", settings, e);
 			return {};
-		}
-	}
-	_renderManipulatedSettingsToast(type) {
-		if (type === RESET_TYPE) {
-			// reset settings 1st
-			this.#resetSettings();
-			// render toast with info
-			this._renderToast({
-				title: 'Preferences',
-				msg: `Preferences ${RESET_TYPE}ed.`, // <-- change to stackOut for full
-				position: 'top-start',
-				autohide: true,
-				type: 'info',
-				delay: 2000
-			});
-		} else if (type !== LOAD_TYPE) {
-			// render toast with info
-			this._renderToast({
-				title: 'Preferences',
-				msg: 'Preferences saved.', // <-- change to stackOut for full
-				position: 'top-start',
-				autohide: true,
-				type: 'success',
-				delay: 2000
-			});
 		}
 	}
 	_savePreferences(preferences = this._formData) {
@@ -76,30 +51,6 @@ class SettingsView extends View {
 		} else {
 			this._formData = {};
 		}
-	}
-	// dom manipulation
-	_centerLayout() {
-		const settings = this._getSettings();
-		const notJourneys = [...this._sections].filter(section=> section.getAttribute('id') !== 'Journey')
-		notJourneys.forEach(container => {
-			const target = container.firstElementChild; // or container if that's where flex is
-			const classes = objectToCSSClasses({
-			align: 'align-items-center',
-			justify: 'justify-content-center'
-			});
-
-			if (settings.centeredLayout === 'on') {
-			target.classList.add(...classes);
-			} else {
-			target.classList.remove(...classes);
-			}
-		});
-	}
-	_updateTheme() {
-		const settings = this._getSettings();
-		if (!settings) return;
-		const darkMode = settings.darkMode === "on";
-		this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
 	}
 	// addHandleClickTheme() {
 	// 	this._themeToggle.addEventListener('click', () => {
@@ -167,4 +118,3 @@ class SettingsView extends View {
 		document.addEventListener(KEYDOWN_TYPE, this.#navigateByKey.bind(this));
 	}
 }
-export default new SettingsView();

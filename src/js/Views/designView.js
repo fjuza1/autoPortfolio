@@ -1,8 +1,8 @@
 import '../../css/bootstrap.min.css'
-import View from './View.js';
-import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash, escapeCSS} from '../helpers.js';
-import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,THRESHOLD_ARRAY, REV_TRESH} from '../config.js';
-class Design extends View {
+import SettingsView from './settingsView.js';
+import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash, escapeCSS, objectToCSSClasses} from '../helpers.js';
+import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,THRESHOLD_ARRAY, REV_TRESH, RESET_TYPE} from '../config.js';
+class Design extends SettingsView {
 	_navBar = document.querySelector("body > nav");
 	_rightMenu = document.querySelector("#mobileDropdownMenu");
 	_pcMenu = document.getElementById('navbarsExample03')
@@ -31,6 +31,55 @@ class Design extends View {
 	stickyNav(entries) {
 		const [entry] = entries;
 		!entry.isIntersecting ? this._navBar.classList.add(STICKY_TOP_CLASS) : removeClass(this._navBar, STICKY_TOP_CLASS);
+	}
+		// dom manipulation
+	_centerLayout() {
+		const settings = this._getSettings();
+		const notJourneys = [...this._sections].filter(section=> section.getAttribute('id') !== 'Journey')
+		notJourneys.forEach(container => {
+			const target = container.firstElementChild; // or container if that's where flex is
+			const classes = objectToCSSClasses({
+			align: 'align-items-center',
+			justify: 'justify-content-center'
+			});
+
+			if (settings.centeredLayout === 'on') {
+			target.classList.add(...classes);
+			} else {
+			target.classList.remove(...classes);
+			}
+		});
+	}
+	_updateTheme() {
+		const settings = this._getSettings();
+		if (!settings) return;
+		const darkMode = settings.darkMode === "on";
+		this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
+	}
+	_renderManipulatedSettingsToast(type) {
+		if (type === RESET_TYPE) {
+			// reset settings 1st
+			this._resetSettings();
+			// render toast with info
+			this._renderToast({
+				title: 'Preferences',
+				msg: `Preferences ${RESET_TYPE}ed.`, // <-- change to stackOut for full
+				position: 'top-start',
+				autohide: true,
+				type: 'info',
+				delay: 2000
+			});
+		} else if (type !== LOAD_TYPE) {
+			// render toast with info
+			this._renderToast({
+				title: 'Preferences',
+				msg: 'Preferences saved.', // <-- change to stackOut for full
+				position: 'top-start',
+				autohide: true,
+				type: 'success',
+				delay: 2000
+			});
+		}
 	}
 	/**
 	 * Handles navigation and scrolling behavior within the design view.
