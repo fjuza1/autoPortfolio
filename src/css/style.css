@@ -167,3 +167,7 @@ section {
   color: inherit;
   filter: none;
 }
+[data-bs-theme="dark"] section {
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
+}

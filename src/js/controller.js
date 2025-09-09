@@ -14,6 +14,7 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
+import settingsView from './Views/settingsView.js';
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
 // _generateQAToolboxMarkup
@@ -192,6 +193,8 @@ const controllSettings = (e) => {
 	designView._updateTheme();
 	designView._centerLayout();
 	const settingsLen = Object.values(designView._getSettings()).length !== 0
+	//designView._setFormChanged()
+	//console.log(designView._isFormDataChanged);
 	designView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const init = () => {
@@ -207,7 +210,7 @@ const init = () => {
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
 	skillsExportView.addHandlerLoad(skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}))
-	designView._addHandlerSubmitChange(controllSettings);
+	designView._addHandlerSubmit(controllSettings);
 	designView.addHandlerLoad(controllSettings);
 	designView.addHandlerNavigateByKey();
 	designView._addHandlerFormReset(controllSettings)
