@@ -7,6 +7,7 @@ export default class View {
     _selectedBTN
     _offcanvas
     _canvasOptions
+    //_isFormDataChanged
     constructor() {
         this.boundAddHandlerSubmit = this._addHandlerSubmit.bind(this);
         this.#addHandlerCloseToast();
@@ -288,6 +289,9 @@ export default class View {
             handler(this._formData);
         })
     }
+    // _setFormChanged(){
+    //     this._isFormDataChanged = [...this._form.querySelectorAll('input, textarea, select')].some(entry=> entry.checked)
+    // }
     _addHandlerSubmitChange(handler) {
         this._form.querySelectorAll('input, textarea, select')
             .forEach(input => {
