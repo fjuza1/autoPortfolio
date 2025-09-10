@@ -189,13 +189,13 @@ const controllContacting = () => {
 // settings
 const controllSettings = (e) => {
 	const type = e.type;
+	designView._getSettings()
 	designView._renderManipulatedSettingsToast(type);
 	designView._savePreferences();
 	designView._updateTheme();
 	designView._centerLayout();
-	const settingsLen = Object.values(designView._getSettings()).length !== 0
-	//designView._setFormChanged()
-	//console.log(designView._isFormDataChanged);
+	const settings = designView._settings
+	const settingsLen = Object.values(settings).length !== 0
 	designView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const init = () => {

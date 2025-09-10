@@ -1,13 +1,15 @@
 import {TOAST_DURATION} from '../config.js'
 import SettingsView from "./settingsView";
 class BrowserErrorsView extends SettingsView{
+    _settings = {}
     constructor() {
         super();
         //this.settings = this._getSettings()
         this.#addHandlerLoadError();
     }
     #addHandlerLoadError() {
-        const settings = this._getSettings()
+        this._getSettings()
+        const settings = this._settings
         if(!settings.displayErrorsInView) return;
             window.addEventListener('error', (ev) => {
                 const errObj = ev?.error;

@@ -6,4 +6,5 @@ import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import xmlSanitizer from "xml-sanitizer";
 import DOMPurify from 'dompurify';
 import moment from 'moment';
-export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline, xmlSanitizer, DOMPurify, moment};
+import equal from 'deep-equal'
+export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline, xmlSanitizer, DOMPurify, moment, equal};

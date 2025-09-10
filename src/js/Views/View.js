@@ -255,10 +255,14 @@ export default class View {
      * @private
      * @returns {void}
      */
-    _submitEvent(e) {
-        e.preventDefault();
+    _getFormDataObject() {
         const formEntries = [...new FormData(this._form)];
         const data = Object.fromEntries(formEntries);
+        return data
+    }
+    _submitEvent(e) {
+        e.preventDefault();
+        const data = this._getFormDataObject()
         this._formData = data;
     }
     _disableBTN(options) {
