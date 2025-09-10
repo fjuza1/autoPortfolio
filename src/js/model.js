@@ -324,27 +324,41 @@ export const state = {
  * @throws Will throw an error if the file reading fails.
  */
 export const readFileState = async (file) => {
-    try {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onerror = (error) => {
-                reject(error);
-            };
-            state.fileState.empty = true;
-            reader.readAsText(file);
-            state.fileState.empty = false;
-            state.fileState.loading = true;
+try {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-            reader.onloadend = (event) => {
+      // Reset state before starting
+      state.fileState.empty = false;
+      state.fileState.loading = false;
+      state.fileState.done = false;
 
-                state.fileState.loading = false;
-                state.fileState.done = true;
-                resolve(event.target.result);
-            };
-        });
-    } catch (err) {
-        throw err;
-    }
+      reader.onerror = (error) => {
+        state.fileState.loading = false;
+        reject(error);
+      };
+
+      reader.onloadstart = () => {
+        state.fileState.empty = false;   // we *do* have a file
+        state.fileState.loading = true;
+        state.fileState.done = false;
+      };
+
+      reader.onprogress = () => {
+        state.fileState.loading = true;
+      };
+
+      reader.onloadend = (event) => {
+        state.fileState.loading = false;
+        state.fileState.done = true;
+        resolve(event.target.result);
+      };
+
+      reader.readAsText(file);
+    });
+  } catch (err) {
+    throw err;
+  }
 };
 /**
  * Returns fileCOntents if successfull
