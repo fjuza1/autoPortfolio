@@ -15,6 +15,7 @@ import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
 import settingsView from './Views/settingsView.js';
+import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
 // _generateQAToolboxMarkup

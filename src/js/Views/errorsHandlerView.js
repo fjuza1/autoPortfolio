@@ -8,6 +8,7 @@ class BrowserErrorsView extends SettingsView{
     }
     #addHandlerLoadError() {
         const settings = this._getSettings()
+        if(!settings.displayErrorsInView) return;
             window.addEventListener('error', (ev) => {
                 const errObj = ev?.error;
                 const msg    = errObj?.message || ev?.message || 'Unknown error';
