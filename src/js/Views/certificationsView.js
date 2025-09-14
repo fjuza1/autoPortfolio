@@ -4,7 +4,7 @@ class CertificationsView extends View {
   _generateCertificationsMarkup(_data) {
     this._data = _data;
     return this._data.map(certs => {
-return `
+      return `
   <div class="tab-content mb-3" id="nav-tabContent">
   <!-- Viewed in card--!>
     <div class="tab-pane active show" id="certificationsGrid" role="tabpanel" aria-labelledby="nav-home-tab">
