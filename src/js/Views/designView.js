@@ -46,9 +46,9 @@ class Design extends SettingsView {
 			});
 
 			if (settings.centeredLayout === 'on') {
-			target.classList.add(...classes);
+			target?.classList.add(...classes);
 			} else {
-			target.classList.remove(...classes);
+			target?.classList.remove(...classes);
 			}
 		});
 	}
