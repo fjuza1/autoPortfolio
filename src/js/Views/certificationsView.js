@@ -6,10 +6,10 @@ class CertificationsView extends View {
         if(!idShown) return;
         document.getElementById(`${idShown}`).classList.add('show')
     }
-    _certificationsMarkup(_data) {
+    _generateCertificationsMarkup(_data) {
         this._data = _data;
         return this._data.map((certs)=>{
-            
+
         })
     }
 }

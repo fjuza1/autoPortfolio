@@ -3,6 +3,7 @@ import {removeClass, setCanvasOffOptions, escapeCSS } from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
+    _certsBtnGroup = document.getElementById('certsBtnGroup');
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
@@ -43,7 +44,7 @@ class PopupView {
         })
     }
     #showSection(e) {
-        const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
+        const btnSet = e.target.closest('button').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
         const isAlreadyShown = colapseSection.classList.contains('show');
         this._multiCollapse.forEach(section => removeClass(section, 'show'));
@@ -446,7 +447,7 @@ class PopupView {
     }
     //section evs
     #addHandlerToggleSection() {
-        [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
+        [this._skillBtnGroup, this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }
