@@ -43,7 +43,7 @@ class PopupView {
             if (dropdown.classList.contains('show')) removeClass(dropdown, 'show')
         })
     }
-    #toggleSection(e) {
+    #showSection(e) {
         const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
         const isAlreadyShown = colapseSection.classList.contains('show');
@@ -447,7 +447,7 @@ class PopupView {
     }
     //section evs
     #addHandlerShowSection() {
-        [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
+        [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
     }
     #addHandlerHideSection() {
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));

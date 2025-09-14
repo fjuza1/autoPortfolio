@@ -10,6 +10,7 @@ class BrowserErrorsView extends SettingsView{
     #addHandlerLoadError() {
         this._getSettings()
         const settings = this._settings
+        if(!settings) return
         if(!settings.displayErrorsInView) return;
             window.addEventListener('error', (ev) => {
                 const errObj = ev?.error;
