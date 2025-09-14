@@ -22,6 +22,8 @@ class PopupView {
     _offcanvas = document.querySelector('.offcanvas');
     _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
     _isComingFromBTN = '';
+    _tab_pane = [...document.querySelectorAll('.tab-pane')]
+    _btnFilerCerts = document.querySelector('[data-bs-target="filterSortCerts"]')
     constructor() {
         this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
         this.#addHandlerToggleSection()
@@ -32,6 +34,7 @@ class PopupView {
         this.#addHandlerShowMobileNav();
         this.#handleTogglingOffcanvas();
         this.#addHandlerClick(this.#controllOffcanvas);
+        this.#addHandlerToggleTab()
     }
     /**
      * Description placeholder
@@ -160,6 +163,28 @@ class PopupView {
      * @fires togglePrimaryMenu#show
      * @fires togglePrimaryMenu#hide
      */
+    #hideTabs() {
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(tab => {
+        tab.classList.remove('active', 'show');
+    });
+    }
+    #activeTabButtonsTab (e) {
+        const parentElement = e.target.closest('.btn-group');
+        console.log(parentElement?.closest('.btn-group'));
+        Array.from(parentElement?.closest('.btn-group').children).forEach(btn=> removeClass(btn, 'active'))
+        const buttonSelected = e.target?.closest('button');
+        if(!buttonSelected.classList.contains('active')) buttonSelected.classList.add('active')
+    }
+    #toggleTab (e) {
+        this.#activeTabButtonsTab(e);
+        this.#hideTabs(e)
+        const button = e.target?.closest('button');
+        const tabTarget = document.getElementById(button?.dataset?.bsTarget);
+		tabTarget.classList.add('show')
+        tabTarget.classList.add('active')
+        console.log(tabTarget);
+    }
     #togglePrimaryMenu(e) {
         const target = e.target;
         const isDropdownItem = target.classList.contains('dropdown-item');
@@ -445,9 +470,12 @@ class PopupView {
         this._modal.addEventListener('click', this.#closeModal.bind(this))
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
+    #addHandlerToggleTab() {
+        [this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleTab.bind(this)));
+    }
     //section evs
     #addHandlerToggleSection() {
-        [this._skillBtnGroup, this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
+        [this._skillBtnGroup, this._btnFilerCerts].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }

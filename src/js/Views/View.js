@@ -18,8 +18,9 @@ export default class View {
      * @param {Array<Object>} data
      * @returns {String}
      */
-    _generateMarkup(data) {
-        return data.join('');
+    _generateMarkup(_data) {
+        this._data = _data
+        return _data.join('');
     }
     /**
      * Getting inputs/textareas/selects from form
