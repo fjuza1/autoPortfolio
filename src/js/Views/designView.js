@@ -210,9 +210,10 @@ class Design extends SettingsView {
 			const about = this._sections[0];
 			const journey = this._sections[1]
 			const skills = this._sections[2];
-			const projects = this._sections[3];
-			const QAToolbox = this._sections[4];
-			const contact = this._sections[5];
+			const certs = this._sections[3]
+			const projects = this._sections[4];
+			const QAToolbox = this._sections[5];
+			const contact = this._sections[6];
 			if (e.altKey) {
 				switch (e.key.toLowerCase()) {
 					case 'h':
@@ -241,6 +242,11 @@ class Design extends SettingsView {
 						changeHash(projects);
 						break;
 					case 'c':
+						removeClass(certs, SECTION_HIDDEN_CLASS);
+						gotoSegment(certs, this._nav);
+						changeHash(certs);
+						break;
+					case 'r':
 						removeClass(contact, SECTION_HIDDEN_CLASS);
 						gotoSegment(contact, this._nav);
 						changeHash(contact);

@@ -46,9 +46,9 @@ class PopupView {
     #showSection(e) {
         const btnSet = e.target.closest('button').dataset.btn;
         const colapseSection = document.getElementById(`${btnSet}`);
-        const isAlreadyShown = colapseSection.classList.contains('show');
+        const isAlreadyShown = colapseSection?.classList.contains('show');
         this._multiCollapse.forEach(section => removeClass(section, 'show'));
-        if (!isAlreadyShown) colapseSection.classList.add('show');
+        if (!isAlreadyShown) colapseSection?.classList.add('show');
     }
     #hideSection(e) {
         if (this._modal.classList.contains('show') && this._modal.style.display === 'block') return
