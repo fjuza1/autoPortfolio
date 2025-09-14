@@ -5,7 +5,7 @@ class ToolboxView extends View {
 		this.addHandlerHideShowDescription();
 	}
 	_parentElement = document.getElementById('myQA');
-    #showAllBTN = document.querySelector("[data-btn='allTool']");
+    #showAllBTN = document.querySelector("[data-bs-target='allTool']");
     #cardDescriptions = this._parentElement.getElementsByTagName('p');
 	_generateQAToolboxMarkup = (_data) => {
 		//d-block d-md-none

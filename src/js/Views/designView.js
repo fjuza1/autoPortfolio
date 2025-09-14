@@ -10,12 +10,12 @@ class Design extends SettingsView {
 	_nav = document.querySelector('.nav')
 	_sections = document.querySelectorAll('.section');
 	_firstSection = document.querySelector("#Home");
-	_goupBtn = document.querySelector('[data-btn="goup"]')
+	_goupBtn = document.querySelector('[data-bs-target="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
 	_prevSection = null;
 	_curSection = null;
-	_showDescBTN = document.querySelector("[data-btn='allTool']")
+	_showDescBTN = document.querySelector("[data-bs-target='allTool']")
 	_parentElement = document.getElementById('myQA');
 	_descriptions = this._parentElement.getElementsByTagName('p');
 	_settings = {}

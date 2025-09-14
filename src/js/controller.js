@@ -44,6 +44,7 @@ const controlSections = () => {
  */
 const loadAndRenderContent = () => {
 	skillsView._renderSpinner();
+	certificationsView._render(certificationsView._generateCertificationsMarkup(model.state.certifications))
 	// handle generation
 	handlePagination(model.state.skills, (data) => {
 		skillsView._render(skillsView._skillBarDisplay(data))

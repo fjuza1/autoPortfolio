@@ -44,7 +44,7 @@ class PopupView {
         })
     }
     #showSection(e) {
-        const btnSet = e.target.closest('button').dataset.btn;
+        const btnSet = e.target.closest('button')?.dataset.bsTarget;
         const colapseSection = document.getElementById(`${btnSet}`);
         const isAlreadyShown = colapseSection?.classList.contains('show');
         this._multiCollapse.forEach(section => removeClass(section, 'show'));
