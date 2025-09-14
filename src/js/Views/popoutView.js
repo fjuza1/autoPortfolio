@@ -23,8 +23,7 @@ class PopupView {
     _isComingFromBTN = '';
     constructor() {
         this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
-        this.#addHandlerHideSection();
-        this.#addHandlerShowSection();
+        this.#addHandlerToggleSection()
         this._addHandleOpenModal();
         this.#addHandleCloseModal();
         this.#addHandleAccordion();
@@ -446,10 +445,8 @@ class PopupView {
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
     //section evs
-    #addHandlerShowSection() {
+    #addHandlerToggleSection() {
         [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
-    }
-    #addHandlerHideSection() {
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }
