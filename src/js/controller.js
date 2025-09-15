@@ -103,7 +103,7 @@ const controllSortedSkills = () => {
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
-			skillsView._render(skillsView._skillBarDisplay(data))
+			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
 }
@@ -115,7 +115,7 @@ const controllResetSkills = () => {
 	model.state.search.isFiltered = false;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	handlePagination(original, (data) => {
-		skillsView._render(skillsView._skillBarDisplay(data));
+		skillsView._update(skillsView._skillBarDisplay(data));
 	});
 };
 
@@ -131,7 +131,7 @@ const controllFilterSkills = () => {
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
-			skillsView._render(skillsView._skillBarDisplay(data))
+			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
 }

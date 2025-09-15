@@ -1,4 +1,5 @@
 import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, escapeCSS, debounce, setCanvasOffOptions} from '../helpers';
+import DiffDOM from '../lib.js'
 import {TOAST_DURATION, CREATE_TIME} from '../config.js'
 export default class View {
     _toast_container = document.querySelector('.toast-container');
@@ -46,6 +47,20 @@ export default class View {
         const markup = sanitizeHtml(this._generateMarkup(_data));
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
+_update(_data) {
+    this._data = _data;
+    const dd = new DiffDOM();
+    const oldNode = this._parentElement.cloneNode(true);
+    if (Array.isArray(_data) && _data.length === 0) {
+        this._renderError()
+        return;
+    };
+    const markup = sanitizeHtml(this._generateMarkup(_data));
+    const newNode = this._parentElement.cloneNode(false);
+    newNode.innerHTML = markup;
+    const diff = dd.diff(oldNode, newNode);
+    dd.apply(this._parentElement, diff);
+}
     //rendering msessage 
     /**
      * Remoive errors from forms
