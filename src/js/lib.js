@@ -6,4 +6,6 @@ import emailjs, { EmailJSResponseStatus } from '@emailjs/browser';
 import xmlSanitizer from "xml-sanitizer";
 import DOMPurify from 'dompurify';
 import moment from 'moment';
+import { DiffDOM } from "diff-dom";
+export default DiffDOM
 export {Papa, xml2js, saveAs, emailjs, EmailJSResponseStatus, Timeline, xmlSanitizer, DOMPurify, moment};

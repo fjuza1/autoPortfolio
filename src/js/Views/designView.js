@@ -1,6 +1,6 @@
 import '../../css/bootstrap.min.css'
 import SettingsView from './settingsView.js';
-import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash, escapeCSS, objectToCSSClasses} from '../helpers.js';
+import {capitalizeWord, gotoSegment, gotoTop, removeClass, removeHash, escapeCSS, objectToCSSClasses,  changeHash} from '../helpers.js';
 import {SECTION_REVEAL_TRESHOLD, SECTION_HIDDEN_CLASS, STICKY_TOP_CLASS, LOAD_TYPE, KEYDOWN_TYPE ,THRESHOLD_ARRAY, REV_TRESH, RESET_TYPE} from '../config.js';
 class Design extends SettingsView {
 	_navBar = document.querySelector("body > nav");
@@ -10,14 +10,15 @@ class Design extends SettingsView {
 	_nav = document.querySelector('.nav')
 	_sections = document.querySelectorAll('.section');
 	_firstSection = document.querySelector("#Home");
-	_goupBtn = document.querySelector('[data-btn="goup"]')
+	_goupBtn = document.querySelector('[data-bs-target="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
 	_prevSection = null;
 	_curSection = null;
-	_showDescBTN = document.querySelector("[data-btn='allTool']")
+	_showDescBTN = document.querySelector("[data-bs-target='allTool']")
 	_parentElement = document.getElementById('myQA');
 	_descriptions = this._parentElement.getElementsByTagName('p');
+	_settings = {}
     _offcanvas = document.querySelector('.offcanvas');
 	handleHover(e) {
 		if (e.target.classList.contains('nav-link')) {
@@ -34,7 +35,8 @@ class Design extends SettingsView {
 	}
 		// dom manipulation
 	_centerLayout() {
-		const settings = this._getSettings();
+		this._getSettings()
+		const settings = this._settings;
 		const notJourneys = [...this._sections].filter(section=> section.getAttribute('id') !== 'Journey')
 		notJourneys.forEach(container => {
 			const target = container.firstElementChild; // or container if that's where flex is
@@ -44,14 +46,15 @@ class Design extends SettingsView {
 			});
 
 			if (settings.centeredLayout === 'on') {
-			target.classList.add(...classes);
+			target?.classList.add(...classes);
 			} else {
-			target.classList.remove(...classes);
+			target?.classList.remove(...classes);
 			}
 		});
 	}
 	_updateTheme() {
-		const settings = this._getSettings();
+		this._getSettings()
+		const settings = this._settings;
 		if (!settings) return;
 		const darkMode = settings.darkMode === "on";
 		this._html.setAttribute("data-bs-theme", darkMode ? "dark" : "light");
@@ -200,6 +203,67 @@ class Design extends SettingsView {
 	}
 	addHandleClickIntoSection() {
 		[this._rightMenu, this._pcMenu, this._goupBtn].forEach(btn => btn.addEventListener('click', this.scrollIntoSection.bind(this)));
+	}
+	#navigateByKey(e) {
+		if (e.type === KEYDOWN_TYPE) {
+			const home = this._firstSection
+			const about = this._sections[0];
+			const journey = this._sections[1]
+			const skills = this._sections[2];
+			const certs = this._sections[3]
+			const projects = this._sections[4];
+			const QAToolbox = this._sections[5];
+			const contact = this._sections[6];
+			if (e.altKey) {
+				switch (e.key.toLowerCase()) {
+					case 'h':
+						removeClass(home, SECTION_HIDDEN_CLASS);
+						gotoSegment(home, this._nav)
+						removeHash();
+						break;
+					case 'a':
+						removeClass(about, SECTION_HIDDEN_CLASS);
+						gotoSegment(about, this._nav)
+						changeHash(about);
+						break;
+					case 'j':
+						removeClass(journey, SECTION_HIDDEN_CLASS);
+						gotoSegment(journey, this._nav);
+						changeHash(journey);
+						break
+					case 's':
+						removeClass(skills, SECTION_HIDDEN_CLASS);
+						gotoSegment(skills, this._nav)
+						changeHash(skills);
+						break;
+					case 'p':
+						removeClass(projects, SECTION_HIDDEN_CLASS);
+						gotoSegment(projects, this._nav);
+						changeHash(projects);
+						break;
+					case 'c':
+						removeClass(certs, SECTION_HIDDEN_CLASS);
+						gotoSegment(certs, this._nav);
+						changeHash(certs);
+						break;
+					case 'r':
+						removeClass(contact, SECTION_HIDDEN_CLASS);
+						gotoSegment(contact, this._nav);
+						changeHash(contact);
+						break;
+					case 'q':
+						removeClass(QAToolbox, SECTION_HIDDEN_CLASS);
+						gotoSegment(QAToolbox, this._nav);
+						changeHash(QAToolbox);
+						break;
+					default:
+						break;
+				}
+			}
+		}
+	}
+	addHandlerNavigateByKey() {
+		document.addEventListener(KEYDOWN_TYPE, this.#navigateByKey.bind(this));
 	}
 	addHandlerNavObserver() {
 		const sectionObserverNav = new IntersectionObserver(this.stickyNav.bind(this), {

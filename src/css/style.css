@@ -15,7 +15,8 @@ footer {
 #Projects,
 #Contact,
 #Journey,
-#Myqatoolbox {
+#Myqatoolbox,
+#Certifications {
   width: 98vw;                /* almost full width */
   max-width: none;            /* remove Bootstrap container limits */
   margin: 2rem auto;          /* center with spacing top/bottom */
@@ -36,7 +37,8 @@ footer {
 #Projects:hover,
 #Contact:hover,
 #Journey:hover,
-#Myqatoolbox:hover {
+#Myqatoolbox:hover,
+#Certifications:hover {
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
 }
 .btn-primary-transparent {

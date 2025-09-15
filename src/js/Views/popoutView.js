@@ -3,6 +3,7 @@ import {removeClass, setCanvasOffOptions, escapeCSS } from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
+    _certsBtnGroup = document.getElementById('certsBtnGroup');
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
@@ -21,10 +22,11 @@ class PopupView {
     _offcanvas = document.querySelector('.offcanvas');
     _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
     _isComingFromBTN = '';
+    _tab_pane = [...document.querySelectorAll('.tab-pane')]
+    _btnFilerCerts = document.querySelector('[data-bs-target="filterSortCerts"]')
     constructor() {
         this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
-        this.#addHandlerHideSection();
-        this.#addHandlerShowSection();
+        this.#addHandlerToggleSection()
         this._addHandleOpenModal();
         this.#addHandleCloseModal();
         this.#addHandleAccordion();
@@ -32,6 +34,7 @@ class PopupView {
         this.#addHandlerShowMobileNav();
         this.#handleTogglingOffcanvas();
         this.#addHandlerClick(this.#controllOffcanvas);
+        this.#addHandlerToggleTab()
     }
     /**
      * Description placeholder
@@ -43,12 +46,12 @@ class PopupView {
             if (dropdown.classList.contains('show')) removeClass(dropdown, 'show')
         })
     }
-    #toggleSection(e) {
-        const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
+    #showSection(e) {
+        const btnSet = e.target.closest('button')?.dataset.bsTarget;
         const colapseSection = document.getElementById(`${btnSet}`);
-        const isAlreadyShown = colapseSection.classList.contains('show');
+        const isAlreadyShown = colapseSection?.classList.contains('show');
         this._multiCollapse.forEach(section => removeClass(section, 'show'));
-        if (!isAlreadyShown) colapseSection.classList.add('show');
+        if (!isAlreadyShown) colapseSection?.classList.add('show');
     }
     #hideSection(e) {
         if (this._modal.classList.contains('show') && this._modal.style.display === 'block') return
@@ -160,6 +163,26 @@ class PopupView {
      * @fires togglePrimaryMenu#show
      * @fires togglePrimaryMenu#hide
      */
+    #hideTabs() {
+    const tabPanes = document.querySelectorAll('.tab-pane');
+    tabPanes.forEach(tab => {
+        tab.classList.remove('active', 'show');
+    });
+    }
+    #activeTabButtonsTab (e) {
+        const parentElement = e.target.closest('.btn-group');
+        Array.from(parentElement?.closest('.btn-group').children).forEach(btn=> removeClass(btn, 'active'))
+        const buttonSelected = e.target?.closest('button');
+        if(!buttonSelected.classList.contains('active')) buttonSelected.classList.add('active')
+    }
+    #toggleTab (e) {
+        this.#activeTabButtonsTab(e);
+        this.#hideTabs(e)
+        const button = e.target?.closest('button');
+        const tabTarget = document.getElementById(button?.dataset?.bsTarget);
+		tabTarget.classList.add('show')
+        tabTarget.classList.add('active')
+    }
     #togglePrimaryMenu(e) {
         const target = e.target;
         const isDropdownItem = target.classList.contains('dropdown-item');
@@ -445,11 +468,12 @@ class PopupView {
         this._modal.addEventListener('click', this.#closeModal.bind(this))
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
-    //section evs
-    #addHandlerShowSection() {
-        [this._skillBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleSection.bind(this)));
+    #addHandlerToggleTab() {
+        [this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleTab.bind(this)));
     }
-    #addHandlerHideSection() {
+    //section evs
+    #addHandlerToggleSection() {
+        [this._skillBtnGroup, this._btnFilerCerts].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }

@@ -14,7 +14,7 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
-import settingsView from './Views/settingsView.js';
+import certificationsView from './Views/certificationsView.js'
 import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
@@ -44,6 +44,7 @@ const controlSections = () => {
  */
 const loadAndRenderContent = () => {
 	skillsView._renderSpinner();
+	certificationsView._render(certificationsView._certificationsMarkup(model.state.certifications))
 	// handle generation
 	handlePagination(model.state.skills, (data) => {
 		skillsView._render(skillsView._skillBarDisplay(data))
@@ -102,7 +103,7 @@ const controllSortedSkills = () => {
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
-			skillsView._render(skillsView._skillBarDisplay(data))
+			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
 }
@@ -114,7 +115,7 @@ const controllResetSkills = () => {
 	model.state.search.isFiltered = false;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	handlePagination(original, (data) => {
-		skillsView._render(skillsView._skillBarDisplay(data));
+		skillsView._update(skillsView._skillBarDisplay(data));
 	});
 };
 
@@ -130,7 +131,7 @@ const controllFilterSkills = () => {
 	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
-			skillsView._render(skillsView._skillBarDisplay(data))
+			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
 }
@@ -189,13 +190,13 @@ const controllContacting = () => {
 // settings
 const controllSettings = (e) => {
 	const type = e.type;
+	designView._getSettings()
 	designView._renderManipulatedSettingsToast(type);
 	designView._savePreferences();
 	designView._updateTheme();
 	designView._centerLayout();
-	const settingsLen = Object.values(designView._getSettings()).length !== 0
-	//designView._setFormChanged()
-	//console.log(designView._isFormDataChanged);
+	const settings = designView._settings
+	const settingsLen = Object.values(settings).length !== 0
 	designView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const init = () => {
