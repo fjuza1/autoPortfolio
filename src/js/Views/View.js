@@ -41,26 +41,37 @@ export default class View {
      * @param {Array} _data
      */
     _render(_data) {
-        this._renderSpinner();
         if (Array.isArray(_data) && _data.length === 0) return this._renderError();
         this._cleanup();
         const markup = sanitizeHtml(this._generateMarkup(_data));
         this._parentElement.insertAdjacentHTML('afterbegin', markup);
     }
-_update(_data) {
-    this._data = _data;
-    const dd = new DiffDOM();
-    const oldNode = this._parentElement.cloneNode(true);
-    if (Array.isArray(_data) && _data.length === 0) {
-        this._renderError()
-        return;
-    };
-    const markup = sanitizeHtml(this._generateMarkup(_data));
-    const newNode = this._parentElement.cloneNode(false);
-    newNode.innerHTML = markup;
-    const diff = dd.diff(oldNode, newNode);
-    dd.apply(this._parentElement, diff);
-}
+    _update(_data) {
+        this._renderSpinner();
+        if (Array.isArray(_data) && _data.length === 0) {
+            this._renderError();
+            return;
+        }
+        requestAnimationFrame(()=>{
+        setTimeout(() => {
+            this.#renderUpdatedData(_data);
+        }, 50);
+        })
+    }
+    #renderUpdatedData(_data) {
+        this._data = _data;
+        const dd = new DiffDOM();
+
+        const oldNode = this._parentElement.cloneNode(true);
+
+        const markup = sanitizeHtml(this._generateMarkup(_data));
+
+        const newNode = this._parentElement.cloneNode(false);
+        newNode.innerHTML = markup;
+
+        const diff = dd.diff(oldNode, newNode);
+        dd.apply(this._parentElement, diff);
+    }
     //rendering msessage 
     /**
      * Remoive errors from forms

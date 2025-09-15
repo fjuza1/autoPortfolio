@@ -99,8 +99,6 @@ const controllSortedSkills = () => {
 	const options = Object.assign(array, skillsView._formData)
 	model.sortingSkills(options);
 	skillsExportView._disableBTN(model.state.search.isFiltered)
-	console.log(model.state.search.isFiltered)
-	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
@@ -128,7 +126,6 @@ const controllFilterSkills = () => {
 	model.filterSkills(options)
 	model.state.search.isFiltered = model.state.search.skills.length > 0;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
-	skillsView._renderSpinner();
 	timeout(() => {
 		handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
