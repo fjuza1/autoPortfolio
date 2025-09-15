@@ -43,7 +43,6 @@ const controlSections = () => {
  * @returns {void}
  */
 const loadAndRenderContent = () => {
-	skillsView._renderSpinner();
 	certificationsView._render(certificationsView._certificationsMarkup(model.state.certifications))
 	// handle generation
 	handlePagination(model.state.skills, (data) => {
@@ -76,12 +75,12 @@ const loadAndRenderContent = () => {
 // pagination basic
 const handlePagination = (dataSource, callback) => {
 	const paged = model.loadMore(dataSource)
-	paginationView._render(paged)
+	paginationView._update(paged)
 	callback(paged.data)
 
 	paginationView.addHandlerPagination((data) => {
 		const updated = model.loadMore(dataSource, data)
-		paginationView._render(updated)
+		paginationView._update(updated)
 		callback(updated.data)
 	})
 }

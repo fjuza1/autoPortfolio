@@ -51,31 +51,17 @@ export default class View {
 			this._renderError();
 			return;
 		}
-		requestAnimationFrame(() => {
-			setTimeout(() => {
-				this.#renderUpdatedData(_data);
-			}, 50);
-		})
+        this.#renderUpdatedData(_data);
 	}
 	#renderUpdatedData(_data) {
 		this._data = _data;
 		const dd = new DiffDOM();
-
-		const oldNode = this._parentElement.cloneNode(true);
-
-		this._renderSpinner();
-
+		const oldNode = this._parentElement.cloneNode(true)
 		const markup = sanitizeHtml(this._generateMarkup(_data));
-
 		const newNode = this._parentElement.cloneNode(false);
 		newNode.innerHTML = markup;
-
-		requestAnimationFrame(() => {
-			setTimeout(() => {
-				const diff = dd.diff(oldNode, newNode);
-				dd.apply(this._parentElement, diff);
-			}, 500)
-		})
+		const diff = dd.diff(oldNode, newNode);
+		dd.apply(this._parentElement, diff);
 	}
 	//rendering msessage 
 	/**
