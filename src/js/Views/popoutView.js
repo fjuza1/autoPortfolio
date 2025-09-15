@@ -171,7 +171,6 @@ class PopupView {
     }
     #activeTabButtonsTab (e) {
         const parentElement = e.target.closest('.btn-group');
-        console.log(parentElement?.closest('.btn-group'));
         Array.from(parentElement?.closest('.btn-group').children).forEach(btn=> removeClass(btn, 'active'))
         const buttonSelected = e.target?.closest('button');
         if(!buttonSelected.classList.contains('active')) buttonSelected.classList.add('active')
@@ -183,7 +182,6 @@ class PopupView {
         const tabTarget = document.getElementById(button?.dataset?.bsTarget);
 		tabTarget.classList.add('show')
         tabTarget.classList.add('active')
-        console.log(tabTarget);
     }
     #togglePrimaryMenu(e) {
         const target = e.target;

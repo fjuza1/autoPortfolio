@@ -1,6 +1,6 @@
 import View from './View.js'
 class CertificationsView extends View {
-	_parentElement = document.getElementById('navTabContentCerts')
+	_parentElement = document.getElementById('navTabContentCerts');
 	_certificationsMarkup(_data) {
 		this._data = _data;
 		const gridStart = `<div class="tab-pane" id="certificationsGrid" role="tabpanel" aria-labelledby="nav-home-tab">`;
@@ -31,7 +31,7 @@ class CertificationsView extends View {
         </div>
       </div>
   `);
-		return [`<div class="tab-content mb-3" id="nav-tabContent">`,
+		return [
 			gridStart, ...innerMarkup,
 			gridEnd,
 			cardsStart, `<p class="text-muted">Alternative card view will be implemented here.</p>`,
