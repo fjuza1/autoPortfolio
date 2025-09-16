@@ -1,5 +1,5 @@
-import View from './View.js'
-class CertificationsView extends View {
+import TimeLineView from "./TimelineView";
+class CertificationsView extends TimeLineView {
 	_parentElement = document.getElementById('navTabContentCerts');
 	_certificationsMarkup(_data) {
 		this._data = _data;

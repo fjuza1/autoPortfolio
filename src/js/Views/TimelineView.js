@@ -1,4 +1,5 @@
-export default class TimeLineView {
+import View from "./View";
+export default class TimeLineView extends View{
     _zoomoutBtn;
     _timelineTimeSettings
     _getSelectedItem(timeline) {
