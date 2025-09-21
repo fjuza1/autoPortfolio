@@ -171,6 +171,7 @@ class PopupView {
     }
     #activeTabButtonsTab (e) {
         const parentElement = e.target.closest('.btn-group');
+        if(!parentElement) return;
         Array.from(parentElement?.closest('.btn-group').children).forEach(btn=> removeClass(btn, 'active'))
         const buttonSelected = e.target?.closest('button');
         if(!buttonSelected.classList.contains('active')) buttonSelected.classList.add('active')
@@ -180,6 +181,7 @@ class PopupView {
         this.#hideTabs(e)
         const button = e.target?.closest('button');
         const tabTarget = document.getElementById(button?.dataset?.bsTarget);
+        if(!tabTarget) return
 		tabTarget.classList.add('show')
         tabTarget.classList.add('active')
     }

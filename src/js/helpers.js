@@ -262,7 +262,7 @@ export const handleFileGeneration = async (blob) => {
  * capitalizeWord('hello') // returns 'Hello'
  * capitalizeWord('world') // returns 'World'
  */
-export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
+export const capitalizeWord = word => word!== ""?.charAt(0).toUpperCase() + word.slice(1, word.length)
 export const uniqueID = () =>`${Date.now().toString(36).padEnd(8, '0')}-${Math.random().toString(16).slice(2, 6)}-4${Math.random().toString(16).slice(3, 6)}-${(8 + Math.random()*4 | 0).toString(16)}${Math.random().toString(16).slice(3, 6)}-${Math.random().toString(16).slice(2, 14)}`;
 export const escapeCSS = (str) => CSS.escape(str);
 // Scroll functions

@@ -496,14 +496,16 @@ export const formatDatesRelative = function(options) {
             val.includes('/') ? val.split('/') : 
             val.includes('-') ? val.split('-') : 
             val.includes('.') ? val.split('.') : '';
-            return processedString?.length === 3 && new Date(processedString) instanceof Date
+            if(new Date(processedString) != 'Invalid Date' && processedString?.length === 3) return processedString
         })
         // Extract the original date string using the index
         const currentRow = Object.values(mnt)[rowId];
         // Get the corresponding key name (e.g., "date_obtained")
         const keyIndex = Object.keys(mnt)[rowId];
         // Replace the original date string with its relative time representation
-        mnt[keyIndex] = format ? moment(currentRow, format).fromNow() : moment(currentRow).fromNow();
+        const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
+        const isDateValid = moment.isDate(formatedDate, true);
+        mnt[keyIndex] = formatedDate;
         return mnt;
     })
 }
