@@ -237,6 +237,18 @@ export const sendMail = async (options) => {
     }
 }
 export const copyArray = (array => array.map(mnt => ({ ...mnt })));
+export const getDatesIndexes = (data =>{
+    return Object.values(data[0]).flatMap((val, idx) => {
+      const processedString =
+        val.includes("/") ? val.split("/") :
+        val.includes("-") ? val.split("-") :
+        val.includes(".") ? val.split(".") : '';
+
+      if(new Date(processedString) != 'Invalid Date' && processedString.length === 3) 
+        return  [idx];
+        return [];
+    })
+})
 /**
  * Handles the generation of a file from a Blob object.
  * 

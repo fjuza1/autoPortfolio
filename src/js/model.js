@@ -2,7 +2,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray, getDatesIndexes} from './helpers.js';
 import {saveAs, moment} from './lib.js';
 export const state = {
     search:{
@@ -487,22 +487,16 @@ export const filterCerts = function(options) {
 }
 export const formatDatesRelative = function(options) {
     if (!options) return;
-    const {array,format} = options;
+    const {array, format} = options;
     const copiedArray = copyArray(array);
+    const rowIds = getDatesIndexes(copiedArray);
     return copiedArray?.map((mnt) => {
         // Find the index of the property that looks like a date (format not assumed)
         //const rowId = Object.values(mnt).findIndex(val => val.split('-').length === 3);
-        const rowId = Object.values(mnt).findIndex(val => {
-            const processedString = 
-            val.includes('/') ? val.split('/') : 
-            val.includes('-') ? val.split('-') : 
-            val.includes('.') ? val.split('.') : '';
-            if(new Date(processedString) != 'Invalid Date' && processedString?.length === 3) return processedString
-        })
         // Extract the original date string using the index
-        const currentRow = Object.values(mnt)[rowId];
+        const currentRow = Object.values(mnt)[rowIds];
         // Get the corresponding key name (e.g., "date_obtained")
-        const keyIndex = Object.keys(mnt)[rowId];
+        const keyIndex = Object.keys(mnt)[rowIds];
         // Replace the original date string with its relative time representation
         const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
         mnt[keyIndex] = formatedDate;

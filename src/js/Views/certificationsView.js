@@ -7,18 +7,18 @@ class CertificationsView extends TimeLineView {
   _setTimelineViewCertifications(_data) {
       this._data = _data;
       // get dfistinct years
-      const distinctYears = [...new Set(this._data.map(cert => moment(cert.date_obtained).get('year')))]
+      const distinctYears = [...new Set(this._data.map(cert => new Date(cert.date_obtained).getFullYear()))].sort()
       // get where to declare to render
-      const timelineParent = this._parentElement?.querySelector('#certificationsGrid');
+      const timelineParent = this._parentElement?.querySelector('#certificationsCards');
       const defaultMarkup = this._declareGridCertificationsMarkup(this._data)
-      const timeline = new Timeline(timelineParent, {})
+      const timeline = new Timeline(timelineParent, defaultMarkup, {})
   }
   _declareGridCertificationsMarkup(_data) {
       this._data = _data
       return this._data.map(cert => {
-          const date = moment(cert.date_obtained, "YYYY-MM-DD");
-          const year = date.get('year')
-          const month = date.format('MMMM')
+          const date = new Date(cert.date_obtained);
+          const year = date.getFullYear()
+          const month = date.getMonth() + 1; // Months are zero-based
           return {
               id: `${year}-${cert.title}`,
               group: year,
