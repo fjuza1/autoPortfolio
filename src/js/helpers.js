@@ -236,6 +236,7 @@ export const sendMail = async (options) => {
         if (err instanceof EmailJSResponseStatus) throw err;
     }
 }
+export const copyArray = (array => array.map(mnt => ({ ...mnt })));
 /**
  * Handles the generation of a file from a Blob object.
  * 

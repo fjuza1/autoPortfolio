@@ -2,7 +2,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray} from './helpers.js';
 import {saveAs, moment} from './lib.js';
 export const state = {
     search:{
@@ -488,7 +488,8 @@ export const filterCerts = function(options) {
 export const formatDatesRelative = function(options) {
     if (!options) return;
     const {array,format} = options;
-    return array?.map((mnt) => {
+    const copiedArray = copyArray(array);
+    return copiedArray?.map((mnt) => {
         // Find the index of the property that looks like a date (format not assumed)
         //const rowId = Object.values(mnt).findIndex(val => val.split('-').length === 3);
         const rowId = Object.values(mnt).findIndex(val => {
@@ -504,7 +505,6 @@ export const formatDatesRelative = function(options) {
         const keyIndex = Object.keys(mnt)[rowId];
         // Replace the original date string with its relative time representation
         const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
-        const isDateValid = moment.isDate(formatedDate, true);
         mnt[keyIndex] = formatedDate;
         return mnt;
     })
