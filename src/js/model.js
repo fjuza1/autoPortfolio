@@ -3,7 +3,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
 } from './config.js';
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions} from './helpers.js';
-import {saveAs} from './lib.js';
+import {saveAs, moment} from './lib.js';
 export const state = {
     search:{
         skills:[],
@@ -484,6 +484,28 @@ export const filterCerts = function(options) {
     const filteredData = filterByKeys(copiedArray, keys, value);
     state.certifications = filteredData;
     }
+}
+export const formatDatesRelative = function(options) {
+    if (!options) return;
+    const {array,format} = options;
+    return array?.map((mnt) => {
+        // Find the index of the property that looks like a date (format not assumed)
+        //const rowId = Object.values(mnt).findIndex(val => val.split('-').length === 3);
+        const rowId = Object.values(mnt).findIndex(val => {
+            const processedString = 
+            val.includes('/') ? val.split('/') : 
+            val.includes('-') ? val.split('-') : 
+            val.includes('.') ? val.split('.') : '';
+            return processedString?.length === 3 && new Date(processedString) instanceof Date
+        })
+        // Extract the original date string using the index
+        const currentRow = Object.values(mnt)[rowId];
+        // Get the corresponding key name (e.g., "date_obtained")
+        const keyIndex = Object.keys(mnt)[rowId];
+        // Replace the original date string with its relative time representation
+        mnt[keyIndex] = format ? moment(currentRow, format).fromNow() : moment(currentRow).fromNow();
+        return mnt;
+    })
 }
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
