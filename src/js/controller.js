@@ -43,7 +43,8 @@ const controlSections = () => {
  * @returns {void}
  */
 const loadAndRenderContent = () => {
-	certificationsView._render(certificationsView._certificationsMarkup(model.formatDatesRelative({array: model.state.certifications})))
+	model.formatDatesRelative({array: model.state.certifications})
+	certificationsView._render(certificationsView._certificationsMarkup(model.state.extractedData.certifications.dateRelatives))
 	certificationsView._setTimelineViewCertifications(model.state.certifications)
 	// handle generation
 	handlePagination(model.state.skills, (data) => {

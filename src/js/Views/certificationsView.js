@@ -1,17 +1,17 @@
 import TimeLineView from "./TimelineView";
 import { Timeline } from "vis-timeline";
-import moment from '../lib.js'
 class CertificationsView extends TimeLineView {
-	_parentElement = document.getElementById('navTabContentCerts');
+	_parentElement = document.getElementById('certificationsCards');
+  _timelineContainer = document.getElementById('certificationsGrid');
   _timelineTimeSettings
   _setTimelineViewCertifications(_data) {
       this._data = _data;
       // get dfistinct years
       const distinctYears = [...new Set(this._data.map(cert => new Date(cert.date_obtained).getFullYear()))].sort()
       // get where to declare to render
-      const timelineParent = this._parentElement?.querySelector('#certificationsCards');
+
       const defaultMarkup = this._declareGridCertificationsMarkup(this._data)
-      const timeline = new Timeline(timelineParent, defaultMarkup, {})
+      const timeline = new Timeline(this._timelineContainer, defaultMarkup, {})
   }
   _declareGridCertificationsMarkup(_data) {
       this._data = _data
@@ -36,10 +36,6 @@ class CertificationsView extends TimeLineView {
   }
 	_certificationsMarkup(_data) {
 		this._data = _data;
-		const gridStart = `<div class="tab-pane" id="certificationsGrid" role="tabpanel" aria-labelledby="nav-home-tab">`;
-		const gridEnd = `</div>`; // end certificationsGrid
-		const cardsStart = `<div class="tab-pane" id="certificationsCards" role="tabpanel" aria-labelledby="nav-profile-tab">`;
-		const cardsEnd = `</div>`; // end certificationsCards
 		const innerMarkup = this._data.map(certs => `
       <!-- Viewed in card -->
       <div class="card shadow-sm border-0 mb-3">
@@ -65,10 +61,7 @@ class CertificationsView extends TimeLineView {
       </div>
   `);
 		return [
-			gridStart, ...innerMarkup,
-			gridEnd,
-			cardsStart,
-			cardsEnd, `</div>` // end tab-content
+			 ...innerMarkup
 		];
 	}
 }

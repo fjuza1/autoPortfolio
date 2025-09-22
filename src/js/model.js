@@ -1,3 +1,4 @@
+import { min } from 'moment';
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
@@ -11,6 +12,13 @@ export const state = {
         certs:[],
         isFiltered: false,
         isFilteredByTool:false
+    },
+    extractedData: {
+        certifications: {
+            minDate: null,
+            maxDate: null,
+            dateRelatives: []
+        },
     },
     fileState: {
         empty: false,
@@ -500,6 +508,7 @@ export const formatDatesRelative = function(options) {
         // Replace the original date string with its relative time representation
         const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
         mnt[keyIndex] = formatedDate;
+        state.extractedData.certifications.dateRelatives[state.extractedData.certifications.dateRelatives.length] = mnt;
         return mnt;
     })
 }

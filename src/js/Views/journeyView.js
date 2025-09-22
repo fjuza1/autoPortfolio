@@ -2,12 +2,12 @@ import {Timeline} from '../lib.js';
 import TimeLineView from './TimelineView.js'
 import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS} from '../config.js';
 export default new class JourneyView extends TimeLineView {
-    _parentElement = document.querySelector('.timeline-steps');
+    _timelineContainer = document.querySelector('.timeline-steps');
     _zoomoutBtn = document.querySelector('.bi.bi-zoom-out');
     _timelineTimeSettings = TIMELINE_TIME_SETTINGS
     _setTimeline(_data) {
         this._data = _data;
-        const timeline = new Timeline(this._parentElement, this.#setItemDataset(), {
+        const timeline = new Timeline(this._timelineContainer, this.#setItemDataset(), {
             ...TIMELINE_LAYOUT_SETTINGS,
             ...TIMELINE_FUNCTIONALITY_SETTINGS,
             ...this._timelineTimeSettings,
