@@ -498,7 +498,7 @@ export const formatDatesRelative = function(options) {
     const {array, format} = options;
     const copiedArray = copyArray(array);
     const rowIds = getDatesIndexes(copiedArray);
-    return copiedArray?.map((mnt) => {
+    return copiedArray?.forEach((mnt) => {
         // Find the index of the property that looks like a date (format not assumed)
         //const rowId = Object.values(mnt).findIndex(val => val.split('-').length === 3);
         // Extract the original date string using the index
@@ -509,7 +509,6 @@ export const formatDatesRelative = function(options) {
         const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
         mnt[keyIndex] = formatedDate;
         state.extractedData.certifications.dateRelatives[state.extractedData.certifications.dateRelatives.length] = mnt;
-        return mnt;
     })
 }
 //console.log(filterTools({name: true, values: NONQATOOLS}));
