@@ -4,6 +4,7 @@ class CertificationsView extends TimeLineView {
 	_parentElement = document.getElementById('certificationsCards');
   _timelineContainer = document.getElementById('certificationsGrid');
   _timelineTimeSettings
+  _err = "There are no certifications to display. Please adjust your filtering criteria.";
   _setTimelineViewCertifications(_data) {
       this._data = _data;
       // get dfistinct years
@@ -11,7 +12,7 @@ class CertificationsView extends TimeLineView {
       // get where to declare to render
 
       const defaultMarkup = this._declareGridCertificationsMarkup(this._data)
-      const timeline = new Timeline(this._timelineContainer, defaultMarkup, {})
+      new Timeline(this._timelineContainer, defaultMarkup, {})
   }
   _declareGridCertificationsMarkup(_data) {
       this._data = _data

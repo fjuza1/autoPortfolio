@@ -493,12 +493,11 @@ export const filterCerts = function(options) {
     state.certifications = filteredData;
     }
 }
-export const formatDatesRelative = function(options) {
-    if (!options) return;
-    const {array, format} = options;
+export const formatDatesRelative = function(array, options = {}) {
+    const {format} = options;
     const copiedArray = copyArray(array);
     const rowIds = getDatesIndexes(copiedArray);
-    return copiedArray?.forEach((mnt) => {
+    const absoluteDaysArray  =  copiedArray?.map((mnt) => {
         // Find the index of the property that looks like a date (format not assumed)
         //const rowId = Object.values(mnt).findIndex(val => val.split('-').length === 3);
         // Extract the original date string using the index
@@ -508,8 +507,9 @@ export const formatDatesRelative = function(options) {
         // Replace the original date string with its relative time representation
         const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
         mnt[keyIndex] = formatedDate;
-        state.extractedData.certifications.dateRelatives[state.extractedData.certifications.dateRelatives.length] = mnt;
-    })
+        return mnt; // must return inside map
+    });
+    state.extractedData.certifications.dateRelatives = absoluteDaysArray;
 }
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
