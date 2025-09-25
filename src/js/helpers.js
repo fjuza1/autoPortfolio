@@ -249,6 +249,25 @@ export const getDatesIndexes = (data =>{
         return [];
     })
 })
+export const mapDatesEntries = function(array) {
+const saveDatesFromEntries = (array) =>{
+    const rowsIds = getDatesIndexes(array);
+    return array?.map(date=>{
+        const currentRow = Object.values(date)[rowsIds];
+        const currentKey = Object.keys(date)[rowsIds];
+        return Object.fromEntries([[currentKey, currentRow]]);
+    });
+}
+    const data = saveDatesFromEntries(array);
+    const entries = Object.entries(data).map(([_ , value]) => {
+        const key =  Object.keys(value);
+        return {key: key[0], value: value[key]};
+    })
+    return entries.map(el=>({
+        key: el.key,
+        value: el.value
+    }))
+}
 /**
  * Handles the generation of a file from a Blob object.
  * 

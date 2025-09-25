@@ -1,9 +1,8 @@
-import { min } from 'moment';
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray, getDatesIndexes} from './helpers.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray, getDatesIndexes, mapDatesEntries} from './helpers.js';
 import {saveAs, moment} from './lib.js';
 export const state = {
     search:{
@@ -510,6 +509,18 @@ export const formatDatesRelative = function(array, options = {}) {
         return mnt; // must return inside map
     });
     state.extractedData.certifications.dateRelatives = absoluteDaysArray;
+}
+export const getMinMaxDates = function(array, key) {
+    const dateValues = mapDatesEntries(array)
+        .reduce((acc, cur) => {
+            if (cur.key === key) acc[acc.length] = cur.value;
+            return acc
+        }, [])
+        .map(date => new Date(Date.parse(date)));
+    return {
+        min: moment(new Date(Math.min(...dateValues)).toISOString()).format('L'),
+        max: moment(new Date(Math.max(...dateValues)).toISOString()).format('L')
+    };
 }
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
