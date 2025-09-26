@@ -1,6 +1,16 @@
 export default class TimeLineView{
     _zoomoutBtn;
-    _timelineSettings
+    _timelineSettings;
+
+    _resetTimelineSettings(){
+        this._timelineSettings = {}
+    }
+    _setTimelineSettings(settings){
+        this._resetTimelineSettings()
+        settings.forEach(setting => {
+            Object.assign(this._timelineSettings, setting)
+        });
+    }
     _seTimelineBehavior(timeline) {
         timeline.on('select', () => {
             this._handleEventOnTimeline(timeline);

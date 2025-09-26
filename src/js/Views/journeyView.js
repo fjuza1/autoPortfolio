@@ -4,15 +4,11 @@ import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIM
 export default new class JourneyView extends TimeLineView {
     _timelineContainer = document.querySelector('.timeline-steps');
     _zoomoutBtn = document.querySelector('.bi.bi-zoom-out');
-    _timelineSettings = TIMELINE_TIME_SETTINGS
+    _timelineSettings = {}
     _setTimeline(_data) {
         this._data = _data;
-        const timeline = new Timeline(this._timelineContainer, this.#setItemDataset(), {
-            ...TIMELINE_LAYOUT_SETTINGS,
-            ...TIMELINE_FUNCTIONALITY_SETTINGS,
-            ...this._timelineSettings,
-            ...TIMELINE_GROUP_SETTINGS
-        });
+        this._setTimelineSettings([TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS])
+        const timeline = new Timeline(this._timelineContainer, this.#setItemDataset(), this._timelineSettings);
     this._seTimelineBehavior(timeline)
     }
     #setItemDataset() {
