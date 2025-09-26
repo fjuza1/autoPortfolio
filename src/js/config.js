@@ -81,13 +81,16 @@ export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
 export const MIN_YEAR = 2021
 export const MAX_YEAR = 2025;
-export const TIMELINE_LAYOUT_SETTINGS = {
+export const TIMELINE_SIZE_SETTINGS = {
     height: '65dvh',
+    autoResize: true,
+    margin: {item:{horizontal:30,vertical:50},axis:20},
+};
+export const TIMELINE_LAYOUT_SETTINGS = {
     orientation: 'top',
     align: 'start',
-    margin: {item:{horizontal:30,vertical:50},axis:20},
-    autoResize: true,
     showCurrentTime: false,
+    ...TIMELINE_SIZE_SETTINGS
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
     stack: true,

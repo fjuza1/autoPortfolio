@@ -14,7 +14,8 @@ import projectsView from './Views/projectsView.js';
 import slidesView from './Views/slidesView.js';
 import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
-import certificationsView from './Views/certificationsView.js'
+import certificationsView from './Views/certifications/certificationsView.js'
+import certificationsCardsView from './Views/certifications/certificationsCardsView.js'
 import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
@@ -43,18 +44,20 @@ const controlSections = () => {
  * @returns {void}
  */
 const controlCertifications = () => {
+	// getMInMax
+	const minMaxSettings = model.getMinMaxDates(model.state.certifications, 'date_obtained')
+	certificationsView._setTimelineCertsSettings(minMaxSettings)
 	model.formatDatesRelative(model.state.certifications)
-	certificationsView._render(certificationsView._certificationsMarkup(model.state.extractedData.certifications.dateRelatives))
+	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(model.state.extractedData.certifications.dateRelatives))
 	certificationsView._setTimelineViewCertifications(model.state.certifications)
 }
 const loadAndRenderContent = () => {
-	controlCertifications();
 	// handle generation
 	handlePagination(model.state.skills, (data) => {
-		skillsView._render(skillsView._skillBarDisplay(data))
+		skillsView._update(skillsView._skillBarDisplay(data))
 	})
 	// projects
-	projectsView._render(projectsView._renderSlidesMarkup({
+	projectsView._update(projectsView._renderSlidesMarkup({
 		array: model.state.projects,
 		interval: true
 	}))
@@ -65,17 +68,14 @@ const loadAndRenderContent = () => {
 		name: true,
 		values: NONQATOOLS
 	});
-	toolboxView._render(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
+	toolboxView._update(toolboxView._generateQAToolboxMarkup(model.state.search.tools));
 	designView._renderToast({
 		msg: 'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!',
 		position: 'bottom-center',
 		title: 'Welcome to my portfolio!',
 		type: 'info'
 	});
-	// // paginate tools
-	// handlePagination(model.state.skills,(data) => {
-	// 	toolboxView._render(toolboxView._generateQAToolboxMarkup(data))
-	// })
+	controlCertifications();
 }
 // pagination basic
 const handlePagination = (dataSource, callback) => {

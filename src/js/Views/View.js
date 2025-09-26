@@ -1,6 +1,6 @@
-import { sanitizeHtml, wait, resetTimeout, calcToastPosition, objectToCSSClasses, escapeCSS, debounce, setCanvasOffOptions} from '../helpers';
+import { sanitizeHtml, wait, calcToastPosition, objectToCSSClasses, escapeCSS, debounce, setCanvasOffOptions} from '../helpers';
 import DiffDOM from '../lib.js'
-import {TOAST_DURATION, CREATE_TIME} from '../config.js'
+import {TOAST_DURATION} from '../config.js'
 export default class View {
 	_toast_container = document.querySelector('.toast-container');
 	_descriptions;
