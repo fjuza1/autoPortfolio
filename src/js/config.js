@@ -85,6 +85,7 @@ export const TIMELINE_SIZE_SETTINGS = {
     height: '65dvh',
     autoResize: true,
     margin: {item:{horizontal:30,vertical:50},axis:20},
+    align: 'left',
 };
 export const TIMELINE_LAYOUT_SETTINGS = {
     orientation: 'top',
