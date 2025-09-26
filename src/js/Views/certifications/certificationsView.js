@@ -17,7 +17,7 @@ class CertificationsView extends TimeLineView {
   _setTimelineCertsSettings(_data) {
    const orientation ={
     orientation: {
-    axis: 'bottom',   // keep axis at the bottom
+    axis: 'top',   // keep axis at the bottom
     item: 'top'       // put items above the axis
   }}
       if(!Array.isArray(_data)) {
