@@ -1,5 +1,5 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify, moment, IMG_BASE_PATH} from './lib.js';
+import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify} from './lib.js';
 /**
  * Checks if is xml text
  *
@@ -350,6 +350,7 @@ export const validateEmail = (email) => {
  *
  * @param {Function} fn - The function to debounce.
  * @param {number} wait - The number of milliseconds to delay.
+ * @uses apply to maintain the context of 'this' when invoking the function.
  * @returns {Function} - Returns the new debounced function.
  */
 // timeouts
