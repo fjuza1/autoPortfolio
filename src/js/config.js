@@ -88,7 +88,10 @@ export const TIMELINE_SIZE_SETTINGS = {
     align: 'left',
 };
 export const TIMELINE_LAYOUT_SETTINGS = {
-    orientation: 'top',
+    orientation: {
+    axis: 'top',   // keep axis at the bottom
+    item: 'top'       // put items above the axis
+  },
     align: 'start',
     showCurrentTime: false,
     ...TIMELINE_SIZE_SETTINGS

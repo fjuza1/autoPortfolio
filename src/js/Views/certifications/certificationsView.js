@@ -15,10 +15,16 @@ class CertificationsView extends TimeLineView {
       new Timeline(this._timelineContainer, defaultMarkup, this._timelineTimeSettings)
   }
   _setTimelineCertsSettings(_data) {
+   const orientation ={
+    orientation: {
+    axis: 'bottom',   // keep axis at the bottom
+    item: 'top'       // put items above the axis
+  }}
       if(!Array.isArray(_data)) {
         Object.assign(this._timelineTimeSettings, _data)
         Object.assign(this._timelineTimeSettings, TIMELINE_SIZE_SETTINGS)
         Object.assign(this._timelineTimeSettings, TIMELINE_FUNCTIONALITY_SETTINGS)
+        Object.assign(this._timelineTimeSettings,  orientation)
       }
   }
   _declareGridCertificationsMarkup(_data) {
