@@ -510,18 +510,51 @@ export const formatDatesRelative = function(array, options = {}) {
     });
     state.extractedData.certifications.dateRelatives = absoluteDaysArray;
 }
-export const getMinMaxDates = function(array, key) {
-    const dateValues = mapDatesEntries(array)
-        .reduce((acc, cur) => {
-            if (cur.key === key) acc[acc.length] = cur.value;
-            return acc
-        }, [])
-        .map(date => new Date(Date.parse(date)));
-    return {
-        min: moment(new Date(Math.min(...dateValues)).toISOString()).format('L'),
-        max: moment(new Date(Math.max(...dateValues)).toISOString()).format('L')
-    };
-}
+
+/**
+ * Get the minimum and maximum dates from an array of objects
+ * based on a specified key.
+ *
+ * Uses `moment.js` for parsing and comparison, and formats
+ * the result using localized date format (`L`).
+ *
+ * @function getMinMaxDates
+ * @param {Array<Object>} array - The input array containing date entries.
+ * @param {string} key - The key to look for in each mapped entry.
+ * @returns {{min: string|null, max: string|null}} An object containing:
+ * - `min`: The earliest date (formatted with `moment.format("L")`) or `null` if no valid dates.
+ * - `max`: The latest date (formatted with `moment.format("L")`) or `null` if no valid dates.
+ *
+ * @example
+ * const data = [
+ *   { key: "date_obtained", value: "2024-01-10" },
+ *   { key: "date_obtained", value: "2024-03-22" },
+ *   { key: "date_obtained", value: "2024-02-05" }
+ * ];
+ *
+ * const result = getMinMaxDates(data, "date_obtained");
+ * // result = { min: "01/10/2024", max: "03/22/2024" } (localized format)
+ */
+export const getMinMaxDates = function (array, key) {
+  // Extract values for the given key
+  const dateValues = mapDatesEntries(array)
+    .reduce((acc, cur) => {
+      if (cur.key === key) acc.push(cur.value);
+      return acc;
+    }, [])
+    // Parse directly with moment
+    .map(date => moment(date));
+  if (dateValues.length === 0) {
+    return { min: null, max: null };
+  }
+  // Use moment.min and moment.max
+  const minDate = moment.min(dateValues);
+  const maxDate = moment.max(dateValues);
+  return {
+    min: minDate.format("L"),
+    max: maxDate.format("L")
+  };
+};
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
  * Sorts the skills based on the provided options.
