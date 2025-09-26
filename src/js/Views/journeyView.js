@@ -4,29 +4,16 @@ import { TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIM
 export default new class JourneyView extends TimeLineView {
     _timelineContainer = document.querySelector('.timeline-steps');
     _zoomoutBtn = document.querySelector('.bi.bi-zoom-out');
-    _timelineTimeSettings = TIMELINE_TIME_SETTINGS
+    _timelineSettings = TIMELINE_TIME_SETTINGS
     _setTimeline(_data) {
         this._data = _data;
         const timeline = new Timeline(this._timelineContainer, this.#setItemDataset(), {
             ...TIMELINE_LAYOUT_SETTINGS,
             ...TIMELINE_FUNCTIONALITY_SETTINGS,
-            ...this._timelineTimeSettings,
+            ...this._timelineSettings,
             ...TIMELINE_GROUP_SETTINGS
         });
-        timeline.on('select', () => {
-            this._handleEventOnTimeline(timeline);
-        });
-        timeline.on('click', () => {
-            this._handleEventOnTimeline(timeline);
-        });
-        timeline.on('rangechange', (properties) => {
-            // Detect if the event is a user drag
-            const event = properties.event;
-            if (event && (event.pointerType === 'mouse' || event.pointerType === 'touch')) {
-                this._resetSelected(timeline);
-            }
-        });
-        this._manageZoomOut(timeline)
+    this._seTimelineBehavior(timeline)
     }
     #setItemDataset() {
         return this._data.map((entry, i) => ({

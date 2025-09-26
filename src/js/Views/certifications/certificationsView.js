@@ -3,7 +3,7 @@ import { Timeline } from "vis-timeline";
 import {TIMELINE_SIZE_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS} from '../../config.js'
 class CertificationsView extends TimeLineView {
   _timelineContainer = document.getElementById('certificationsGrid');
-  _timelineTimeSettings = {};
+  _timelineSettings = {};
   _err = "There are no certifications to display. Please adjust your filtering criteria.";
   _setTimelineViewCertifications(_data) {
       this._data = _data;
@@ -12,7 +12,8 @@ class CertificationsView extends TimeLineView {
       const distinctYears = [...new Set(this._data.map(cert => new Date(cert.date_obtained).getFullYear()))].sort()
       // get where to declare to render
       const defaultMarkup = this._declareGridCertificationsMarkup(this._data)
-      new Timeline(this._timelineContainer, defaultMarkup, this._timelineTimeSettings)
+      const timeline = new Timeline(this._timelineContainer, defaultMarkup, this._timelineSettings)
+      this._seTimelineBehavior(timeline)
   }
   _setTimelineCertsSettings(_data) {
    const orientation ={
@@ -21,10 +22,10 @@ class CertificationsView extends TimeLineView {
     item: 'top'       // put items above the axis
   }}
       if(!Array.isArray(_data)) {
-        Object.assign(this._timelineTimeSettings, _data)
-        Object.assign(this._timelineTimeSettings, TIMELINE_SIZE_SETTINGS)
-        Object.assign(this._timelineTimeSettings, TIMELINE_FUNCTIONALITY_SETTINGS)
-        Object.assign(this._timelineTimeSettings,  orientation)
+        Object.assign(this._timelineSettings, _data)
+        Object.assign(this._timelineSettings, TIMELINE_SIZE_SETTINGS)
+        Object.assign(this._timelineSettings, TIMELINE_FUNCTIONALITY_SETTINGS)
+        Object.assign(this._timelineSettings,  orientation)
       }
   }
   _declareGridCertificationsMarkup(_data) {
@@ -40,7 +41,6 @@ class CertificationsView extends TimeLineView {
         <div>
           <strong>${cert.title}</strong><br/>
           <em>${cert.platform}</em><br/>
-          <span>${month} ${year}</span><br/>
           <a href="${cert.cert_url}" target="_blank">View Certificate</a>
         </div>
       `,
