@@ -1,7 +1,8 @@
 export default class TimeLineView{
     _zoomoutBtn;
     _timelineSettings;
-
+    _timeline;
+    _selectedTime
     _resetTimelineSettings(){
         this._timelineSettings = {}
     }

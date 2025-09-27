@@ -543,7 +543,7 @@ export const getMinMaxDates = function (array, key) {
       return acc;
     }, [])
     // Parse directly with moment
-    .map(date => moment(new Date(date).toISOString()));
+    .map(date => moment(date));
   if (dateValues.length === 0) {
     return { min: null, max: null };
   }
@@ -551,8 +551,8 @@ export const getMinMaxDates = function (array, key) {
   const minDate = moment.min(dateValues);
   const maxDate = moment.max(dateValues);
   return {
-    min: minDate.format("L"),
-    max: maxDate.format("L")
+    min: minDate.toDate(),
+    max: maxDate.toDate()
   };
 };
 //console.log(filterTools({name: true, values: NONQATOOLS}));

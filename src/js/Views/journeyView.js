@@ -8,8 +8,8 @@ export default new class JourneyView extends TimeLineView {
     _setTimeline(_data) {
         this._data = _data;
         this._setTimelineSettings([TIMELINE_LAYOUT_SETTINGS, TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_TIME_SETTINGS, TIMELINE_GROUP_SETTINGS])
-        const timeline = new Timeline(this._timelineContainer, this.#setItemDataset(), this._timelineSettings);
-    this._seTimelineBehavior(timeline)
+        this._timeline = new Timeline(this._timelineContainer, this.#setItemDataset(), this._timelineSettings);
+        this._seTimelineBehavior(this._timeline)
     }
     #setItemDataset() {
         return this._data.map((entry, i) => ({
