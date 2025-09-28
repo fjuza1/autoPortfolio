@@ -120,3 +120,4 @@ export const TIMELINE_FORMAT_LABELS = {
     }
   }
 }
+export const DEFAULTOPTIONS = {displayErrorsInView: 'on', performanceTracking: 'on', errorTracking: 'on'}

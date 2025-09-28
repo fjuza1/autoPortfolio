@@ -191,20 +191,25 @@ const controllContacting = () => {
 // settings
 const controllSettings = (e) => {
 	const type = e.type;
+
+	//settings manip/retrieval
 	designView._getSettings()
-	designView._renderManipulatedSettingsToast(type);
 	designView._savePreferences();
+	designView._getPreferences()
+	// control settings prefrences
+	designView._renderManipulatedSettingsToast(type);
 	designView._updateTheme();
 	designView._centerLayout();
+	// button manipulation
 	const settings = designView._settings
 	const settingsLen = Object.values(settings).length !== 0
 	designView._disableBTN({disabled: settingsLen, existingButton: true});
 }
 const init = () => {
+	loadAndRenderContent();
 	controllNavBar();
 	controlSections();
 	designView.addHandleClickIntoSection();
-	skillsView.addHandlerLoad(loadAndRenderContent)
 	designView.addHandlerLoad(designView._getPreferences());
 	designView.addHandlerLoad(designView.scrollIntoSection);
 	skillsView._addHandlerFormReset(controllResetSkills);

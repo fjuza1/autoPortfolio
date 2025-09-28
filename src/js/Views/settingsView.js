@@ -1,3 +1,4 @@
+import {DEFAULTOPTIONS} from '../config.js'
 import View from './View.js';
 export default class SettingsView extends View {
 	_form = document.getElementById('settingsForm');
@@ -29,7 +30,7 @@ export default class SettingsView extends View {
 	}
 	_savePreferences(preferences = this._formData) {
 		if (!preferences || typeof preferences !== "object") {
-			preferences = {};
+			preferences = DEFAULTOPTIONS;
 		}
 		localStorage.setItem('settings', JSON.stringify(preferences));
 	}
