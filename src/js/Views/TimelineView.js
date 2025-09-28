@@ -1,70 +1,95 @@
+import {Timeline} from '../lib.js';
 export default class TimeLineView{
     _zoomoutBtn;
     _timelineSettings;
     _timeline;
-    _selectedTime
-    _resetTimelineSettings(){
+    _selectedTime;
+    _timelineContainer
+    _updateTimeline(timeline = this._timeline, {items, options, groups}){
+        if(!items && !options) throw new Error("Please provide items and options.");
+        if(!Array.isArray(items)) throw new Error("Provided items must be an array.");
+        this.#setTimelineSettings(options)
+        if(!timeline) {
+            this._timeline = new Timeline(this._timelineContainer, items, this._timelineSettings);
+            this.#setTimelineBehavior(this._timeline)
+            this._timeline.fit()
+        } else{
+        // then set items
+        timeline.setItems(items);
+
+        // then set options
+        timeline.setOptions(options)
+
+        // maybe set groups
+        if(groups) timeline.setGroups(groups);
+		timeline.fit()
+        }
+
+    }
+    #resetTimelineSettings(){
         this._timelineSettings = {}
     }
-    _setTimelineSettings(settings){
-        this._resetTimelineSettings()
+    #setTimelineSettings(settings){
+        this.#resetTimelineSettings()
+         if(!Array.isArray(settings)) Object.assign(this._timelineSettings, settings)
+        else    
         settings.forEach(setting => {
-            Object.assign(this._timelineSettings, setting)
+            if(!Array.isArray(setting)) Object.assign(this._timelineSettings, setting)
         });
     }
-    _seTimelineBehavior(timeline) {
+    #setTimelineBehavior(timeline) {
         timeline.on('select', () => {
-            this._handleEventOnTimeline(timeline);
+            this.#handleEventOnTimeline(timeline);
         });
         timeline.on('click', () => {
-            this._handleEventOnTimeline(timeline);
+            this.#handleEventOnTimeline(timeline);
         });
         timeline.on('rangechange', (properties) => {
             // Detect if the event is a user drag
             const event = properties.event;
             if (event && (event.pointerType === 'mouse' || event.pointerType === 'touch')) {
-                this._resetSelected(timeline);
+                this.#resetSelected(timeline);
             }
         });
-        this._manageZoomOut(timeline)
+        this.#manageZoomOut(timeline)
     }
-    _getSelectedItem(timeline) {
+    #getSelectedItem(timeline) {
         const [selectedItem] = timeline.getSelection();
         if (!selectedItem) return
         return timeline.itemsData.get(selectedItem);
     }
-    _zoomIn(timeline) {
-        const selectedGroup = this._getSelectedItem(timeline);
+    #zoomIn(timeline) {
+        const selectedGroup = this.#getSelectedItem(timeline);
         if (!selectedGroup) return
         const {
             start,
             end
         } = selectedGroup;
-        this._visWinSet(timeline, start, end);
+        this.#visWinSet(timeline, start, end);
     }
-    _zoomOut(timeline) {
+    #zoomOut(timeline) {
         const start = this._timelineSettings.min.valueOf();
         const end = this._timelineSettings.max.valueOf();
-        this._visWinSet(timeline, start, end);
+        this.#visWinSet(timeline, start, end);
     }
-    _resetSelected(timeline) {
+    #resetSelected(timeline) {
         timeline.setSelection([]);
     }
-    _manageZoomOut (timeline) {
+    #manageZoomOut (timeline) {
         this._zoomoutBtn.addEventListener('click', () => {
-            this._zoomOut(timeline);
-            this._resetSelected(timeline);
+            this.#zoomOut(timeline);
+            this.#resetSelected(timeline);
         });
     }
-    _visWinSet(timeline, start, end) {
+    #visWinSet(timeline, start, end) {
         timeline.setWindow(start, end, {
             animation: true,
             animationDuration: 500
         });
     }
-    _handleEventOnTimeline(timeline) {
-        const selectedGroup = this._getSelectedItem(timeline);
+    #handleEventOnTimeline(timeline) {
+        const selectedGroup = this.#getSelectedItem(timeline);
         if (selectedGroup)
-            this._zoomIn(timeline)
+            this.#zoomIn(timeline)
     }
 }

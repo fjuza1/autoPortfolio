@@ -4,25 +4,16 @@ import {TIMELINE_SIZE_SETTINGS,TIMELINE_FUNCTIONALITY_SETTINGS, TIMELINE_FORMAT_
 class CertificationsView extends TimeLineView {
 	_timelineContainer = document.getElementById('certificationsGrid');
 	_timelineSettings = {};
-	_timeline;
 	_err = "There are no certifications to display. Please adjust your filtering criteria.";
 	_zoomoutBtn = this._timelineContainer.querySelector('.bi.bi-zoom-out');
 	_setTimelineViewCertifications(_data) {
-		this._data = _data;
-		// get dfistinct years
-		this._setTimelineCertsSettings(this._data);
-		// get where to declare to render
-		const defaultMarkup = this._declareGridCertificationsMarkup(this._data)
-		this._timeline = new Timeline(this._timelineContainer)
-		this._timeline.setItems(defaultMarkup);
-		this._timeline.setOptions(this._timelineSettings);
-		this._timeline.fit()
-		this._seTimelineBehavior(this._timeline)
+		this._setTimelineCertsSettings(_data);
+		const defaultMarkup = this._declareGridCertificationsMarkup(_data);
+		this._updateTimeline(undefined , {items: defaultMarkup, options:this._timelineSettings})
 	}
 	_setTimelineCertsSettings(_data) {
 		if (!Array.isArray(_data)) {
-			this._setTimelineSettings([
-            TIMELINE_GROUP_SETTINGS,
+			const base = [TIMELINE_GROUP_SETTINGS,
 				TIMELINE_FORMAT_LABELS,
 				{
 					zoomMin: 2000 * 60 * 60 * 24 * 30,
@@ -40,7 +31,8 @@ class CertificationsView extends TimeLineView {
 				_data,
 				TIMELINE_SIZE_SETTINGS,
 				TIMELINE_FUNCTIONALITY_SETTINGS
-			])
+			]
+			return this._timelineSettings = base
 		}
 	}
 	_declareGridCertificationsMarkup(_data) {
