@@ -274,11 +274,22 @@ export const state = {
             imgPath: IMGS.BLANKPIC
         }
     ],
-    certifications: [{
+    certifications: [
+        {
+            platform: 'Udemy',
+            title: 'Microsoft Excel - Excel from Beginner to Advanced',
+            instructor: 'Jonas Schmedtmann',
+            date_obtained: '2020-10-11',
+            date_started: '2019-09-30',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-d2734cfb-0179-4128-bc98-f05603bf834f.pdf',
+            length: '22 hours'
+        },
+        {
             platform: 'Udemy',
             title: 'The Complete JavaScript Course 2024: From Zero to Expert!',
             instructor: 'Jonas Schmedtmann',
             date_obtained: '2024-04-24',
+            date_started: '2021-10-04',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-bcd5477c-43d2-43fd-83b8-6503badfde16.pdf',
             length: '68.5 hours'
         },
@@ -287,6 +298,7 @@ export const state = {
             title: 'POSTMAN API Testing - Step - by Step for Beginners',
             instructor: 'Raghav Pal',
             date_obtained: '2022-01-20',
+            date_started: '2021-10-15',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-c4445c82-aee0-4c01-a6b9-f8fe28b90ea7.pdf',
             length: '2.5 hours'
         },
@@ -295,6 +307,7 @@ export const state = {
             title: 'Microsoft SQL for Beginners',
             instructor: 'Brewster Knowlton',
             date_obtained: '2021-08-24',
+            date_started: '2021-08-12',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-a7110719-34e3-4b36-b258-1910e596fc95.pdf',
             length: '4 hours'
         },
@@ -303,6 +316,7 @@ export const state = {
             title: 'ISTQB Foundation Level preparation course+1000quiz examples',
             instructor: ' Mark Shrike, Victoria N',
             date_obtained: '2024-10-19',
+            date_started: '2024-09-30',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
             length: '14.5 hours'
         },
@@ -311,6 +325,7 @@ export const state = {
             title: 'ISTQB Foundation Level 4.0',
             instructor: 'ISTQB - CASQB',
             date_obtained: '2025-02-14',
+            date_started: '2021-08-01',
             cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
             length: '1 hour 15 minutes'
         }
@@ -492,25 +507,34 @@ export const filterCerts = function(options) {
     state.certifications = filteredData;
     }
 }
-export const formatDatesRelative = function(array, options = {}) {
-    const {format} = options;
-    const copiedArray = copyArray(array);
-    const rowIds = getDatesIndexes(copiedArray);
-    const absoluteDaysArray  =  copiedArray?.map((mnt) => {
-        // Find the index of the property that looks like a date (format not assumed)
-        //const rowId = Object.values(mnt).findIndex(val => val.split('-').length === 3);
-        // Extract the original date string using the index
-        const currentRow = Object.values(mnt)[rowIds];
-        // Get the corresponding key name (e.g., "date_obtained")
-        const keyIndex = Object.keys(mnt)[rowIds];
-        // Replace the original date string with its relative time representation
-        const formatedDate = format ? moment(currentRow, format, true).fromNow() : moment(currentRow, true).fromNow();
-        mnt[keyIndex] = formatedDate;
-        return mnt; // must return inside map
-    });
-    state.extractedData.certifications.dateRelatives = absoluteDaysArray;
-}
+export const formatDatesRelative = function (array, options = {}) {
+  if (!Array.isArray(array)) return [];
 
+  const { format } = options;
+  const copiedArray = copyArray(array);
+  const rowIds = getDatesIndexes(copiedArray);
+
+  const absoluteDaysArray = copiedArray.map(item => {
+    const newItem = { ...item }; // avoid mutating original
+
+    rowIds.forEach(idx => {
+      const key = Object.keys(item)[idx];
+      const value = item[key];
+
+      if (!value) return;
+
+      const formattedDate = format
+        ? moment(value, format, true).fromNow()
+        : moment(value).fromNow();
+
+      newItem[key] = formattedDate;
+    });
+
+    return newItem;
+  });
+
+  state.extractedData.certifications.dateRelatives = absoluteDaysArray;
+};
 /**
  * Get the minimum and maximum dates from an array of objects
  * based on a specified key.
