@@ -2,8 +2,8 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
 	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions} from './helpers.js';
-import {saveAs} from './lib.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray, getDatesIndexes, mapDatesEntries} from './helpers.js';
+import {saveAs, moment} from './lib.js';
 export const state = {
     search:{
         skills:[],
@@ -11,6 +11,13 @@ export const state = {
         certs:[],
         isFiltered: false,
         isFilteredByTool:false
+    },
+    extractedData: {
+        certifications: {
+            minDate: null,
+            maxDate: null,
+            dateRelatives: []
+        },
     },
     fileState: {
         empty: false,
@@ -267,11 +274,22 @@ export const state = {
             imgPath: IMGS.BLANKPIC
         }
     ],
-    certifications: [{
+    certifications: [
+        {
+            platform: 'Udemy',
+            title: 'Microsoft Excel - Excel from Beginner to Advanced',
+            instructor: 'Jonas Schmedtmann',
+            date_obtained: '2020-10-11',
+            date_started: '2019-09-30',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-d2734cfb-0179-4128-bc98-f05603bf834f.pdf',
+            length: '22 hours'
+        },
+        {
             platform: 'Udemy',
             title: 'The Complete JavaScript Course 2024: From Zero to Expert!',
             instructor: 'Jonas Schmedtmann',
             date_obtained: '2024-04-24',
+            date_started: '2021-10-04',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-bcd5477c-43d2-43fd-83b8-6503badfde16.pdf',
             length: '68.5 hours'
         },
@@ -280,6 +298,7 @@ export const state = {
             title: 'POSTMAN API Testing - Step - by Step for Beginners',
             instructor: 'Raghav Pal',
             date_obtained: '2022-01-20',
+            date_started: '2021-10-15',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-c4445c82-aee0-4c01-a6b9-f8fe28b90ea7.pdf',
             length: '2.5 hours'
         },
@@ -288,6 +307,7 @@ export const state = {
             title: 'Microsoft SQL for Beginners',
             instructor: 'Brewster Knowlton',
             date_obtained: '2021-08-24',
+            date_started: '2021-08-12',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-a7110719-34e3-4b36-b258-1910e596fc95.pdf',
             length: '4 hours'
         },
@@ -296,6 +316,7 @@ export const state = {
             title: 'ISTQB Foundation Level preparation course+1000quiz examples',
             instructor: ' Mark Shrike, Victoria N',
             date_obtained: '2024-10-19',
+            date_started: '2024-09-30',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
             length: '14.5 hours'
         },
@@ -304,6 +325,7 @@ export const state = {
             title: 'ISTQB Foundation Level 4.0',
             instructor: 'ISTQB - CASQB',
             date_obtained: '2025-02-14',
+            date_started: '2021-08-01',
             cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
             length: '1 hour 15 minutes'
         }
@@ -485,6 +507,78 @@ export const filterCerts = function(options) {
     state.certifications = filteredData;
     }
 }
+export const formatDatesRelative = function (array, options = {}) {
+  if (!Array.isArray(array)) return [];
+
+  const { format } = options;
+  const copiedArray = copyArray(array);
+  const rowIds = getDatesIndexes(copiedArray);
+
+  const absoluteDaysArray = copiedArray.map(item => {
+    const newItem = { ...item }; // avoid mutating original
+
+    rowIds.forEach(idx => {
+      const key = Object.keys(item)[idx];
+      const value = item[key];
+
+      if (!value) return;
+
+      const formattedDate = format
+        ? moment(value, format, true).fromNow()
+        : moment(value).fromNow();
+
+      newItem[key] = formattedDate;
+    });
+
+    return newItem;
+  });
+
+  state.extractedData.certifications.dateRelatives = absoluteDaysArray;
+};
+/**
+ * Get the minimum and maximum dates from an array of objects
+ * based on a specified key.
+ *
+ * Uses `moment.js` for parsing and comparison, and formats
+ * the result using localized date format (`L`).
+ *
+ * @function getMinMaxDates
+ * @param {Array<Object>} array - The input array containing date entries.
+ * @param {string} key - The key to look for in each mapped entry.
+ * @returns {{min: string|null, max: string|null}} An object containing:
+ * - `min`: The earliest date (formatted with `moment.format("L")`) or `null` if no valid dates.
+ * - `max`: The latest date (formatted with `moment.format("L")`) or `null` if no valid dates.
+ *
+ * @example
+ * const data = [
+ *   { key: "date_obtained", value: "2024-01-10" },
+ *   { key: "date_obtained", value: "2024-03-22" },
+ *   { key: "date_obtained", value: "2024-02-05" }
+ * ];
+ *
+ * const result = getMinMaxDates(data, "date_obtained");
+ * // result = { min: "01/10/2024", max: "03/22/2024" } (localized format)
+ */
+export const getMinMaxDates = function (array, key) {
+  // Extract values for the given key
+  const dateValues = mapDatesEntries(array)
+    .reduce((acc, cur) => {
+      if (cur.key === key) acc.push(cur.value);
+      return acc;
+    }, [])
+    // Parse directly with moment
+    .map(date => moment(date));
+  if (dateValues.length === 0) {
+    return { min: null, max: null };
+  }
+  // Use moment.min and moment.max
+  const minDate = moment.min(dateValues);
+  const maxDate = moment.max(dateValues);
+  return {
+    min: minDate.toDate(),
+    max: maxDate.toDate()
+  };
+};
 //console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
  * Sorts the skills based on the provided options.

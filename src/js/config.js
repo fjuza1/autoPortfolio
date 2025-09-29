@@ -81,18 +81,26 @@ export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
 export const MIN_YEAR = 2021
 export const MAX_YEAR = 2025;
-export const TIMELINE_LAYOUT_SETTINGS = {
-    height: '65dvh',
-    orientation: 'top',
-    align: 'start',
-    margin: {item:{horizontal:30,vertical:50},axis:20},
+export const TIMELINE_SIZE_SETTINGS = {
+    height: '65vh',
+    maxHeight: '80vh',
     autoResize: true,
+    margin: {item:{horizontal:30,vertical:50},axis:20},
+    align: 'left',
+};
+export const TIMELINE_LAYOUT_SETTINGS = {
+    orientation: {
+    axis: 'top',   // keep axis at the bottom
+    item: 'top'       // put items above the axis
+  },
+    align: 'start',
     showCurrentTime: false,
+    ...TIMELINE_SIZE_SETTINGS
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
     stack: true,
     moveable: true,
-    zoomable: true,
+    zoomable: true
 }
 export const TIMELINE_TIME_SETTINGS = {
     min: new Date(MIN_YEAR, 0, 1),
@@ -102,3 +110,14 @@ export const TIMELINE_TIME_SETTINGS = {
 export const TIMELINE_GROUP_SETTINGS = {
     groupOrder: 'id',
 }
+export const TIMELINE_FORMAT_LABELS = {
+  format: {
+    minorLabels: {
+      month: 'MM'
+    },
+    majorLabels: {
+      year: 'YYYY'
+    }
+  }
+}
+export const DEFAULTOPTIONS = {displayErrorsInView: 'on', performanceTracking: 'on', errorTracking: 'on'}

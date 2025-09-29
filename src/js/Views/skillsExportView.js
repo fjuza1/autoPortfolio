@@ -89,85 +89,84 @@ class SkillsExportView extends View {
             this._revealExportContainer()
         });
     }
-_animateState(text) {
-  this._cleanupModal();
-  this._generatingfileState = document.getElementById('generatingfileState');
-  const id = text.split(' ').join('').toLowerCase();
+    _animateState(text) {
+      this._cleanupModal();
+      this._generatingfileState = document.getElementById('generatingfileState');
+      const id = text.split(' ').join('').toLowerCase();
 
-  const statusMarkup = `
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title fw-bold">${text}</h5>
-        </div>
-        <div class="modal-body text-center">
-          <div id="${id}State" class="d-flex flex-wrap justify-content-center gap-2">
-            <div class="spinner-grow spinner-grow-sm text-primary" role="status" aria-label="Loading primary">
-              <span class="visually-hidden">Loading...</span>
+      const statusMarkup = `
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title fw-bold">${text}</h5>
             </div>
-            <div class="spinner-grow spinner-grow-sm text-secondary" role="status" aria-label="Loading secondary">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-success" role="status" aria-label="Loading success">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-danger" role="status" aria-label="Loading danger">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-warning" role="status" aria-label="Loading warning">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-info" role="status" aria-label="Loading info">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-light" role="status" aria-label="Loading light">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-            <div class="spinner-grow spinner-grow-sm text-dark" role="status" aria-label="Loading dark">
-              <span class="visually-hidden">Loading...</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  `;
-  this._modal.insertAdjacentHTML('afterbegin', statusMarkup);
-}
-_exportModal(data) {
-  this._cleanupModal();
-  const markup = `
-    <div class="modal-dialog modal-dialog-centered" role="document">
-      <div class="modal-content">
-        <div class="modal-header border-bottom-0">
-          <h5 class="modal-title fw-bold" id="exampleModalCenterTitle">Generation Complete</h5>
-        </div>
-        <div class="modal-body">
-          <h5 class="fw-semibold mb-3">Everything was generated successfully</h5>
-          <div class="accordion" id="accordionExample">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-                  Details
-                  <i class="bi bi-chevron-down ms-2"></i>
-                </button>
-              </h2>
-              <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                <div class="accordion-body">
-                  <pre id="exportContent" class="bg-light p-2 rounded border">${data.startsWith("<?xml") ? this.#escapeXml(data) : data}</pre>
+            <div class="modal-body text-center">
+              <div id="${id}State" class="d-flex flex-wrap justify-content-center gap-2">
+                <div class="spinner-grow spinner-grow-sm text-primary" role="status" aria-label="Loading primary">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-secondary" role="status" aria-label="Loading secondary">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-success" role="status" aria-label="Loading success">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-danger" role="status" aria-label="Loading danger">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-warning" role="status" aria-label="Loading warning">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-info" role="status" aria-label="Loading info">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-light" role="status" aria-label="Loading light">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-dark" role="status" aria-label="Loading dark">
+                  <span class="visually-hidden">Loading...</span>
                 </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="modal-footer text-center">
-          <button type="button" class="btn btn-success btn-lg w-100 dismiss-modal">OK</button>
+      `;
+      this._modal.insertAdjacentHTML('afterbegin', statusMarkup);
+    }
+    _exportModal(data) {
+      this._cleanupModal();
+      const markup = `
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title fw-bold" id="exampleModalCenterTitle">Generation Complete</h5>
+            </div>
+            <div class="modal-body">
+              <h5 class="fw-semibold mb-3">Everything was generated successfully</h5>
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Details
+                      <i class="bi bi-chevron-down ms-2"></i>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <pre id="exportContent" class="bg-light p-2 rounded border">${data.startsWith("<?xml") ? this.#escapeXml(data) : data}</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-success btn-lg w-100 dismiss-modal">OK</button>
+            </div>
+          </div>
         </div>
-      </div>
-    </div>
-  `;
-  this._modal.insertAdjacentHTML('afterbegin', markup);
-}
-
+      `;
+      this._modal.insertAdjacentHTML('afterbegin', markup);
+    }
     #escapeXml(unsafe) {
         return unsafe.replace(/[<>&'"]/g, function(c) {
             switch (c) {

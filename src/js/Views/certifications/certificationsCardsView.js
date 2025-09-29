@@ -1,18 +1,15 @@
-import View from './View.js'
-class CertificationsView extends View {
-	_parentElement = document.getElementById('navTabContentCerts');
+import View from "../View.js";
+class CertificationsCardsView extends View {
+	_parentElement = document.getElementById('certificationsCards');
+  _err = "There are no certifications to display. Please adjust your filtering criteria.";
 	_certificationsMarkup(_data) {
 		this._data = _data;
-		const gridStart = `<div class="tab-pane" id="certificationsGrid" role="tabpanel" aria-labelledby="nav-home-tab">`;
-		const gridEnd = `</div>`; // end certificationsGrid
-		const cardsStart = `<div class="tab-pane" id="certificationsCards" role="tabpanel" aria-labelledby="nav-profile-tab">`;
-		const cardsEnd = `</div>`; // end certificationsCards
 		const innerMarkup = this._data.map(certs => `
       <!-- Viewed in card -->
       <div class="card shadow-sm border-0 mb-3">
         <div class="card-header d-flex justify-content-between align-items-center bg-secondary text-white">
           <span class="fw-bold">Certification</span>
-          <small class="fw-semibold">Obtained: ${certs.date_obtained}</small>
+          <small class="fw-semibold obtained">Obtained: ${certs.date_obtained}</small>
         </div>
         <div class="card-body">
           <h5 class="card-title mb-2">${certs.title}</h5>
@@ -32,11 +29,8 @@ class CertificationsView extends View {
       </div>
   `);
 		return [
-			gridStart, ...innerMarkup,
-			gridEnd,
-			cardsStart, `<p class="text-muted">Alternative card view will be implemented here.</p>`,
-			cardsEnd, `</div>` // end tab-content
+			 ...innerMarkup
 		];
 	}
 }
-export default new CertificationsView()
+export default new CertificationsCardsView();

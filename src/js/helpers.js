@@ -1,5 +1,5 @@
 import { API_TIMEOUT_SEC, ANIMATIONTIME, SENDTO, UNGENERATED_FILE_MESSAGE} from './config.js';
-import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify, moment, IMG_BASE_PATH} from './lib.js';
+import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify} from './lib.js';
 /**
  * Checks if is xml text
  *
@@ -236,6 +236,32 @@ export const sendMail = async (options) => {
         if (err instanceof EmailJSResponseStatus) throw err;
     }
 }
+export const copyArray = (array => array.map(mnt => ({ ...mnt })));
+export const getDatesIndexes = (data =>{
+    return Object.values(data[0]).flatMap((val, idx) => {
+      const processedString =
+        val.includes("/") ? val.split("/") :
+        val.includes("-") ? val.split("-") :
+        val.includes(".") ? val.split(".") : '';
+
+      if(new Date(processedString) != 'Invalid Date' && processedString.length === 3) 
+        return  [idx];
+        return [];
+    })
+})
+export const mapDatesEntries = function (array) {
+  if (!Array.isArray(array)) return [];
+
+  const rowsIds = getDatesIndexes(array);
+
+  return array.flatMap(date => 
+    rowsIds.map(idx => {
+      const key = Object.keys(date)[idx];
+      const value = date[key];
+      return { key, value };
+    })
+  );
+};
 /**
  * Handles the generation of a file from a Blob object.
  * 
@@ -318,6 +344,7 @@ export const validateEmail = (email) => {
  *
  * @param {Function} fn - The function to debounce.
  * @param {number} wait - The number of milliseconds to delay.
+ * @uses apply to maintain the context of 'this' when invoking the function.
  * @returns {Function} - Returns the new debounced function.
  */
 // timeouts
