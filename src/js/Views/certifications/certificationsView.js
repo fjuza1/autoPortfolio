@@ -15,28 +15,30 @@ class CertificationsView extends TimeLineView {
   }
   _setTimelineCertsSettings(_data) {
     if (!Array.isArray(_data)) {
-      const base = [TIMELINE_GROUP_SETTINGS,
-        TIMELINE_FORMAT_LABELS,
-        {
-          zoomMin: 2000 * 60 * 60 * 24 * 30,
-          zoomMax: 1000 * 60 * 60 * 24 * 365 * 5
-        },
-        {
-          orientation: {
-            axis: 'top', // keep axis at the bottom
-            item: 'top' // put items above the axis
-          }
-        },
-        {
-          autoResize: true
-        },
-        _data,
-        TIMELINE_SIZE_SETTINGS,
-        TIMELINE_FUNCTIONALITY_SETTINGS
-      ]
-      return this._timelineSettings = base
+      const { min, max } = _data
+        const oneYears = 1000 * 60 * 60 * 24 * 365 * 2;
+        const threeYears = 1000 * 60 * 60 * 24 * 365 * 3;
+        const start = new Date(min.getTime() -oneYears); // 3 years before first
+        const end   = new Date(max.getTime() + threeYears); // 3 years after last
+
+        const base = [
+          TIMELINE_GROUP_SETTINGS,
+          TIMELINE_FORMAT_LABELS,
+          {
+            min:start,
+            max:end
+          },
+          {
+            orientation: { axis: "top", item: "top" }
+          },,
+          { autoResize: true },
+          TIMELINE_SIZE_SETTINGS,
+          TIMELINE_FUNCTIONALITY_SETTINGS
+        ];
+
+        this._timelineSettings = Object.assign({}, ...base);
     }
-  }
+  };
   _declareGridCertificationsMarkup(_data) {
     this._data = _data
     return this._data.map((cert, i) => {
@@ -55,9 +57,8 @@ class CertificationsView extends TimeLineView {
 					</div>
 				</div>
       `,
-        start: cert.date_started,
-        end: cert.date_obtained,
-        type: 'range'
+        start: cert.date_obtained,
+        type: 'point'
       };
     });
   }

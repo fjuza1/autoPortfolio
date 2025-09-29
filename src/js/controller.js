@@ -45,7 +45,7 @@ const controlSections = () => {
  */
 const controlCertifications = () => {
 	// getMInMax
-	const minMaxSettings = model.getMinMaxDates(model.state.certifications, 'date_started')
+	const minMaxSettings = model.getMinMaxDates(model.state.certifications, 'date_obtained')
 	certificationsView._setTimelineCertsSettings(minMaxSettings)
 	model.formatDatesRelative(model.state.certifications)
 	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(model.state.extractedData.certifications.dateRelatives))
