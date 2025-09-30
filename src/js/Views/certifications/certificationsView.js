@@ -16,8 +16,8 @@ class CertificationsView extends TimeLineView {
   _setTimelineCertsSettings(_data) {
     if (!Array.isArray(_data)) {
       const { min, max } = _data
-        const oneYears = 1000 * 60 * 60 * 24 * 365 * 2;
-        const threeYears = 1000 * 60 * 60 * 24 * 365 * 3;
+        const oneYears = 24*3600 *1000;
+        const threeYears = 2*30*24*3600 * 1000;
         const start = new Date(min.getTime() -oneYears); // 3 years before first
         const end   = new Date(max.getTime() + threeYears); // 3 years after last
 
@@ -26,17 +26,29 @@ class CertificationsView extends TimeLineView {
           TIMELINE_FORMAT_LABELS,
           {
             min:start,
-            max:end
+            max:end,
+            zoomMin: start,     // 1 day min zoom
+            zoomMax: end,  // ~3 years
           },
           {
             orientation: { axis: "top", item: "top" }
-          },,
+          },{
+            format: {
+              milisecond:'',
+              second:'',
+              minute:'',
+              hour:'',
+
+              day:'DD',
+              month:'MMMM YY'
+            }
+          },
           { autoResize: true },
           TIMELINE_SIZE_SETTINGS,
           TIMELINE_FUNCTIONALITY_SETTINGS
         ];
 
-        this._timelineSettings = Object.assign({}, ...base);
+        this._timelineSettings = base
     }
   };
   _declareGridCertificationsMarkup(_data) {
