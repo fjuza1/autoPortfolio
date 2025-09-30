@@ -507,6 +507,15 @@ export const filterCerts = function(options) {
     state.certifications = filteredData;
     }
 }
+/**
+ * Formats date fields in an array of objects to relative time strings (e.g., "2 days ago").
+ *
+ * @param {Array<Object>} array - The array of objects containing date fields to format.
+ * @param {Object} [options={}] - Optional configuration object.
+ * @param {string} [options.format] - Optional date format string for parsing dates with moment.js.
+ * @uses copyArray from helpers
+ * @returns {void} The function updates `state.extractedData.certifications.dateRelatives` with the formatted array.
+ */
 export const formatDatesRelative = function (array, options = {}) {
   if (!Array.isArray(array)) return [];
 
