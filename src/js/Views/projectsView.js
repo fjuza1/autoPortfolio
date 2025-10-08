@@ -1,7 +1,7 @@
 import View from './View.js';
 import {DEFAULT_INTERVAL} from '../config.js';
 class ProjectsView extends View {
-  _parentElement = document.getElementById('carouselProjects');
+  _parent = document.getElementById('carouselProjects');
   _modal = document.getElementById('modalCenter');
   _end = '</div>'
 _renderSlidesMarkup(options) {

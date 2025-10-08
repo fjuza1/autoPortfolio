@@ -27,21 +27,10 @@ class CertificationsView extends TimeLineView {
           {
             min:start,
             max:end,
-            zoomMin: start,     // 1 day min zoom
-            zoomMax: end,  // ~3 years
+            zoomMax: max.getTime(),  // ~3 years
           },
           {
             orientation: { axis: "top", item: "top" }
-          },{
-            format: {
-              milisecond:'',
-              second:'',
-              minute:'',
-              hour:'',
-
-              day:'DD',
-              month:'MMMM YY'
-            }
           },
           { autoResize: true },
           TIMELINE_SIZE_SETTINGS,

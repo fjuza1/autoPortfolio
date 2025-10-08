@@ -2,7 +2,7 @@ import { wait, debounce} from '../helpers.js';
 import {REV_TRESH, KEYDOWN_TYPE} from '../config.js';
 class SlidesView {
     constructor() {
-        this._parentElement = document.querySelector('#Projects')
+        this._parent = document.querySelector('#Projects')
         this._slides = null;
         this._prevBtn = null;
         this._nextBtn = null;
@@ -130,9 +130,9 @@ class SlidesView {
         }, 400)
     }
     #handleTouchSlides() {
-        this._parentElement.addEventListener('touchstart', this.#touchStart.bind(this));
-        this._parentElement.addEventListener('touchmove', debounce(this.#touchMove.bind(this)), 400);
-        this._parentElement.addEventListener('touchend', this.#touchEnd.bind(this));
+        this._parent.addEventListener('touchstart', this.#touchStart.bind(this));
+        this._parent.addEventListener('touchmove', debounce(this.#touchMove.bind(this)), 400);
+        this._parent.addEventListener('touchend', this.#touchEnd.bind(this));
     }
     _animateSlides() {
         const animationQuestion = [...this._slidesContainer.children].every(

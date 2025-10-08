@@ -16,8 +16,8 @@ class Design extends SettingsView {
 	_prevSection = null;
 	_curSection = null;
 	_showDescBTN = document.querySelector("[data-bs-target='allTool']")
-	_parentElement = document.getElementById('myQA');
-	_descriptions = this._parentElement.getElementsByTagName('p');
+	_parent = document.getElementById('myQA');
+	_descriptions = this._parent.getElementsByTagName('p');
 	_settings = {}
     _offcanvas = document.querySelector('.offcanvas');
 	handleHover(e) {

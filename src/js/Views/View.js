@@ -33,7 +33,7 @@ export default class View {
 	}
 	/** Unsets parentElement to empty string */
 	_cleanup() {
-		this._parentElement.innerHTML = '';
+		this._parent.innerHTML = '';
 	}
 	/**
 	 * Rendering from Array into view.
@@ -44,7 +44,7 @@ export default class View {
 		if (Array.isArray(_data) && _data.length === 0) return this._renderError();
 		this._cleanup();
 		const markup = sanitizeHtml(this._generateMarkup(_data));
-		this._parentElement.insertAdjacentHTML('afterbegin', markup);
+		this._parent.insertAdjacentHTML('afterbegin', markup);
 	}
 	_update(_data) {
 		if (Array.isArray(_data) && _data.length === 0) {
@@ -56,12 +56,12 @@ export default class View {
 	#renderUpdatedData(_data) {
 		this._data = _data;
 		const dd = new DiffDOM();
-		const oldNode = this._parentElement.cloneNode(true)
+		const oldNode = this._parent.cloneNode(true)
 		const markup = sanitizeHtml(this._generateMarkup(_data));
-		const newNode = this._parentElement.cloneNode(false);
+		const newNode = this._parent.cloneNode(false);
 		newNode.innerHTML = markup;
 		const diff = dd.diff(oldNode, newNode);
-		dd.apply(this._parentElement, diff);
+		dd.apply(this._parent, diff);
 	}
 	//rendering msessage 
 	/**
@@ -186,7 +186,7 @@ export default class View {
 			}
 		}
 		this._cleanup();
-		this._parentElement.insertAdjacentHTML('afterbegin', messageMarkup);
+		this._parent.insertAdjacentHTML('afterbegin', messageMarkup);
 	}
 	/**
 	 * Renders a success message into the view based on the provided options.
@@ -218,7 +218,7 @@ export default class View {
 		}
 
 		this._cleanup();
-		this._parentElement.insertAdjacentHTML('afterbegin', successMessageMarkup);
+		this._parent.insertAdjacentHTML('afterbegin', successMessageMarkup);
 	}
 	//end
 	//error handling
@@ -237,7 +237,7 @@ export default class View {
 		const ul = document.querySelector('.alert-danger.list')
 		if (ul) ul.remove();
 		const lisMarkup = `<div class="alert alert-danger list" <ul > ${this._generateMarkup(lis)} </ul></div>`
-		this._parentElement.insertAdjacentHTML('afterbegin', lisMarkup)
+		this._parent.insertAdjacentHTML('afterbegin', lisMarkup)
 	}
 	//end
 	//spinner
@@ -254,7 +254,7 @@ export default class View {
             <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
         </div>`;
 		this._cleanup();
-		this._parentElement.insertAdjacentHTML('afterbegin', markup);
+		this._parent.insertAdjacentHTML('afterbegin', markup);
 	}
 	//end
 	//form
@@ -334,7 +334,7 @@ export default class View {
 	 * @returns {void}
 	 */
 	_closeAlert() {
-		this._parentElement.addEventListener('click', (e) => {
+		this._parent.addEventListener('click', (e) => {
 			const alert = e.target;
 			/**
 			 * Check if the clicked element is a button and if it is a child of an alert element.
@@ -357,7 +357,7 @@ export default class View {
 		}
 
 		const btnId = desc.dataset.btn;
-		const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
+		const btn = this._parent.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
 		if (btn) {
 			const isHidden = desc.classList.contains('d-none');
 			btn.textContent = isHidden ? 'Show description' : 'Hide description';

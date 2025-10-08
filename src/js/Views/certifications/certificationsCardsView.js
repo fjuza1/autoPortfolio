@@ -1,6 +1,6 @@
 import View from "../View.js";
 class CertificationsCardsView extends View {
-	_parentElement = document.getElementById('certificationsCards');
+	_parent = document.getElementById('certificationsCards');
   _err = "There are no certifications to display. Please adjust your filtering criteria.";
 	_certificationsMarkup(_data) {
 		this._data = _data;

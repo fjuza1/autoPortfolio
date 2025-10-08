@@ -95,6 +95,8 @@ export const TIMELINE_LAYOUT_SETTINGS = {
   },
     align: 'start',
     showCurrentTime: false,
+    showMajorLabels:false,
+    showMinorLabels:true,
     ...TIMELINE_SIZE_SETTINGS
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
@@ -113,11 +115,17 @@ export const TIMELINE_GROUP_SETTINGS = {
 export const TIMELINE_FORMAT_LABELS = {
   format: {
     minorLabels: {
-      month: 'MM'
+      day: 'DD',
+      month: 'MM',
+      year: 'YYYY'
     },
     majorLabels: {
+      weekday: 'MMMM YYYY',
+      day: 'MM YYYY',
+      month: 'YYYY',
       year: 'YYYY'
     }
   }
-}
+};
+
 export const DEFAULT_SETTINGS_OPTIONS = {displayErrorsInView: 'on', performanceTracking: 'on', errorTracking: 'on', navigationKeys:'on'}
