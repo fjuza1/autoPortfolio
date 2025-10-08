@@ -1,4 +1,5 @@
 import {TOAST_DURATION} from '../config.js'
+import * as Sentry from '@sentry/browser'
 import SettingsView from "./settingsView";
 class BrowserErrorsView extends SettingsView{
     _settings = {}
@@ -6,6 +7,7 @@ class BrowserErrorsView extends SettingsView{
         super();
         //this.settings = this._getSettings()
         this.#addHandlerLoadError();
+        this.#initSentry();
     }
     #addHandlerLoadError() {
         this._getSettings()
@@ -49,6 +51,12 @@ class BrowserErrorsView extends SettingsView{
                 type: 'error'
                 });
             });
+    }
+    #initSentry(){
+        Sentry.init({
+            dsn:process.env.SENTRY_KEY,
+            sendDefaultPii:true
+        })
     }
 }
 export default new BrowserErrorsView()
