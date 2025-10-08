@@ -55,7 +55,8 @@ class BrowserErrorsView extends SettingsView{
     #initSentry(){
         Sentry.init({
             dsn:process.env.SENTRY_KEY,
-            sendDefaultPii:true
+            sendDefaultPii:true,
+            skipBrowserExtensionCheck:true
         })
     }
 }
