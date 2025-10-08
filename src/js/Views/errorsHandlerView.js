@@ -53,10 +53,14 @@ class BrowserErrorsView extends SettingsView{
             });
     }
     #initSentry(){
+        if(!this._settings?.errorTracking) return
         Sentry.init({
             dsn:process.env.SENTRY_KEY,
             sendDefaultPii:true,
-            skipBrowserExtensionCheck:true
+            skipBrowserExtensionCheck:true,
+            integrations:[Sentry.replayIntegration()],
+            replaysSessionSampleRate: 1.0,
+            replaysOnErrorSampleRate: 1.0
         })
     }
 }
