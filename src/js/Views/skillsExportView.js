@@ -1,7 +1,7 @@
 import View from './View.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
-    _parentElement = document.querySelector('exportModal')
+    _parent = document.querySelector('exportModal')
     _exportContainer = document.querySelector("#export > div > form > div.content.d-none.mb-4")
     _exportState = document.querySelector('div[data-formerror="fileName"]');
     _fileType = document.querySelector('.content.d-none');

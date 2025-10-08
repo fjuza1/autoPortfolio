@@ -1,4 +1,4 @@
-import {DEFAULTOPTIONS} from '../config.js'
+import {DEFAULT_SETTINGS_OPTIONS} from '../config.js'
 import View from './View.js';
 export default class SettingsView extends View {
 	_form = document.getElementById('settingsForm');
@@ -9,10 +9,15 @@ export default class SettingsView extends View {
 	_firstSection = document.querySelector("#Home");
 	_selectedBTN = document.querySelector("#settingsForm > div > div.d-flex.justify-content-end > button");
     _offcanvas = document.querySelector('.offcanvas');
+	_settingsExists = false;
 	_resetSettings() {
 		this._formData = {};
 		this._savePreferences(this._formData)
 	};
+	_setSettingsExists() {
+		if(!this._formData) {this._settingsExists = true}
+		this._settingsExists = !this._formData
+	}
 	_getSettings = () => {
 		const settings = localStorage.getItem('settings');
 
@@ -27,10 +32,11 @@ export default class SettingsView extends View {
 			console.error("Invalid JSON in localStorage for 'settings':", settings, e);
 			this._settings = {};
 		}
+		this._setSettingsExists();
 	}
 	_savePreferences(preferences = this._formData) {
 		if (!preferences || typeof preferences !== "object") {
-			preferences = DEFAULTOPTIONS;
+			preferences = DEFAULT_SETTINGS_OPTIONS;
 		}
 		localStorage.setItem('settings', JSON.stringify(preferences));
 	}

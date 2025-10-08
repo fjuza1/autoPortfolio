@@ -4,9 +4,9 @@ class ToolboxView extends View {
 		super();
 		this.addHandlerHideShowDescription();
 	}
-	_parentElement = document.getElementById('myQA');
+	_parent = document.getElementById('myQA');
     #showAllBTN = document.querySelector("[data-bs-target='allTool']");
-    #cardDescriptions = this._parentElement.getElementsByTagName('p');
+    #cardDescriptions = this._parent.getElementsByTagName('p');
 	_generateQAToolboxMarkup = (_data) => {
 		//d-block d-md-none
 		this._data = _data;
@@ -54,7 +54,7 @@ class ToolboxView extends View {
 	}
 
 	const btnId = desc.dataset.btn;
-	const btn = this._parentElement.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
+	const btn = this._parent.querySelector(`button#${CSS.escape(btnId)}.btn-link`);
 	if (btn) {
 		const isHidden = desc.classList.contains('d-none');
 		btn.textContent = isHidden ? 'Show description' : 'Hide description';
@@ -83,13 +83,13 @@ class ToolboxView extends View {
 	// Single-card toggle
 	const btnID = target.id;
 	if (!btnID) return;
-	const desc = this._parentElement.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
+	const desc = this._parent.querySelector(`[data-btn="${CSS.escape(btnID)}"]`);
 	if (!desc) return;
 
 	this.#toggleCard(desc); // true toggle now works
 	};
 	addHandlerHideShowDescription() {
-		this._parentElement.addEventListener('click', this.#toggleDescription.bind(this));
+		this._parent.addEventListener('click', this.#toggleDescription.bind(this));
 		this.#showAllBTN.addEventListener('click', this.#toggleDescription.bind(this));
 	}
 }

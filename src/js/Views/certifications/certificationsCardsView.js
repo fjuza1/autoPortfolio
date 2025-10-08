@@ -1,6 +1,6 @@
 import View from "../View.js";
 class CertificationsCardsView extends View {
-	_parentElement = document.getElementById('certificationsCards');
+	_parent = document.getElementById('certificationsCards');
   _err = "There are no certifications to display. Please adjust your filtering criteria.";
 	_certificationsMarkup(_data) {
 		this._data = _data;
@@ -15,7 +15,7 @@ class CertificationsCardsView extends View {
           <h5 class="card-title mb-2">${certs.title}</h5>
           <p class="card-text mb-1"><strong>Platform: </strong>${certs.platform}</p>
           <p class="card-text mb-3"><strong>Instructor: </strong>${certs.instructor}</p>
-          <a href="${certs.cert_url}" target="_blank" rel="noopener noreferrer" 
+          <a href="${certs.cert_url}" target="_blank"" 
              class="btn btn-sm btn-outline-primary">
             View Certificate
           </a>

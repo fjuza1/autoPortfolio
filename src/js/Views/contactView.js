@@ -2,7 +2,7 @@ import View from './View.js';
 import {sendMail, validateEmail, capitalizeWord, gotoSegment} from '../helpers.js';
 import {EMAIL_SUCCESS_MESSAGE, EMAIL_FAILURE_MESSAGE} from '../config.js';
 class ContactView extends View {
-	_parentElement = document.getElementById('error-contact');
+	_parent = document.getElementById('error-contact');
 	_nav = document.querySelector('.nav')
 	_form = document.getElementById('contactForm');
 	_msg = EMAIL_SUCCESS_MESSAGE;
@@ -88,7 +88,7 @@ class ContactView extends View {
 	}
 	_handleErrors(errors) {
 		this._renderErrorList(errors);
-		gotoSegment(this._parentElement, this._nav);
+		gotoSegment(this._parent, this._nav);
 	}
 	_handleMailSendState(mailSendState) {
 		if (!mailSendState) {

@@ -236,6 +236,13 @@ export const sendMail = async (options) => {
         if (err instanceof EmailJSResponseStatus) throw err;
     }
 }
+/**
+ * Creates a shallow copy of an array of objects.
+ * Each object in the array is shallow-copied using object spread syntax.
+ *
+ * @param {Array<Object>} array - The array of objects to copy.
+ * @returns {Array<Object>} A new array with shallow-copied objects.
+ */
 export const copyArray = (array => array.map(mnt => ({ ...mnt })));
 export const getDatesIndexes = (data =>{
     return Object.values(data[0]).flatMap((val, idx) => {
@@ -249,6 +256,16 @@ export const getDatesIndexes = (data =>{
         return [];
     })
 })
+/**
+ * Maps an array of date objects to an array of key-value entry objects.
+ *
+ * For each object in the input array, it selects specific keys based on their indexes
+ * (as determined by the `getDatesIndexes` helper), and returns an array of objects
+ * with `key` and `value` properties.
+ *
+ * @param {Array<Object>} array - The array of objects to map.
+ * @returns {Array<{key: string, value: any}>} An array of key-value entry objects.
+ */
 export const mapDatesEntries = function (array) {
   if (!Array.isArray(array)) return [];
 
@@ -289,9 +306,23 @@ export const handleFileGeneration = async (blob) => {
  * capitalizeWord('world') // returns 'World'
  */
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
+/**
+ * Generates a unique identifier string.
+ *
+ * The ID is composed of the current timestamp (in base 36, padded to 8 characters),
+ * several random hexadecimal segments, and a version-like structure similar to UUID v4.
+ *
+ * @returns {string} A unique identifier string.
+ */
 export const uniqueID = () =>`${Date.now().toString(36).padEnd(8, '0')}-${Math.random().toString(16).slice(2, 6)}-4${Math.random().toString(16).slice(3, 6)}-${(8 + Math.random()*4 | 0).toString(16)}${Math.random().toString(16).slice(3, 6)}-${Math.random().toString(16).slice(2, 14)}`;
 export const escapeCSS = (str) => CSS.escape(str);
 // Scroll functions
+/**
+ * Scrolls the window to the top of the page.
+ *
+ * @function
+ * @returns {void}
+ */
 export const gotoTop = () => window.scrollTo(0, 0)
 export const gotoSegment = (domElement, nav) => {
     if (!domElement || !nav) return;
@@ -310,6 +341,16 @@ export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)
 }
 // object manipulation
+/**
+ * Removes a specified key from each object in an array or from a single object.
+ *
+ * @param {Object} options - The options object.
+ * @param {Array<Object>} [options.array] - An array of objects to omit the key from.
+ * @param {Object} [options.object] - A single object to omit the key from.
+ * @param {string} options.name - The key name to omit.
+ * @returns {Array<Object>|Object} The modified array or object with the specified key omitted.
+ * @throws {Error} If the options object does not contain exactly two keys.
+ */
 export const omitKey = (options = {}) => {
     if(Object.keys(options).length !== 2) throw new Error("Options accept only key one at time");
     const {array, object, name} = options;
@@ -369,6 +410,23 @@ export const objectToCSSClasses = (obj) => {
     return Object.values(obj)
     //.join(', ');
 }
+/**
+ * Calculates the screen coordinates (CSS class names) for a toast notification based on the given position.
+ *
+ * @param {string} position - The desired position of the toast. 
+ *   Possible values: 
+ *   - 'top-center'
+ *   - 'bottom-center'
+ *   - 'top-start'
+ *   - 'bottom-start'
+ *   - 'top-end'
+ *   - 'bottom-end'
+ *   - 'middle-center'
+ *   - 'middle-start'
+ *   - 'middle-end'
+ * @returns {Object} An object containing CSS class names for positioning the toast.
+ * @throws {Error} Throws an error if the position is invalid.
+ */
 export const calcToastPosition = (position) => {
     let screenCoords
     switch (position) {
@@ -445,6 +503,13 @@ export const calcToastPosition = (position) => {
     }
     return screenCoords;
 }
+/**
+ * Checks if the provided data is not included in the given array.
+ *
+ * @param {Array} array - The array to check against.
+ * @param {*} data - The data to check for presence in the array.
+ * @returns {boolean} Returns true if the data is NOT present in the array, otherwise false.
+ */
 export const notifyIncorrectData = (array, data) => !array.includes(data)
 /**
  * Sets options for an off-canvas component.
