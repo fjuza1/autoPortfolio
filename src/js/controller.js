@@ -223,6 +223,7 @@ const init = () => {
 	designView.addHandlerNavigateByKey();
 	designView._addHandlerFormReset(controllSettings)
 	popoutView._addHandleOpenModal(controllModals);
+	myUndefinedFunction();
 }
 init()
 // performance optimization
