@@ -26,14 +26,29 @@ class PopupView {
     _btnFilerCerts = document.querySelector('[data-bs-target="filterSortCerts"]')
     constructor() {
         this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
+        this._boundToggleOffcanvas = this.#toggleOffcanvas.bind(this)
+
+
+        this._boundHideSection = this.#hideSection.bind(this)
+        this._boundShowSection = this.#showSection.bind(this)
         this.#addHandlerToggleSection()
+
+
         this._addHandleOpenModal();
         this.#addHandleCloseModal();
+        this._boundToggleAccordion = this.#toggleAccordion.bind(this)
         this.#addHandleAccordion();
-        this.#handleTogglingMenu();
+
+        this._boundHandleTogglingMenu = this.#togglePrimaryMenu.bind(this)
+        this.#handleTogglingMenu()
+
+        this._boundShowMobileNav = this.#showMobileNav.bind(this)
+        this._boundHideMobileNav = this.#hideMobileNav.bind(this)
+        this._boundHideDropDownMenus = this.#hideDropDownMenus.bind(this)
         this.#addHandlerShowMobileNav();
         this.#handleTogglingOffcanvas();
         this.#addHandlerClick(this.#controllOffcanvas);
+        this._boundToggleTab = this.#toggleTab.bind(this)
         this.#addHandlerToggleTab()
     }
     /**
@@ -193,10 +208,10 @@ class PopupView {
 
         // If the target is a dropdown item, hide all dropdown menus
         if (isDropdownItem)
-            this.#hideDropDownMenus();
+            this._boundHideDropDownMenus();
         // If the target has a 'navlink' dataset, hide all dropdown menus
         else if (target.dataset.navlink)
-            this.#hideDropDownMenus();
+            this._boundHideDropDownMenus();
 
         // If the target is a closest element to a button or anchor
         if (closest) {
@@ -217,7 +232,7 @@ class PopupView {
                 const isCurrentlyOpen = expandedMenu.classList.contains('show');
 
                 // Hide all dropdown menus
-                this.#hideDropDownMenus();
+                this._boundHideDropDownMenus();
 
                 // If the expanded menu is not currently open, show it
                 if (!isCurrentlyOpen) {
@@ -227,7 +242,7 @@ class PopupView {
         }
         // If the target is not a dropdown toggle, hide all dropdown menus
         else if (!isDropdownToggle) {
-            this.#hideDropDownMenus();
+            this._boundHideDropDownMenus();
         }
     }
     #hideOffcanvas(e) {
@@ -331,9 +346,9 @@ class PopupView {
         document.addEventListener('click', handler.bind(this));
     }
     #handleTogglingOffcanvas() {
-        document.addEventListener('mouseup', this.#toggleOffcanvas.bind(this))
+        document.addEventListener('mouseup', this._boundToggleOffcanvas)
         this._offcanvasBTNS.forEach(btn => {
-            btn.addEventListener('click', this.#toggleOffcanvas.bind(this))
+            btn.addEventListener('click', this._boundToggleOffcanvas)
         });
     }
     #showMobileNav(e) {
@@ -343,16 +358,16 @@ class PopupView {
         if (this._mobileDropdownMenu.classList.contains('show')) removeClass(this._mobileDropdownMenu, 'show');
     }
     #addHandlerShowMobileNav() {
-        this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
-        window.addEventListener('resize', this.#hideMobileNav.bind(this));
-        document.addEventListener(SCROLL_TYPE, this.#hideMobileNav.bind(this));
-        document.addEventListener(SCROLL_TYPE, this.#hideDropDownMenus.bind(this));
+        this._mobileNav.addEventListener('click', this._boundShowMobileNav);
+        window.addEventListener('resize', this._boundHideMobileNav);
+        document.addEventListener(SCROLL_TYPE, this._boundHideMobileNav);
+        document.addEventListener(SCROLL_TYPE, this._boundHideDropDownMenus);
     }
     #handleTogglingMenu() {
-        document.addEventListener('click', this.#togglePrimaryMenu.bind(this))
+        document.addEventListener('click', this._boundHandleTogglingMenu.bind(this))
     }
     #addHandleAccordion() {
-        [this._modal].forEach(dom => dom.addEventListener('click', this.#toggleAccordion.bind(this)))
+        [this._modal].forEach(dom => dom.addEventListener('click', this._boundToggleAccordion))
     }
     /**
      * Opens or closes the modal window.
@@ -471,12 +486,12 @@ class PopupView {
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
     #addHandlerToggleTab() {
-        [this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this.#toggleTab.bind(this)));
+        [this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this._boundToggleTab));
     }
     //section evs
     #addHandlerToggleSection() {
-        [this._skillBtnGroup, this._btnFilerCerts].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
-        document.body.addEventListener('mouseup', this.#hideSection.bind(this));
+        [this._skillBtnGroup, this._btnFilerCerts].forEach(btn => btn.addEventListener('click', this._boundShowSection));
+        document.body.addEventListener('mouseup', this._boundHideSection);
     }
 }
 export default new PopupView();
