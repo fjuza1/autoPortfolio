@@ -12,7 +12,7 @@ class PopupView {
     _main = document.querySelector('main');
     _nav = document.getElementById('navbarsExample03');
     _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
-    _projectsModalToggle = document.querySelector("#Projects > div > div > div > div.d-flex.align-items-center.justify-content-start.mb-4 > button > svg")
+    _addModalToggle = document.querySelector("#Home > div > div.row.row-cols-1.g-2.ms-2.align-items-start > div.d-flex.justify-content-between.position-fixed.top-0.start-0.w-100.mt-5.px-3 > div > div > button")
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
@@ -26,15 +26,15 @@ class PopupView {
     _btnFilerCerts = document.querySelector('[data-bs-target="filterSortCerts"]')
     constructor() {
         this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
-        this.#addHandlerToggleSection()
+        //this.#addHandlerToggleSection()
         this._addHandleOpenModal();
         this.#addHandleCloseModal();
         this.#addHandleAccordion();
         this.#handleTogglingMenu();
-        this.#addHandlerShowMobileNav();
-        this.#handleTogglingOffcanvas();
-        this.#addHandlerClick(this.#controllOffcanvas);
-        this.#addHandlerToggleTab()
+        //this.#addHandlerShowMobileNav();
+        //this.#handleTogglingOffcanvas();
+        //this.#addHandlerClick(this.#controllOffcanvas);
+        //this.#addHandlerToggleTab()
     }
     /**
      * Description placeholder
@@ -448,7 +448,7 @@ class PopupView {
      * });
      */
     _addHandleOpenModal(handler) {
-        [this._projectsModalToggle].forEach(btn => {
+        [this._addModalToggle].forEach(btn => {
             btn.addEventListener('click', (e) => {
                 const dataModal = e.target.closest('button');
                 const modalDataset = dataModal.dataset;

@@ -12,9 +12,9 @@ class SkillsExportView extends View {
     _isPrimaryBTN = false;
     constructor() {
         super();
-        this._revealNameEvent();
-        this.#errorRemoveEvent();
-        this.#handlerSelectedBTN();
+        //this._revealNameEvent();
+        //this.#errorRemoveEvent();
+        //this.#handlerSelectedBTN();
     }
     _cleanupModal() {
         this._modal.innerHTML = '';

@@ -7,7 +7,6 @@ class BrowserErrorsView extends SettingsView{
         super();
         //this.settings = this._getSettings()
         this.#addHandlerLoadError();
-        this.#initSentry();
     }
     #addHandlerLoadError() {
         this._getSettings()
@@ -51,13 +50,6 @@ class BrowserErrorsView extends SettingsView{
                 type: 'error'
                 });
             });
-    }
-    #initSentry(){
-        Sentry.init({
-            dsn:process.env.SENTRY_KEY,
-            sendDefaultPii:true,
-            skipBrowserExtensionCheck:true
-        })
     }
 }
 export default new BrowserErrorsView()
