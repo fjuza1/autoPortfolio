@@ -7,7 +7,7 @@ import * as model from './model.js';
 import paginationView from './Views/paginationView.js';
 import popoutView from './Views/popoutView.js';
 import skillsView from './Views/skillsView.js';
-import skillsExportView from './Views/skillsExportView.js';
+import exportView from './Views/exportView.js';
 import browserErrorsView from './Views/errorsHandlerView.js'
 const controllModals = () =>{};
 const controllResetSkills = () =>{};
@@ -18,7 +18,7 @@ const init = () => {
 	//skillsView._addHandlerFormReset(controllResetSkills);
 	//skillsView._addFilterSkillsHandler(controllFilterSkills);
 	//skillsView._addHandlerSubmit(controllSortedSkills);
-	//skillsExportView._addHandlerSubmit(controllSkillsExport);
+	//exportView._addHandlerSubmit(controllSkillsExport);
 	popoutView._addHandleOpenModal(controllModals);
 }
 init()

@@ -2,8 +2,7 @@ import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
 import {removeClass, setCanvasOffOptions, escapeCSS } from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
-    _skillBtnGroup = document.getElementById('skillBtnGroup');
-    _certsBtnGroup = document.getElementById('certsBtnGroup');
+    _filterDataBTN = document.querySelector('[data-bs-target="filterData"]')
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
@@ -12,7 +11,7 @@ class PopupView {
     _main = document.querySelector('main');
     _nav = document.getElementById('navbarsExample03');
     _exportModalToggle = document.querySelector('button[data-toggle="modal"]')
-    _addModalToggle = document.querySelector("#Home > div > div.row.row-cols-1.g-2.ms-2.align-items-start > div.d-flex.justify-content-between.position-fixed.top-0.start-0.w-100.mt-5.px-3 > div > div > button")
+    _addModalToggle = document.querySelector('[aria-controls="addData"]')
     _modal = document.getElementById('modalCenter');
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
@@ -26,7 +25,7 @@ class PopupView {
     _btnFilerCerts = document.querySelector('[data-bs-target="filterSortCerts"]')
     constructor() {
         this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
-        //this.#addHandlerToggleSection()
+        this.#addHandlerToggleSection()
         this._addHandleOpenModal();
         this.#addHandleCloseModal();
         this.#addHandleAccordion();
@@ -393,9 +392,11 @@ class PopupView {
         this._modal.style.display = 'none';
         removeClass(this._modal, 'show');
         // restore to auto if not has hidden
+        /*
         if (this._body.style.overflow !== 'hidden') {
             this._body.style.overflow = 'auto';
-        }
+        }*/
+        this._body.style.overflow = 'auto';
         this._modal.innerHTML = '';
     }
 
@@ -475,7 +476,7 @@ class PopupView {
     }
     //section evs
     #addHandlerToggleSection() {
-        [this._skillBtnGroup, this._btnFilerCerts].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
+        [this._filterDataBTN].forEach(btn => btn.addEventListener('click', this.#showSection.bind(this)));
         document.body.addEventListener('mouseup', this.#hideSection.bind(this));
     }
 }
