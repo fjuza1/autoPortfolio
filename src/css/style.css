@@ -1,0 +1,175 @@
+@import "./bootstrap.min.css";
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+}
+footer {
+  position: relative;
+  width: 100%;
+  height: 100px;
+  overflow: hidden; 
+  margin-top: 20px; 
+}
+#About,
+#Skills,
+#Projects,
+#Contact,
+#Journey,
+#Myqatoolbox,
+#Certifications {
+  width: 98vw;                /* almost full width */
+  max-width: none;            /* remove Bootstrap container limits */
+  margin: 2rem auto;          /* center with spacing top/bottom */
+  padding: 2rem;
+
+  min-height: 95vh;           /* almost full screen height */
+  background-color: #f9f9f9;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  transition: opacity .8s ease, transform .8s ease, box-shadow .3s ease;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#About:hover,
+#Skills:hover,
+#Projects:hover,
+#Contact:hover,
+#Journey:hover,
+#Myqatoolbox:hover,
+#Certifications:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+.btn-primary-transparent {
+  background-color: transparent;
+  border:none
+}
+.lazy-img {
+  filter: blur(20px);
+}
+.toast-error {
+  background-color: #f8d7da; 
+  color: #842029;
+  border: 1px solid #f5c2c7; /* matches .alert-danger */
+}
+.toast-info {
+  background-color: #cff4fc;
+  color: #055160;
+  border: 1px solid #b6effb; /* matches .alert-info */
+}
+.toast-warning {
+  background-color: #fff3cd; 
+  color: #664d03;
+  border: 1px solid #ffecb5; /* matches .alert-warning */
+}
+.toast-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc; /* matches .alert-success */
+}
+section {
+  opacity: 1;
+  padding: 60px 0;
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+}
+.section.section--hidden{
+  opacity:0;
+}
+#skillBtnGroup {
+  margin-left: -20px;
+}
+.close{
+  position: absolute; top: 5px; 
+  right: 10px; 
+  outline: none; 
+  border: none; 
+  background: transparent;
+}
+#modalCenter {
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black */
+  backdrop-filter: blur(3px); /* Blur effect */
+  z-index: 1050; /* Adjust if needed to ensure it sits below the modal */
+  backface-visibility: hidden; /* Prevent rendering issues */
+  transform: translateZ(0); /* Force GPU rendering for smoother effects */
+}
+.carousel-inner {
+  animation: nextSlideAnimation 2s infinite;
+}
+@keyframes nextSlideAnimation {
+  from { opacity: 1; }
+  to { opacity: 0.9; }
+}
+.pagination {
+  cursor: pointer;
+}
+#Projects .carousel-inner {
+  height: 86vh;
+}
+
+#Projects .carousel-item {
+  height: 100%;
+}
+.bi.bi-zoom-out.float-start{
+  cursor: pointer;
+}
+#Projects .carousel img {
+  max-height: 100%;
+  width: auto; 
+  margin: 0 auto; 
+}
+.carousel > .carousel-inner > .carousel-item{
+  height:50vh
+}
+#secondary-navigation > div{
+  margin-top: 8px;
+  width: 100vw;
+}
+[role="listbox"]{
+  height:80dvh !important;
+}
+.outlineField {
+  border: 2px solid red !important;
+}
+#mobileDropdownMenu {
+  font-size: 1em; /* Default font size for links */
+}
+
+#mobileDropdownMenu .dropdown-header {
+  font-size: 1.05em; /* Slightly larger than the links but not too big */
+  font-weight: bold; /* Optional: to make the header stand out */
+}
+
+#mobileDropdownMenu a:hover{
+  background-color: rgb(206, 203, 203)
+}
+.align-left{
+  left: 0 !important;
+  right: auto !important;
+}
+.align-right{
+  right: 0 !important;
+  left: auto !important;
+}
+.vis-item-content span {
+  white-space: normal; /* Allow wrapping */
+  word-wrap: break-word; /* Wrap long words */
+  overflow-wrap: break-word; /* Standardized word wrapping */
+  text-align: center; /* Center-align the text */
+}
+.bi-info-circle-fill{
+  cursor: pointer;
+}
+[data-bs-theme="dark"] section button.btn {
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
+}
+.btn-toast.btn-close {
+  --bs-btn-close-color: currentColor;
+  color: inherit;
+  filter: none;
+}
+[data-bs-theme="dark"] section {
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
+}

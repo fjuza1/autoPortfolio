@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.emailjs.com https://*.sentry.io; style-src 'self' 'unsafe-inline'; object-src 'none'; form-action 'self'; upgrade-insecure-requests; img-src 'self' data:;">
+    <meta name="robots" content="index, follow">
+    <title>QA Automation Portfolio - Filip Juza</title>
+    <link rel="stylesheet" href="./src/css/style.css">
+    <script defer src="/src/js/controller.js" type="module" charset="utf-8"></script>
+  </head>
+  <body>
+    <div id="modalCenter" class="modal fade" tabindex="1;" role="dialog" aria-labelledby="exampleModalCenterTitle" style="display:none"></div>
+    <div class="toast-container p-3"></div>
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark" aria-label="Third navbar example">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">Portfolio - Admin center</a>
+        <div class="dropdown" id="secondary-navigation">
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mobileDropdownMenu" aria-controls="navbarsExample03" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon" id="mobileNav"></span>
+          </button>
+        </div>
+      </div>
+    </nav>
+    <main id="main">
+      <section id="Home" style="min-height: 100vh; display: flex;">
+        <div class="container">
+          <div class="d-flex flex-column justify-content-start align-items-start">
+            <h1 class="masthead-heading">Admin center</h1>
+          </div>
+          <div class="row align-items-start">
+            <div class="d-flex justify-content-between w-100 mt-2">
+              <!-- Filter button (left) -->
+              <button class="btn btn-link p-0" data-bs-target="filterData" aria-label="Filter">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-filter" viewBox="0 0 16 16">
+                  <path d="M6 10.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 0 1h-3a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m-2-3a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 0 1h-11a.5.5 0 0 1-.5-.5" />
+                </svg>
+              </button>
+              <!-- Add button (right) -->
+              <div class="fs-4 mb-3">
+                <button class="btn btn-link p-0" data-toggle="modal" aria-controls="addData" aria-label="Add">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus-lg" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2"></path>
+                  </svg>
+                </button>
+              </div>
+            </div>
+            <!-- modal add data -->
+            <div class="justify-content-start align-items-start d-none">
+              <div class="container my-5">
+                <div class="row justify-content-center">
+                  <div class="col-lg-8">
+                    <div class="card shadow-lg">
+                      <div class="card-body p-5">
+                        <h1 class="text-center mb-4">Portfolio Insert Form</h1>
+                        <form id="portfolioForm">
+                          <div class="mb-3">
+                            <label for="name" class="form-label">Full Name</label>
+                            <div class="input-group">
+                              <span class="input-group-text">
+                                <i class="fas fa-user"></i>
+                              </span>
+                              <input type="text" class="form-control" id="name" required>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="email" class="form-label">Email Address</label>
+                            <div class="input-group">
+                              <span class="input-group-text">
+                                <i class="fas fa-envelope"></i>
+                              </span>
+                              <input type="email" class="form-control" id="email" required>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="phone" class="form-label">Phone Number</label>
+                            <div class="input-group">
+                              <span class="input-group-text">
+                                <i class="fas fa-phone"></i>
+                              </span>
+                              <input type="tel" class="form-control" id="phone" required>
+                            </div>
+                          </div>
+                          <div class="mb-3">
+                            <label for="projectDescription" class="form-label">Project Description</label>
+                            <textarea class="form-control" id="projectDescription" rows="4" required></textarea>
+                          </div>
+                          <div class="mb-3">
+                            <label for="portfolioFile" class="form-label">Upload Portfolio</label>
+                            <input type="file" class="form-control" id="portfolioFile" accept=".pdf,.doc,.docx" required>
+                          </div>
+                          <div class="mb-3">
+                            <label for="skills" class="form-label">Skills (comma-separated)</label>
+                            <input type="text" class="form-control" id="skills" required>
+                          </div>
+                          <div class="text-center">
+                            <button type="submit" class="btn btn-primary btn-lg px-5">Submit</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <footer class="py-3 my-4">
+      <div class="container">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+          <li class="nav-item">
+            <a href="https://www.linkedin.com/in/filip-juza-939a4330a/" class="nav-link px-2 text-body-secondary">LinkedIn</a>
+          </li>
+          <li class="nav-item">
+            <a href="https://github.com/fjuza1" class="nav-link px-2">GitHub</a>
+          </li>
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>

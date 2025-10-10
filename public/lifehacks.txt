@@ -1,0 +1,12 @@
+
+npm i -g npm-check-updates && ncu -u && npm i
+
+What is happening here?
+
+Installing a package that checks updates for you.
+
+Use this package to update all package versions in your package.json (-u is short for --updateAll).
+
+Install all of the new versions of the packages.
+
+https://stackoverflow.com/questions/16525430/npm-check-and-update-package-if-needed
