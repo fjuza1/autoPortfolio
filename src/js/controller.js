@@ -172,7 +172,7 @@ const controllSkillsExport = async () => {
 	}
 }
 // project part
-const controllModals = () => {
+const controllProjects = () => {
 	model.getProjectDemos();
 	// demo data model.state.projectDemo
 	projectsView._renderProjectModal(model.state.projectDemos)
@@ -224,7 +224,7 @@ const init = () => {
 	designView.addHandlerLoad(controllSettings);
 	designView.addHandlerNavigateByKey();
 	designView._addHandlerFormReset(controllSettings)
-	popoutView._addHandleOpenModal(controllModals);
+	popoutView._addHandleOpenModal(controllProjects);
 }
 init()
 // performance optimization
