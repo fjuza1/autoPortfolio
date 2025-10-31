@@ -404,7 +404,14 @@ try {
  */
 export const toFile = async (options) => {
     try {
-        const array = options.array
+        const array = options.array.map(skill=>{
+            return {
+                name: skill.name,
+                level: skill.level,
+                category: skill.category
+                
+            }
+        })
         const errors = [];
         let content;
         let textType;
@@ -436,6 +443,7 @@ export const toFile = async (options) => {
             }
                 break;
             case EXPORT_WHITELIST[2]:
+                console.log(toCsv(array));
                 content = toCsv(array);
                 const contentCSV = await isCSV(content);
                 if(contentCSV === false) return;
