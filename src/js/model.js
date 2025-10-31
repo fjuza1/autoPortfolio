@@ -415,6 +415,7 @@ export const toFile = async (options) => {
         const errors = [];
         let content;
         let textType;
+        console.log(array);
         if (!array) throw new Error(ERROR_ARRAY_MISSING);
         if (options.fileName.trim().length === 0) errors[errors.length] = {
             message: ERROR_MISSING_FILENAME,
@@ -427,7 +428,7 @@ export const toFile = async (options) => {
         switch (options.fileType) {
             case EXPORT_WHITELIST[0]:
                 content = toXml(array)
-                const contentXML = await isXML(content);
+                const contentXML = isXML(content);
                 if(!contentXML) return;
                 textType = {
                     type: `${XML_TYPE}; ${DEFAULT_ENCODING}`
@@ -435,7 +436,7 @@ export const toFile = async (options) => {
                 break;
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
-                const contentJSON = await isJSON(content);
+                const contentJSON = isJSON(content);
                 if(contentJSON) {
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
@@ -444,7 +445,7 @@ export const toFile = async (options) => {
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
-                const contentCSV = await isCSV(content);
+                const contentCSV = isCSV(content);
                 if(contentCSV === false) return;
                 textType = {
                     type: `${CSV_TYPE}; ${DEFAULT_ENCODING}`

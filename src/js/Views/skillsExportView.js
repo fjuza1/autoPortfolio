@@ -21,7 +21,7 @@ class SkillsExportView extends View {
     }
     #handlerSelectedBTN (){
         this._form.addEventListener('click',(e)=>{
-           this._isPrimaryBTN = e.target.classList.contains('btn-primary');
+           this._isPrimaryBTN = e.target.closest('button')?.classList.contains('btn-primary');
         })
     };
     _changeType() {

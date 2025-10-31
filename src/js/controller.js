@@ -137,6 +137,7 @@ const controllSkillsExport = async () => {
 				model.state.skills :
 				model.state.search.skills
 		}
+		console.log(array.array);
 		const options = {
 			...array,
 			...skillsExportView._formData
