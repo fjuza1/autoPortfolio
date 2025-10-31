@@ -279,6 +279,24 @@ export const state = {
     ],
     certifications: [
         {
+            platform: 'ISTQB',
+            title: 'ISTQB Foundation Level 4.0',
+            instructor: 'ISTQB - CASQB',
+            date_obtained: '2025-02-14',
+            date_started: '2024-08-01',
+            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
+            length: '1 hour 15 minutes'
+        },
+        {
+            platform: 'Microsoft',
+            title: 'Microsoft Certified: Power Platform Fundamentals',
+            instructor: 'Microsoft',
+            date_obtained: '2025-10-22',
+            date_started: '2025-08-01',
+            cert_url: 'https://learn.microsoft.com/en-us/users/filipjuza-3924/credentials/certification/power-platform-fundamentals?tab=credentials-tab',
+            length: '1 hour'
+        },
+        {
             platform: 'Udemy',
             title: 'Microsoft Excel - Excel from Beginner to Advanced',
             instructor: 'Jonas Schmedtmann',
@@ -322,15 +340,6 @@ export const state = {
             date_started: '2024-09-30',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
             length: '14.5 hours'
-        },
-        {
-            platform: 'ISTQB',
-            title: 'ISTQB Foundation Level 4.0',
-            instructor: 'ISTQB - CASQB',
-            date_obtained: '2025-02-14',
-            date_started: '2021-08-01',
-            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
-            length: '1 hour 15 minutes'
         }
     ]
 }
@@ -415,7 +424,6 @@ export const toFile = async (options) => {
         const errors = [];
         let content;
         let textType;
-        console.log(array);
         if (!array) throw new Error(ERROR_ARRAY_MISSING);
         if (options.fileName.trim().length === 0) errors[errors.length] = {
             message: ERROR_MISSING_FILENAME,
