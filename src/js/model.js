@@ -443,7 +443,6 @@ export const toFile = async (options) => {
             }
                 break;
             case EXPORT_WHITELIST[2]:
-                console.log(toCsv(array));
                 content = toCsv(array);
                 const contentCSV = await isCSV(content);
                 if(contentCSV === false) return;
