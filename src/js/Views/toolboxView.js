@@ -26,18 +26,12 @@ class ToolboxView extends View {
 				<h5 class="text-uppercase fw-bold mb-1 text-break w-100">
 				${qaTool.name}
 				</h5>
-				<button 
-				type="button" 
-				class="btn btn-link p-0 small text-primary"
-				id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
-				Show description
-				</button>
+				${qaTool.description ? `<button type="button" class="btn btn-link p-0 small text-primary"id="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">Show description</button>` :''}
 			</div>
 			</div>
-
 			<p class="small text-center mb-0 d-none mt-2"
 			data-btn="${qaTool.name.toLowerCase().replaceAll(" ", "-")}">
-			${qaTool.description}
+			${qaTool.description ? qaTool.description: ''}
 			</p>
 		</div>
 		</div>
@@ -45,6 +39,7 @@ class ToolboxView extends View {
 		;
 		})
 	}
+
 	#toggleCard = (desc, hide) => {
 	// Proper toggle: if 'hide' is boolean, force it; else truly toggle
 	if (typeof hide === 'boolean') {

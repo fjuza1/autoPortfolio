@@ -54,10 +54,13 @@ export const IMGS = {
   CYPRESS_LOGO: new URL('../img/Cypress.png', import.meta.url).toString(),
   ECLIPSE_IDE_LOGO: new URL('../img/Eclipse IDE Icon.png', import.meta.url).toString(),
   MSSQL_IDE_LOGO: new URL('../img/Microsoft SQL Server.png', import.meta.url).toString(),
-  MS_VISUAL_LOGO: new URL('../img/Microsoft Visual Studio.png', import.meta.url).toString(),
   POSTMAN: new URL('../img/Postman API Platform.png', import.meta.url).toString(),
   TFS: new URL('../img/tfs.jpg', import.meta.url).toString(),
   SOAPUI: new URL('../img/Smartbear Horizontal.png', import.meta.url).toString(),
+  MPA:new URL('../img/Microsoft_Power_Automate.svg', import.meta.url).toString(),
+  MPowerApps:new URL('../img/Powerapps-logo.svg', import.meta.url).toString(),
+  EA: new URL('../img/enterprise-architect-seeklogo.png',import.meta.url).toString(),
+  VSCODE: new URL('../img/Visual_Studio_Code.svg',import.meta.url).toString(),
   BLANKPIC: new URL('../img/Blank pic.svg', import.meta.url).toString(),
 };
 export const IMGS_TINY = {

@@ -55,7 +55,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: IMGS.BLANKPIC,
+        imgPath: IMGS.MPowerApps,
         description:null
     },
     {
@@ -63,7 +63,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: IMGS.BLANKPIC,
+        imgPath: IMGS.MPA,
         description:null
     },
     {
@@ -111,7 +111,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: IMGS.BLANKPIC,
+        imgPath: IMGS.EA,
         description:"Enterprise Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
     },
     {
@@ -158,7 +158,7 @@ export const state = {
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
         category: CATEGORIES[0],
-        imgPath: IMGS.MS_VISUAL_LOGO,
+        imgPath: IMGS.VSCODE,
         description: 'Microsoft Visual Studio Code is a lightweight and powerful code editor that supports multiple programming languages. It provides features like syntax highlighting, debugging, and extensions, making it a popular choice for developers.'
     }, {
         name: 'Microsoft SQL Servers Studio',
@@ -199,11 +199,12 @@ export const state = {
         {year:'2023', content:'Ended Udemy online course in JavaScript.'},
         {year:'2024', content:'Learned automating E2E tests using Cypress.'},
         {year:'2024', content:'Started using Cypress for automating E2E tests.'},
-        {year:'2025', content:'Started studying for ISTQB Foundation Level 4.0 certification.'},
-        {year:'2025', content:'Gained ISTQB Foundation Level 4.0 certification on 14.2.2025.'},
+        {year:'2025', content:'Started studying for ISTQB Foundation Level 4.0 Certification.'},
+        {year:'2025', content:'Gained ISTQB Foundation Level 4.0 Certification on 14.2.2025.'},
         {year:'2025', content:'Started learning Typescript in July.'},
         {year:'2025', content:'Finished learning Typescript in July.'},
-        {year:'2025', content:'Started learning for pl-900 in mid July.'}
+        {year:'2025', content:'Started learning for pl-900 in mid July.'},
+        {year:'2025', content:'Gained Microsoft Certified: Power Platform Fundamentals Certification in October 2025.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
@@ -279,6 +280,24 @@ export const state = {
     ],
     certifications: [
         {
+            platform: 'ISTQB',
+            title: 'ISTQB Foundation Level 4.0',
+            instructor: 'ISTQB - CASQB',
+            date_obtained: '2025-02-14',
+            date_started: '2024-08-01',
+            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
+            length: '1 hour 15 minutes'
+        },
+        {
+            platform: 'Microsoft',
+            title: 'Microsoft Certified: Power Platform Fundamentals',
+            instructor: 'Microsoft',
+            date_obtained: '2025-10-22',
+            date_started: '2025-08-01',
+            cert_url: 'https://learn.microsoft.com/en-us/users/filipjuza-3924/credentials/certification/power-platform-fundamentals?tab=credentials-tab',
+            length: '1 hour'
+        },
+        {
             platform: 'Udemy',
             title: 'Microsoft Excel - Excel from Beginner to Advanced',
             instructor: 'Jonas Schmedtmann',
@@ -322,15 +341,6 @@ export const state = {
             date_started: '2024-09-30',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
             length: '14.5 hours'
-        },
-        {
-            platform: 'ISTQB',
-            title: 'ISTQB Foundation Level 4.0',
-            instructor: 'ISTQB - CASQB',
-            date_obtained: '2025-02-14',
-            date_started: '2021-08-01',
-            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
-            length: '1 hour 15 minutes'
         }
     ]
 }
@@ -415,7 +425,6 @@ export const toFile = async (options) => {
         const errors = [];
         let content;
         let textType;
-        console.log(array);
         if (!array) throw new Error(ERROR_ARRAY_MISSING);
         if (options.fileName.trim().length === 0) errors[errors.length] = {
             message: ERROR_MISSING_FILENAME,
