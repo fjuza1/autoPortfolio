@@ -9,11 +9,32 @@ export default class SettingsView extends View {
 	_firstSection = document.querySelector("#Home");
 	_selectedBTN = document.querySelector("#settingsForm > div > div.d-flex.justify-content-end > button");
     _offcanvas = document.querySelector('.offcanvas');
+	_submitSettingsBTN = this._form.querySelector('button[type="submit"]');
+	_resetSettingsBTN = this._form.querySelector('button[type="reset"]')
+	_settingsChanged = false;
 	_settingsExists = false;
 	_resetSettings() {
-		this._formData = {};
+		this._settingsExists = true
+		this._formData = DEFAULT_SETTINGS_OPTIONS;
 		this._savePreferences(this._formData)
 	};
+	#settingsChanged (){
+		const originalSettingsSet = new Set(Object.values(DEFAULT_SETTINGS_OPTIONS ?? {}));
+		const currentSettingsSet = new Set(Object.values(this._formData ?? {}))
+		const settingsDifference = currentSettingsSet.difference(originalSettingsSet);
+		this._settingsChanged = Object.values(settingsDifference).length > 0;
+		console.log(this._settingsChanged);
+	}
+	_disableBTN() {
+		this.#settingsChanged();
+		if(this._settingsChanged){
+			this._submitSettingsBTN.setAttribute('disabled', 'true');
+			this._resetSettingsBTN.removeAttribute('disabled');
+		} else{
+			this._submitSettingsBTN.removeAttribute('disabled');
+			this._resetSettingsBTN.setAttribute('disabled', 'false');
+		}
+	}
 	_setSettingsExists() {
 		if(!this._formData) {this._settingsExists = true}
 		this._settingsExists = !this._formData
