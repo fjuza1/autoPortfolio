@@ -60,7 +60,7 @@ class ToolboxView extends View {
 	const target = e.target.closest('button.btn-link');
 	if (!target) return;
 
-	const isAllBtn = target.dataset.btn === 'allTool';
+	const isAllBtn = target.dataset.bsTarget === 'allTool';
 	if (isAllBtn) {
 		const descriptions = Array.from(this.#cardDescriptions);
 		if (!descriptions.length) return;
