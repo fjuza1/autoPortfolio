@@ -205,14 +205,18 @@ const init = () => {
 	controllNavBar();
 	controlSections();
 	designView.addHandleClickIntoSection();
-	designView.addHandlerLoad(designView._getPreferences());
+	// Pass function references instead of invoking them. The view's
+	// `addHandlerLoad` now binds handlers to the instance.
+	designView.addHandlerLoad(designView._getPreferences);
 	designView.addHandlerLoad(designView.scrollIntoSection);
 	skillsView._addHandlerFormReset(controllResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	skillsExportView.addHandlerLoad(skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}))
+	// Do not call _disableBTN when registering — pass a function that
+	// runs on load (the view will bind handlers if needed).
+	skillsExportView.addHandlerLoad(() => skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}));
 	designView._addHandlerSubmit(controllSettings);
 	designView.addHandlerLoad(controllSettings);
 	designView.addHandlerNavigateByKey();

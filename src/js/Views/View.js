@@ -302,7 +302,10 @@ export default class View {
 	}
 	//end
 	addHandlerLoad(handler) {
-		window.addEventListener('load', handler);
+		// Ensure handlers are executed with the view instance as `this`.
+		// If a caller passes an already-bound function or an arrow function,
+		// binding has no effect and is safe.
+		window.addEventListener('load', handler.bind(this));
 	}
 	//form
 	_addHandlerSubmit(handler) {
