@@ -53,9 +53,12 @@ const controlCertifications = () => {
 }
 const loadAndRenderContent = () => {
 	// handle generation
-	handlePagination(model.state.skills, (data) => {
+	paginationView._handlePagination(model.state.skills, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data))
 	})
+	// paginationView._handlePagination(model.state.certifications, (data) =>{
+	// 	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(data))
+	// })
 	// projects
 	projectsView._update(projectsView._renderSlidesMarkup({
 		array: model.state.projects,
@@ -70,18 +73,6 @@ const loadAndRenderContent = () => {
 	});
 	toolboxView._update(toolboxView._generateQAToolboxMarkup(model.state.search.tools));;
 	controlCertifications();
-}
-// pagination basic
-const handlePagination = (dataSource, callback) => {
-	const paged = model.loadMore(dataSource)
-	paginationView._update(paged)
-	callback(paged.data)
-
-	paginationView.addHandlerPagination((data) => {
-		const updated = model.loadMore(dataSource, data)
-		paginationView._update(updated)
-		callback(updated.data)
-	})
 }
 // controlling Personal sections
 
@@ -98,7 +89,7 @@ const controllSortedSkills = () => {
 	model.sortingSkills(options);
 	skillsExportView._disableBTN(model.state.search.isFiltered)
 	timeout(() => {
-		handlePagination(model.state.search.skills, (data) => {
+		paginationView._handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -110,7 +101,7 @@ const controllResetSkills = () => {
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
-	handlePagination(original, (data) => {
+	paginationView._handlePagination(original, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data));
 	});
 };
@@ -125,7 +116,7 @@ const controllFilterSkills = () => {
 	model.state.search.isFiltered = model.state.search.skills.length > 0;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	timeout(() => {
-		handlePagination(model.state.search.skills, (data) => {
+		paginationView._handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
