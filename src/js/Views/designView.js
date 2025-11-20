@@ -340,7 +340,9 @@ class Design extends SettingsView {
 		this._navBar.addEventListener('mouseout', handler.bind(1));
 	}
 	addHandlerLoad(handler) {
-		window.addEventListener(LOAD_TYPE, handler);
+		// Bind handlers to this instance so methods that rely on `this`
+		// (like `scrollIntoSection`) work correctly when registered.
+		window.addEventListener(LOAD_TYPE, handler.bind(this));
 	}
 }
 export default new Design();

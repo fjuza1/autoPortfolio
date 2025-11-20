@@ -1,4 +1,5 @@
 import View from './View.js';
+import {loadMore} from '../model.js';
 class PaginationView extends View {
     _parent = document.querySelector('.pagination');
     /**
@@ -41,6 +42,17 @@ class PaginationView extends View {
             markup = ''
         }
         return [markup]
+    }
+    _handlePagination = (dataSource, callback) => {
+        const paged = loadMore(dataSource)
+        this._update(paged)
+        callback(paged.data)
+
+        this.addHandlerPagination((data) => {
+            const updated = loadMore(dataSource, data)
+            this._update(updated)
+            callback(updated.data)
+        })
     }
 }
 export default new PaginationView();

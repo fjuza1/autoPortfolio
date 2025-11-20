@@ -16,6 +16,7 @@ import contactView from './Views/contactView.js';
 import toolboxView from './Views/toolboxView.js';
 import certificationsView from './Views/certifications/certificationsView.js'
 import certificationsCardsView from './Views/certifications/certificationsCardsView.js'
+import settingsView from './Views/settingsView.js'
 import browserErrorsView from './Views/errorsHandlerView.js'
 //console.log("TCL: toolboxView", toolboxView)
 // filterTools({name: true, values: NONQATOOLS})
@@ -53,9 +54,12 @@ const controlCertifications = () => {
 }
 const loadAndRenderContent = () => {
 	// handle generation
-	handlePagination(model.state.skills, (data) => {
+	paginationView._handlePagination(model.state.skills, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data))
 	})
+	// paginationView._handlePagination(model.state.certifications, (data) =>{
+	// 	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(data))
+	// })
 	// projects
 	projectsView._update(projectsView._renderSlidesMarkup({
 		array: model.state.projects,
@@ -70,18 +74,6 @@ const loadAndRenderContent = () => {
 	});
 	toolboxView._update(toolboxView._generateQAToolboxMarkup(model.state.search.tools));;
 	controlCertifications();
-}
-// pagination basic
-const handlePagination = (dataSource, callback) => {
-	const paged = model.loadMore(dataSource)
-	paginationView._update(paged)
-	callback(paged.data)
-
-	paginationView.addHandlerPagination((data) => {
-		const updated = model.loadMore(dataSource, data)
-		paginationView._update(updated)
-		callback(updated.data)
-	})
 }
 // controlling Personal sections
 
@@ -98,7 +90,7 @@ const controllSortedSkills = () => {
 	model.sortingSkills(options);
 	skillsExportView._disableBTN(model.state.search.isFiltered)
 	timeout(() => {
-		handlePagination(model.state.search.skills, (data) => {
+		paginationView._handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -110,7 +102,7 @@ const controllResetSkills = () => {
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
-	handlePagination(original, (data) => {
+	paginationView._handlePagination(original, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data));
 	});
 };
@@ -125,7 +117,7 @@ const controllFilterSkills = () => {
 	model.state.search.isFiltered = model.state.search.skills.length > 0;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	timeout(() => {
-		handlePagination(model.state.search.skills, (data) => {
+		paginationView._handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -206,21 +198,25 @@ const controllSettings = (e) => {
 	// button manipulation
 	const settings = designView._settings
 	const settingsLen = Object.values(settings).length !== 0
-	designView._disableBTN({disabled: settingsLen, existingButton: true});
+	//designView._disableBTN();
 }
 const init = () => {
 	loadAndRenderContent();
 	controllNavBar();
 	controlSections();
 	designView.addHandleClickIntoSection();
-	designView.addHandlerLoad(designView._getPreferences());
+	// Pass function references instead of invoking them. The view's
+	// `addHandlerLoad` now binds handlers to the instance.
+	designView.addHandlerLoad(designView._getPreferences);
 	designView.addHandlerLoad(designView.scrollIntoSection);
 	skillsView._addHandlerFormReset(controllResetSkills);
 	skillsView._addFilterSkillsHandler(controllFilterSkills);
 	skillsView._addHandlerSubmit(controllSortedSkills);
 	contactView._addHandlerSubmit(controllContacting);
 	skillsExportView._addHandlerSubmit(controllSkillsExport);
-	skillsExportView.addHandlerLoad(skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}))
+	// Do not call _disableBTN when registering — pass a function that
+	// runs on load (the view will bind handlers if needed).
+	skillsExportView.addHandlerLoad(() => skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true}));
 	designView._addHandlerSubmit(controllSettings);
 	designView.addHandlerLoad(controllSettings);
 	designView.addHandlerNavigateByKey();
