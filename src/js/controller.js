@@ -4,7 +4,7 @@ import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
 import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
-import paginationView from './Views/paginationView.js';
+import paginationView from './Views/PaginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
 import journeyView from './Views/journeyView.js';
@@ -71,7 +71,9 @@ const loadAndRenderContent = () => {
 		name: true,
 		values: NONQATOOLS
 	});
-	toolboxView._update(toolboxView._generateQAToolboxMarkup(model.state.search.tools));;
+	toolboxView._handlePagination(model.state.search.tools, (data)=>{
+		toolboxView._update(toolboxView._generateQAToolboxMarkup(data));;
+	})
 	controlCertifications();
 }
 // controlling Personal sections
