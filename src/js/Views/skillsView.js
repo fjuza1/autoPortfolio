@@ -1,7 +1,8 @@
-import View from './View.js';
+import PaginationView from './paginationView.js';
 import { ALLOWED_FILTER_SKILLS, SKILLSVIEW_EMPTY_MESSAGE } from "../config.js";
-class SkillsView extends View {
+class SkillsView extends PaginationView {
     _parent = document.querySelector('#skillsContainer');
+    _paginationParent = document.querySelector('.pagination');
     _form = document.querySelector('.filterActivities')
     _formBtn = document.querySelector('button[type="submit"]');
     _err = SKILLSVIEW_EMPTY_MESSAGE;
@@ -31,6 +32,7 @@ class SkillsView extends View {
      * // ]
      */
     _skillBarDisplay(_data) {
+        console.log(this._paginationParent, this._parent);
         let valNow;
         let width;
         let color;

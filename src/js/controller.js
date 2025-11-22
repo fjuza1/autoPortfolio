@@ -53,7 +53,7 @@ const controlCertifications = () => {
 }
 const loadAndRenderContent = () => {
 	// handle generation
-	paginationView._handlePagination(model.state.skills, (data) => {
+	skillsView._handlePagination(model.state.skills, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data))
 	})
 	// paginationView._handlePagination(model.state.certifications, (data) =>{
