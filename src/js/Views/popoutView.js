@@ -178,8 +178,9 @@ class PopupView {
      * @fires togglePrimaryMenu#show
      * @fires togglePrimaryMenu#hide
      */
-    #hideTabs() {
+    #hideTabs(e) {
     const tabPanes = document.querySelectorAll('.tab-pane');
+        if(e.target.closest('button').dataset?.bsToggle !== 'tab') return;
     tabPanes.forEach(tab => {
         tab.classList.remove('active', 'show');
     });
@@ -187,14 +188,16 @@ class PopupView {
     #activeTabButtonsTab (e) {
         const parentElement = e.target.closest('.btn-group');
         if(!parentElement) return;
+        if(e.target.closest('button').dataset?.bsToggle !== 'tab') return;
         Array.from(parentElement?.closest('.btn-group').children).forEach(btn=> removeClass(btn, 'active'))
         const buttonSelected = e.target?.closest('button');
         if(!buttonSelected.classList.contains('active')) buttonSelected.classList.add('active')
     }
     #toggleTab (e) {
+        const button = e.target?.closest('button');
         this.#activeTabButtonsTab(e);
         this.#hideTabs(e)
-        const button = e.target?.closest('button');
+        if(button.dataset?.bsToggle !== 'tab') return;
         const tabTarget = document.getElementById(button?.dataset?.bsTarget);
         if(!tabTarget) return
 		tabTarget.classList.add('show')
