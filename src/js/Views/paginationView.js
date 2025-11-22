@@ -1,7 +1,6 @@
 import View from './View.js';
 import {loadMore} from '../model.js';
-class PaginationView extends View {
-    _parent = document.querySelector('.pagination');
+export default class PaginationView extends View {
     /**
      * Adds a click event listener to the pagination element to handle page navigation.
      *
@@ -12,14 +11,14 @@ class PaginationView extends View {
      * @returns {void}
      */
     addHandlerPagination(handler) {
-        this._parent.removeEventListener('click', this._paginationClickHandler);
+        this._paginationParent.removeEventListener('click', this._paginationClickHandler);
         this._paginationClickHandler = (e) => {
             const pageNext = e.target.dataset.pageNext;
             if (!pageNext) return;
             const next = +pageNext;
             handler(next);
         };
-        this._parent.addEventListener('click', this._paginationClickHandler);
+        this._paginationParent.addEventListener('click', this._paginationClickHandler);
     }
 
     /**
@@ -28,31 +27,36 @@ class PaginationView extends View {
      * @param {*} _data
      * @returns {Array<string>}
      */
-    _generateMarkup(_data) {
+    _renderPagination(_data){
+        this._data = _data;
+        const markup = this._generatePaginationMarkup(this._data).join('');
+        this._paginationParent.innerHTML = '';
+        this._paginationParent.insertAdjacentHTML('afterbegin', markup);
+    }
+    _generatePaginationMarkup(_data) {
         this._data = _data;
         const curPage = this._data.currentPage;
         const numPages = this._data.pages;
-        let markup = '';
+        let markup = [];
         // Page 1, and there are other pages
-        if (curPage < numPages) markup = `
+        if (curPage < numPages) markup.push(`
             <span class="d-block text-primary text-center py-2 cursor-pointer" data-page-next = "${curPage + 1}">Load more</span>
-        `
+        `);
         // If last page, no pagination needed
         if (curPage === numPages && numPages > 1) {
-            markup = ''
+            markup = []
         }
-        return [markup]
+        return markup
     }
     _handlePagination = (dataSource, callback) => {
         const paged = loadMore(dataSource)
-        this._update(paged)
+        this._renderPagination(paged)
         callback(paged.data)
 
         this.addHandlerPagination((data) => {
             const updated = loadMore(dataSource, data)
-            this._update(updated)
+            this._renderPagination(updated)
             callback(updated.data)
         })
     }
 }
-export default new PaginationView();

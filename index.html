@@ -109,9 +109,9 @@
                      <form class="form" id="settingsForm">
                         <div class="mb-3">
                            <h6 class="fw-semibold mt-2">Page settings</h6>
-                           <hr class="my-2">
-                           <h6 class="fw-semibold mt-3">Navigation settings</h6>
-                           <div class="list-group shadow-sm mb-3">
+                           <!-- <hr class="my-2"> -->
+                           <!-- <h6 class="fw-semibold mt-3">Navigation settings</h6> -->
+                           <!-- <div class="list-group shadow-sm mb-3">
                               <div class="list-group-item">
                                  <div class="form-check form-switch">
                                     <input class="form-check-input" type="checkbox" id="navigationKeysSwitch" name="navigationKeys">
@@ -119,7 +119,7 @@
                                  </div>
                            <div class="alert alert-info small" role="alert"> Controls whether user can navigate webpage using keys. </div>
                               </div>
-                           </div>
+                           </div> -->
                            <hr class="my-2">
                            <h6 class="fw-semibold mt-3">Display settings</h6>
                            <div class="alert alert-info small" role="alert"> Controls displaying of webpage elements and their behavior. </div>
@@ -481,12 +481,12 @@
                <h3>Skills</h3>
                <br>
                <div id="skillsContainer"></div>
-               <div class="pagination d-flex justify-content-center" id="loadMore"></div>
+               <div class="pagination d-flex justify-content-center" id="loadMoreSkills"></div>
             </div>
          </section>
          <section class="section section--hidden" id="Certifications">
             <div class="container">
-               <div class="nav nav-tabs" id="certsBtnGroup">
+               <div class="nav nav-tabs">
                   <!-- Left: Filter -->
                   <button type="button" class="nav-link" data-bs-toggle="tooltip" title="Filter & Sort" data-bs-target="filterSortCerts">
                      <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-funnel" viewBox="0 0 16 16">
@@ -494,7 +494,7 @@
                      </svg>
                   </button>
                   <!-- Right: Grid/List -->
-                  <div class="btn-group ms-auto" id="skillBtnGroup" role="group" aria-label="Grid View">
+                  <div class="btn-group ms-auto" id="certsBtnGroup" aria-label="Grid View">
                      <button type="button" class="nav-link" data-bs-toggle="tab" title="Grid View" data-bs-target="certificationsGrid">
                         <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-grid-3x3-gap-fill" viewBox="0 0 16 16">
                            <path d="M1 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1zM1 12a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1zm5 0a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v2a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1z"/>
@@ -577,6 +577,8 @@
                         </div>
                      </div>
                      <div class="tab-pane" id="certificationsCards" role="tabpanel" aria-labelledby="nav-profile-tab">
+                        <div id="certificationsCardsView"></div>
+                        <div class="pagination d-flex justify-content-center" id="loadMoreCertificationsCards"></div>
                      </div>
                   </div>
             </div>
@@ -610,6 +612,7 @@
                         <button type="button" class="btn btn-link mt-2 mt-md-0" data-bs-target="allTool"> Show descriptions </button>
                      </div>
                      <div class="row g-1 justify-content-center" id="myQA"></div>
+                     <div class="pagination d-flex justify-content-center" id="loadMoreTools"></div>
                   </div>
                </div>
             </div>

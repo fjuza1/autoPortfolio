@@ -1,10 +1,11 @@
-import View from './View.js';
-class ToolboxView extends View {
+import PaginationView from './PaginationView.js';
+class ToolboxView extends PaginationView {
 	constructor() {
 		super();
 		this.addHandlerHideShowDescription();
 	}
 	_parent = document.getElementById('myQA');
+	_paginationParent = document.getElementById('loadMoreTools');
     #showAllBTN = document.querySelector("[data-bs-target='allTool']");
     #cardDescriptions = this._parent.getElementsByTagName('p');
 	_generateQAToolboxMarkup = (_data) => {

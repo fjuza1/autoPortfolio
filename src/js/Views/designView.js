@@ -10,7 +10,7 @@ class Design extends SettingsView {
 	_nav = document.querySelector('.nav')
 	_sections = document.querySelectorAll('.section');
 	_firstSection = document.querySelector("#Home");
-	_goupBtn = document.querySelector('[data-bs-target="goup"]')
+	_goupBtn = document.querySelector('button[data-bs-target="goup"]')
 	_modal = document.getElementById('modalCenter');
 	_spyNavSegments = '';
 	_prevSection = null;
@@ -114,6 +114,7 @@ class Design extends SettingsView {
 	 */
 	scrollIntoSection(e) {
 		const target = e.target;
+		if(!target) return;
 		//  if(e.type === KEYDOWN_TYPE) {
 		//      const home = this._firstSection
 		//      const about = this._sections[0];
@@ -180,8 +181,8 @@ class Design extends SettingsView {
 			});
 		}
 		if (e.type === 'click') {
-			const goup = target.closest('button');
-			if (goup && goup.dataset.btn === 'goup') {
+		const isGoToTopBTN = target.closest('button')?.dataset.bsTarget === 'goup';
+			if (isGoToTopBTN) {
 				gotoTop();
 				removeHash();
 				return;

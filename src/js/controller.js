@@ -4,7 +4,7 @@ import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
 import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
-import paginationView from './Views/paginationView.js';
+import paginationView from './Views/PaginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
 import journeyView from './Views/journeyView.js';
@@ -48,17 +48,16 @@ const controlCertifications = () => {
 	const minMaxSettings = model.getMinMaxDates(model.state.certifications, 'date_obtained')
 	certificationsView._setTimelineCertsSettings(minMaxSettings)
 	model.formatDatesRelative(model.state.certifications)
-	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(model.state.extractedData.certifications.dateRelatives))
+	certificationsCardsView._handlePagination(model.state.extractedData.certifications.dateRelatives, (data)=>{
+		certificationsCardsView._update(certificationsCardsView._certificationsMarkup(data));;
+	})
 	certificationsView._setTimelineViewCertifications(model.state.certifications)
 }
 const loadAndRenderContent = () => {
 	// handle generation
-	paginationView._handlePagination(model.state.skills, (data) => {
+	skillsView._handlePagination(model.state.skills, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data))
 	})
-	// paginationView._handlePagination(model.state.certifications, (data) =>{
-	// 	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(data))
-	// })
 	// projects
 	projectsView._update(projectsView._renderSlidesMarkup({
 		array: model.state.projects,
@@ -71,7 +70,9 @@ const loadAndRenderContent = () => {
 		name: true,
 		values: NONQATOOLS
 	});
-	toolboxView._update(toolboxView._generateQAToolboxMarkup(model.state.search.tools));;
+	toolboxView._handlePagination(model.state.search.tools, (data)=>{
+		toolboxView._update(toolboxView._generateQAToolboxMarkup(data));;
+	})
 	controlCertifications();
 }
 // controlling Personal sections
