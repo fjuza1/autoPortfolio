@@ -32,7 +32,6 @@ class SkillsView extends PaginationView {
      * // ]
      */
     _skillBarDisplay(_data) {
-        console.log(this._paginationParent, this._parent);
         let valNow;
         let width;
         let color;

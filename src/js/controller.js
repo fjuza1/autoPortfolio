@@ -48,7 +48,9 @@ const controlCertifications = () => {
 	const minMaxSettings = model.getMinMaxDates(model.state.certifications, 'date_obtained')
 	certificationsView._setTimelineCertsSettings(minMaxSettings)
 	model.formatDatesRelative(model.state.certifications)
-	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(model.state.extractedData.certifications.dateRelatives))
+	certificationsCardsView._handlePagination(model.state.extractedData.certifications.dateRelatives, (data)=>{
+		certificationsCardsView._update(certificationsCardsView._certificationsMarkup(data));;
+	})
 	certificationsView._setTimelineViewCertifications(model.state.certifications)
 }
 const loadAndRenderContent = () => {
@@ -56,9 +58,6 @@ const loadAndRenderContent = () => {
 	skillsView._handlePagination(model.state.skills, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data))
 	})
-	// paginationView._handlePagination(model.state.certifications, (data) =>{
-	// 	certificationsCardsView._update(certificationsCardsView._certificationsMarkup(data))
-	// })
 	// projects
 	projectsView._update(projectsView._renderSlidesMarkup({
 		array: model.state.projects,
