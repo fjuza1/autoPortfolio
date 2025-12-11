@@ -27,7 +27,8 @@ const controllNavBar = () => {
 	designView.addHandlerNavObserver()
 }
 const controlSections = () => {
-	designView.addRevealSectionObserver()
+	designView.addRevealSectionObserver();
+	designView.addToggleHomepageBTNS();
 }
 /**
  * Loads and renders the main content of the application.
