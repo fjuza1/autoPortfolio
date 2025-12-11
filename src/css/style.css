@@ -173,3 +173,6 @@ section {
   background-color: #121212 !important;
   color: #f0f0f0 !important;
 }
+.btn-hidden{
+  display: none !important;
+}

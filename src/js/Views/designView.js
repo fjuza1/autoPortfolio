@@ -317,18 +317,34 @@ class Design extends SettingsView {
 		removeClass(entry.target, SECTION_HIDDEN_CLASS)
 		observer.unobserve(entry.target);
 	}
-	addRevealSectionObserver() {
-		const options = {
-			root: null,
-			threshold: THRESHOLD_ARRAY
+	hideHomepageBTNS (entries) {
+		const [entry] = entries;
+		const target = entry.target;
+		const btns = target?.querySelectorAll('button');
+
+		if(!entry.isIntersecting) {
+			btns.forEach(homapageBTN=> homapageBTN.classList.add('d-none'))
+			removeClass(this._goupBtn,'btn-hidden')
 		}
-		const navItemOptions = {
-			root:null,
-			threshold: THRESHOLD_ARRAY
-		};
+		else {
+			btns.forEach(homapageBTN=> removeClass(homapageBTN, 'd-none'));
+			this._goupBtn.classList.add('btn-hidden')
+		}
+	}
+	addToggleHomepageBTNS (){
+		const options = {root: null, threshold: 0.1};
+
+		const homepageObserver = new IntersectionObserver(this.hideHomepageBTNS.bind(this), options)
+		
+		homepageObserver.observe(this._firstSection)
+	}
+	addRevealSectionObserver() {
+		const options = {root: null, threshold: THRESHOLD_ARRAY};
+
 		const sectionObserver = new IntersectionObserver(this.revealSection.bind(this), options);
 		const resizeSectionObserver = new ResizeObserver(this.revealSection.bind(this));
-		const navItemObserver = new IntersectionObserver(this.scrollByNav.bind(this), navItemOptions);
+		const navItemObserver = new IntersectionObserver(this.scrollByNav.bind(this), options);
+		
 		const allSections = [this._firstSection, ...this._sections];
 		allSections.forEach(section => {
 			sectionObserver.observe(section);
