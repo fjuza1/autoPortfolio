@@ -10,20 +10,64 @@ footer {
   overflow: hidden; 
   margin-top: 20px; 
 }
+#About,
+#Skills,
+#Projects,
+#Contact,
+#Journey,
+#Myqatoolbox,
+#Certifications {
+  width: 98vw;                /* almost full width */
+  max-width: none;            /* remove Bootstrap container limits */
+  margin: 2rem auto;          /* center with spacing top/bottom */
+  padding: 2rem;
 
-#About, #Skills, #Projects, #Contact, #Journey {
-  background-attachment: fixed;
-  min-height: 100vh;
-  display: flex;
-  padding: 20px;
-  margin-bottom: 20px;
+  min-height: 95vh;           /* almost full screen height */
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transform: translateY(-20px);
-  transition: opacity 1s ease, transform 1s ease;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  transition: opacity .8s ease, transform .8s ease, box-shadow .3s ease;
+  opacity: 1;
+  transform: translateY(0);
 }
 
+#About:hover,
+#Skills:hover,
+#Projects:hover,
+#Contact:hover,
+#Journey:hover,
+#Myqatoolbox:hover,
+#Certifications:hover {
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.18);
+}
+.btn-primary-transparent {
+  background-color: transparent;
+  border:none
+}
+.lazy-img {
+  filter: blur(20px);
+}
+.toast-error {
+  background-color: #f8d7da; 
+  color: #842029;
+  border: 1px solid #f5c2c7; /* matches .alert-danger */
+}
+.toast-info {
+  background-color: #cff4fc;
+  color: #055160;
+  border: 1px solid #b6effb; /* matches .alert-info */
+}
+.toast-warning {
+  background-color: #fff3cd; 
+  color: #664d03;
+  border: 1px solid #ffecb5; /* matches .alert-warning */
+}
+.toast-success {
+  background-color: #d1e7dd;
+  color: #0f5132;
+  border: 1px solid #badbcc; /* matches .alert-success */
+}
 section {
   opacity: 1;
   padding: 60px 0;
@@ -66,7 +110,9 @@ section {
 #Projects .carousel-item {
   height: 100%;
 }
-
+.bi.bi-zoom-out.float-start{
+  cursor: pointer;
+}
 #Projects .carousel img {
   max-height: 100%;
   width: auto; 
@@ -110,4 +156,20 @@ section {
   word-wrap: break-word; /* Wrap long words */
   overflow-wrap: break-word; /* Standardized word wrapping */
   text-align: center; /* Center-align the text */
+}
+.bi-info-circle-fill{
+  cursor: pointer;
+}
+[data-bs-theme="dark"] section button.btn {
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
+}
+.btn-toast.btn-close {
+  --bs-btn-close-color: currentColor;
+  color: inherit;
+  filter: none;
+}
+[data-bs-theme="dark"] section {
+  background-color: #121212 !important;
+  color: #f0f0f0 !important;
 }

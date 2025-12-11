@@ -1,8 +1,9 @@
 import { KEYDOWN_TYPE, SCROLL_TYPE} from '../config.js';
+import {removeClass, setCanvasOffOptions, escapeCSS } from  '../helpers.js'
 class PopupView {
     _multiCollapse = document.querySelectorAll('.multi-collapse.collapse');
     _skillBtnGroup = document.getElementById('skillBtnGroup');
-    _skills = document.querySelector('#Skills')
+    _certsBtnGroup = document.getElementById('certsBtnGroup');
     _formBtn = document.querySelector('button[type="submit"]');
     _mobileNav = document.getElementById('secondary-navigation')
     _dropdownNav = document.querySelector('.dropdown-menu')
@@ -16,38 +17,63 @@ class PopupView {
     _closeModalButton = document.querySelector('[aria-label="Close"]')
     _toggleAccordionBtn = document.querySelector('.accordion-button');
     _mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
+    _infoNav = document.querySelector("[data-info='infoNav']");
+    _prefs = document.querySelector('#Preferences')
+    _offcanvas = document.querySelector('.offcanvas');
+    _offcanvasBTNS = document.querySelectorAll('button[data-bs-toggle="offcanvas"]');
+    _isComingFromBTN = '';
+    _tab_pane = [...document.querySelectorAll('.tab-pane')]
+    _btnFilerCerts = document.querySelector('[data-bs-target="filterSortCerts"]')
     constructor() {
-        this.#addHandlerHideSection();
-        this.#addHandlerShowSection();
+        this._boundHideOffcanvas = this.#hideOffcanvas.bind(this);
+        this._boundToggleOffcanvas = this.#toggleOffcanvas.bind(this)
+
+
+        this._boundHideSection = this.#hideSection.bind(this)
+        this._boundShowSection = this.#showSection.bind(this)
+        this.#addHandlerToggleSection()
+
+
         this._addHandleOpenModal();
         this.#addHandleCloseModal();
+        this._boundToggleAccordion = this.#toggleAccordion.bind(this)
         this.#addHandleAccordion();
-        this.#handleTogglingMenu();
-        this.#addHandlerShowMobileNav()
+
+        this._boundHandleTogglingMenu = this.#togglePrimaryMenu.bind(this)
+        this.#handleTogglingMenu()
+
+        this._boundShowMobileNav = this.#showMobileNav.bind(this)
+        this._boundHideMobileNav = this.#hideMobileNav.bind(this)
+        this._boundHideDropDownMenus = this.#hideDropDownMenus.bind(this)
+        this.#addHandlerShowMobileNav();
+        this.#handleTogglingOffcanvas();
+        this.#addHandlerClick(this.#controllOffcanvas);
+        this._boundToggleTab = this.#toggleTab.bind(this)
+        this.#addHandlerToggleTab()
     }
     /**
      * Description placeholder
      *
      * @param {Event} e
      */
-    #hideDropDownMenus () {
-        this._dropdownNavs.forEach((dropdown) =>{
-            if(dropdown.classList.contains('show')) dropdown.classList.remove('show')
+    #hideDropDownMenus() {
+        this._dropdownNavs.forEach((dropdown) => {
+            if (dropdown.classList.contains('show')) removeClass(dropdown, 'show')
         })
     }
-    #toggleSection(e) {
-        const btnSet = e.target.closest('.btn.btn-link').dataset.btn;
+    #showSection(e) {
+        const btnSet = e.target.closest('button')?.dataset.bsTarget;
         const colapseSection = document.getElementById(`${btnSet}`);
-        const isAlreadyShown = colapseSection.classList.contains('show');
-        this._multiCollapse.forEach(section => section.classList.remove('show'));
-        if (!isAlreadyShown) colapseSection.classList.add('show');
+        const isAlreadyShown = colapseSection?.classList.contains('show');
+        this._multiCollapse.forEach(section => removeClass(section, 'show'));
+        if (!isAlreadyShown) colapseSection?.classList.add('show');
     }
     #hideSection(e) {
         if (this._modal.classList.contains('show') && this._modal.style.display === 'block') return
         const target = e.target;
         const button = target.closest('button')?.tagName.toLowerCase()
         const multi = [...this._multiCollapse].some(el => el.contains(target));
-        this._multiCollapse.forEach(el => !multi && !button ? el.classList.remove('show') : '');
+        this._multiCollapse.forEach(el => !multi && !button ? removeClass(el, 'show') : '');
     }
     /**
      * Handles the toggling of accordion sections in the popout view.
@@ -82,7 +108,65 @@ class PopupView {
             element.classList.toggle('show');
         }
     }
+    #cleanupOffcanvas(e) {
+        const canvasisSelected = e.target.closest('.offcanvas');
+        const closeBtn = e.target.closest('.btn-close');
+        if (canvasisSelected && !closeBtn) return;
+        // Remove backdrop if it exists
+        document.querySelector('.offcanvas-backdrop')?.remove();
+        document.body.style.overflow = ''; // restore scroll
+        this._offcanvas.className = 'offcanvas'; // reset classes
 
+        // reset attrs
+        this._offcanvas.removeAttribute('data-bs-backdrop');
+        this._offcanvas.removeAttribute('data-bs-scroll');
+        this._offcanvas.removeAttribute('data-bs-keyboard');
+    }
+    #controllOffcanvas(e) {
+        // get which button was clicked
+        this.#getisComingFromBTN(e)
+        // cleanup any existing offcanvas props
+        switch (this._isComingFromBTN) {
+            case 'preferences':
+                this.#setOffcanvasDisplay(e, {
+                    position: 'end',
+                    backdrop: true,
+                    keyboard: false,
+                    scroll: false,
+                    w: "25%"
+                });
+                break;
+            case 'infonav':
+                this.#setOffcanvasDisplay(e, {
+                    position: 'start',
+                    backdrop: 'static',
+                    keyboard: true,
+                    scroll: true,
+                    w: "75%"
+                });
+                break;
+            default:
+                this.#cleanupOffcanvas(e)
+                break;
+        }
+    };
+    #getisComingFromBTN(e) {
+        this._isComingFromBTN = e.target.closest('button')?.getAttribute('aria-controls')?.toLowerCase() ?? '';
+    }
+    #handleBackdropOffcanvas (backdrop) {
+            if (backdrop || backdrop?.toLowerCase() === 'static') {
+                this._offcanvas.setAttribute('data-bs-backdrop', 'static');
+                document.body.style.overflow = 'hidden';
+
+                if (!document.querySelector('.offcanvas-backdrop')) {
+                    const div = document.createElement('div');
+                    div.className = 'offcanvas-backdrop fade show';
+                    this._offcanvas.after(div);
+                }
+            } else {
+                this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
+            }
+    }
     /**
      * Handles the toggling of the primary navigation menu in the popout view.
      *
@@ -94,6 +178,31 @@ class PopupView {
      * @fires togglePrimaryMenu#show
      * @fires togglePrimaryMenu#hide
      */
+    #hideTabs(e) {
+    const tabPanes = document.querySelectorAll('.tab-pane');
+        if(e.target.closest('button').dataset?.bsToggle !== 'tab') return;
+    tabPanes.forEach(tab => {
+        tab.classList.remove('active', 'show');
+    });
+    }
+    #activeTabButtonsTab (e) {
+        const parentElement = e.target.closest('.btn-group');
+        if(!parentElement) return;
+        if(e.target.closest('button').dataset?.bsToggle !== 'tab') return;
+        Array.from(parentElement?.closest('.btn-group').children).forEach(btn=> removeClass(btn, 'active'))
+        const buttonSelected = e.target?.closest('button');
+        if(!buttonSelected.classList.contains('active')) buttonSelected.classList.add('active')
+    }
+    #toggleTab (e) {
+        const button = e.target?.closest('button');
+        this.#activeTabButtonsTab(e);
+        this.#hideTabs(e)
+        if(button.dataset?.bsToggle !== 'tab') return;
+        const tabTarget = document.getElementById(button?.dataset?.bsTarget);
+        if(!tabTarget) return
+		tabTarget.classList.add('show')
+        tabTarget.classList.add('active')
+    }
     #togglePrimaryMenu(e) {
         const target = e.target;
         const isDropdownItem = target.classList.contains('dropdown-item');
@@ -101,18 +210,18 @@ class PopupView {
         const isDropdownToggle = target.classList.contains('dropdown-toggle') && target.classList.contains('dropdown-item');
 
         // If the target is a dropdown item, hide all dropdown menus
-        if(isDropdownItem) 
-            this.#hideDropDownMenus();
+        if (isDropdownItem)
+            this._boundHideDropDownMenus();
         // If the target has a 'navlink' dataset, hide all dropdown menus
         else if (target.dataset.navlink)
-            this.#hideDropDownMenus();
+            this._boundHideDropDownMenus();
 
         // If the target is a closest element to a button or anchor
         if (closest) {
             const menu = closest.dataset;
 
             // If the closest element does not have a dataset, return early
-            if(!menu) return;
+            if (!menu) return;
 
             // Extract the target menu ID from the 'bsTarget' dataset attribute
             const targetMenuId = menu.bsTarget?.slice(1) ?? null;
@@ -126,37 +235,142 @@ class PopupView {
                 const isCurrentlyOpen = expandedMenu.classList.contains('show');
 
                 // Hide all dropdown menus
-                this.#hideDropDownMenus();
+                this._boundHideDropDownMenus();
 
                 // If the expanded menu is not currently open, show it
                 if (!isCurrentlyOpen) {
                     expandedMenu.classList.add('show');
                 }
             }
-        } 
+        }
         // If the target is not a dropdown toggle, hide all dropdown menus
         else if (!isDropdownToggle) {
-            this.#hideDropDownMenus();
+            this._boundHideDropDownMenus();
         }
     }
+    #hideOffcanvas(e) {
+        if (e.key && e.key !== 'Escape') return; // only react to Escape key
+        const openCanvas = document.querySelector("body > div.offcanvas.show");
+        if (!openCanvas) return; // nothing to close
 
+        // hide offcanvas
+        openCanvas.classList.remove('show');
+
+        // always cleanup (even if target is inside)
+        document.querySelector('.offcanvas-backdrop')?.remove();
+        document.body.style.overflow = ''; // restore scroll
+
+        this._offcanvas.className = 'offcanvas'; // reset classes
+        this._offcanvas.removeAttribute('data-bs-backdrop');
+        this._offcanvas.removeAttribute('data-bs-scroll');
+        this._offcanvas.removeAttribute('data-bs-keyboard');
+    }
+    #setOffcanvasDisplay(e, options) {
+        const isOffCanvasButton =
+            e.target.closest('button[data-bs-toggle="offcanvas"]')?.dataset.bsToggle === 'offcanvas';
+        const {
+            position,
+            backdrop,
+            keyboard,
+            scroll,
+            w
+        } = setCanvasOffOptions(options);
+        if (isOffCanvasButton) {
+            // Position
+            if (position) {
+                this._offcanvas.classList.add(escapeCSS(position));
+            }
+
+            // Backdrop handling
+            this.#handleBackdropOffcanvas(backdrop)
+            // if (backdrop || backdrop?.toLowerCase() === 'static') {
+            //     this._offcanvas.setAttribute('data-bs-backdrop', 'static');
+            //     document.body.style.overflow = 'hidden';
+
+            //     if (!document.querySelector('.offcanvas-backdrop')) {
+            //         const div = document.createElement('div');
+            //         div.className = 'offcanvas-backdrop fade show';
+            //         this._offcanvas.after(div);
+            //     }
+            // } else {
+            //     this._offcanvas.setAttribute('data-bs-backdrop', backdrop ? 'true' : 'false');
+            // }
+
+            // Width
+            if (w) {
+                let width
+                const screenWidth = window.innerWidth
+                screenWidth < 900 ? width = `w-75` : width = `w-${w.replace('%', '')}`
+                this._offcanvas.classList.add(escapeCSS(width));
+            }
+            // Scroll
+            if (scroll) {
+                this._offcanvas.setAttribute('data-bs-scroll', scroll);
+            }
+            // Keyboard for button
+            document.removeEventListener('keydown', this._boundHideOffcanvas);
+
+            if (keyboard === true) {
+                document.addEventListener('keydown', this._boundHideOffcanvas);
+            }
+            this._offcanvas.setAttribute('data-bs-keyboard', keyboard ?? false);
+        }
+    }
+    #toggleOffcanvas(e) {
+        if (e.type === 'mouseup' && e.button !== 0) return;
+        const offcanvas = this._offcanvas;
+       const offcanvasContainers =  Array.from(offcanvas.children)
+        .filter(container => !container.classList.contains('d-none'))
+        const target = e.target;
+        const targetoffcanvas = target.closest('.offcanvas');
+        if (!targetoffcanvas) offcanvas?.classList.remove('show')
+        // 1) If the close button (or anything inside it) was clicked, just close & exit
+        const closeBtn = target.closest('.btn-close');
+        if (closeBtn) {
+            offcanvasContainers        
+            .forEach(containerClass => containerClass.classList.add('d-none'))
+            offcanvas?.classList.remove('show');
+            return;
+        }
+        // 2) Find the toggle button (supports clicks on child elements inside the button)
+        const toggleBtn = target.closest('[data-bs-toggle="offcanvas"]');
+        if (!toggleBtn) return;
+        // 3) Resolve the controlled element id from aria-controls
+        const controlsId = toggleBtn.getAttribute('aria-controls');
+        if (!controlsId) return;
+        const popoutToggle = document.getElementById(controlsId);
+        // 4) Now perform UI state changes
+        offcanvas?.classList.add('show');
+        offcanvasContainers
+        .forEach(containerClass => containerClass.classList.add('d-none'))
+        popoutToggle?.classList.remove('d-none');
+    };
+    #addHandlerClick(handler) {
+        document.addEventListener('click', handler.bind(this));
+    }
+    #handleTogglingOffcanvas() {
+        document.addEventListener('mouseup', this._boundToggleOffcanvas)
+        this._offcanvasBTNS.forEach(btn => {
+            btn.addEventListener('click', this._boundToggleOffcanvas)
+        });
+    }
     #showMobileNav(e) {
         this._mobileDropdownMenu.classList.toggle('show');
     }
     #hideMobileNav() {
-        if(this._mobileDropdownMenu.classList.contains('show')) this._mobileDropdownMenu.classList.remove('show');
+        if (this._mobileDropdownMenu.classList.contains('show')) removeClass(this._mobileDropdownMenu, 'show');
     }
     #addHandlerShowMobileNav() {
-        this._mobileNav.addEventListener('click', this.#showMobileNav.bind(this));
-        window.addEventListener('resize', this.#hideMobileNav.bind(this));
-        document.addEventListener(SCROLL_TYPE , this.#hideMobileNav.bind(this));
-        document.addEventListener(SCROLL_TYPE , this.#hideDropDownMenus.bind(this));
+        this._mobileNav.addEventListener('click', this._boundShowMobileNav);
+        window.addEventListener('resize', this._boundHideMobileNav);
+        document.addEventListener(SCROLL_TYPE, this._boundHideMobileNav);
+        document.addEventListener(SCROLL_TYPE, this._boundHideDropDownMenus);
     }
     #handleTogglingMenu() {
-        document.addEventListener('click',this.#togglePrimaryMenu.bind(this))
+        document.addEventListener('click', this._boundHandleTogglingMenu.bind(this))
     }
     #addHandleAccordion() {
-        [this._modal].forEach(dom => dom.addEventListener('click', this.#toggleAccordion.bind(this)))
+        [this._modal].forEach(dom => dom.addEventListener('click', this._boundToggleAccordion))
     }
     /**
      * Opens or closes the modal window.
@@ -181,7 +395,6 @@ class PopupView {
             this._body.style.overflow = 'hidden'
         }
     }
-
     /**
      * Hides the modal window and resets its state.
      *
@@ -196,8 +409,11 @@ class PopupView {
      */
     #unshowModal() {
         this._modal.style.display = 'none';
-        this._modal.classList.remove('show');
-        this._body.style.overflow = 'auto';
+        removeClass(this._modal, 'show');
+        // restore to auto if not has hidden
+        if (this._body.style.overflow !== 'hidden') {
+            this._body.style.overflow = 'auto';
+        }
         this._modal.innerHTML = '';
     }
 
@@ -268,17 +484,17 @@ class PopupView {
             });
         });
     }
-
     #addHandleCloseModal() {
         this._modal.addEventListener('click', this.#closeModal.bind(this))
         document.addEventListener(KEYDOWN_TYPE, this.#closeModal.bind(this));
     }
-    //section evs
-    #addHandlerShowSection() {
-        this._skillBtnGroup.addEventListener('click', this.#toggleSection.bind(this));
+    #addHandlerToggleTab() {
+        [this._certsBtnGroup].forEach(btn => btn.addEventListener('click', this._boundToggleTab));
     }
-    #addHandlerHideSection() {
-        this._skills.addEventListener('mouseup', this.#hideSection.bind(this));
+    //section evs
+    #addHandlerToggleSection() {
+        [this._skillBtnGroup, this._btnFilerCerts].forEach(btn => btn.addEventListener('click', this._boundShowSection));
+        document.body.addEventListener('mouseup', this._boundHideSection);
     }
 }
 export default new PopupView();

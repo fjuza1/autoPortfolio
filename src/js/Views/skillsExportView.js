@@ -1,21 +1,29 @@
 import View from './View.js';
 class SkillsExportView extends View {
     _form = document.querySelector('.exportActivities');
-    _parentElement = document.querySelector('exportModal')
+    _parent = document.querySelector('exportModal')
     _exportContainer = document.querySelector("#export > div > form > div.content.d-none.mb-4")
     _exportState = document.querySelector('div[data-formerror="fileName"]');
     _fileType = document.querySelector('.content.d-none');
     _fileName = document.querySelector('input[name="fileName"]')
-    _modal = document.querySelector('#modalCenter')
+    _modal = document.querySelector('#modalCenter');
+    _selectedBTN = document.querySelector("#export > div > form > div.d-flex.justify-content-end.mt-3 > button.btn.btn-secondary.me-2");
     _generatingfileState = null;
+    _isPrimaryBTN = false;
     constructor() {
         super();
         this._revealNameEvent();
-        this._errorRemoveEvent();
+        this.#errorRemoveEvent();
+        this.#handlerSelectedBTN();
     }
     _cleanupModal() {
         this._modal.innerHTML = '';
     }
+    #handlerSelectedBTN (){
+        this._form.addEventListener('click',(e)=>{
+           this._isPrimaryBTN = e.target.closest('button')?.classList.contains('btn-primary');
+        })
+    };
     _changeType() {
         const selectedVariable = document.querySelector('input[name="fileType"]:checked').value;
         document.getElementById('tp').innerText = `.${selectedVariable}`
@@ -37,7 +45,7 @@ class SkillsExportView extends View {
             }
         }
     }
-    _setOutline(elementId, message) {
+    #setOutline(elementId, message) {
         const formErrorElement = document.querySelector(`div[data-formerror="${elementId}"]`);
         if (formErrorElement) {
             formErrorElement.textContent = message;
@@ -55,7 +63,7 @@ class SkillsExportView extends View {
             }
         }
     }
-    _removeOutlineError() {
+    #removeOutlineError() {
         const allFormErrors = document.querySelectorAll(`div[data-formerror]`);
         allFormErrors.forEach(dom => {
             dom.textContent = '';
@@ -67,12 +75,12 @@ class SkillsExportView extends View {
             type,
             message
         } = options;
-        this._setOutline(type, message);
+        this.#setOutline(type, message);
     }
-    _errorRemoveEvent() {
+    #errorRemoveEvent() {
         ['input', 'change', 'submit'].forEach(ev => {
             this._form.addEventListener(ev, () => {
-                this._removeOutlineError();
+                this.#removeOutlineError();
             });
         });
     }
@@ -82,85 +90,84 @@ class SkillsExportView extends View {
         });
     }
     _animateState(text) {
-        this._cleanupModal();
-        this._generatingfileState = document.getElementById('generatingfileState')
-        const id = text.split(' ').join('').toLowerCase()
-        const statusMarkup = `
+      this._cleanupModal();
+      this._generatingfileState = document.getElementById('generatingfileState');
+      const id = text.split(' ').join('').toLowerCase();
+
+      const statusMarkup = `
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                </div>
-                <div class="modal-body">
-                <div id = "${id}State">
-                    ${text} <div class="spinner-grow spinner-grow-sm text-primary" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-secondary" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-success" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-danger" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-warning" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-info" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-light" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                    <div class="spinner-grow spinner-grow-sm text-dark" role="status">
-                    <span class="sr-only"></span>
-                    </div>
-                </div>
-                </div>
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title fw-bold">${text}</h5>
             </div>
+            <div class="modal-body text-center">
+              <div id="${id}State" class="d-flex flex-wrap justify-content-center gap-2">
+                <div class="spinner-grow spinner-grow-sm text-primary" role="status" aria-label="Loading primary">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-secondary" role="status" aria-label="Loading secondary">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-success" role="status" aria-label="Loading success">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-danger" role="status" aria-label="Loading danger">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-warning" role="status" aria-label="Loading warning">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-info" role="status" aria-label="Loading info">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-light" role="status" aria-label="Loading light">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+                <div class="spinner-grow spinner-grow-sm text-dark" role="status" aria-label="Loading dark">
+                  <span class="visually-hidden">Loading...</span>
+                </div>
+              </div>
             </div>
-            `
-        this._modal.insertAdjacentHTML('afterbegin', statusMarkup);
+          </div>
+        </div>
+      `;
+      this._modal.insertAdjacentHTML('afterbegin', statusMarkup);
     }
-    // _removeAnimationState (){
-    //     this._exportState.nextElementSibling.remove();
-    // }
     _exportModal(data) {
-        this._cleanupModal();
-        const markup = `
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalCenterTitle">Generation Done</h5>
-                    </div>
-                    <div class="modal-body">
-                        <h5>Everything was generated</h5>
-                        <div class="accordion open" id="accordionExample">
-                            <div class="accordion-item">
-                                <h2 class="accordion-header" id="headingOne">
-                                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                                        Detail
-                                        <i class="bi bi-chevron-down ms-2"></i>
-                                    </button>
-                                </h2>
-                                <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
-                                    <div class="accordion-body">
-                                        <pre id="exportContent">${data.startsWith("<?xml") ? this.escapeXml(data) : data}</pre>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="modal-footer text-center">
-                        <button type="button" class="btn btn-primary btn-lg w-100 dismiss-modal">OK</button>
-                    </div>
-                </div>
+      this._cleanupModal();
+      const markup = `
+        <div class="modal-dialog modal-dialog-centered" role="document">
+          <div class="modal-content">
+            <div class="modal-header border-bottom-0">
+              <h5 class="modal-title fw-bold" id="exampleModalCenterTitle">Generation Complete</h5>
             </div>
-        `;
-        this._modal.insertAdjacentHTML('afterbegin', markup);
+            <div class="modal-body">
+              <h5 class="fw-semibold mb-3">Everything was generated successfully</h5>
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item">
+                  <h2 class="accordion-header" id="headingOne">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                      Details
+                      <i class="bi bi-chevron-down ms-2"></i>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <pre id="exportContent" class="bg-light p-2 rounded border">${data.startsWith("<?xml") ? this.#escapeXml(data) : data}</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer text-center">
+              <button type="button" class="btn btn-success btn-lg w-100 dismiss-modal">OK</button>
+            </div>
+          </div>
+        </div>
+      `;
+      this._modal.insertAdjacentHTML('afterbegin', markup);
     }
-    escapeXml(unsafe) {
+    #escapeXml(unsafe) {
         return unsafe.replace(/[<>&'"]/g, function(c) {
             switch (c) {
                 case '<':

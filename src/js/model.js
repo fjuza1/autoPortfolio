@@ -1,10 +1,24 @@
 import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PROJECT_ORDER_NUM, PROJECT_DESCRIPTOR, JSON_TYPE, XML_TYPE, CSV_TYPE,
 	DEFAULT_ENCODING, ERROR_MISSING_FILENAME, ERROR_SUPPORTED_FILE_TYPES, UNGENERATED_FILE_MESSAGE, RES_PER_PAGE_TRESHOLD, CURRENT_PAGE, DEV_TYPE, FE_TYPE, BE_TYPE,
-	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMG_PORTFOLIO_DEMO, IMG_CY_DEMO
+	MN_TYPE, URL_CY_DEMO, URL_PORTFOLIO_DEMO, IMGS, IMGS_TINY, ERROR_ARRAY_MISSING
 } from './config.js';
-import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON} from './helpers.js';
-import {saveAs} from './lib.js';
+import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray, getDatesIndexes, mapDatesEntries} from './helpers.js';
+import {saveAs, moment} from './lib.js';
 export const state = {
+    search:{
+        skills:[],
+        tools:[],
+        certs:[],
+        isFiltered: false,
+        isFilteredByTool:false
+    },
+    extractedData: {
+        certifications: {
+            minDate: null,
+            maxDate: null,
+            dateRelatives: []
+        },
+    },
     fileState: {
         empty: false,
         loading: false,
@@ -16,83 +30,160 @@ export const state = {
         name: 'Postman',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
-    }, {
-        name: 'JavaScript',
-        level: EXPERT_LEVEL[4],
-        levelNumber: EXPERT_NUM[4],
-        category: CATEGORIES[2]
-    }, {
-        name: 'HTML',
-        level: EXPERT_LEVEL[3],
-        levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
-    }, {
-        name: 'XML',
-        level: EXPERT_LEVEL[3],
-        levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
-    }, {
-        name: 'SQL',
-        level: EXPERT_LEVEL[3],
-        levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[2]
-    }, {
+        category: CATEGORIES[0],
+        imgPath: IMGS.POSTMAN,
+        description: 'Postman is a popular API testing tool that allows developers to send requests to APIs and receive responses. It provides a user-friendly interface for creating and managing API requests, making it easier to test and debug APIs during development.'
+    }, 
+    {
         name: 'Cypress',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[0]
-    }, {
-        name: 'SoapUI',
+        category: CATEGORIES[0],
+        imgPath: IMGS.CYPRESS_LOGO,
+        description: 'Cypress is a popular end-to-end testing framework for modern web applications.'
+    },
+    {
+        name:"Katalon Studio",
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[0]
-    }, {
+        category: CATEGORIES[0],
+        imgPath: IMGS.IMG_KATALON_STUDIO,
+        description: 'Katalon Studio is an all-in-one test automation solution for web, API, mobile, and desktop applications. It provides a user-friendly interface and supports both manual and automated testing, making it suitable for teams of all sizes.'
+    },
+    {
+        name: 'Microsoft PowerApps',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0],
+        imgPath: IMGS.MPowerApps,
+        description:null
+    },
+    {
+        name: 'Microsoft Power Automate',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0],
+        imgPath: IMGS.MPA,
+        description:null
+    },
+    {
+        name: 'JavaScript',
+        level: EXPERT_LEVEL[4],
+        levelNumber: EXPERT_NUM[4],
+        category: CATEGORIES[2],
+        imgPath: IMGS.BLANKPIC,
+        description:null
+    }, 
+    {
+        name: 'XML',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[2],
+        imgPath: IMGS.BLANKPIC,
+        description:null
+    },
+    {
+        name: 'HTML',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[2],
+        imgPath: IMGS.BLANKPIC,
+        description:null
+    },  
+    {
         name: 'Azure DevOps Server',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
-    }, {
+        category: CATEGORIES[0],
+        imgPath: IMGS.AZURE_LOGO,
+        description: 'Azure DevOps Server is a set of development tools and services provided by Microsoft for software development teams. It includes features for version control, project management, continuous integration, and deployment, making it easier to collaborate and deliver software projects.'
+    },
+    {
         name: 'TFS',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: IMGS.TFS,
+        description: 'TFS (Team Foundation Server) is a Microsoft product that provides source control, bug control, project management, and build automation for software development teams. It helps teams collaborate on code development and manage the entire software development lifecycle.'
+    },
+    {
+        name: 'Enterprise Architect',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0],
+        imgPath: IMGS.EA,
+        description:"Enterprise Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
+    },
+    {
+        name: 'Select Architect',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[0],
+        imgPath: IMGS.BLANKPIC,
+        description:"Select Architect is a modeling and design tool that supports UML and other modeling languages. It provides features for creating and managing models, making it easier to visualize and communicate software designs."
+    },
+    {
+        name: 'UML - Unified Modeling Language',
+        level: EXPERT_LEVEL[2],
+        levelNumber: EXPERT_NUM[2],
+        category: CATEGORIES[2],
+        imgPath: IMGS.BLANKPIC,
+        description:null
+    },
+    {
+        name: 'SQL',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[2],
+        imgPath: IMGS.BLANKPIC,
+        description:null
+    },
+    {
+        name: 'Microsoft SharePoint',
+        level: EXPERT_LEVEL[3],
+        levelNumber: EXPERT_NUM[3],
+        category: CATEGORIES[3],
+        imgPath: null,
+        description:null
+    },
+    {
+        name: 'Oracle SQL Developer',
+        level: EXPERT_LEVEL[2],
+        levelNumber: EXPERT_NUM[2],
+        category: CATEGORIES[2],
+        imgPath: null,
+        description:null
     }, {
         name: 'Microsoft Visual Studio Code',
         level: EXPERT_LEVEL[3],
         levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
+        category: CATEGORIES[0],
+        imgPath: IMGS.VSCODE,
+        description: 'Microsoft Visual Studio Code is a lightweight and powerful code editor that supports multiple programming languages. It provides features like syntax highlighting, debugging, and extensions, making it a popular choice for developers.'
     }, {
         name: 'Microsoft SQL Servers Studio',
         level: EXPERT_LEVEL[2],
         levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[0]
-    }, {
-        name: 'UML - Unified Modeling Language',
-        level: EXPERT_LEVEL[2],
-        levelNumber: EXPERT_NUM[2],
-        category: CATEGORIES[2]
-    }, {
-        name: 'Enterprise Architect',
-        level: EXPERT_LEVEL[3],
-        levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
-    }, {
-        name: 'Select Architect',
-        level: EXPERT_LEVEL[3],
-        levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
-    }, {
-        name: 'Eclipse IDE for Java Developers',
-        level: EXPERT_LEVEL[3],
-        levelNumber: EXPERT_NUM[3],
-        category: CATEGORIES[0]
-    }, {
+        category: CATEGORIES[0],
+        imgPath: IMGS.MSSQL_IDE_LOGO,
+        description: 'Microsoft SQL Servers Studio is a powerful tool for managing and developing SQL Server databases. It provides features like query execution, database management, and object modeling, making it a popular choice for developers.'
+    },{
         name: 'CI/CD pipeline',
         level: EXPERT_LEVEL[1],
         levelNumber: EXPERT_NUM[1],
-        category: CATEGORIES[3]
-    }],
+        category: CATEGORIES[3],
+        imgPath: IMGS.BLANKPIC,
+        description:null
+    },
+    {
+        name: 'SoapUI',
+        level: EXPERT_LEVEL[1],
+        levelNumber: EXPERT_NUM[1],
+        category: CATEGORIES[0],
+        imgPath: IMGS.SOAPUI,
+        description: 'SoapUI is an open-source API testing tool that allows developers to test SOAP and RESTful web services. It provides a user-friendly interface for creating and executing test cases, making it easier to validate the functionality and performance of APIs.'
+    }
+],
     journey:[
         {year:'2021', content:'Started working as QA Tester.'},
         {year:'2021', content:'Started learning to read UML diagrams.'},
@@ -107,55 +198,61 @@ export const state = {
         {year:'2022', content:'Started automating BE test in Postman.'},
         {year:'2023', content:'Ended Udemy online course in JavaScript.'},
         {year:'2024', content:'Learned automating E2E tests using Cypress.'},
-        {year:'2024', content:'Started using Cypress for automating E2E tests.'}
+        {year:'2024', content:'Started using Cypress for automating E2E tests.'},
+        {year:'2025', content:'Started studying for ISTQB Foundation Level 4.0 Certification.'},
+        {year:'2025', content:'Gained ISTQB Foundation Level 4.0 Certification on 14.2.2025.'},
+        {year:'2025', content:'Started learning Typescript in July.'},
+        {year:'2025', content:'Finished learning Typescript in July.'},
+        {year:'2025', content:'Started learning for pl-900 in mid July.'},
+        {year:'2025', content:'Gained Microsoft Certified: Power Platform Fundamentals Certification in October 2025.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
             levelNumber: PROJECT_ORDER_NUM[0],
             description: PROJECT_DESCRIPTOR[0],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: IMGS.BLANKPIC
         },
         {
             name: PROJECT_NAME[1],
             levelNumber: PROJECT_ORDER_NUM[1],
             description: PROJECT_DESCRIPTOR[1],
             types: [MN_TYPE, BE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: IMGS.BLANKPIC
         },
         {
             name: PROJECT_NAME[2],
             levelNumber: PROJECT_ORDER_NUM[2],
             description: PROJECT_DESCRIPTOR[2],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: IMGS.BLANKPIC
         },
         {
             name: PROJECT_NAME[3],
             levelNumber: PROJECT_ORDER_NUM[3],
             description: PROJECT_DESCRIPTOR[3],
             types: [MN_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: IMGS.BLANKPIC
         },
         {
             name: PROJECT_NAME[4],
             levelNumber: PROJECT_ORDER_NUM[4],
             description: PROJECT_DESCRIPTOR[4],
             types: [MN_TYPE, BE_TYPE, FE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: IMGS.BLANKPIC
         },
         {
             name: PROJECT_NAME[5],
             levelNumber: PROJECT_ORDER_NUM[5],
             description: PROJECT_DESCRIPTOR[5],
             types: [MN_TYPE, FE_TYPE],
-            url: '',
-            imgPath: ''
+            url: null,
+            imgPath: IMGS.BLANKPIC
         },
         {
             name: PROJECT_NAME[7],
@@ -163,7 +260,7 @@ export const state = {
             description: PROJECT_DESCRIPTOR[7],
             types: [FE_TYPE],
             url: URL_CY_DEMO,
-            imgPath: IMG_CY_DEMO
+            imgPath: IMGS.IMG_CY_DEMO
         },
         {
             name: PROJECT_NAME[6],
@@ -171,10 +268,81 @@ export const state = {
             description: PROJECT_DESCRIPTOR[6],
             types: [DEV_TYPE, FE_TYPE],
             url: URL_PORTFOLIO_DEMO,
-            imgPath: IMG_PORTFOLIO_DEMO
+            imgPath: IMGS.IMG_PORTFOLIO_DEMO
+        },
+        {
+            name: PROJECT_NAME[8],
+            levelNumber: PROJECT_ORDER_NUM[8],
+            description: PROJECT_DESCRIPTOR[8],
+            types: [DEV_TYPE],
+            imgPath: IMGS.BLANKPIC
         }
     ],
-    projectDemos: ''
+    certifications: [
+        {
+            platform: 'ISTQB',
+            title: 'ISTQB Foundation Level 4.0',
+            instructor: 'ISTQB - CASQB',
+            date_obtained: '2025-02-14',
+            date_started: '2024-08-01',
+            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
+            length: '1 hour 15 minutes'
+        },
+        {
+            platform: 'Microsoft',
+            title: 'Microsoft Certified: Power Platform Fundamentals',
+            instructor: 'Microsoft',
+            date_obtained: '2025-10-22',
+            date_started: '2025-08-01',
+            cert_url: 'https://learn.microsoft.com/en-us/users/filipjuza-3924/credentials/certification/power-platform-fundamentals?tab=credentials-tab',
+            length: '1 hour'
+        },
+        {
+            platform: 'Udemy',
+            title: 'Microsoft Excel - Excel from Beginner to Advanced',
+            instructor: 'Jonas Schmedtmann',
+            date_obtained: '2020-10-11',
+            date_started: '2019-09-30',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-d2734cfb-0179-4128-bc98-f05603bf834f.pdf',
+            length: '22 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'The Complete JavaScript Course 2024: From Zero to Expert!',
+            instructor: 'Jonas Schmedtmann',
+            date_obtained: '2024-04-24',
+            date_started: '2021-10-04',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-bcd5477c-43d2-43fd-83b8-6503badfde16.pdf',
+            length: '68.5 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'POSTMAN API Testing - Step - by Step for Beginners',
+            instructor: 'Raghav Pal',
+            date_obtained: '2022-01-20',
+            date_started: '2021-10-15',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-c4445c82-aee0-4c01-a6b9-f8fe28b90ea7.pdf',
+            length: '2.5 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'Microsoft SQL for Beginners',
+            instructor: 'Brewster Knowlton',
+            date_obtained: '2021-08-24',
+            date_started: '2021-08-12',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-a7110719-34e3-4b36-b258-1910e596fc95.pdf',
+            length: '4 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'ISTQB Foundation Level preparation course+1000quiz examples',
+            instructor: ' Mark Shrike, Victoria N',
+            date_obtained: '2024-10-19',
+            date_started: '2024-09-30',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
+            length: '14.5 hours'
+        }
+    ]
 }
 /**
  * Saves states of gfile generation
@@ -191,27 +359,41 @@ export const state = {
  * @throws Will throw an error if the file reading fails.
  */
 export const readFileState = async (file) => {
-    try {
-        return new Promise((resolve, reject) => {
-            const reader = new FileReader();
-            reader.onerror = (error) => {
-                reject(error);
-            };
-            state.fileState.empty = true;
-            reader.readAsText(file);
-            state.fileState.empty = false;
-            state.fileState.loading = true;
+try {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
 
-            reader.onloadend = (event) => {
+      // Reset state before starting
+      state.fileState.empty = false;
+      state.fileState.loading = false;
+      state.fileState.done = false;
 
-                state.fileState.loading = false;
-                state.fileState.done = true;
-                resolve(event.target.result);
-            };
-        });
-    } catch (err) {
-        throw err;
-    }
+      reader.onerror = (error) => {
+        state.fileState.loading = false;
+        reject(error);
+      };
+
+      reader.onloadstart = () => {
+        state.fileState.empty = false;   // we *do* have a file
+        state.fileState.loading = true;
+        state.fileState.done = false;
+      };
+
+      reader.onprogress = () => {
+        state.fileState.loading = true;
+      };
+
+      reader.onloadend = (event) => {
+        state.fileState.loading = false;
+        state.fileState.done = true;
+        resolve(event.target.result);
+      };
+
+      reader.readAsText(file);
+    });
+  } catch (err) {
+    throw err;
+  }
 };
 /**
  * Returns fileCOntents if successfull
@@ -232,7 +414,14 @@ export const readFileState = async (file) => {
  */
 export const toFile = async (options) => {
     try {
-        const array = options.array
+        const array = options.array.map(skill=>{
+            return {
+                name: skill.name,
+                level: skill.level,
+                category: skill.category
+                
+            }
+        })
         const errors = [];
         let content;
         let textType;
@@ -248,7 +437,7 @@ export const toFile = async (options) => {
         switch (options.fileType) {
             case EXPORT_WHITELIST[0]:
                 content = toXml(array)
-                const contentXML = await isXML(content);
+                const contentXML = isXML(content);
                 if(!contentXML) return;
                 textType = {
                     type: `${XML_TYPE}; ${DEFAULT_ENCODING}`
@@ -256,7 +445,7 @@ export const toFile = async (options) => {
                 break;
             case EXPORT_WHITELIST[1]:
                 content = toJSON(array)
-                const contentJSON = await isJSON(content);
+                const contentJSON = isJSON(content);
                 if(contentJSON) {
                 textType = {
                     type: `${JSON_TYPE}; ${DEFAULT_ENCODING}`
@@ -265,7 +454,7 @@ export const toFile = async (options) => {
                 break;
             case EXPORT_WHITELIST[2]:
                 content = toCsv(array);
-                const contentCSV = await isCSV(content);
+                const contentCSV = isCSV(content);
                 if(contentCSV === false) return;
                 textType = {
                     type: `${CSV_TYPE}; ${DEFAULT_ENCODING}`
@@ -292,6 +481,7 @@ export const toFile = async (options) => {
  * @param {Object} options
  * @returns {Array<Object>}
  */
+//Filtering fctions
 export const filterSkills = function(options) {
     let value;
     const {array, keys, values} = options;
@@ -299,10 +489,126 @@ export const filterSkills = function(options) {
     value = values.map(el => el === 0 ? '' : el);
 
     const filteredData = filterByKeys(copiedArray, keys, value);
-    state.skills.filteredSkills = filteredData;
-
+    state.search.skills = filteredData;
+    state.search.isFiltered = true;
     return filteredData;
 }
+/**
+ * Filters and sorts tools from the state based on the provided exclusion options.
+ *
+ * @param {Object} [excludeOptions={}] - Options to exclude certain tools.
+ * @param {boolean} [excludeOptions.name] - Whether to exclude tools by name.
+ * @param {string[]} [excludeOptions.values] - Array of tool names to exclude.
+ * @returns {Object[]} Sorted array of filtered tools.
+ * @throws {Error} If `name` is provided and is not a boolean.
+ * @throws {Error} If `values` is provided and is not an array.
+ */
+export const filterTools = function(excludeOptions = {}) {
+    const {name,values} = excludeOptions;
+    if(name && typeof name !== 'boolean') throw new Error('Invalid parameter type. Expected boolean.');
+    if(values && !Array.isArray(values)) throw new Error('Invalid parameter type. Expected array.')
+    const allTools = state.skills.filter(el => {
+        if (name && values && values.length > 0) {
+            return el.category === CATEGORIES[0] && !values.some(value => el.name === value);
+        }
+        return el.category === CATEGORIES[0]
+    });
+    state.search.tools = allTools.sort((a, b) => a.name.localeCompare(b.name));
+}
+export const filterCerts = function(options) {
+    let value;
+    const {array, keys, values} = options;
+    const copiedArray = [...array];
+    if(values.toLowerCase() === 'all') {
+        state.search.isFilteredByTool = false;
+        state.search.certs = [];
+    } else {
+    const filteredData = filterByKeys(copiedArray, keys, value);
+    state.certifications = filteredData;
+    }
+}
+/**
+ * Formats date fields in an array of objects to relative time strings (e.g., "2 days ago").
+ *
+ * @param {Array<Object>} array - The array of objects containing date fields to format.
+ * @param {Object} [options={}] - Optional configuration object.
+ * @param {string} [options.format] - Optional date format string for parsing dates with moment.js.
+ * @uses copyArray from helpers
+ * @returns {void} The function updates `state.extractedData.certifications.dateRelatives` with the formatted array.
+ */
+export const formatDatesRelative = function (array, options = {}) {
+  if (!Array.isArray(array)) return [];
+
+  const { format } = options;
+  const copiedArray = copyArray(array);
+  const rowIds = getDatesIndexes(copiedArray);
+
+  const absoluteDaysArray = copiedArray.map(item => {
+    const newItem = { ...item }; // avoid mutating original
+
+    rowIds.forEach(idx => {
+      const key = Object.keys(item)[idx];
+      const value = item[key];
+
+      if (!value) return;
+
+      const formattedDate = format
+        ? moment(value, format, true).fromNow()
+        : moment(value).fromNow();
+
+      newItem[key] = formattedDate;
+    });
+
+    return newItem;
+  });
+
+  state.extractedData.certifications.dateRelatives = absoluteDaysArray;
+};
+/**
+ * Get the minimum and maximum dates from an array of objects
+ * based on a specified key.
+ *
+ * Uses `moment.js` for parsing and comparison, and formats
+ * the result using localized date format (`L`).
+ *
+ * @function getMinMaxDates
+ * @param {Array<Object>} array - The input array containing date entries.
+ * @param {string} key - The key to look for in each mapped entry.
+ * @returns {{min: string|null, max: string|null}} An object containing:
+ * - `min`: The earliest date (formatted with `moment.format("L")`) or `null` if no valid dates.
+ * - `max`: The latest date (formatted with `moment.format("L")`) or `null` if no valid dates.
+ *
+ * @example
+ * const data = [
+ *   { key: "date_obtained", value: "2024-01-10" },
+ *   { key: "date_obtained", value: "2024-03-22" },
+ *   { key: "date_obtained", value: "2024-02-05" }
+ * ];
+ *
+ * const result = getMinMaxDates(data, "date_obtained");
+ * // result = { min: "01/10/2024", max: "03/22/2024" } (localized format)
+ */
+export const getMinMaxDates = function (array, key) {
+  // Extract values for the given key
+  const dateValues = mapDatesEntries(array)
+    .reduce((acc, cur) => {
+      if (cur.key === key) acc.push(cur.value);
+      return acc;
+    }, [])
+    // Parse directly with moment
+    .map(date => moment(date));
+  if (dateValues.length === 0) {
+    return { min: null, max: null };
+  }
+  // Use moment.min and moment.max
+  const minDate = moment.min(dateValues);
+  const maxDate = moment.max(dateValues);
+  return {
+    min: minDate.toDate(),
+    max: maxDate.toDate()
+  };
+};
+//console.log(filterTools({name: true, values: NONQATOOLS}));
 /**
  * Sorts the skills based on the provided options.
  *
@@ -312,16 +618,10 @@ export const filterSkills = function(options) {
  * @returns {Array} The sorted array of skills.
  */
 export const sortingSkills = function(options) {
-    let {sortBy, order } = options;
-    let array
+    let {sortBy, order, array } = options;
     const skills = state.skills
-   skills.filteredSkills ? array = skills.filteredSkills : array = skills;
-    const sortFunctions = {
-        expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
-        name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
-        category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category)
-    };
-    return [...array].sort(sortFunctions[sortBy]);
+    Array.isArray(state.search.skills) && state.search.isFiltered? array = state.search.skills : array = skills;
+    state.search.skills = sortFunctions({sortBy, order, array });
 }
 /**
  * Return state.Project where url and img String are specified
@@ -338,7 +638,7 @@ export const sortingSkills = function(options) {
  */
 export const getProjectDemos = (array = state.projects) => {
     const demos = array.reduce((acc, cur) => {
-        if (cur.imgPath.trim().length > 0 && cur.url.trim().length > 0)
+        if (cur.imgPath && cur.imgPath.trim().length > 0 && (cur.url && cur.url.trim().length > 0))
             acc[acc.length] = cur
         return acc;
     }, [])

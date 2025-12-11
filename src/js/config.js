@@ -5,7 +5,7 @@ export const EXPERT_NUM = EXPERT_LEVEL.map((_,i)=> i + 1)
 export const CATEGORIES = ['Tool','Skill','Language','Other'];
 export const EXPORT_WHITELIST = ['xml', 'json', 'csv'];
 export const ALLOWED_FILTER_SKILLS =  ['name','levelNumber'];
-export const PROJECT_NAME = ['DMS','CMS','NSAR','CRM','SOVA','POWERAPPS', 'AUTOPORTFOLIO', 'CYPRESSDEMO'];
+export const PROJECT_NAME = ['DMS','CMS','NSAR','CRM','SOVA','POWERAPPS', 'AUTOPORTFOLIO', 'CYPRESSDEMO', 'KDC-Intranet - module NEP; Document collection module'];
 export const PROJECT_ORDER_NUM = PROJECT_NAME.map((_ , i) => i + 1)
 export const PROJECT_DESCRIPTOR = ['Document Management System that is part of CMS. Used for managing files in a web app.',
     'Content Managment System. Internal system for creating content for websites, similar to Wix.',
@@ -14,7 +14,8 @@ export const PROJECT_DESCRIPTOR = ['Document Management System that is part of C
     'SOVA app is the new Version of CRM, that is without the need for licenses. It replaced CRM.',
     'Automating SOVA project in powerapps environment.',
     'Automated current website during development.',
-    'Automated web app that is used for booking Flights,Hotels,Cars etc.'];
+    'Automated web app that is used for booking Flights,Hotels,Cars etc.',
+    'The NEP module is a core part of the app, used by employees to manage their absences. Created using Powerapps.The document collection module is used to collect documents from employees.'];
 export const JSON_TYPE = 'application/json';
 export const XML_TYPE = 'application/xml';
 export const CSV_TYPE = 'text/csv';
@@ -26,10 +27,13 @@ export const ERROR_ARRAY_MISSING = 'Please provide an array';
 export const NAME_FILE_NAME = 'fileName'
 export const FILE_TYPE_FILE = 'fileType';
 export const UNGENERATED_FILE_MESSAGE = 'There was a problem generating! Please try again.'
-export const SKILLSVIEW_MESSAGE = 'No skills were found! Please try again.';
+export const SKILLSVIEW_EMPTY_MESSAGE = 'No skills found. Please adjust your filter criteria.';
 export const RES_PER_PAGE_TRESHOLD = 5;
-export const SECTION_REVEAL_TRESHOLD = 10;
+export const THRESHOLD_ARRAY = Array.from({ length: 81 }, (_, i) => 0.2 + i * 0.01);
+export const TOAST_DURATION = 5;
+export const CREATE_TIME = 1;
 export const CURRENT_PAGE = 1;
+export const WELCOME_MESSAGE = 'Thank you for visiting my personal portfolio website. Here, you can explore my work, discover my skills, and learn more about who I am as a creator and professional. Feel free to interact with the content, browse through my projects, and explore the features, including data export and filtering options.If you have any questions or want to connect, do not hesitate to reach out. I would love to hear from you! Pro Tip: Hover over the "i" icon for shortcuts and extra details!';
 export const DEV_TYPE = 'Development';
 export const FE_TYPE = 'Frontend tests automation';
 export const BE_TYPE = 'REST API tests automation';
@@ -38,29 +42,70 @@ export const SECTION_HIDDEN_CLASS = 'section--hidden'
 export const STICKY_TOP_CLASS = 'sticky-top'
 export const LOAD_TYPE = 'load';
 export const KEYDOWN_TYPE = 'keydown';
+export const RESET_TYPE = 'reset';
 export const API_TIMEOUT_SEC = 4;
 export const URL_CY_DEMO = 'https://github.com/fjuza1/CypressDemo';
 export const URL_PORTFOLIO_DEMO = 'https://github.com/fjuza1/portfolioCypress';
-export const IMG_CY_DEMO = new URL('../img/CypressDemo.jpg', import.meta.url).toString();
-export const IMG_PORTFOLIO_DEMO = new URL('../img/autoPortfolio.jpg', import.meta.url).toString();
+export const IMGS = {
+  IMG_CY_DEMO: new URL('../img/CypressDemo.jpg', import.meta.url).toString(),
+  IMG_KATALON_STUDIO: new URL('../img/katalon-seeklogo.png', import.meta.url).toString(),
+  IMG_PORTFOLIO_DEMO: new URL('../img/autoPortfolio.jpg', import.meta.url).toString(),
+  AZURE_LOGO: new URL('../img/Azure Devops.png', import.meta.url).toString(),
+  CYPRESS_LOGO: new URL('../img/Cypress.png', import.meta.url).toString(),
+  ECLIPSE_IDE_LOGO: new URL('../img/Eclipse IDE Icon.png', import.meta.url).toString(),
+  MSSQL_IDE_LOGO: new URL('../img/Microsoft SQL Server.png', import.meta.url).toString(),
+  POSTMAN: new URL('../img/Postman API Platform.png', import.meta.url).toString(),
+  TFS: new URL('../img/tfs.jpg', import.meta.url).toString(),
+  SOAPUI: new URL('../img/Smartbear Horizontal.png', import.meta.url).toString(),
+  MPA:new URL('../img/Microsoft_Power_Automate.svg', import.meta.url).toString(),
+  MPowerApps:new URL('../img/Powerapps-logo.svg', import.meta.url).toString(),
+  EA: new URL('../img/enterprise-architect-seeklogo.png',import.meta.url).toString(),
+  VSCODE: new URL('../img/Visual_Studio_Code.svg',import.meta.url).toString(),
+  BLANKPIC: new URL('../img/Blank pic.svg', import.meta.url).toString(),
+};
+export const IMGS_TINY = {
+  IMG_CY_DEMO: new URL('../img/CypressDemo_min.jpg', import.meta.url).toString(),
+  IMG_KATALON_STUDIO: new URL('../img/katalon-seeklogo_min.png', import.meta.url).toString(),
+  IMG_PORTFOLIO_DEMO: new URL('../img/autoPortfolio_min.jpg', import.meta.url).toString(),
+  AZURE_LOGO: new URL('../img/Azure Devops_min.png', import.meta.url).toString(),
+  CYPRESS_LOGO: new URL('../img/Cypress_min.png', import.meta.url).toString(),
+  ECLIPSE_IDE_LOGO: new URL('../img/Eclipse IDE Icon_min.png', import.meta.url).toString(),
+  MSSQL_IDE_LOGO: new URL('../img/Microsoft SQL Server_min.png', import.meta.url).toString(),
+  MS_VISUAL_LOGO: new URL('../img/Microsoft Visual Studio_min.png', import.meta.url).toString(),
+  POSTMAN: new URL('../img/Postman API Platform_min.png', import.meta.url).toString(),
+  TFS: new URL('../img/tfs_min.jpg', import.meta.url).toString(),
+  SOAPUI: new URL('../img/Smartbear Horizontal_min.png', import.meta.url).toString(),
+};
+export const NONQATOOLS = ['PowerApps','SharePoint','Eclipse IDE for Java Developers', "PowerAutomate"];
 export const ME_NAME = 'Filip Jůza'
 export const EMAIL_SUCCESS_MESSAGE = 'Email successfully sent.'
 export const EMAIL_FAILURE_MESSAGE = 'The email was not sent! Please try again or contact us directly through your email service provider.'
 export const REV_TRESH = 0.12;
 export const SCROLL_TYPE = 'scroll';
 export const MIN_YEAR = 2021
-export const MAX_YEAR = 2024;
-export const TIMELINE_LAYOUT_SETTINGS = {
-    height: '65dvh',
-    orientation: 'top',
-    align: 'start',
+export const MAX_YEAR = 2025;
+export const TIMELINE_SIZE_SETTINGS = {
+    height: '65vh',
+    maxHeight: '80vh',
+    autoResize: true,
     margin: {item:{horizontal:30,vertical:50},axis:20},
-    autoResize: false,
+    align: 'left',
+};
+export const TIMELINE_LAYOUT_SETTINGS = {
+    orientation: {
+    axis: 'top',   // keep axis at the bottom
+    item: 'top'       // put items above the axis
+  },
+    align: 'start',
+    showCurrentTime: false,
+    showMajorLabels:false,
+    showMinorLabels:true,
+    ...TIMELINE_SIZE_SETTINGS
 }
 export const TIMELINE_FUNCTIONALITY_SETTINGS = {
     stack: true,
     moveable: true,
-    zoomable: true,
+    zoomable: true
 }
 export const TIMELINE_TIME_SETTINGS = {
     min: new Date(MIN_YEAR, 0, 1),
@@ -70,3 +115,20 @@ export const TIMELINE_TIME_SETTINGS = {
 export const TIMELINE_GROUP_SETTINGS = {
     groupOrder: 'id',
 }
+export const TIMELINE_FORMAT_LABELS = {
+  format: {
+    minorLabels: {
+      day: 'DD',
+      month: 'MM',
+      year: 'YYYY'
+    },
+    majorLabels: {
+      weekday: 'MMMM YYYY',
+      day: 'MM YYYY',
+      month: 'YYYY',
+      year: 'YYYY'
+    }
+  }
+};
+
+export const DEFAULT_SETTINGS_OPTIONS = {displayErrorsInView: 'on', performanceTracking: 'on', errorTracking: 'on', navigationKeys:'on'}
