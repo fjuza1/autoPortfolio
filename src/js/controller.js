@@ -4,7 +4,6 @@ import {async} from 'regenerator-runtime';
 import {timeout, wait} from './helpers.js';
 import {NONQATOOLS} from './config.js';
 import * as model from './model.js';
-import paginationView from './Views/PaginationView.js';
 import popoutView from './Views/popoutView.js';
 import designView from './Views/designView.js';
 import journeyView from './Views/journeyView.js';
@@ -90,7 +89,7 @@ const controllSortedSkills = () => {
 	model.sortingSkills(options);
 	skillsExportView._disableBTN(model.state.search.isFiltered)
 	timeout(() => {
-		paginationView._handlePagination(model.state.search.skills, (data) => {
+		skillsView._handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
@@ -102,7 +101,7 @@ const controllResetSkills = () => {
 	model.state.search.skills = '';
 	model.state.search.isFiltered = false;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
-	paginationView._handlePagination(original, (data) => {
+	skillsView._handlePagination(original, (data) => {
 		skillsView._update(skillsView._skillBarDisplay(data));
 	});
 };
@@ -117,7 +116,7 @@ const controllFilterSkills = () => {
 	model.state.search.isFiltered = model.state.search.skills.length > 0;
 	skillsExportView._disableBTN({disabled: model.state.search.isFiltered, existingButton: true})
 	timeout(() => {
-		paginationView._handlePagination(model.state.search.skills, (data) => {
+		skillsView._handlePagination(model.state.search.skills, (data) => {
 			skillsView._update(skillsView._skillBarDisplay(data))
 		})
 	});
