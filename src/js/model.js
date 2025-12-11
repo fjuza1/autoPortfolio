@@ -5,6 +5,7 @@ import {EXPERT_LEVEL, EXPERT_NUM, CATEGORIES, EXPORT_WHITELIST, PROJECT_NAME, PR
 import {toXml, toCsv, toJSON, handleFileGeneration, filterByKeys, isXML, isCSV, isJSON, sortFunctions, copyArray, getDatesIndexes, mapDatesEntries} from './helpers.js';
 import {saveAs, moment} from './lib.js';
 export const state = {
+    projectDemos:{},
     search:{
         skills:[],
         tools:[],
@@ -204,7 +205,9 @@ export const state = {
         {year:'2025', content:'Started learning Typescript in July.'},
         {year:'2025', content:'Finished learning Typescript in July.'},
         {year:'2025', content:'Started learning for pl-900 in mid July.'},
-        {year:'2025', content:'Gained Microsoft Certified: Power Platform Fundamentals Certification in October 2025.'}
+        {year:'2025', content:'Gained Microsoft Certified: Power Platform Fundamentals Certification in October 2025.'},
+        {year:'2025', content:'Started learning for the Complete Generative Al and Python Programming Bootcamp in the begining of November.'},
+        {year:'2025', content:'Gained the Complete Generative Al and Python Programming Bootcamp Certification in the begining of December.'}
     ],
     projects: [{
             name: PROJECT_NAME[0],
@@ -285,7 +288,7 @@ export const state = {
             instructor: 'ISTQB - CASQB',
             date_obtained: '2025-02-14',
             date_started: '2024-08-01',
-            cert_url: 'https://drive.google.com/file/d/1Kac1H4RFHsW_r9uBgvW2fI2hlZbXV2kq/view?usp=sharing',
+            cert_url: 'https://drive.google.com/file/d/1GGsvhw6yTTge0T0UoqJu30VSkn8wogqE/view?usp=sharing',
             length: '1 hour 15 minutes'
         },
         {
@@ -341,6 +344,15 @@ export const state = {
             date_started: '2024-09-30',
             cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-88d958e9-bd39-4856-b260-0571b0ee4860.pdf',
             length: '14.5 hours'
+        },
+        {
+            platform: 'Udemy',
+            title: 'The Complete Generative Al and Python Programming Bootcamp',
+            instructor: ' Andrei Dumitrescu, Video School, Phil Ebiner, Crystal Mind Academy',
+            date_obtained: '2025-12-10',
+            date_started: '2025-11-05',
+            cert_url: 'https://udemy-certificate.s3.amazonaws.com/pdf/UC-52448198-78ae-4aac-a4a5-08051c7e70ea.pdf',
+            length: '25 hours'
         }
     ]
 }
