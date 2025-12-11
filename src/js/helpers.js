@@ -9,10 +9,10 @@ import {xml2js, Papa, emailjs, EmailJSResponseStatus, xmlSanitizer, DOMPurify} f
 export const isXML = async (xml) => {
     return new Promise((resolve) => {
         xml2js.parseString(xml, (err, result) => {
-            if (err) {
-                resolve(false);
+            if (err || !result) reject(false)
+            else {
+                resolve(true);
             }
-            resolve(true);
         });
     });
 }
@@ -39,8 +39,8 @@ export const isCSV = (csv) => {
 export const isJSON = (json) => {
     return new Promise((resolve, reject) => {
         try {
-        JSON.parse(json);
-        resolve(true)
+            JSON.parse(json);
+            resolve(true)
         } catch (err) {
             reject(false)
         }
@@ -80,6 +80,9 @@ export const timeoutAPI = () => {
         }, API_TIMEOUT_SEC * 1000);
     });
 };
+
+// hash manip
+
 /**
  * Changes the URL hash to the lowercase ID of the given element.
  *
@@ -129,7 +132,17 @@ export const AJAX = async (url, body = undefined) => {
  * @param {Array<string>} values - The values to filter by.
  * @returns {Array<Object>} The filtered array of objects.
  */
-export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())))
+export const filterByKeys = (array, keys, values) => array.filter(item => keys.every((key, index) => String(item[key]).toLowerCase().includes(String(values[index]).toLowerCase())));
+export const sortFunctions = (options) =>{
+        let {sortBy, order, array } = options;
+        const sortFunctions = {
+                expertise: (a, b) => order === 'asc' ? a.levelNumber - b.levelNumber : b.levelNumber - a.levelNumber,
+                name: (a, b) => order === 'asc' ? a.name.localeCompare(b.name) : b.name.localeCompare(a.name),
+                category: (a, b) => order === 'asc' ? a.category.localCompare(b.category) : b.category.localCompare(a.category),
+                date: (a, b) => order === 'asc' ? new Date(a.date) - new Date(b.date) : new Date(b.date) - new Date(a.date),
+                };
+        return [...array].sort(sortFunctions[sortBy])
+}
 /**
  * Converts an array of skills into an XML string.
  *
@@ -142,6 +155,7 @@ export const filterByKeys = (array, keys, values) => array.filter(item => keys.e
  * @param {string} xml - The XML string to be sanitized.
  * @returns {string} - The sanitized XML string.
  */
+// sanitising
 export const sanitizeXml = (xml) => xmlSanitizer(xml);
 /**
  * Escapes HTML special characters in a string to their corresponding HTML entities.
@@ -149,6 +163,15 @@ export const sanitizeXml = (xml) => xmlSanitizer(xml);
  * @param {string} str - The string to escape.
  * @returns {string} The escaped string with HTML entities.
  */
+/**
+ * Sanitizes the given HTML string to prevent XSS attacks.
+ *
+ * @param {string} html - The HTML string to sanitize.
+ * @returns {string} - The sanitized HTML string.
+ */
+export const sanitizeHtml = (html = escapeHTML(html)) => DOMPurify.sanitize(html);
+
+// To files fctions
 export const toXml = (array) => {
     const obj = {
         root: {
@@ -161,13 +184,6 @@ export const toXml = (array) => {
     const xml = builder.buildObject(obj);
     return sanitizeXml(xml)
 }
-/**
- * Sanitizes the given HTML string to prevent XSS attacks.
- *
- * @param {string} html - The HTML string to sanitize.
- * @returns {string} - The sanitized HTML string.
- */
-export const sanitizeHtml = (html = escapeHTML(html)) => DOMPurify.sanitize(html);
 /**
  * Converts an array of objects into a CSV string using the PapaParse library.
  *
@@ -221,6 +237,49 @@ export const sendMail = async (options) => {
     }
 }
 /**
+ * Creates a shallow copy of an array of objects.
+ * Each object in the array is shallow-copied using object spread syntax.
+ *
+ * @param {Array<Object>} array - The array of objects to copy.
+ * @returns {Array<Object>} A new array with shallow-copied objects.
+ */
+export const copyArray = (array => array.map(mnt => ({ ...mnt })));
+export const getDatesIndexes = (data =>{
+    return Object.values(data[0]).flatMap((val, idx) => {
+      const processedString =
+        val.includes("/") ? val.split("/") :
+        val.includes("-") ? val.split("-") :
+        val.includes(".") ? val.split(".") : '';
+
+      if(new Date(processedString) != 'Invalid Date' && processedString.length === 3) 
+        return  [idx];
+        return [];
+    })
+})
+/**
+ * Maps an array of date objects to an array of key-value entry objects.
+ *
+ * For each object in the input array, it selects specific keys based on their indexes
+ * (as determined by the `getDatesIndexes` helper), and returns an array of objects
+ * with `key` and `value` properties.
+ *
+ * @param {Array<Object>} array - The array of objects to map.
+ * @returns {Array<{key: string, value: any}>} An array of key-value entry objects.
+ */
+export const mapDatesEntries = function (array) {
+  if (!Array.isArray(array)) return [];
+
+  const rowsIds = getDatesIndexes(array);
+
+  return array.flatMap(date => 
+    rowsIds.map(idx => {
+      const key = Object.keys(date)[idx];
+      const value = date[key];
+      return { key, value };
+    })
+  );
+};
+/**
  * Handles the generation of a file from a Blob object.
  * 
  * @param {Blob} blob - The Blob object to be processed.
@@ -234,6 +293,7 @@ export const handleFileGeneration = async (blob) => {
         return `${UNGENERATED_FILE_MESSAGE}\n Error details: \n${err}`;
     }
 }
+// String manipulation functions
 /**
  * Capitalizes the first letter of a given word.
  *
@@ -246,29 +306,69 @@ export const handleFileGeneration = async (blob) => {
  * capitalizeWord('world') // returns 'World'
  */
 export const capitalizeWord = word => word.charAt(0).toUpperCase() + word.slice(1, word.length)
-
-export const gotoSegment = (domElement, nav) => {
-    const targetSection = domElement.getBoundingClientRect();
-    const navHeight = nav.offsetHeight;
-    const sectionPositionTop = (targetSection.top + window.pageYOffset) - navHeight;
-    const sectionPositionLeft = targetSection.left + window.pageXOffset;
-    window.scrollTo({
-        left: sectionPositionLeft,
-        top: sectionPositionTop,
-        behavior: 'smooth',
-    })
-}
+/**
+ * Generates a unique identifier string.
+ *
+ * The ID is composed of the current timestamp (in base 36, padded to 8 characters),
+ * several random hexadecimal segments, and a version-like structure similar to UUID v4.
+ *
+ * @returns {string} A unique identifier string.
+ */
+export const uniqueID = () =>`${Date.now().toString(36).padEnd(8, '0')}-${Math.random().toString(16).slice(2, 6)}-4${Math.random().toString(16).slice(3, 6)}-${(8 + Math.random()*4 | 0).toString(16)}${Math.random().toString(16).slice(3, 6)}-${Math.random().toString(16).slice(2, 14)}`;
+export const escapeCSS = (str) => CSS.escape(str);
+// Scroll functions
+/**
+ * Scrolls the window to the top of the page.
+ *
+ * @function
+ * @returns {void}
+ */
 export const gotoTop = () => window.scrollTo(0, 0)
-
+export const gotoSegment = (domElement, nav) => {
+    if (!domElement || !nav) return;
+    const targetRect = domElement.getBoundingClientRect();
+    const navHeight = nav.offsetHeight;
+    const scrollTop = window.scrollY + targetRect.top - navHeight;
+    const scrollLeft = window.scrollX + targetRect.left;
+    window.scrollTo({
+        top: scrollTop,
+        left: scrollLeft,
+        behavior: 'smooth',
+    });
+};
+// Class manipulation functions
 export const removeClass = (element, className) => {
     if (element.classList.contains(className)) element.classList.remove(className)
 }
+// object manipulation
+/**
+ * Removes a specified key from each object in an array or from a single object.
+ *
+ * @param {Object} options - The options object.
+ * @param {Array<Object>} [options.array] - An array of objects to omit the key from.
+ * @param {Object} [options.object] - A single object to omit the key from.
+ * @param {string} options.name - The key name to omit.
+ * @returns {Array<Object>|Object} The modified array or object with the specified key omitted.
+ * @throws {Error} If the options object does not contain exactly two keys.
+ */
+export const omitKey = (options = {}) => {
+    if(Object.keys(options).length !== 2) throw new Error("Options accept only key one at time");
+    const {array, object, name} = options;
+    if(array) {
+        array.forEach(part => delete part[name]);
+        return array
+    } else if(object) {
+        delete object[name]
+        return object
+    }
+    }
 /**
  * Validates if the given email is in a proper format.
  *
  * @param {string} email - The email address to validate.
  * @returns {boolean} - Returns true if the email is valid, otherwise false.
  */
+// Validation function
 export const validateEmail = (email) => {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
@@ -285,12 +385,154 @@ export const validateEmail = (email) => {
  *
  * @param {Function} fn - The function to debounce.
  * @param {number} wait - The number of milliseconds to delay.
+ * @uses apply to maintain the context of 'this' when invoking the function.
  * @returns {Function} - Returns the new debounced function.
  */
+// timeouts
 export const debounce = function(fn, wait) {
     let timeoutId;
     return (...args) => {
         clearTimeout(timeoutId);
         timeoutId = setTimeout(() => fn.apply(this, args), wait);
     };
+}
+export const resetTimeout = ({
+    timeoutId,
+    callback,
+    duration
+}) => {
+    if (timeoutId) {
+        clearTimeout(timeoutId);
+    }
+    return setTimeout(callback, duration * 1000); // Reset to the same timeout duration
+}
+export const objectToCSSClasses = (obj) => {
+    return Object.values(obj)
+    //.join(', ');
+}
+/**
+ * Calculates the screen coordinates (CSS class names) for a toast notification based on the given position.
+ *
+ * @param {string} position - The desired position of the toast. 
+ *   Possible values: 
+ *   - 'top-center'
+ *   - 'bottom-center'
+ *   - 'top-start'
+ *   - 'bottom-start'
+ *   - 'top-end'
+ *   - 'bottom-end'
+ *   - 'middle-center'
+ *   - 'middle-start'
+ *   - 'middle-end'
+ * @returns {Object} An object containing CSS class names for positioning the toast.
+ * @throws {Error} Throws an error if the position is invalid.
+ */
+export const calcToastPosition = (position) => {
+    let screenCoords
+    switch (position) {
+        case 'top-center':
+            screenCoords = {
+                position: 'position-fixed',
+                top: 'top-0',
+                left: 'start-50',
+                transform: 'translate-middle-x'
+            };
+            break;
+        case 'bottom-center':
+            screenCoords = {
+                position: 'position-fixed',
+                bottom: 'bottom-0',
+                left: 'start-50',
+                transform: 'translate-middle-x'
+            };
+            break;
+        case 'top-start':
+            screenCoords = {
+                position: 'position-fixed',
+                top: 'top-0',
+                left: 'start-0'
+            };
+            break;
+        case 'bottom-start':
+            screenCoords = {
+                position: 'position-fixed',
+                bottom: 'bottom-0',
+                left: 'start-0'
+            };
+            break;
+        case 'top-end':
+            screenCoords = {
+                position: 'position-fixed',
+                top: 'top-0',
+                right: 'end-0'
+            };
+            break;
+        case 'bottom-end':
+            screenCoords = {
+                position: 'position-fixed',
+                bottom: 'bottom-0',
+                right: 'end-0'
+            };
+            break;
+        case 'middle-center':
+            screenCoords = {
+                position: 'position-fixed',
+                top: 'top-50',
+                left: 'start-50',
+                transform: 'translate-middle'
+            };
+            break;
+        case 'middle-start':
+            screenCoords = {
+                position: 'position-fixed',
+                top: 'top-50',
+                left: 'start-0',
+                transform: 'translate-middle-y'
+            };
+            break;
+        case 'middle-end':
+            screenCoords = {
+                position: 'position-fixed',
+                top: 'top-50',
+                right: 'end-0',
+                transform: 'translate-middle-y'
+            };
+            break;
+        default:
+            throw new Error('Invalid position');
+    }
+    return screenCoords;
+}
+/**
+ * Checks if the provided data is not included in the given array.
+ *
+ * @param {Array} array - The array to check against.
+ * @param {*} data - The data to check for presence in the array.
+ * @returns {boolean} Returns true if the data is NOT present in the array, otherwise false.
+ */
+export const notifyIncorrectData = (array, data) => !array.includes(data)
+/**
+ * Sets options for an off-canvas component.
+ *
+ * @param {Object} [options={}] - Configuration options.
+ * @param {"top"|"bottom"|"start"|"end"} [options.position] - Position of the off-canvas.
+ * @param {"static"|boolean} [options.backdrop] - Backdrop behavior; either "static" or a boolean.
+ * @param {boolean} [options.keyboard] - Whether keyboard interactions are enabled.
+ * @param {boolean} [options.scroll] - Whether scrolling is allowed.
+ * @returns {Object} Off-canvas options object.
+ * @throws {Error} If an invalid position, backdrop, or scroll value is provided.
+ */
+export const setCanvasOffOptions = (options = {}) => {
+    const {position, backdrop, keyboard, scroll,w} = options;
+    if (notifyIncorrectData(["top","bottom","start","end"] ,position)) throw new Error("Unknown position");
+    if (notifyIncorrectData(["static", true, false], backdrop)) throw new Error ('Please pass param either static or type boolean');
+    if (notifyIncorrectData([true, false], scroll)) throw new Error ('Please pass param type boolean');
+    if(notifyIncorrectData(["25%","50%","75%","100%"], w)) throw new Error('Width must be either "25%","50%","75%","100%"');
+    return {
+        position: `offcanvas-${position}`,
+        backdrop: backdrop,
+        keyboard: keyboard,
+        scroll: scroll,
+        w:w
+    }
 }
