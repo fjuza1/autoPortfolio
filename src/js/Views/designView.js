@@ -322,12 +322,17 @@ class Design extends SettingsView {
 		const target = entry.target;
 		const btns = target?.querySelectorAll('button');
 
-		if(!entry.isIntersecting) btns.forEach(homapageBTN=> homapageBTN.classList.add('d-none'))
-			else
+		if(!entry.isIntersecting) {
+			btns.forEach(homapageBTN=> homapageBTN.classList.add('d-none'))
+			removeClass(this._goupBtn,'btn-hidden')
+		}
+		else {
 			btns.forEach(homapageBTN=> removeClass(homapageBTN, 'd-none'));
+			this._goupBtn.classList.add('btn-hidden')
+		}
 	}
 	addToggleHomepageBTNS (){
-		const options = {root: null, threshold: 0.01};
+		const options = {root: null, threshold: 0.1};
 
 		const homepageObserver = new IntersectionObserver(this.hideHomepageBTNS.bind(this), options)
 		
